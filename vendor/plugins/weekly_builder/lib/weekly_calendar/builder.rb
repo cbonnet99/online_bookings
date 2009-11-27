@@ -5,8 +5,15 @@ class WeeklyCalendar::Builder
     raise ArgumentError, "WeeklyBuilder expects an Array but found a #{objects.inspect}" unless objects.is_a? Array
     @objects, @template, @options, @start_date, @end_date = objects, template, options, start_date, end_date
   end
-  
-  def days      
+    
+  def week(options = {})    
+    hours = ["8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm"]
+    header_row = "header_row"
+    day_row = "day_row"
+    grid = "grid"
+    start_hour = 8
+    end_hour = 18
+
     concat(tag("div", :id => "days"))
       concat(content_tag("div", "", :id => "placeholder"))
       for day in @start_date..@end_date        
@@ -17,25 +24,7 @@ class WeeklyCalendar::Builder
         concat("</div>")
       end
     concat("</div>")      
-  end
-  
-  def week(options = {})    
-    days
-    if options[:business_hours] == "true" or options[:business_hours].blank?
-      hours = ["8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm"]
-      header_row = "header_row"
-      day_row = "day_row"
-      grid = "grid"
-      start_hour = 6
-      end_hour = 20
-    else
-      hours = ["1am","2am","3am","4am","5am","6am","7am","8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm","7pm","8pm","9pm","10pm","11pm","12am"]
-      header_row = "full_header_row"
-      day_row = "full_day_row"
-      grid = "full_grid"
-      start_hour = 1
-      end_hour = 24
-    end
+
     
     concat(tag("div", :id => "hours"))
       concat(tag("div", :id => header_row))
