@@ -1,0 +1,11 @@
+confirmed:
+    name: Confirmed
+    starts_at: <%=Time.now.to_s(:db)%>
+    ends_at: <%=Time.now.advance(:hours => 1).to_s(:db)%>
+    client_id: 1
+
+pending:
+    name: Pending
+    starts_at: <%=Time.now.advance(:hours => 1).to_s(:db)%>
+    ends_at: <%=Time.now.advance(:hours => 2).to_s(:db)%>
+    client_id: 1

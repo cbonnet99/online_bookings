@@ -8,12 +8,12 @@ class WeeklyCalendar::Builder
   
   def days      
     concat(tag("div", :id => "days"))
-      concat(content_tag("div", "Weekly View", :id => "placeholder"))
+      concat(content_tag("div", "", :id => "placeholder"))
       for day in @start_date..@end_date        
-        concat(tag("div", :id => "day"))
+        concat(tag("div", :class => "day"))
         concat(content_tag("b", day.strftime('%A')))
         concat(tag("br"))
-        concat(day.strftime('%B %d'))
+        concat(day.strftime('%d %B'))
         concat("</div>")
       end
     concat("</div>")      
@@ -22,7 +22,7 @@ class WeeklyCalendar::Builder
   def week(options = {})    
     days
     if options[:business_hours] == "true" or options[:business_hours].blank?
-      hours = ["6am","7am","8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm","7pm","8pm"]
+      hours = ["8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm"]
       header_row = "header_row"
       day_row = "day_row"
       grid = "grid"
@@ -41,7 +41,7 @@ class WeeklyCalendar::Builder
       concat(tag("div", :id => header_row))
         for hour in hours
           header_box = "<b>#{hour}</b>"
-          concat(content_tag("div", header_box, :id => "header_box"))
+          concat(content_tag("div", header_box, :class => "header_box"))
         end
       concat("</div>")
       

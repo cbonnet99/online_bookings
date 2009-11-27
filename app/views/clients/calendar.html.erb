@@ -1,0 +1,8 @@
+<% title "Calendar"%>
+<%  weekly_links(:date => @date)  %>
+<%  weekly_calendar(@bookings, :date => @date) do |w|  %>
+  <%  w.week(:business_hours => params[:business_hours], :clickable_hours => true) do |booking,truncate|  %>
+    <%=  booking.starts_at.strftime('%I:%M%p')  %>
+    <%=  link_to truncate(booking.name,truncate), booking_path(booking)  %>
+  <% end -%>
+<% end -%>

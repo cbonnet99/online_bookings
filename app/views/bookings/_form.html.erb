@@ -1,0 +1,16 @@
+<% form_for @booking do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :starts_at %><br />
+    <%= f.datetime_select :starts_at %>
+  </p>
+  <p>
+    <%= f.label :ends_at %><br />
+    <%= f.datetime_select :ends_at %>
+  </p>
+  <p>
+    <%= f.label :client_id %><br />
+    <%= f.text_field :client_id %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>
