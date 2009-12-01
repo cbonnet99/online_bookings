@@ -1,8 +1,5 @@
 class ClientsController < ApplicationController
   def calendar
-    @date = params[:start_date].blank? ? Time.now.beginning_of_week.utc : Time.parse("#{params[:start_date]}")
-    @start_date = Date.new(@date.year, @date.month, @date.day)
-    @bookings = Booking.all
   end
 
   def index

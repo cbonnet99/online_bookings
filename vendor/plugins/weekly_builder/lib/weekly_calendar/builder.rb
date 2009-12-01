@@ -7,47 +7,49 @@ class WeeklyCalendar::Builder
   end
     
   def week(options = {})    
-    hours = ["8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm"]
+    hours = ["8am","8.30am","9am","9.30am","10am","10.30am","11am","11.30am","12pm","12.30pm","1pm","1.30pm","2pm","2.30pm","3pm","3.30pm","4pm","4.30pm","5pm","5.30pm","6pm"]
     header_row = "header_row"
     day_row = "day_row"
     grid = "grid"
     start_hour = 8
     end_hour = 18
 
-    concat(tag("div", :id => "days"))
-      concat(content_tag("div", "", :id => "placeholder"))
-      for day in @start_date..@end_date        
-        concat(tag("div", :class => "day"))
-        concat(content_tag("b", day.strftime('%A')))
-        concat(tag("br"))
-        concat(day.strftime('%d %B'))
-        concat("</div>")
-      end
-    concat("</div>")      
-
-    
     concat(tag("div", :id => "hours"))
-      concat(tag("div", :id => header_row))
+      concat(content_tag("div", "", :id => "placeholder"))
         for hour in hours
-          header_box = "<b>#{hour}</b>"
-          concat(content_tag("div", header_box, :class => "header_box"))
+          concat(content_tag("div", "<b>#{hour}</b>", :class => "hour"))
+        end
+      concat("</div>")      
+
+    concat(tag("div", :id => "days"))
+      concat(tag("div", :id => header_row))
+        for day in @start_date..@end_date        
+          concat(tag("div", :class => "header_box"))
+          concat(content_tag("b", day.strftime('%A')))
+          concat(tag("br"))
+          concat(day.strftime('%d %B'))
+          concat("</div>")
         end
       concat("</div>")
+
+    
       
       concat(tag("div", :id => grid))
-        for day in @start_date..@end_date 
-          concat(tag("div", :id => day_row))
-          for event in @objects
-            if event.starts_at.strftime('%j').to_s == day.strftime('%j').to_s 
-             if event.starts_at.strftime('%H').to_i >= start_hour and event.ends_at.strftime('%H').to_i <= end_hour
-                concat(tag("div", :id => "week_event", :style =>"left:#{left(event.starts_at,options[:business_hours])}px;width:#{width(event.starts_at,event.ends_at)}px;", :onclick => "location.href='/events/#{event.id}';"))
-                  truncate = truncate_width(width(event.starts_at,event.ends_at))
-                  yield(event,truncate)
-                concat("</div>")
-              end
+        for hour in hours 
+          # for event in @objects
+            for day in @start_date..@end_date
+              concat(tag("div", :class => "slot", :open => true))
+              concat("</div>")
+              # if event.starts_at.strftime('%j').to_s == day.strftime('%j').to_s 
+              #  if event.starts_at.strftime('%H').to_i >= start_hour and event.ends_at.strftime('%H').to_i <= end_hour
+              #     concat(tag("div", :class => "booking", :style =>"left:#{left(event.starts_at,options[:business_hours])}px;width:#{width(event.starts_at,event.ends_at)}px;", :onclick => "location.href='/events/#{event.id}';"))
+              #       truncate = truncate_width(width(event.starts_at,event.ends_at))
+              #       yield(event,truncate)
+              #     concat("</div>")
+              #   end
+              # end
             end
-          end
-          concat("</div>")
+          # end
         end
       concat("</div>")
     concat("</div>")

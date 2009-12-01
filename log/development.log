@@ -1023,3 +1023,1836 @@ Rendering clients/calendar
 DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
 DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
 Completed in 134ms (View: 130, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:32:20) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.9ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 153ms (View: 145, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:34:35) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.7ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 130ms (View: 125, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:35:57) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.6ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 130ms (View: 126, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:36:24) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 0) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:38:35) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 0) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:39:08) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.9ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:40:20) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 0) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:47:28) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 0) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:48:47) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:48:51) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.6ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:48:58) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.7ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 130ms (View: 125, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:49:36) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 0) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:50:54) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 0) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:51:21) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 0) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:51:39) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 0) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:51:47) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 15ms (View: 11, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:52:03) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:52:33) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:52:39) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 17ms (View: 13, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:52:43) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:52:57) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 15ms (View: 10, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:53:10) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:53:15) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:53:15) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:54:56) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 15ms (View: 11, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:54:58) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.6ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:56:08) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 15ms (View: 10, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:56:54) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 0) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:57:09) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 0) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:57:16) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.6ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 15ms (View: 11, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:57:23) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.9ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 15ms (View: 10, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:57:59) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 0) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:58:57) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 14ms (View: 10, DB: 0) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 15:59:15) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:6)
+Completed in 16ms (View: 12, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:19:15) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.7ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:5)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:5)
+Completed in 158ms (View: 153, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:23:34) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:5)
+DEPRECATION WARNING: truncate takes an option hash instead of separate length and omission arguments. (called from _run_erb_app47views47clients47calendar46html46erb at /Users/cbonnet99/Work/online_bookings/app/views/clients/calendar.html.erb:5)
+Completed in 14ms (View: 10, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:24:20) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.6ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+
+ActionView::TemplateError (/Users/cbonnet99/Work/online_bookings/vendor/plugins/weekly_builder/lib/weekly_calendar/builder.rb:41: syntax error, unexpected tIDENTIFIER, expecting ')'
+            concat("</div>")
+                  ^) on line #3 of app/views/clients/calendar.html.erb:
+1: <% title "Calendar"%>
+2: <%  weekly_links(:date => @date)  %>
+3: <%  weekly_calendar(@bookings, :date => @date) do |w|  %>
+4:   <%  w.week(:business_hours => params[:business_hours], :clickable_hours => true) do |booking,truncate|  %>
+5:     <%=  link_to truncate(booking.name,truncate), booking_path(booking)  %>
+6:   <% end -%>
+
+    app/views/clients/calendar.html.erb:3
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (47.4ms)
+Rendered rescues/_request_and_response (1.1ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:24:53) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.6ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 91ms (View: 86, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:26:23) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 10ms (View: 6, DB: 0) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:26:26) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 11ms (View: 6, DB: 0) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:26:27) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 10ms (View: 6, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:26:45) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.6ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 10ms (View: 6, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:27:41) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 10ms (View: 6, DB: 0) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:27:51) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.8ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 10ms (View: 6, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:28:18) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 11ms (View: 6, DB: 0) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:29:09) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.6ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 10ms (View: 6, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:29:17) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.7ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 105ms (View: 101, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:30:34) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.6ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+
+ActionView::TemplateError (undefined local variable or method `bla' for #<WeeklyCalendar::Builder:0x102765a68>) on line #4 of app/views/clients/calendar.html.erb:
+1: <% title "Calendar"%>
+2: <%  weekly_links(:date => @date)  %>
+3: <%  weekly_calendar(@bookings, :date => @date) do |w|  %>
+4:   <%  w.week(:business_hours => params[:business_hours], :clickable_hours => true) do |booking,truncate|  %>
+5:     <%=  link_to truncate(booking.name,truncate), booking_path(booking)  %>
+6:   <% end -%>
+7: <% end -%>
+
+    app/views/clients/calendar.html.erb:4
+    app/views/clients/calendar.html.erb:3
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (45.0ms)
+Rendered rescues/_request_and_response (1.1ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:32:27) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+
+ActionView::TemplateError (undefined local variable or method `bla' for #<WeeklyCalendar::Builder:0x10228dd88>) on line #4 of app/views/clients/calendar.html.erb:
+1: <% title "Calendar"%>
+2: <%  weekly_links(:date => @date)  %>
+3: <%  weekly_calendar(@bookings, :date => @date) do |w|  %>
+4:   <%  w.week(:business_hours => params[:business_hours], :clickable_hours => true) do |booking,truncate|  %>
+5:     <%=  link_to truncate(booking.name,truncate), booking_path(booking)  %>
+6:   <% end -%>
+7: <% end -%>
+
+    app/views/clients/calendar.html.erb:4
+    app/views/clients/calendar.html.erb:3
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (47.2ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:32:33) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.7ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 102ms (View: 97, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:33:51) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.7ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 113ms (View: 106, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:34:18) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 22ms (View: 16, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:34:29) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 20ms (View: 16, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:34:36) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 20ms (View: 16, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:47:49) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.7ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+
+ActionView::TemplateError (undefined method `javascript_link_tag' for #<ActionView::Base:0x1011a86a8>) on line #7 of app/views/layouts/application.html.erb:
+4:   <head>
+5:     <title><%= h(yield(:title) || "Untitled") %></title>
+6:     <%= stylesheet_link_tag 'application' %>
+7: 	<%= javascript_link_tag 'jquery.weekcalendar.js.min' %>
+8: 
+9:     <%= yield(:head) %>
+10:   </head>
+
+    app/views/layouts/application.html.erb:7
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (43.4ms)
+Rendered rescues/_request_and_response (1.1ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:48:06) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 18ms (View: 14, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:52:20) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 13ms (View: 9, DB: 0) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:52:28) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.6ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 86ms (View: 82, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:52:34) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 6ms (View: 2, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:53:13) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 7ms (View: 2, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:54:26) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 10ms (View: 6, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:54:29) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 6ms (View: 2, DB: 0) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:57:01) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.7ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 10ms (View: 6, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 16:58:43) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 11ms (View: 6, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-11-27 16:58:43) [GET]
+
+ActionController::RoutingError (No route matches "/javascripts/jquery-ui.js" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-11-27 16:58:43) [GET]
+
+ActionController::RoutingError (No route matches "/javascripts/jquery-ui.js" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:01:22) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 83ms (View: 79, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:02:56) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.6ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 13ms (View: 8, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:03:33) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 10ms (View: 6, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-11-27 17:03:33) [GET]
+
+ActionController::RoutingError (No route matches "/javascripts/jquery-ui.js" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-11-27 17:03:33) [GET]
+
+ActionController::RoutingError (No route matches "/javascripts/jquery-ui.js" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:09:31) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 10ms (View: 6, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:10:15) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.8ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 9ms (View: 3, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:12:14) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 7ms (View: 2, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:13:21) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 7ms (View: 3, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:13:41) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 7ms (View: 3, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:14:02) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 7ms (View: 3, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:19:01) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.5ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 7ms (View: 3, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:25:50) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;35;1mBooking Load (0.5ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 7ms (View: 2, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:25:54) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.6ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 6ms (View: 2, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:28:49) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+  [4;36;1mBooking Load (0.7ms)[0m   [0;1mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 87ms (View: 83, DB: 1) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:29:05) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mBooking Load (0.6ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 8ms (View: 3, DB: 1) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:29:31) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 4ms (View: 3, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:29:32) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 5ms (View: 3, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:30:02) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 7ms (View: 6, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:30:11) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 4ms (View: 3, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:30:13) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 5ms (View: 3, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:30:38) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 72ms (View: 70, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:31:05) [GET]
+  Parameters: {"start_date"=>"2009-11-22?user_id=", "id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 4ms (View: 2, DB: 0) | 200 OK [http://localhost/clients/1/calendar?start_date=2009-11-22?user_id=]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:31:10) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 4ms (View: 2, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:31:11) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 4ms (View: 3, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:31:11) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 5ms (View: 2, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:31:12) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 5ms (View: 3, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:31:12) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 5ms (View: 2, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:31:12) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 4ms (View: 3, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:31:12) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 7ms (View: 5, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:31:13) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 5ms (View: 3, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:31:13) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 5ms (View: 3, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 17:31:13) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 4ms (View: 3, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 20:27:19) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 4ms (View: 3, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 20:32:05) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 6ms (View: 5, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-11-27 20:32:05) [GET]
+
+ActionController::RoutingError (No route matches "/clients/1/jquery.weekcalendar.css" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-11-27 20:32:05) [GET]
+
+ActionController::RoutingError (No route matches "/clients/1/jquery.weekcalendar.js" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-11-27 20:32:06) [GET]
+
+ActionController::RoutingError (No route matches "/clients/1/jquery.weekcalendar.js" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 20:33:14) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 7ms (View: 6, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 20:36:09) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 7ms (View: 5, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-11-27 20:36:09) [GET]
+
+ActionController::RoutingError (No route matches "/clients/1/jquery.weekcalendar.css" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-11-27 20:36:09) [GET]
+
+ActionController::RoutingError (No route matches "/clients/1/jquery.weekcalendar.js" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-11-27 20:36:10) [GET]
+
+ActionController::RoutingError (No route matches "/clients/1/jquery.weekcalendar.js" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 20:36:34) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 7ms (View: 6, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 20:37:46) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 7ms (View: 6, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-11-27 20:37:46) [GET]
+
+ActionController::RoutingError (No route matches "/clients/1/jquery.weekcalendar.css" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-11-27 20:37:46) [GET]
+
+ActionController::RoutingError (No route matches "/jquery.weekcalendar.js" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-11-27 20:37:47) [GET]
+
+ActionController::RoutingError (No route matches "/jquery.weekcalendar.js" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 20:38:02) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 78ms (View: 77, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 20:43:07) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 7ms (View: 6, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-11-27 20:43:07) [GET]
+
+ActionController::RoutingError (No route matches "/clients/1/jquery.weekcalendar.css" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#1 to json (for 127.0.0.1 at 2009-11-27 20:43:09) [GET]
+  Parameters: {"id"=>"events", "end"=>"1259406000", "start"=>"1258801200"}
+
+ActionController::UnknownAction (No action responded to 1. Actions: calendar, create, destroy, edit, index, new, show, and update):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 20:43:31) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 6ms (View: 5, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#1 to json (for 127.0.0.1 at 2009-11-27 20:43:32) [GET]
+  Parameters: {"id"=>"events", "end"=>"1259406000", "start"=>"1258801200"}
+
+ActionController::UnknownAction (No action responded to 1. Actions: calendar, create, destroy, edit, index, new, show, and update):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 20:44:28) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 8ms (View: 6, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 20:44:31) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 4ms (View: 2, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 20:47:04) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 7ms (View: 5, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-11-27 20:47:04) [GET]
+
+ActionController::RoutingError (No route matches "/styledheets/jquery.weekcalendar.css" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#1 to json (for 127.0.0.1 at 2009-11-27 20:47:04) [GET]
+  Parameters: {"id"=>"events", "end"=>"1259406000", "start"=>"1258801200"}
+
+ActionController::UnknownAction (No action responded to 1. Actions: calendar, create, destroy, edit, index, new, show, and update):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 20:47:06) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 2ms (View: 1, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-11-27 20:47:06) [GET]
+
+ActionController::RoutingError (No route matches "/styledheets/jquery.weekcalendar.css" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#1 to json (for 127.0.0.1 at 2009-11-27 20:47:07) [GET]
+  Parameters: {"id"=>"events", "end"=>"1259406000", "start"=>"1258801200"}
+
+ActionController::UnknownAction (No action responded to 1. Actions: calendar, create, destroy, edit, index, new, show, and update):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 20:47:21) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 6ms (View: 5, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#1 to json (for 127.0.0.1 at 2009-11-27 20:47:21) [GET]
+  Parameters: {"id"=>"events", "end"=>"1259406000", "start"=>"1258801200"}
+
+ActionController::UnknownAction (No action responded to 1. Actions: calendar, create, destroy, edit, index, new, show, and update):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 20:47:54) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 7ms (View: 6, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 20:48:12) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 6ms (View: 5, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#1 to json (for 127.0.0.1 at 2009-11-27 20:48:13) [GET]
+  Parameters: {"id"=>"events", "end"=>"1259406000", "start"=>"1258801200"}
+
+ActionController::UnknownAction (No action responded to 1. Actions: calendar, create, destroy, edit, index, new, show, and update):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 20:48:56) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 7ms (View: 5, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 20:50:39) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 8ms (View: 6, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 20:55:58) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 3ms (View: 2, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#1 to json (for 127.0.0.1 at 2009-11-27 20:55:59) [GET]
+  Parameters: {"id"=>"events", "end"=>"1259406000", "start"=>"1258801200"}
+
+ActionController::UnknownAction (No action responded to 1. Actions: calendar, create, destroy, edit, index, new, show, and update):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 20:56:09) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 3ms (View: 2, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#1 to json (for 127.0.0.1 at 2009-11-27 20:56:10) [GET]
+  Parameters: {"id"=>"events", "end"=>"1259406000", "start"=>"1258801200"}
+
+ActionController::UnknownAction (No action responded to 1. Actions: calendar, create, destroy, edit, index, new, show, and update):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 21:01:48) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 3ms (View: 2, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#1 to json (for 127.0.0.1 at 2009-11-27 21:01:50) [GET]
+  Parameters: {"id"=>"events", "end"=>"1259492400", "start"=>"1258887600"}
+
+ActionController::UnknownAction (No action responded to 1. Actions: calendar, create, destroy, edit, index, new, show, and update):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 21:02:04) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 3ms (View: 2, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#1 to json (for 127.0.0.1 at 2009-11-27 21:02:04) [GET]
+  Parameters: {"id"=>"events", "end"=>"1259492400", "start"=>"1258887600"}
+
+ActionController::UnknownAction (No action responded to 1. Actions: calendar, create, destroy, edit, index, new, show, and update):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 21:02:25) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 3ms (View: 2, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#1 to json (for 127.0.0.1 at 2009-11-27 21:02:26) [GET]
+  Parameters: {"id"=>"events", "end"=>"1259492400", "start"=>"1258887600"}
+
+ActionController::UnknownAction (No action responded to 1. Actions: calendar, create, destroy, edit, index, new, show, and update):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-11-27 21:04:54) [GET]
+
+ActionController::RoutingError (No route matches "/jquery-weekcalendar-1.2.2/full_demo/weekcalendar.html" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 21:19:20) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 7ms (View: 5, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#1 to json (for 127.0.0.1 at 2009-11-27 21:19:20) [GET]
+  Parameters: {"id"=>"events", "end"=>"1259492400", "start"=>"1258887600"}
+
+ActionController::UnknownAction (No action responded to 1. Actions: calendar, create, destroy, edit, index, new, show, and update):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 21:20:02) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 7ms (View: 5, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#1 to json (for 127.0.0.1 at 2009-11-27 21:20:03) [GET]
+  Parameters: {"id"=>"events", "end"=>"1259492400", "start"=>"1258887600"}
+
+ActionController::UnknownAction (No action responded to 1. Actions: calendar, create, destroy, edit, index, new, show, and update):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 21:20:33) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 3ms (View: 2, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#1 to json (for 127.0.0.1 at 2009-11-27 21:20:34) [GET]
+  Parameters: {"id"=>"events", "end"=>"1259492400", "start"=>"1258887600"}
+
+ActionController::UnknownAction (No action responded to 1. Actions: calendar, create, destroy, edit, index, new, show, and update):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 21:22:00) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 3ms (View: 2, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#1 to json (for 127.0.0.1 at 2009-11-27 21:22:01) [GET]
+  Parameters: {"id"=>"events", "end"=>"1259492400", "start"=>"1258887600"}
+
+ActionController::UnknownAction (No action responded to 1. Actions: calendar, create, destroy, edit, index, new, show, and update):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 21:22:18) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 3ms (View: 2, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#1 to json (for 127.0.0.1 at 2009-11-27 21:22:19) [GET]
+  Parameters: {"id"=>"events", "end"=>"1259492400", "start"=>"1258887600"}
+
+ActionController::UnknownAction (No action responded to 1. Actions: calendar, create, destroy, edit, index, new, show, and update):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-11-27 21:23:16) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 3ms (View: 2, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#1 to json (for 127.0.0.1 at 2009-11-27 21:23:16) [GET]
+  Parameters: {"id"=>"events", "end"=>"1259492400", "start"=>"1258887600"}
+
+ActionController::UnknownAction (No action responded to 1. Actions: calendar, create, destroy, edit, index, new, show, and update):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-12-01 20:55:58) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 72ms (View: 71, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#1 to json (for 127.0.0.1 at 2009-12-01 20:55:58) [GET]
+  Parameters: {"id"=>"events", "end"=>"1260097200", "start"=>"1259492400"}
+
+ActionController::UnknownAction (No action responded to 1. Actions: calendar, create, destroy, edit, index, new, show, and update):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-12-01 21:01:38) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 3ms (View: 2, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-12-01 21:03:49) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 10ms (View: 9, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-12-01 21:03:49) [GET]
+
+ActionController::RoutingError (No route matches "/stylesheets/jquery.calendar" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-12-01 21:03:50) [GET]
+
+ActionController::RoutingError (No route matches "/stylesheets/jquery.calendar" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-12-01 21:08:00) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 7ms (View: 6, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-12-01 21:08:00) [GET]
+
+ActionController::RoutingError (No route matches "/stylesheets/jquery.calendar" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-12-01 21:08:01) [GET]
+
+ActionController::RoutingError (No route matches "/stylesheets/jquery.calendar" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+
+
+Processing ClientsController#calendar (for 127.0.0.1 at 2009-12-01 21:10:12) [GET]
+  Parameters: {"id"=>"1"}
+Rendering template within layouts/application
+Rendering clients/calendar
+Completed in 7ms (View: 6, DB: 0) | 200 OK [http://localhost/clients/1/calendar]
