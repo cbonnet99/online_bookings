@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091127004622) do
+ActiveRecord::Schema.define(:version => 20091202091711) do
 
   create_table "bookings", :force => true do |t|
     t.datetime "starts_at"
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(:version => 20091127004622) do
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "question",   :limit => 500
+    t.string   "answer"
   end
 
 end

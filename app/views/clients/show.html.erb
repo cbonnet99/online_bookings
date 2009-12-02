@@ -1,12 +1,29 @@
-<% title "Client" %>
-
-<p>
-  <strong>Email:</strong>
-  <%=h @client.email %>
-</p>
-
-<p>
-  <%= link_to "Edit", edit_client_path(@client) %> |
-  <%= link_to "Destroy", @client, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", clients_path %>
-</p>
+<% javascript 'calendar'%>
+<% stylesheet 'jquery.weekcalendar'%>
+<% title "Step 2: book your appointment"%>
+<div id="calendar"></div>
+<div id="event_edit_container"> 
+	<form> 
+		<input type="hidden" /> 
+		<ul> 
+			<li> 
+				<span>Date: </span><span class="date_holder"></span> 
+			</li> 
+			<li> 
+				<label for="start">Start time: </label><select name="start"><option value="">Select</option></select> 
+			</li> 
+			<li> 
+				<label for="booking_type">Appointment type: </label><select name="booking_type"><option value="0.5">0.5h</option><option value="1">1h</option><option value="1.5">1.5h</option></select> 
+			</li> 
+			<li> 
+				<label for="end">End Time: </label><select name="end"><option value="">Select End Time</option></select> 
+			</li> 
+			<li> 
+				<label for="body">Your name: </label><input type="text" name="title"></input> 
+			</li> 
+			<li> 
+				<label for="body">Comment: </label><textarea name="body"></textarea> 
+			</li> 
+		</ul> 
+	</form> 
+</div>

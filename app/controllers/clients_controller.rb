@@ -12,12 +12,13 @@ class ClientsController < ApplicationController
   
   def new
     @client = Client.new
+    @questions = ["What was the name of your first pet?", "What is your mother's maiden name?", "Which place did you grow up in?"]
   end
   
   def create
     @client = Client.new(params[:client])
     if @client.save
-      flash[:notice] = "Successfully created client."
+      flash[:notice] = "Welcome to #{APP_CONFIG[:site_name]}"
       redirect_to @client
     else
       render :action => 'new'

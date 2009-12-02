@@ -1,0 +1,6 @@
+development:
+    site_name: Online Bookings(DEV)
+test:
+    site_name: Online Bookings(TEST)
+production:
+    site_name: Online Bookings
