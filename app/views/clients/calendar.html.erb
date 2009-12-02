@@ -10,16 +10,17 @@
 				<span>Date: </span><span class="date_holder"></span> 
 			</li> 
 			<li> 
-				<label for="start">Start Time: </label><select name="start"><option value="">Select Start Time</option></select> 
+				<label for="start">Start time: </label><select name="start"><option value="">Select</option></select> 
+			</li> 
+			<li> 
+				<label for="booking_type">Appointment type: </label><select name="booking_type"><option value="0.5">0.5h</option><option value="1">1h</option><option value="1.5">1.5h</option></select> 
 			</li> 
 			<li> 
 				<label for="end">End Time: </label><select name="end"><option value="">Select End Time</option></select> 
 			</li> 
+			<input type="hidden" name="title" />  
 			<li> 
-				<label for="title">Title: </label><input type="text" name="title" /> 
-			</li> 
-			<li> 
-				<label for="body">Body: </label><textarea name="body"></textarea> 
+				<label for="body">Comment: </label><textarea name="body"></textarea> 
 			</li> 
 		</ul> 
 	</form> 

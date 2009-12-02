@@ -5,12 +5,13 @@ $(document).ready(function() {
    var id = 10;
 
    $calendar.weekCalendar({
-      timeslotsPerHour : 4,
+      timeslotsPerHour : 2,
+	  dateFormat: "j M Y",
       allowCalEventOverlap : true,
       overlapEventsSeparate: true,
       firstDayOfWeek : 1,
       businessHours :{start: 8, end: 18, limitDisplay: true },
-      daysToShow : 7,
+      daysToShow : 5,
       height : function($calendar) {
          return $(window).height() - $("h1").outerHeight() - 1;
       },
@@ -40,7 +41,7 @@ $(document).ready(function() {
 
          $dialogContent.dialog({
             modal: true,
-            title: "New Calendar Event",
+            title: "New appointment",
             close: function() {
                $dialogContent.dialog("destroy");
                $dialogContent.hide();
