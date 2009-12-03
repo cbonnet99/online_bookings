@@ -23,6 +23,7 @@ $(document).ready(function() {
                "border" : "1px solid #888"
             });
          }
+		
       },
       draggable : function(calEvent, $event) {
          return calEvent.readOnly != true;

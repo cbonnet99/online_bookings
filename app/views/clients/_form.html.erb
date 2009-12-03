@@ -4,12 +4,12 @@
     <%= f.label :email, "Your email address:" %><br />
     <%= f.text_field :email %>
   </p>
-  <p>
+  <p id="client-question">
     <%= f.label :question, "Select a question:" %><br />
     <%= f.select :question, @questions %>
   </p>
-  <p>
-    <%= f.label :answer, "And, finally, answer the question:" %><br />
+  <p id="client-answer">
+    <%= f.label :answer, "Answer the question:" %><br />
     <%= f.text_field :answer %>
   </p>
   <p><%= f.submit "Submit" %></p>

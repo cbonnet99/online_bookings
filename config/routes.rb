@@ -1,4 +1,13 @@
 ActionController::Routing::Routes.draw do |map|
+  map.forgotten_password 'forgotten_password', :controller => 'clients', :action => 'forgotten_password'
+  map.lookup 'lookup', :controller => 'clients', :action => 'lookup'
+  map.signup 'signup', :controller => 'clients', :action => 'new'
+  map.logout 'logout', :controller => 'sessions', :action => 'destroy'
+  map.login 'login', :controller => 'sessions', :action => 'new'
+  map.resources :sessions
+
+  map.resources :clients
+
   map.resources :bookings
 
   map.resources :clients, :member => {:calendar => :get }
@@ -44,4 +53,5 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing or commenting them out if you're using named routes and resources.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
+  map.root :controller => 'clients', :action => 'lookup_form'
 end

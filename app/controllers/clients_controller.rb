@@ -1,48 +1,38 @@
 class ClientsController < ApplicationController
-  def calendar
-  end
-
-  def index
-    @clients = Client.all
-  end
-  
-  def show
-    @client = Client.find(params[:id])
-  end
-  
   def new
-    @client = Client.new
+    @client = Client.new(:email => params[:email])
     @questions = ["What was the name of your first pet?", "What is your mother's maiden name?", "Which place did you grow up in?"]
+  end
+  
+  def lookup_form
+    if logged_in?
+      flash[:notice] = "Welcome back!"
+      redirect_to current_client
+    else
+      @client = Client.new
+    end
+  end
+  
+  def lookup
+    @client = Client.find_by_email(params[:client]["email"])
+    if @client.nil?
+      flash[:notice]="To book your first appointment, please select a question and provide an answer"
+      redirect_to signup_url(:email => params[:client]["email"])
+    else
+      flash[:notice]="Welcome back, please enter your password"
+      redirect_to login_url(:login => params[:client]["email"])
+    end
   end
   
   def create
     @client = Client.new(params[:client])
     if @client.save
-      flash[:notice] = "Welcome to #{APP_CONFIG[:site_name]}"
+      session[:client_id] = @client.id
+      flash[:notice] = "You can now book your appointment"
       redirect_to @client
     else
+      @questions = ["What was the name of your first pet?", "What is your mother's maiden name?", "Which place did you grow up in?"]
       render :action => 'new'
     end
-  end
-  
-  def edit
-    @client = Client.find(params[:id])
-  end
-  
-  def update
-    @client = Client.find(params[:id])
-    if @client.update_attributes(params[:client])
-      flash[:notice] = "Successfully updated client."
-      redirect_to @client
-    else
-      render :action => 'edit'
-    end
-  end
-  
-  def destroy
-    @client = Client.find(params[:id])
-    @client.destroy
-    flash[:notice] = "Successfully destroyed client."
-    redirect_to clients_url
   end
 end

@@ -1,0 +1,9 @@
+<% title "Step 1: Your email address"%>
+<% form_for :client, @client, :url => { :controller => "clients", :action => "lookup"} do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :email, "Your email Address" %><br />
+    <%= f.text_field :email %>
+  </p>
+  <p><%= f.submit "Enter >" %></p>
+<% end %>

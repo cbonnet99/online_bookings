@@ -1,3 +1,20 @@
-<% title "Step 1: login" %>
+<% title "Step 2: identify yourself" %>
 
-<%= render :partial => 'form' %>
+<% form_for @client do |f| %>
+ <%= f.error_messages %>
+  <p>
+    <%= f.label :email, "Email Address" %><br />
+    <%= f.text_field :email %>
+  </p>
+  <p id="client-question">
+     <%= f.label :question, "Select a question:" %><br />
+     <%= f.select :question, @questions %>
+   </p>
+  <p>
+    <%= f.label :answer, "Your answer to the question:" %><br />
+  <p id="client-answer">
+    <%= f.label :answer, "Answer the question:" %><br />
+     <%= f.text_field :answer %>
+   </p>
+  <p><%= f.submit "Book an appointment >" %></p>
+<% end %>

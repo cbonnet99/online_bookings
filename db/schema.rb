@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091202091711) do
+ActiveRecord::Schema.define(:version => 20091203082733) do
 
   create_table "bookings", :force => true do |t|
     t.datetime "starts_at"
@@ -21,11 +21,15 @@ ActiveRecord::Schema.define(:version => 20091202091711) do
   end
 
   create_table "clients", :force => true do |t|
+    t.string   "username"
     t.string   "email"
+    t.string   "password_hash"
+    t.string   "password_salt"
+    t.string   "question",      :limit => 500
+    t.string   "answer"
+    t.string   "string"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "question",   :limit => 500
-    t.string   "answer"
   end
 
 end

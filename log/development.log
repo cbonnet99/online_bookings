@@ -78,3 +78,599 @@ Processing ClientsController#show (for 127.0.0.1 at 2009-12-02 22:48:45) [GET]
 Rendering template within layouts/application
 Rendering clients/show
 Completed in 15ms (View: 5, DB: 1) | 200 OK [http://localhost/clients/1]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#new (for 127.0.0.1 at 2009-12-02 23:09:57) [GET]
+Rendering template within layouts/application
+Rendering clients/new
+Rendered clients/_form (3.3ms)
+Completed in 16ms (View: 8, DB: 0) | 200 OK [http://localhost/clients/new]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#create (for 127.0.0.1 at 2009-12-02 23:11:09) [POST]
+  Parameters: {"commit"=>"Submit", "authenticity_token"=>"XAIaXps3bw3bYeoe3chZJgQ8IxTA2uYCQi/1I5aHrZA=", "client"=>{"question"=>"What is your mother's maiden name?", "answer"=>"gfdgfdgfd", "email"=>"hgfdghfghfhgf"}}
+WARNING: Can't mass-assign these protected attributes: question, answer
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.9ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "question", "email", "answer") VALUES('2009-12-02 10:11:09.781718', '2009-12-02 10:11:09.781718', NULL, E'hgfdghfghfhgf', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mCOMMIT[0m
+Redirected to http://localhost:3000/clients/2
+Completed in 17ms (DB: 2) | 302 Found [http://localhost/clients]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#show (for 127.0.0.1 at 2009-12-02 23:11:09) [GET]
+  Parameters: {"id"=>"2"}
+  [4;36;1mClient Load (0.6ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2) [0m
+Rendering template within layouts/application
+Rendering clients/show
+Completed in 10ms (View: 2, DB: 1) | 200 OK [http://localhost/clients/2]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#new (for 127.0.0.1 at 2009-12-03 21:10:01) [GET]
+Rendering template within layouts/application
+Rendering clients/new
+Rendered clients/_form (85.5ms)
+Completed in 250ms (View: 139, DB: 0) | 200 OK [http://localhost/clients/new]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#new (for 127.0.0.1 at 2009-12-03 21:14:01) [GET]
+Rendering template within layouts/application
+Rendering clients/new
+Rendered clients/_form (4.1ms)
+Completed in 18ms (View: 10, DB: 0) | 200 OK [http://localhost/clients/new]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ApplicationController#new (for 127.0.0.1 at 2009-12-03 21:16:20) [GET]
+
+SyntaxError (/Users/cbonnet99/Work/online_bookings/app/controllers/clients_controller.rb:50: syntax error, unexpected $end, expecting kEND):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (32.2ms)
+Rendered rescues/_request_and_response (1.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#new (for 127.0.0.1 at 2009-12-03 21:16:32) [GET]
+Rendering template within layouts/application
+Rendering clients/new
+Rendered clients/_form (5.3ms)
+Completed in 18ms (View: 11, DB: 0) | 200 OK [http://localhost/clients/new]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (4.7ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [4;35;1mSQL (2.7ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to CreateBookings (20091127004622)
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (4.1ms)[0m   [0;1mCREATE TABLE "bookings" ("id" serial primary key, "starts_at" timestamp, "ends_at" timestamp, "name" character varying(255), "client_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [4;35;1mSQL (1.7ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20091127004622')[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mCOMMIT[0m
+Migrating to AddQaToClients (20091202091711)
+  [4;35;1mSQL (0.5ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPGError: ERROR: relation "clients" does not exist
+: ALTER TABLE "clients" ADD COLUMN "question" character varying(500)[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (4.8ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [4;35;1mSQL (2.6ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to CreateBookings (20091127004622)
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (4.4ms)[0m   [0;1mCREATE TABLE "bookings" ("id" serial primary key, "starts_at" timestamp, "ends_at" timestamp, "name" character varying(255), "client_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [4;35;1mSQL (1.9ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20091127004622')[0m
+  [4;36;1mSQL (1.2ms)[0m   [0;1mCOMMIT[0m
+Migrating to CreateClients (20091203082733)
+  [4;35;1mSQL (0.5ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (4.8ms)[0m   [0;1mCREATE TABLE "clients" ("id" serial primary key, "username" character varying(255), "email" character varying(255), "password_hash" character varying(255), "password_salt" character varying(255), "question" character varying(500), "answer" character varying(255), "string" character varying(255), "created_at" timestamp, "updated_at" timestamp) [0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20091203082733')[0m
+  [4;36;1mSQL (0.8ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-12-03 21:30:05) [GET]
+
+ActionController::RoutingError (No route matches "/session/new" with {:method=>:get}):
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-12-03 21:30:10) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/application
+Rendering sessions/new
+Completed in 53ms (View: 52, DB: 0) | 200 OK [http://localhost/sessions/new]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#new (for 127.0.0.1 at 2009-12-03 21:30:37) [GET]
+  Parameters: {"action"=>"new", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/new
+Completed in 21ms (View: 11, DB: 0) | 200 OK [http://localhost/signup]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#new (for 127.0.0.1 at 2009-12-03 21:31:05) [GET]
+  Parameters: {"action"=>"new", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/new
+Completed in 15ms (View: 6, DB: 0) | 200 OK [http://localhost/signup]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#lookup_form (for 127.0.0.1 at 2009-12-03 21:43:37) [GET]
+  Parameters: {"action"=>"lookup_form", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/lookup_form
+Completed in 45ms (View: 35, DB: 0) | 200 OK [http://localhost/]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#lookup_form (for 127.0.0.1 at 2009-12-03 21:44:16) [GET]
+  Parameters: {"action"=>"lookup_form", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/lookup_form
+Completed in 17ms (View: 8, DB: 0) | 200 OK [http://localhost/]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#create (for 127.0.0.1 at 2009-12-03 21:44:28) [POST]
+  Parameters: {"commit"=>"Enter >", "action"=>"create", "authenticity_token"=>"7kWx441TvxbmnKeMSjDyT8z7VBv1zia7ggP6TkcTz9s=", "client"=>{"email"=>"cbonnet99@gmail.com"}, "controller"=>"clients"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (1.0ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+Rendering template within layouts/application
+Rendering clients/new
+Completed in 30ms (View: 15, DB: 1) | 200 OK [http://localhost/clients]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#create (for 127.0.0.1 at 2009-12-03 21:46:26) [POST]
+  Parameters: {"commit"=>"Enter >", "action"=>"create", "authenticity_token"=>"7kWx441TvxbmnKeMSjDyT8z7VBv1zia7ggP6TkcTz9s=", "client"=>{"email"=>"cbonnet99@gmail.com"}, "controller"=>"clients"}
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.9ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+Rendering template within layouts/application
+Rendering clients/new
+Completed in 29ms (View: 13, DB: 1) | 200 OK [http://localhost/clients]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#lookup_form (for 127.0.0.1 at 2009-12-03 21:55:59) [GET]
+  Parameters: {"action"=>"lookup_form", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/lookup_form
+Completed in 19ms (View: 9, DB: 0) | 200 OK [http://localhost/]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#lookup (for 127.0.0.1 at 2009-12-03 21:56:06) [POST]
+  Parameters: {"commit"=>"Enter >", "action"=>"lookup", "authenticity_token"=>"7kWx441TvxbmnKeMSjDyT8z7VBv1zia7ggP6TkcTz9s=", "client"=>{"email"=>"cbonnet99@gmail.com"}, "controller"=>"clients"}
+  [4;36;1mClient Load (1.0ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://localhost:3000/signup?email=cbonnet99%40gmail.com
+Completed in 26ms (DB: 1) | 302 Found [http://localhost/lookup]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#new (for 127.0.0.1 at 2009-12-03 21:56:06) [GET]
+  Parameters: {"action"=>"new", "controller"=>"clients", "email"=>"cbonnet99@gmail.com"}
+Rendering template within layouts/application
+Rendering clients/new
+Completed in 14ms (View: 6, DB: 0) | 200 OK [http://localhost/signup?email=cbonnet99%40gmail.com]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#new (for 127.0.0.1 at 2009-12-03 21:59:49) [GET]
+  Parameters: {"action"=>"new", "controller"=>"clients", "email"=>"cbonnet99@gmail.com"}
+Rendering template within layouts/application
+Rendering clients/new
+Completed in 18ms (View: 9, DB: 0) | 200 OK [http://localhost/signup?email=cbonnet99%40gmail.com]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#lookup (for 127.0.0.1 at 2009-12-03 22:02:45) [POST]
+  Parameters: {"commit"=>"Enter >", "action"=>"lookup", "authenticity_token"=>"7kWx441TvxbmnKeMSjDyT8z7VBv1zia7ggP6TkcTz9s=", "client"=>{"email"=>"cbonnet99@gmail.com"}, "controller"=>"clients"}
+  [4;35;1mClient Load (1.0ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://localhost:3000/signup?login=cbonnet99%40gmail.com
+Completed in 15ms (DB: 1) | 302 Found [http://localhost/lookup]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#new (for 127.0.0.1 at 2009-12-03 22:02:45) [GET]
+  Parameters: {"action"=>"new", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+Rendering template within layouts/application
+Rendering clients/new
+Completed in 16ms (View: 8, DB: 0) | 200 OK [http://localhost/signup?login=cbonnet99%40gmail.com]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#new (for 127.0.0.1 at 2009-12-03 22:04:15) [GET]
+  Parameters: {"action"=>"new", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+Rendering template within layouts/application
+Rendering clients/new
+Completed in 17ms (View: 5, DB: 0) | 200 OK [http://localhost/signup?login=cbonnet99%40gmail.com]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#lookup (for 127.0.0.1 at 2009-12-03 22:04:21) [POST]
+  Parameters: {"commit"=>"Enter >", "action"=>"lookup", "authenticity_token"=>"7kWx441TvxbmnKeMSjDyT8z7VBv1zia7ggP6TkcTz9s=", "client"=>{"email"=>"cbonnet99@gmail.com"}, "controller"=>"clients"}
+  [4;36;1mClient Load (3.7ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://localhost:3000/signup?email=cbonnet99%40gmail.com
+Completed in 15ms (DB: 4) | 302 Found [http://localhost/lookup]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#new (for 127.0.0.1 at 2009-12-03 22:04:21) [GET]
+  Parameters: {"action"=>"new", "controller"=>"clients", "email"=>"cbonnet99@gmail.com"}
+Rendering template within layouts/application
+Rendering clients/new
+Completed in 14ms (View: 6, DB: 0) | 200 OK [http://localhost/signup?email=cbonnet99%40gmail.com]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#create (for 127.0.0.1 at 2009-12-03 22:05:39) [POST]
+  Parameters: {"commit"=>"Book an appointment >", "action"=>"create", "authenticity_token"=>"7kWx441TvxbmnKeMSjDyT8z7VBv1zia7ggP6TkcTz9s=", "client"=>{"question"=>"What was the name of your first pet?", "answer"=>"Maddie", "email"=>"cbonnet99@gmail.com"}, "controller"=>"clients"}
+  [4;35;1mSQL (0.2ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.9ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+Rendering template within layouts/application
+Rendering clients/new
+
+ActionView::TemplateError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.inject) on line #11 of app/views/clients/new.html.erb:
+8:   </p>
+9:   <p id="client-question">
+10:      <%= f.label :question, "Select a question:" %><br />
+11:      <%= f.select :question, @questions %>
+12:    </p>
+13:   <p>
+14:     <%= f.label :answer, "Your answer to the question:" %><br />
+
+    app/views/clients/new.html.erb:11
+    app/views/clients/new.html.erb:3
+    app/controllers/clients_controller.rb:29:in `create'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (121.3ms)
+Rendered rescues/_request_and_response (1.1ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#create (for 127.0.0.1 at 2009-12-03 22:06:31) [POST]
+  Parameters: {"commit"=>"Book an appointment >", "action"=>"create", "authenticity_token"=>"7kWx441TvxbmnKeMSjDyT8z7VBv1zia7ggP6TkcTz9s=", "client"=>{"question"=>"What was the name of your first pet?", "answer"=>"Maddie", "email"=>"cbonnet99@gmail.com"}, "controller"=>"clients"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (1.0ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+Rendering template within layouts/application
+Rendering clients/new
+Completed in 25ms (View: 8, DB: 1) | 200 OK [http://localhost/clients]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#create (for 127.0.0.1 at 2009-12-03 22:11:37) [POST]
+  Parameters: {"commit"=>"Book an appointment >", "action"=>"create", "authenticity_token"=>"7kWx441TvxbmnKeMSjDyT8z7VBv1zia7ggP6TkcTz9s=", "client"=>{"question"=>"What was the name of your first pet?", "answer"=>"Maddie", "email"=>"cbonnet99@gmail.com"}, "controller"=>"clients"}
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (1.0ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+  [4;35;1mSQL (3.8ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "username", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-03 09:11:37.937659', '2009-12-03 09:11:37.937659', NULL, NULL, E'What was the name of your first pet?', NULL, NULL, E'cbonnet99@gmail.com', E'Maddie') RETURNING "id"[0m
+  [4;36;1mSQL (12.7ms)[0m   [0;1mCOMMIT[0m
+
+NameError (undefined local variable or method `root_url' for #<ClientsController:0x1024a99a0>):
+  app/controllers/clients_controller.rb:27:in `create'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (33.6ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#create (for 127.0.0.1 at 2009-12-03 22:12:53) [POST]
+  Parameters: {"commit"=>"Book an appointment >", "action"=>"create", "authenticity_token"=>"7kWx441TvxbmnKeMSjDyT8z7VBv1zia7ggP6TkcTz9s=", "client"=>{"question"=>"What was the name of your first pet?", "answer"=>"Maddie", "email"=>"cbonnet99@gmail.com"}, "controller"=>"clients"}
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.9ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+Rendering template within layouts/application
+Rendering clients/new
+Completed in 22ms (View: 10, DB: 1) | 200 OK [http://localhost/clients]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#lookup_form (for 127.0.0.1 at 2009-12-03 22:13:08) [GET]
+  Parameters: {"action"=>"lookup_form", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/lookup_form
+Completed in 21ms (View: 8, DB: 0) | 200 OK [http://localhost/]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#lookup (for 127.0.0.1 at 2009-12-03 22:13:18) [POST]
+  Parameters: {"commit"=>"Enter >", "action"=>"lookup", "authenticity_token"=>"7kWx441TvxbmnKeMSjDyT8z7VBv1zia7ggP6TkcTz9s=", "client"=>{"email"=>"cbonnet99@yahoo.fr"}, "controller"=>"clients"}
+  [4;36;1mClient Load (2.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@yahoo.fr') LIMIT 1[0m
+Redirected to http://localhost:3000/signup?email=cbonnet99%40yahoo.fr
+Completed in 12ms (DB: 2) | 302 Found [http://localhost/lookup]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#new (for 127.0.0.1 at 2009-12-03 22:13:18) [GET]
+  Parameters: {"action"=>"new", "controller"=>"clients", "email"=>"cbonnet99@yahoo.fr"}
+Rendering template within layouts/application
+Rendering clients/new
+Completed in 13ms (View: 4, DB: 0) | 200 OK [http://localhost/signup?email=cbonnet99%40yahoo.fr]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#create (for 127.0.0.1 at 2009-12-03 22:13:25) [POST]
+  Parameters: {"commit"=>"Book an appointment >", "action"=>"create", "authenticity_token"=>"7kWx441TvxbmnKeMSjDyT8z7VBv1zia7ggP6TkcTz9s=", "client"=>{"question"=>"What was the name of your first pet?", "answer"=>"Maddie", "email"=>"cbonnet99@yahoo.fr"}, "controller"=>"clients"}
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.8ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'cbonnet99@yahoo.fr') LIMIT 1[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "username", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-03 09:13:25.568836', '2009-12-03 09:13:25.568836', NULL, NULL, E'What was the name of your first pet?', NULL, NULL, E'cbonnet99@yahoo.fr', E'Maddie') RETURNING "id"[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mCOMMIT[0m
+Redirected to http://localhost:3000/clients/2
+Completed in 18ms (DB: 3) | 302 Found [http://localhost/clients]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#show (for 127.0.0.1 at 2009-12-03 22:13:25) [GET]
+  Parameters: {"action"=>"show", "id"=>"2", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/show
+Completed in 7ms (View: 6, DB: 0) | 200 OK [http://localhost/clients/2]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#lookup_form (for 127.0.0.1 at 2009-12-03 22:13:58) [GET]
+  Parameters: {"action"=>"lookup_form", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/lookup_form
+Completed in 15ms (View: 7, DB: 0) | 200 OK [http://localhost/]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#lookup_form (for 127.0.0.1 at 2009-12-03 22:15:04) [GET]
+  Parameters: {"action"=>"lookup_form", "controller"=>"clients"}
+  [4;35;1mClient Load (0.5ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2) [0m
+
+ActionController::ActionControllerError (Cannot redirect to nil!):
+  app/controllers/clients_controller.rb:10:in `lookup_form'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (33.4ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#lookup_form (for 127.0.0.1 at 2009-12-03 22:15:42) [GET]
+  Parameters: {"action"=>"lookup_form", "controller"=>"clients"}
+  [4;36;1mClient Load (0.6ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2) [0m
+Redirected to http://localhost:3000/clients/2
+Completed in 13ms (DB: 1) | 302 Found [http://localhost/]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#show (for 127.0.0.1 at 2009-12-03 22:15:42) [GET]
+  Parameters: {"action"=>"show", "id"=>"2", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/show
+Completed in 7ms (View: 5, DB: 0) | 200 OK [http://localhost/clients/2]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing SessionsController#destroy (for 127.0.0.1 at 2009-12-03 22:15:56) [GET]
+  Parameters: {"action"=>"destroy", "controller"=>"sessions"}
+
+NameError (undefined local variable or method `root_url' for #<SessionsController:0x101f7df30>):
+  app/controllers/sessions_controller.rb:20:in `destroy'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (35.3ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#lookup_form (for 127.0.0.1 at 2009-12-03 22:17:14) [GET]
+  Parameters: {"action"=>"lookup_form", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/lookup_form
+Completed in 51ms (View: 42, DB: 0) | 200 OK [http://localhost/]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#lookup_form (for 127.0.0.1 at 2009-12-03 22:17:22) [GET]
+  Parameters: {"action"=>"lookup_form", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/lookup_form
+Completed in 14ms (View: 6, DB: 0) | 200 OK [http://localhost/]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#lookup (for 127.0.0.1 at 2009-12-03 22:17:28) [POST]
+  Parameters: {"commit"=>"Enter >", "action"=>"lookup", "authenticity_token"=>"7kWx441TvxbmnKeMSjDyT8z7VBv1zia7ggP6TkcTz9s=", "client"=>{"email"=>"cbonnet99@gmail.com"}, "controller"=>"clients"}
+  [4;36;1mClient Load (1.7ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://localhost:3000/login?email=cbonnet99%40gmail.com
+Completed in 18ms (DB: 2) | 302 Found [http://localhost/lookup]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-12-03 22:17:28) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions", "email"=>"cbonnet99@gmail.com"}
+Rendering template within layouts/application
+Rendering sessions/new
+Completed in 9ms (View: 7, DB: 0) | 200 OK [http://localhost/login?email=cbonnet99%40gmail.com]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-12-03 22:19:15) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions", "email"=>"cbonnet99@gmail.com"}
+Rendering template within layouts/application
+Rendering sessions/new
+
+ActionView::TemplateError (undefined local variable or method `forgotten_password_path' for #<ActionView::Base:0x1022eddf0>) on line #3 of app/views/sessions/new.html.erb:
+1: <% title "Step 2: identify yourself" %>
+2: 
+3: <p><%= link_to "I can't remember my password", forgotten_password_path %></p>
+4: 
+5: <% form_tag sessions_path do %>
+6:   <p>
+
+    app/views/sessions/new.html.erb:3
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:95:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `each'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:92:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:23:in `start'
+    /opt/ruby-enterprise-1.8.7-2009.10/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (44.9ms)
+Rendered rescues/_request_and_response (1.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.9ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-12-03 22:20:35) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions", "email"=>"cbonnet99@gmail.com"}
+Rendering template within layouts/application
+Rendering sessions/new
+Completed in 5ms (View: 3, DB: 1) | 200 OK [http://localhost/login?email=cbonnet99%40gmail.com]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-12-03 22:20:41) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions", "email"=>"cbonnet99@gmail.com"}
+Rendering template within layouts/application
+Rendering sessions/new
+Completed in 4ms (View: 3, DB: 0) | 200 OK [http://localhost/login?email=cbonnet99%40gmail.com]
+  [4;35;1mSQL (1.5ms)[0m   [0mSET client_min_messages TO 'panic'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'notice'[0m
+
+
+Processing ClientsController#lookup (for 127.0.0.1 at 2009-12-03 22:20:44) [POST]
+  Parameters: {"commit"=>"Enter >", "action"=>"lookup", "authenticity_token"=>"7kWx441TvxbmnKeMSjDyT8z7VBv1zia7ggP6TkcTz9s=", "client"=>{"email"=>"cbonnet99@gmail.com"}, "controller"=>"clients"}
+  [4;35;1mClient Load (1.0ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://localhost:3000/login?login=cbonnet99%40gmail.com
+Completed in 14ms (DB: 3) | 302 Found [http://localhost/lookup]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-12-03 22:20:44) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions", "login"=>"cbonnet99@gmail.com"}
+Rendering template within layouts/application
+Rendering sessions/new
+Completed in 4ms (View: 3, DB: 0) | 200 OK [http://localhost/login?login=cbonnet99%40gmail.com]
