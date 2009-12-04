@@ -1,5 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
   map.forgotten_password 'forgotten_password', :controller => 'clients', :action => 'forgotten_password'
+  map.forgotten_answer 'forgotten_answer', :controller => 'clients', :action => 'forgotten_anwser'
+  map.client_login 'client_login', :controller => 'clients', :action => 'login'
+  map.login_qa 'login_qa', :controller => 'clients', :action => 'login_qa'
   map.lookup 'lookup', :controller => 'clients', :action => 'lookup'
   map.signup 'signup', :controller => 'clients', :action => 'new'
   map.logout 'logout', :controller => 'sessions', :action => 'destroy'

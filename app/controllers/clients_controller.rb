@@ -19,8 +19,23 @@ class ClientsController < ApplicationController
       flash[:notice]="To book your first appointment, please select a question and provide an answer"
       redirect_to signup_url(:email => params[:client]["email"])
     else
-      flash[:notice]="Welcome back, please enter your password"
-      redirect_to login_url(:login => params[:client]["email"])
+      flash[:notice]="Welcome back, please answer the question"
+      redirect_to login_qa_url(:login => params[:client]["email"])
+    end
+  end
+  
+  def login_qa
+    @client = Client.find_by_email(params[:login])
+  end
+  
+  def login
+    @client = Client.find_by_email(params["login"])
+    if @client.answer.downcase == params["answer"].downcase
+      session[:client_id] = @client.id
+      flash[:notice] = "You can now book your appointment"
+      redirect_to @client
+    else
+      render :action => "login_qa" 
     end
   end
   

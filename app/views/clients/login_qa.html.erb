@@ -1,0 +1,15 @@
+<% title "Step 2: identify yourself" %>
+
+<p><%= link_to "I can't remember the answer", forgotten_answer_path %></p>
+
+<% form_tag client_login_url do %>
+  <p>
+    <%= label_tag :login, "Your email address" %><br />
+    <%= text_field_tag :login, params[:login] %>
+  </p>
+  <p>
+    <%= @client.question %><br />
+    <%= text_field_tag :answer %>
+  </p>
+  <p><%= submit_tag "Book an appointment >" %></p>
+<% end %>
