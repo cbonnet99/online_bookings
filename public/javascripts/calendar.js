@@ -12,6 +12,11 @@ $(document).ready(function() {
       firstDayOfWeek : 1,
       businessHours :{start: 8, end: 18, limitDisplay: true },
       daysToShow : 5,
+	  buttonText: {
+		today: "Today",
+		lastWeek: "< Previous week",
+		nextWeek: "Next week >"
+	  },
       height : function($calendar) {
          return $(window).height() - $("h1").outerHeight() - 1;
       },
@@ -32,44 +37,50 @@ $(document).ready(function() {
          return calEvent.readOnly != true;
       },
       eventNew : function(calEvent, $event) {
-         var $dialogContent = $("#event_edit_container");
-         resetForm($dialogContent);
-         var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
-         var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
-         var titleField = $dialogContent.find("input[name='title']");
-         var bodyField = $dialogContent.find("textarea[name='body']");
+         if (calEvent.end.getTime() < new Date().getTime()) {
+			$('#calendar').weekCalendar("removeUnsavedEvents"); 
+			alert("Sorry, you can not book an appointment in the past");
+			return false;
+		 }
+		 else {
+	         var $dialogContent = $("#event_edit_container");
+	         resetForm($dialogContent);
+	         var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
+	         var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
+	         var titleField = $dialogContent.find("input[name='title']");
+	         var bodyField = $dialogContent.find("textarea[name='body']");
 
 
-         $dialogContent.dialog({
-            modal: true,
-            title: "New appointment",
-            close: function() {
-               $dialogContent.dialog("destroy");
-               $dialogContent.hide();
-               $('#calendar').weekCalendar("removeUnsavedEvents");
-            },
-            buttons: {
-               save : function() {
-                  calEvent.id = id;
-                  id++;
-                  calEvent.start = new Date(startField.val());
-                  calEvent.end = new Date(endField.val());
-                  calEvent.title = titleField.val();
-                  calEvent.body = bodyField.val();
+	         $dialogContent.dialog({
+	            modal: true,
+	            title: "New appointment",
+	            close: function() {
+	               $dialogContent.dialog("destroy");
+	               $dialogContent.hide();
+	               $('#calendar').weekCalendar("removeUnsavedEvents");
+	            },
+	            buttons: {
+	               save : function() {
+	                  calEvent.id = id;
+	                  id++;
+	                  calEvent.start = new Date(startField.val());
+	                  calEvent.end = new Date(endField.val());
+	                  calEvent.title = titleField.val();
+	                  calEvent.body = bodyField.val();
 
-                  $calendar.weekCalendar("removeUnsavedEvents");
-                  $calendar.weekCalendar("updateEvent", calEvent);
-                  $dialogContent.dialog("close");
-               },
-               cancel : function() {
-                  $dialogContent.dialog("close");
-               }
-            }
-         }).show();
+	                  $calendar.weekCalendar("removeUnsavedEvents");
+	                  $calendar.weekCalendar("updateEvent", calEvent);
+	                  $dialogContent.dialog("close");
+	               },
+	               cancel : function() {
+	                  $dialogContent.dialog("close");
+	               }
+	            }
+	         }).show();
 
-         $dialogContent.find(".date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
-         setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
-
+	         $dialogContent.find(".date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
+	         setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
+		  }
       },
       eventDrop : function(calEvent, $event) {
         
@@ -134,7 +145,16 @@ $(document).ready(function() {
 
       },
       data : function(start, end, callback) {
-         callback(getEventData());
+		// $.getJSON("practitioners/1/appointments.json", 
+		//                   { 
+		//                      start: start.getTime(), 
+		//                      end: end.getTime() 
+		//                   }, 
+		//                   function(result) { 
+		//                      callback(result); 
+		//                   });
+		// alert('calling');
+		         callback(getEventData());
       }
    });
 
@@ -154,37 +174,42 @@ $(document).ready(function() {
                "id":1,
                "start": new Date(year, month, day, 12),
                "end": new Date(year, month, day, 13, 30),
-               "title":"Lunch with Mike"
+               "title":"Booked",
+               readOnly : true
             },
             {
                "id":2,
                "start": new Date(year, month, day, 14),
                "end": new Date(year, month, day, 14, 45),
-               "title":"Dev Meeting"
+               "title":"Booked",
+               readOnly : true
             },
             {
                "id":3,
                "start": new Date(year, month, day + 1, 17),
                "end": new Date(year, month, day + 1, 17, 45),
-               "title":"Hair cut"
+               "title":"Booked",
+               readOnly : true
             },
             {
                "id":4,
                "start": new Date(year, month, day - 1, 8),
                "end": new Date(year, month, day - 1, 9, 30),
-               "title":"Team breakfast"
+               "title":"Booked",
+               readOnly : true
             },
             {
                "id":5,
-               "start": new Date(year, month, day + 1, 14),
-               "end": new Date(year, month, day + 1, 15),
-               "title":"Product showcase"
+               "start": new Date(year, month, day + 3, 14),
+               "end": new Date(year, month, day + 3, 15),
+               "title":"Booked",
+               readOnly : true
             },
             {
                "id":6,
                "start": new Date(year, month, day, 10),
                "end": new Date(year, month, day, 11),
-               "title":"I'm read-only",
+               "title":"Booked",
                readOnly : true
             }
 
