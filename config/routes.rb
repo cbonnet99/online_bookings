@@ -1,17 +1,23 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :practitioners, :collection => {:change => :post }
+  map.resources :practitioners
   map.resources :practitioners do |p|
     p.resources :bookings
   end
-
+  
+  #PRACTITIONER
+  map.edit_selected_practitioner 'edit_selected_practitioner', :controller => 'practitioners', :action => 'edit_selected'
+  map.update_selected_practitioner 'update_selected_practitioner', :controller => 'practitioners', :action => 'update_selected'
+  
+  #CLIENT
   map.forgotten_password 'forgotten_password', :controller => 'clients', :action => 'forgotten_password'
   map.edit_phone 'edit_phone', :controller => 'clients', :action => 'edit_phone'
   map.update_phone 'update_phone', :controller => 'clients', :action => 'update_phone'
   map.reset_phone 'reset_phone', :controller => 'clients', :action => 'reset_phone'
+  map.reset_phone 'request_reset_phone', :controller => 'clients', :action => 'request_reset_phone'
   map.client_login 'client_login', :controller => 'clients', :action => 'login'
   map.login_phone 'login_phone', :controller => 'clients', :action => 'login_phone'
-  map.lookup 'lookup', :controller => 'clients', :action => 'lookup'
-  map.lookup_form 'lookup_form', :controller => 'clients', :action => 'lookup_form'
+  map.lookup ':practitioner_permalink/lookup', :controller => 'clients', :action => 'lookup'
+  map.lookup_form ':practitioner_permalink/lookup_form', :controller => 'clients', :action => 'lookup_form'
   map.signup 'signup', :controller => 'clients', :action => 'new'
   map.logout 'logout', :controller => 'sessions', :action => 'destroy'
   map.login 'login', :controller => 'sessions', :action => 'new'

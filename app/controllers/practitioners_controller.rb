@@ -3,12 +3,16 @@ class PractitionersController < ApplicationController
     @practitioner = Practitioner.new
   end
 
-  def change
+  def edit_selected
+    get_practitioners
+  end
+
+  def update_selected
     @practitioner = Practitioner.find(params[:practitioner_id]) unless params[:practitioner_id].nil?
     unless @practitioner.nil?
       cookies[:selected_practitioner_id] = @practitioner.id
     end
-    redirect_to_target_or_default(lookup_form_url)
+    redirect_to_target_or_default lookup_form_url(:practitioner_permalink => @practitioner.permalink)
   end
   
   def create

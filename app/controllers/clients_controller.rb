@@ -1,8 +1,25 @@
 class ClientsController < ApplicationController
 
+  before_filter :require_selected_practitioner, :only => [:lookup_form, :lookup] 
+
+  def index
+    get_practitioners
+  end
+  
   def edit
     @client = current_client
     @phone_prefixes = Client::PHONE_SUFFIXES
+  end
+  
+  def request_reset_phone
+    @client = Client.find_by_email(params[:email])
+    if @client.nil?
+      flash[:notice] = "We can not find your email address in our records, please register with us"
+      redirect_to signup_url(:email => params[:email] )
+    else
+      @client.send_reset_phone_link
+      flash[:notice] = "We've sent you an email"
+    end
   end
 
   def reset_phone

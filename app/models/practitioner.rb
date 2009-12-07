@@ -1,4 +1,5 @@
 class Practitioner < ActiveRecord::Base
+  include Permalinkable
   
   has_many :bookings
 

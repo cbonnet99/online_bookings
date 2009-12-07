@@ -22,7 +22,7 @@ class UserMailer < ActionMailer::Base
   def reset_phone(client)
     setup_email(client)
     @subject << "You have requested to reset your phone number"
-    @body[:reset_link] = reset_phone_url
+    @body[:reset_link] = reset_phone_url(:reset_code => self.reset_code)
   end
 
   def parse_caller(at)

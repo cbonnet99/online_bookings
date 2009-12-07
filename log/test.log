@@ -1683,3 +1683,296 @@ http://localhost/reset_phone
 Redirected to http://test.host/
 Completed in 28ms (DB: 11) | 302 Found [http://test.host/login_phone?login=foo1%40example.com]
   [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to CreateBookings (20091127004622)
+Migrating to CreateClients (20091203082733)
+Migrating to CreatePractitioners (20091204004521)
+Migrating to AddPractitionerToBookings (20091204005002)
+Migrating to AddNameToPractitioners (20091204062800)
+Migrating to AddPhoneToClients (20091207045322)
+Migrating to CreateClientEmails (20091207181506)
+Migrating to AddResetCodeToClients (20091207182644)
+Migrating to AddPermalinkToPractitioners (20091207184150)
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (1.2ms)[0m   [0;1mALTER TABLE "practitioners" ADD COLUMN "permalink" character varying(255)[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20091207184150')[0m
+  [4;36;1mSQL (0.8ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing PractitionersController#new (for 0.0.0.0 at 2009-12-08 08:11:21) [GET]
+  Parameters: {"action"=>"new", "controller"=>"practitioners"}
+Rendering template within layouts/application
+Rendering practitioners/new
+Rendered clients/_login_info (0.5ms)
+Completed in 14ms (View: 11, DB: 42) | 200 OK [http://test.host/practitioners/new]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing PractitionersController#edit_selected (for 0.0.0.0 at 2009-12-08 08:11:57) [GET]
+  Parameters: {"action"=>"edit_selected", "controller"=>"practitioners"}
+  [4;35;1mPractitioner Load (0.4ms)[0m   [0mSELECT * FROM "practitioners" [0m
+Rendering template within layouts/application
+Rendering practitioners/edit_selected
+Rendered practitioners/_select (3.7ms)
+Rendered clients/_login_info (0.6ms)
+Completed in 12ms (View: 9, DB: 8) | 200 OK [http://test.host/edit_selected_practitioner]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+
+
+Processing PractitionersController#new (for 0.0.0.0 at 2009-12-08 08:11:57) [GET]
+  Parameters: {"action"=>"new", "controller"=>"practitioners"}
+Rendering template within layouts/application
+Rendering practitioners/new
+Rendered clients/_login_info (0.1ms)
+Completed in 7ms (View: 7, DB: 0) | 200 OK [http://test.host/practitioners/new]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing PractitionersController#edit_selected (for 0.0.0.0 at 2009-12-08 08:24:54) [GET]
+  Parameters: {"action"=>"edit_selected", "controller"=>"practitioners"}
+  [4;35;1mPractitioner Load (0.4ms)[0m   [0mSELECT * FROM "practitioners" [0m
+Rendering template within layouts/application
+Rendering practitioners/edit_selected
+Rendered practitioners/_select (3.5ms)
+Rendered clients/_login_info (0.5ms)
+Completed in 12ms (View: 9, DB: 7) | 200 OK [http://test.host/edit_selected_practitioner]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+
+
+Processing PractitionersController#new (for 0.0.0.0 at 2009-12-08 08:24:54) [GET]
+  Parameters: {"action"=>"new", "controller"=>"practitioners"}
+Rendering template within layouts/application
+Rendering practitioners/new
+Rendered clients/_login_info (0.1ms)
+Completed in 7ms (View: 7, DB: 0) | 200 OK [http://test.host/practitioners/new]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+
+
+Processing PractitionersController#update_selected (for 0.0.0.0 at 2009-12-08 08:24:55) [POST]
+  Parameters: {"practitioner_id"=>"david-savage", "action"=>"update_selected", "controller"=>"practitioners"}
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 0) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing PractitionersController#edit_selected (for 0.0.0.0 at 2009-12-08 08:25:39) [GET]
+  Parameters: {"action"=>"edit_selected", "controller"=>"practitioners"}
+  [4;35;1mPractitioner Load (0.4ms)[0m   [0mSELECT * FROM "practitioners" [0m
+Rendering template within layouts/application
+Rendering practitioners/edit_selected
+Rendered practitioners/_select (3.6ms)
+Rendered clients/_login_info (0.5ms)
+Completed in 12ms (View: 9, DB: 8) | 200 OK [http://test.host/edit_selected_practitioner]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+
+
+Processing PractitionersController#new (for 0.0.0.0 at 2009-12-08 08:25:39) [GET]
+  Parameters: {"action"=>"new", "controller"=>"practitioners"}
+Rendering template within layouts/application
+Rendering practitioners/new
+Rendered clients/_login_info (0.1ms)
+Completed in 7ms (View: 7, DB: 0) | 200 OK [http://test.host/practitioners/new]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Load (0.4ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+
+
+Processing PractitionersController#update_selected (for 0.0.0.0 at 2009-12-08 08:25:39) [POST]
+  Parameters: {"practitioner_id"=>"1819705844", "action"=>"update_selected", "controller"=>"practitioners"}
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+Redirected to http://test.host/david-savage/lookup_form
+Completed in 2ms (DB: 1) | 302 Found [http://test.host/edit_selected_practitioner?practitioner_id=1819705844]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 08:37:31) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"3654", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.7ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/clients/2071878929
+Completed in 4ms (DB: 8) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=3654]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 08:37:31) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Rendered clients/_login_info (0.5ms)
+Completed in 8ms (View: 7, DB: 1) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-07 19:37:31.440196', '2009-12-07 19:37:31.440196', NULL, NULL, E'6de6b552e42e29c0cbc897f672bf356079ef5a69', NULL, NULL, E'68bd6cbf5d156c28b7593b68c9d5fefeb184bd24', NULL, E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 08:37:31) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"foo1@example.com"}
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mSQL (0.9ms)[0m   [0mINSERT INTO "client_emails" ("created_at", "updated_at", "client_id", "sent_at", "email_type") VALUES('2009-12-07 19:37:31.474836', '2009-12-07 19:37:31.474836', 2071878930, '2009-12-07 19:37:31.446039', E'reset_phone') RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+Sent mail to foo1@example.com
+
+Date: Tue, 8 Dec 2009 08:37:31 +1300
+From: cbonnet99@gmail.com
+To: foo1@example.com
+Subject: [Online Bookings(TEST)] You have requested to reset your phone number
+Mime-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
+You can reset your phone number by clicking on the following link:
+
+http://localhost/reset_phone
+Redirected to http://test.host/
+Completed in 44ms (DB: 2) | 302 Found [http://test.host/login_phone?login=foo1%40example.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 08:37:31) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"1234", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/login_phone?login=cbonnet99%40gmail.com
+Completed in 1ms (DB: 1) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=1234]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.5ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 08:38:26) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"3654", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.6ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/clients/2071878929
+Completed in 4ms (DB: 10) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=3654]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 08:38:26) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Rendered clients/_login_info (0.5ms)
+Completed in 8ms (View: 7, DB: 1) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-07 19:38:26.429988', '2009-12-07 19:38:26.429988', NULL, NULL, E'1c9e125d904c7ca140f158ddb7a34d2bdbe630ef', NULL, NULL, E'488b7a5dd529ee2f49f275077970a7deb5cffdb3', NULL, E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 08:38:26) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"foo1@example.com"}
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO "client_emails" ("created_at", "updated_at", "client_id", "sent_at", "email_type") VALUES('2009-12-07 19:38:26.450260', '2009-12-07 19:38:26.450260', 2071878930, '2009-12-07 19:38:26.436614', E'reset_phone') RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+Sent mail to foo1@example.com
+
+Date: Tue, 8 Dec 2009 08:38:26 +1300
+From: cbonnet99@gmail.com
+To: foo1@example.com
+Subject: [Online Bookings(TEST)] You have requested to reset your phone number
+Mime-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
+You can reset your phone number by clicking on the following link:
+
+http://localhost/reset_phone
+Redirected to http://test.host/
+Completed in 26ms (DB: 2) | 302 Found [http://test.host/login_phone?login=foo1%40example.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 08:38:26) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"1234", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/login_phone?login=cbonnet99%40gmail.com
+Completed in 2ms (DB: 1) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=1234]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing ClientsController#lookup_form (for 0.0.0.0 at 2009-12-08 08:38:26) [GET]
+  Parameters: {"action"=>"lookup_form", "practitioner_permalink"=>"blabla", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/lookup_form
+Rendered clients/_login_info (0.1ms)
+Completed in 5ms (View: 4, DB: 0) | 200 OK [http://test.host/blabla/lookup_form]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing ClientsController#lookup_form (for 0.0.0.0 at 2009-12-08 08:38:41) [GET]
+  Parameters: {"action"=>"lookup_form", "practitioner_permalink"=>"blabla", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/lookup_form
+Rendered clients/_login_info (0.5ms)
+Completed in 12ms (View: 10, DB: 6) | 200 OK [http://test.host/blabla/lookup_form]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing ClientsController#lookup_form (for 0.0.0.0 at 2009-12-08 08:39:18) [GET]
+  Parameters: {"action"=>"lookup_form", "practitioner_permalink"=>"blabla", "controller"=>"clients"}
+  [4;35;1mPractitioner Load (1.0ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."permalink" = E'blabla') LIMIT 1[0m
+Redirected to http://test.host/edit_selected_practitioner
+Filter chain halted as [:require_selected_practitioner] rendered_or_redirected.
+Completed in 1422ms (DB: 8) | 302 Found [http://test.host/blabla/lookup_form]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing ClientsController#lookup_form (for 0.0.0.0 at 2009-12-08 08:40:08) [GET]
+  Parameters: {"action"=>"lookup_form", "practitioner_permalink"=>"blabla", "controller"=>"clients"}
+  [4;35;1mPractitioner Load (0.7ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."permalink" = E'blabla') LIMIT 1[0m
+Redirected to http://test.host/edit_selected_practitioner
+Filter chain halted as [:require_selected_practitioner] rendered_or_redirected.
+Completed in 2ms (DB: 7) | 302 Found [http://test.host/blabla/lookup_form]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m

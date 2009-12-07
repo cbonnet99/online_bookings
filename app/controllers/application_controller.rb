@@ -10,9 +10,29 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
   
-  before_filter :get_practitioners
-  
   def get_practitioners
     @practitioners = Practitioner.all
   end
+  
+  def require_selected_practitioner
+    #check the URL
+    if !params[:practitioner_permalink].nil?
+      current_selected_pro = Practitioner.find_by_permalink(params[:practitioner_permalink])
+      unless current_selected_pro.nil?
+        cookies[:selected_practitioner_id] = current_selected_pro.id 
+      end
+    end
+    #fall back on the cookie
+    if current_selected_pro.nil? && !cookies[:selected_practitioner_id].nil?
+      current_selected_pro = Practitioner.find(cookies[:selected_practitioner_id])
+      unless current_selected_pro.nil?
+        redirect_to :controller => controller_name, :action => action_name, :practitioner_permalink => current_selected_pro.permalink 
+      end
+    end
+    #otherwise ask the client to select a practitioner
+    if current_selected_pro.nil?
+      redirect_to edit_selected_practitioner_url
+    end
+  end
+  
 end

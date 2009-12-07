@@ -1,6 +1,11 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ClientsControllerTest < ActionController::TestCase
+
+  def test_lookup_form
+    get :lookup_form, :practitioner_permalink => "blabla"
+    assert_redirected_to edit_selected_practitioner_url 
+  end
   
   def test_login_phone
     get :login_phone, :login => clients(:cyrille).email 

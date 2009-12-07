@@ -21,6 +21,8 @@ class Client < ActiveRecord::Base
   PHONE_SUFFIXES = MOBILE_SUFFIXES + FIXED_SUFFIXES
 
   def send_reset_phone_link
+    self.reset_code = Digest::SHA1.hexdigest("#{email}#{Time.now}#{id}")
+    self.save!
     UserMailer.deliver_reset_phone(self)
   end
 

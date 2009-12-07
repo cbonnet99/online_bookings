@@ -1,6 +1,7 @@
 megan:
     first_name: Megan
     last_name: Savage
+    permalink: megan-savage
     email: megan@beamazing.co.nz
     # password: "secret"
     password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f
@@ -8,6 +9,7 @@ megan:
 sav:
     first_name: David
     last_name: Savage
+    permalink: david-savage
     email: sav@beamazing.co.nz
     # password: "secret"
     password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f

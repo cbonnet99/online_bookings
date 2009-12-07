@@ -1,21 +1,19 @@
-require 'test_helper'
+require File.dirname(__FILE__) + '/../test_helper'
 
 class PractitionersControllerTest < ActionController::TestCase
   def test_new
     get :new
     assert_template 'new'
   end
-  
-  def test_create_invalid
-    Practitioner.any_instance.stubs(:valid?).returns(false)
-    post :create
-    assert_template 'new'
+
+  def test_edit_selected
+    get :edit_selected
+    assert_template 'edit_selected'
   end
   
-  def test_create_valid
-    Practitioner.any_instance.stubs(:valid?).returns(true)
-    post :create
-    assert_redirected_to root_url
-    assert_equal assigns['practitioner'].id, session['practitioner_id']
+  def test_update_selected
+    sav = practitioners(:sav)
+    post :update_selected, :practitioner_id => sav.id
+    assert_redirected_to lookup_form_url(:practitioner_permalink => sav.permalink) 
   end
 end
