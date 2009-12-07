@@ -1,4 +1,4 @@
-require 'test_helper'
+require File.dirname(__FILE__) + '/../test_helper'
 
 class ClientTest < ActiveSupport::TestCase
   def new_client(attributes = {})
@@ -15,18 +15,26 @@ class ClientTest < ActiveSupport::TestCase
     Client.delete_all
   end
   
+  def test_cleanup_phone
+    c = Factory(:client, :phone_prefix => "0 2-1/", :phone_suffix => "88 876-23/13"  )
+    assert_equal "021", c.phone_prefix
+    assert_equal "888762313", c.phone_suffix
+  end
+  
+  def test_phone_without_last4digits
+    c = Factory(:client, :phone_prefix => "021", :phone_suffix => "888762313"  )
+    assert_equal "021-88876", c.phone_without_last4digits
+  end
+  
+  def test_phone_without_last4digits_longer
+    c = Factory(:client, :phone_prefix => "021", :phone_suffix => "8887623135"  )
+    assert_equal "021-888762", c.phone_without_last4digits
+  end
+  
   def test_valid
     assert new_client.valid?
   end
-  
-  def test_require_username
-    assert new_client(:username => '').errors.on(:username)
-  end
-  
-  def test_require_password
-    assert new_client(:password => '').errors.on(:password)
-  end
-  
+    
   def test_require_well_formed_email
     assert new_client(:email => 'foo@bar@example.com').errors.on(:email)
   end
@@ -34,15 +42,6 @@ class ClientTest < ActiveSupport::TestCase
   def test_validate_uniqueness_of_email
     new_client(:email => 'bar@example.com').save!
     assert new_client(:email => 'bar@example.com').errors.on(:email)
-  end
-  
-  def test_validate_uniqueness_of_username
-    new_client(:username => 'uniquename').save!
-    assert new_client(:username => 'uniquename').errors.on(:username)
-  end
-  
-  def test_validate_odd_characters_in_username
-    assert new_client(:username => 'odd ^&(@)').errors.on(:username)
   end
   
   def test_validate_password_length
@@ -58,13 +57,6 @@ class ClientTest < ActiveSupport::TestCase
     client.save!
     assert client.password_hash
     assert client.password_salt
-  end
-  
-  def test_authenticate_by_username
-    Client.delete_all
-    client = new_client(:username => 'foobar', :password => 'secret')
-    client.save!
-    assert_equal client, Client.authenticate('foobar', 'secret')
   end
   
   def test_authenticate_by_email

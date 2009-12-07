@@ -1,17 +1,28 @@
 ActionController::Routing::Routes.draw do |map|
+  map.logout 'logout', :controller => 'sessions', :action => 'destroy'
+  map.login 'login', :controller => 'sessions', :action => 'new'
+  map.resources :sessions
+
+  map.resources :practitioners, :collection => {:change => :post }
+  map.resources :practitioners do |p|
+    p.resources :bookings
+  end
+
   map.forgotten_password 'forgotten_password', :controller => 'clients', :action => 'forgotten_password'
-  map.forgotten_answer 'forgotten_answer', :controller => 'clients', :action => 'forgotten_anwser'
+  map.change_phone 'change_phone', :controller => 'clients', :action => 'change_phone'
   map.client_login 'client_login', :controller => 'clients', :action => 'login'
-  map.login_qa 'login_qa', :controller => 'clients', :action => 'login_qa'
+  map.login_phone 'login_phone', :controller => 'clients', :action => 'login_phone'
   map.lookup 'lookup', :controller => 'clients', :action => 'lookup'
   map.signup 'signup', :controller => 'clients', :action => 'new'
   map.logout 'logout', :controller => 'sessions', :action => 'destroy'
   map.login 'login', :controller => 'sessions', :action => 'new'
   map.resources :sessions
 
-  map.resources :clients
+  map.resources :clients do |c|
+    c.resources :bookings
+  end
 
-  map.resources :bookings
+  # map.resources :bookings
 
   map.resources :clients, :member => {:calendar => :get }
 

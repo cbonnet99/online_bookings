@@ -1,0 +1,14 @@
+megan:
+    first_name: Megan
+    last_name: Savage
+    email: megan@beamazing.co.nz
+    # password: "secret"
+    password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f
+    password_salt: bef65e058905c379436d80d1a32e7374b139e7b0
+sav:
+    first_name: David
+    last_name: Savage
+    email: sav@beamazing.co.nz
+    # password: "secret"
+    password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f
+    password_salt: bef65e058905c379436d80d1a32e7374b139e7b0

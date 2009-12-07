@@ -1,0 +1,1369 @@
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (68.8ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [4;35;1mSQL (2.9ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to CreateBookings (20091127004622)
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (36.3ms)[0m   [0;1mCREATE TABLE "bookings" ("id" serial primary key, "starts_at" timestamp, "ends_at" timestamp, "name" character varying(255), "client_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [4;35;1mSQL (0.5ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20091127004622')[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mCOMMIT[0m
+Migrating to CreateClients (20091203082733)
+  [4;35;1mSQL (0.4ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (4.7ms)[0m   [0;1mCREATE TABLE "clients" ("id" serial primary key, "email" character varying(255), "password_hash" character varying(255), "password_salt" character varying(255), "question" character varying(500), "answer" character varying(255), "string" character varying(255), "created_at" timestamp, "updated_at" timestamp) [0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20091203082733')[0m
+  [4;36;1mSQL (1.4ms)[0m   [0;1mCOMMIT[0m
+Migrating to CreatePractitioners (20091204004521)
+  [4;35;1mSQL (0.4ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (4.7ms)[0m   [0;1mCREATE TABLE "practitioners" ("id" serial primary key, "username" character varying(255), "email" character varying(255), "password_hash" character varying(255), "password_salt" character varying(255), "created_at" timestamp, "updated_at" timestamp) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20091204004521')[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mCOMMIT[0m
+Migrating to AddPractitionerToBookings (20091204005002)
+  [4;35;1mSQL (0.4ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mALTER TABLE "bookings" ADD COLUMN "practitioner_id" integer[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20091204005002')[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mCOMMIT[0m
+Migrating to AddNameToPractitioners (20091204062800)
+  [4;35;1mSQL (0.8ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mALTER TABLE "practitioners" ADD COLUMN "first_name" character varying(255)[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mALTER TABLE "practitioners" ADD COLUMN "last_name" character varying(255)[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20091204062800')[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mCOMMIT[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (5.3ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to CreateBookings (20091127004622)
+Migrating to CreateClients (20091203082733)
+Migrating to CreatePractitioners (20091204004521)
+Migrating to AddPractitionerToBookings (20091204005002)
+Migrating to AddNameToPractitioners (20091204062800)
+Migrating to AddPhoneToClients (20091207045322)
+  [4;35;1mSQL (0.2ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (22.0ms)[0m   [0;1mALTER TABLE "clients" ADD COLUMN "phone_prefix" character varying(3)[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mALTER TABLE "clients" ADD COLUMN "phone_suffix" character varying(10)[0m
+  [4;36;1mSQL (10.0ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20091207045322')[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mCOMMIT[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.7ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'nonexisting') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.1ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.1ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK TO SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.3ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK TO SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.1ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (23.5ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:15:35.276597', '2009-12-07 05:15:35.276597', NULL, NULL, E'fdbf8765eeab4ad7cfc7072d3c8dd48ab8bfc5cd', NULL, NULL, E'aecfd5ab3e756b6eb77f6d1e344cdd026fecca27', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foobar') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'nonexisting') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:15:35.311058', '2009-12-07 05:15:35.311058', NULL, NULL, E'59fb3d117f9076f20e6ca09d733ff3b9f3d1e509', NULL, NULL, E'cf285f9e92cbc02da3e49d9fdb533059b566dd95', E'foo@bar.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:15:35.318192', '2009-12-07 05:15:35.318192', NULL, NULL, E'bdf3f09951cc957869682440e3a5e5b944851637', NULL, NULL, E'c54cf1c9dd60b62fa294ae3a9b1fb5f78f9f4c11', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foobar') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPGError: ERROR: value too long for type character varying(3)
+: INSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:15:35.326564', '2009-12-07 05:15:35.326564', E'88 876-23/13', E'0 2-1/', E'01fb7495db9206e11df5214d7ca845adcff88c6d', NULL, NULL, E'e7faf551431d0fb9e3d0ec57252d213a19d3fbdb', E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK TO SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:15:35.332825', '2009-12-07 05:15:35.332825', NULL, NULL, E'3fac5a34b3af895ae39636ee721882f445e94a35', NULL, NULL, E'cd6adfc44982c85df42587416dbacb891ad88672', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:15:35.365911', '2009-12-07 05:15:35.365911', NULL, NULL, E'52310fe406bd97b3c2f668a4da83255ecbbf2c21', NULL, NULL, E'9bfed8a68caa855fa039940132ea81d123fb9100', E'bar@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.7ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:17:34.520262', '2009-12-07 05:17:34.520262', NULL, NULL, E'7994fd14cc261929df8c5e301fa620dea02ee12c', NULL, NULL, E'd7fef93eeec4026484451933968f4a314ee285ad', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foobar') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'nonexisting') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:17:34.531082', '2009-12-07 05:17:34.531082', NULL, NULL, E'25639c1474486241959ddc5d73f8fce3dfa99b9b', NULL, NULL, E'37054719c187565079b7276eb4a695316e0d5240', E'foo@bar.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:17:34.538271', '2009-12-07 05:17:34.538271', NULL, NULL, E'f3a0318e93a18e19811bde7468d81c2bb07569b7', NULL, NULL, E'f4505d38e5f2379ef5d4266df7fb0c67be02a014', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foobar') LIMIT 1[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPGError: ERROR: value too long for type character varying(3)
+: INSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:17:34.547606', '2009-12-07 05:17:34.547606', E'88 876-23/13', E'0 2-1/', E'9160f8adeff38e97653f7e0c9ae140b9ac5c44db', NULL, NULL, E'7b3713429a6ed67c4e7ff4c0910723af1d54c9a0', E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK TO SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.1ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:17:34.553628', '2009-12-07 05:17:34.553628', NULL, NULL, E'a9cdac98f755492c3d8b58c9181e9404d3824883', NULL, NULL, E'2984f31deeffcbcd8b910dac9a8eb805a7929b9c', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:17:34.574397', '2009-12-07 05:17:34.574397', NULL, NULL, E'aedf0b0c761ad645f10963de69a5595abc1d2540', NULL, NULL, E'5a74be25a99c60d1f9cbb85146f6f714cf43e8c9', E'bar@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:17:55.195712', '2009-12-07 05:17:55.195712', NULL, NULL, E'1c6a0442299ddd42d9e80e585b095fb134221a56', NULL, NULL, E'290cb707c29f8b601f157baf9ed4a119eb7a92e0', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foobar') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'nonexisting') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:17:55.206783', '2009-12-07 05:17:55.206783', NULL, NULL, E'0dcaf45d8676e9dbe19e96e3de50c789fbd44efa', NULL, NULL, E'6b8a49a4ab6b48e70eb3cc9e185ec509bdfd9060', E'foo@bar.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:17:55.213814', '2009-12-07 05:17:55.213814', NULL, NULL, E'ac2216e7c3f50cf4817291e8c9749426b249543e', NULL, NULL, E'b1672d8df1dcbd07f029709c034bf0e90b708e51', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foobar') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPGError: ERROR: value too long for type character varying(3)
+: INSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:17:55.222234', '2009-12-07 05:17:55.222234', E'88 876-23/13', E'0 2-1/', E'0c46262ea85f4bcde2f82d5dc2a68ba3b6ee1d2e', NULL, NULL, E'bee6f8f95772f2ce44da05736626665e74ccdb10', E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK TO SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:17:55.228137', '2009-12-07 05:17:55.228137', NULL, NULL, E'aae6a159d8b30f5a162ed5f541bc9d3446831607', NULL, NULL, E'5b47399d8bfc93489069a29b1bb25df17390ef98', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mClient Load (0.1ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:17:55.247598', '2009-12-07 05:17:55.247598', NULL, NULL, E'9ecd12158b2313d6a83289c4044b032c91d1de97', NULL, NULL, E'0d0c5cb4670b6580c90d00698b78cae70ee91478', E'bar@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:19:22.756889', '2009-12-07 05:19:22.756889', NULL, NULL, E'3a699f82bec882441bdcff5ba0df885f6d5124c9', NULL, NULL, E'5c9564a668741d6c9431a8414b17dea32cf0bd47', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foobar') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'nonexisting') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:19:22.767693', '2009-12-07 05:19:22.767693', NULL, NULL, E'0c8aa95e8ba06f78e714842f3056aef25d287396', NULL, NULL, E'f3bad8b35cc20f5d7468912564ab0badf8143b7c', E'foo@bar.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:19:22.774890', '2009-12-07 05:19:22.774890', NULL, NULL, E'cb9128e5d7e0c214fe2544728cb15a971488a687', NULL, NULL, E'5844e388b67fd544db742242ae0e7189141b1314', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foobar') LIMIT 1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPGError: ERROR: value too long for type character varying(3)
+: INSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:19:22.783642', '2009-12-07 05:19:22.783642', E'88 876-23/13', E'0 2-1/', E'0609080197b6825729201ed66294dd2ba1dbc8a5', NULL, NULL, E'7f3232b4cde6927877344aa2a823ecbc346d1a09', E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK TO SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.1ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:19:22.789266', '2009-12-07 05:19:22.789266', NULL, NULL, E'3ecdedb733eb7c39103cd0a83ebd88c1da8c0f41', NULL, NULL, E'546d2f97500c2f46dff108c67cf07bc2290df799', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:19:22.809174', '2009-12-07 05:19:22.809174', NULL, NULL, E'db3148df4ad54f8e6c223d093a3a4453ed05a375', NULL, NULL, E'e728040d6e9c5fef5463a6f886f0c1975baddc1b', E'bar@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:19:41.854809', '2009-12-07 05:19:41.854809', NULL, NULL, E'f85a0dd171502878e2a2b17a922b898e865f51f5', NULL, NULL, E'587ad6a42b95a6b26ce04e9c89145350fd77a2ef', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foobar') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Load (0.5ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'nonexisting') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:19:41.866446', '2009-12-07 05:19:41.866446', NULL, NULL, E'870a645110d195960588de096595f4b560188f01', NULL, NULL, E'775a3c347082ca78024430e02df5eca487f04227', E'foo@bar.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPGError: ERROR: value too long for type character varying(3)
+: INSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:19:41.871816', '2009-12-07 05:19:41.871816', E'88 876-23/13', E'0 2-1/', E'0c833b0f0bc40c0146613d9f0ad6c344c62e8d7b', NULL, NULL, E'9ae7ec8e04b774fb0fd7c78d9e682bab4e03b3eb', E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK TO SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.1ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:19:41.877556', '2009-12-07 05:19:41.877556', NULL, NULL, E'f795c6b6a0c1528cdeee360e268016406cb5d2ec', NULL, NULL, E'3268be63b8c1e632e9c50a7ca55461f284a70b83', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:19:41.899778', '2009-12-07 05:19:41.899778', NULL, NULL, E'5df9080ca457a9bd2e506e38994127bbe7999864', NULL, NULL, E'cdbe736877879058958765b2c72845fd16038069', E'bar@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:21:14.320197', '2009-12-07 05:21:14.320197', NULL, NULL, E'5da1af5fbca554ec20da8c47abec0d645750fec0', NULL, NULL, E'ff68be0ed6a809e49fd7e58d12b8dc31ad59e4c8', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foobar') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'nonexisting') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:21:14.331691', '2009-12-07 05:21:14.331691', NULL, NULL, E'29d8f81f8fbbe75e9e213486c5cb189b51067405', NULL, NULL, E'3b88f7128dde89bebc17858efd32cf0857f7efdc', E'foo@bar.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.6ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPGError: ERROR: value too long for type character varying(3)
+: INSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:21:14.338443', '2009-12-07 05:21:14.338443', E'88 876-23/13', E'0 2-1/', E'6776fcffe4a2bedac36c81e6f1c7acfeb6893974', NULL, NULL, E'3ef3dfa101bb38a2e5449ae9a2b198bf081f7290', E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK TO SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:21:14.345024', '2009-12-07 05:21:14.345024', NULL, NULL, E'3b1612b4af80c5933f9c40e6a652f81d3c2104b5', NULL, NULL, E'7fd787f30d14bdefd88c36df6684891636e19485', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mClient Load (1.3ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:21:14.366533', '2009-12-07 05:21:14.366533', NULL, NULL, E'04bd583b195e52d9cc2cf96ea5952e94c5ae271e', NULL, NULL, E'222d9b755b908a3c2b38edf715a63d89566fbed6', E'bar@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.5ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPGError: ERROR: value too long for type character varying(3)
+: INSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:21:23.981917', '2009-12-07 05:21:23.981917', E'88 876-23/13', E'0 2-1/', E'1e48279d29a703bb41e1f137bf2470e3e5f41c71', NULL, NULL, E'ebe3ee7ee4b469e32a30c2339d8185c1b2f4e715', E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK TO SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:21:46.449696', '2009-12-07 05:21:46.449696', E'888762313', E'021', E'4c9e8dfed756d0a16c8d42c99f79108cb4c1a5f0', NULL, NULL, E'be7a354df58ea94130b3a91de728ee85ef78eae8', E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:22:07.397986', '2009-12-07 05:22:07.397986', E'888762313', E'021', E'be37926cbcf0effdbed2afa5ba166be6496171df', NULL, NULL, E'1ae94fec25a743443288cd6930b95ed63ebd1492', E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:23:28.855908', '2009-12-07 05:23:28.855908', E'888762313', E'021', E'ec0aad0da8c5516d66a35009549c55f89fb38f54', NULL, NULL, E'46a8d26d35a8329fef7e8aac3b657d3a23dbda32', E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.7ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:23:44.548416', '2009-12-07 05:23:44.548416', E'888762313', E'021', E'a362b295202886fde1d3bb9196ecda95b683af61', NULL, NULL, E'8b26bab3cf4e436afe8dddb6c0b8df64ae9949b4', E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:23:51.693566', '2009-12-07 05:23:51.693566', E'888762313', E'021', E'dc5782e58e853a349b854d235bd001dc98f16df6', NULL, NULL, E'63dfabb1f8391170b016d00aa97918c86e138222', E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:24:25.710547', '2009-12-07 05:24:25.710547', E'888762313', E'021', E'a603bd01967704b78c253e3d8848c7fb088194a6', NULL, NULL, E'392a6a7ce5b2bcec5dbbb9e0f99c49431da08c46', E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPGError: ERROR: value too long for type character varying(10)
+: INSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:24:32.645533', '2009-12-07 05:24:32.645533', E'888762313567', E'021', E'5e0d34bc24a639aac596bb6d45401d724450a779', NULL, NULL, E'98d48fca0ff02ab8d5d1dd026fb320309f270502', E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK TO SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.7ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 05:24:58.134325', '2009-12-07 05:24:58.134325', E'8887623135', E'021', E'51a0c6adb9b8934241f105eba0ccfb3f61ea9417', NULL, NULL, E'a77fa1d6028623a73f40272cdb9f8fe6b02520bd', E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing ClientsController#new (for 0.0.0.0 at 2009-12-07 18:25:54) [GET]
+  Parameters: {"action"=>"new", "controller"=>"clients"}
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT * FROM "practitioners" [0m
+Rendering template within layouts/application
+Rendering clients/new
+Completed in 20ms (View: 15, DB: 9) | 200 OK [http://test.host/signup]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-07 18:26:35) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients"}
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT * FROM "practitioners" [0m
+  [4;36;1mClient Load (0.4ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" IS NULL) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-07 18:27:35) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients"}
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT * FROM "practitioners" [0m
+  [4;36;1mClient Load (0.4ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" IS NULL) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.5ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-07 18:29:47) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT * FROM "practitioners" [0m
+  [4;35;1mClient Load (0.7ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.5ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-07 18:32:12) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT * FROM "practitioners" [0m
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Completed in 14ms (View: 9, DB: 8) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 08:03:37.467772', '2009-12-07 08:03:37.467772', NULL, NULL, E'4d6666298369d6a2405d24cc7f0aae3e4f7e8f80', NULL, NULL, E'a1b9b8ed5c52236ca5a17d3f2662be3932f56b0e', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foobar') LIMIT 1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'nonexisting') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.1ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 08:03:37.479120', '2009-12-07 08:03:37.479120', NULL, NULL, E'4901a2e5aa22ae7d08d5d1b20b7c607a36b0f513', NULL, NULL, E'e755c6f82e87b7251be2a113ecfa647c65674af3', E'foo@bar.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 08:03:37.484431', '2009-12-07 08:03:37.484431', E'888762313', E'021', E'95e93b012737fbdb5b4ea975e068b35850c73ba3', NULL, NULL, E'1e7f27771a7f59e274d3b4d4ee5af4985a730a41', E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 08:03:37.491349', '2009-12-07 08:03:37.491349', NULL, NULL, E'f04bd03b6d50120338cd16e05d6df63a95c33df1', NULL, NULL, E'83771ae666a4328b9d0fed168d1441e45d5bfb59', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo2@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 08:03:37.496465', '2009-12-07 08:03:37.496465', E'888762313', E'021', E'3cc389b15425b770aa380c36f695f4ce39ad4fd5', NULL, NULL, E'af719678e8375d9f0462adb8607a4f554ed5f3cf', E'foo2@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo3@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 08:03:37.501183', '2009-12-07 08:03:37.501183', E'8887623135', E'021', E'b41f01a3e965271a120dbe7ebcc2ec0640e7b0dd', NULL, NULL, E'9aa89466362775a160de797463c22efab3db762a', E'foo3@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mClient Load (0.1ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "email", "answer") VALUES('2009-12-07 08:03:37.521888', '2009-12-07 08:03:37.521888', NULL, NULL, E'72c54f05a9f9682361b98c882f575dbcc2a523b6', NULL, NULL, E'641fa6afce64866a223d4715d383b0f62a76de61', E'bar@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.2ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Delete all (0.1ms)[0m   [0mDELETE FROM "practitioners" [0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foobar') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.1ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foobar') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.1ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO "practitioners" ("created_at", "updated_at", "username", "password_salt", "last_name", "password_hash", "email", "first_name") VALUES('2009-12-07 08:03:37.533068', '2009-12-07 08:03:37.533068', E'foobar', E'cf1a1cc1377d67f5bd9d344d5a58f06573f370b8', NULL, E'8d17d13ceaa9dd12c8ffe5a01bd905992f098431', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+  [4;35;1mPractitioner Load (0.4ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."username" = E'foobar') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.2ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."username" = E'nonexisting') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."email" = E'nonexisting') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mPractitioner Delete all (0.1ms)[0m   [0mDELETE FROM "practitioners" [0m
+  [4;36;1mPractitioner Delete all (0.1ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.1ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO "practitioners" ("created_at", "updated_at", "username", "password_salt", "last_name", "password_hash", "email", "first_name") VALUES('2009-12-07 08:03:37.547507', '2009-12-07 08:03:37.547507', E'foo', E'ab48c3fc0054ccf2bab4d33121dd0a4767c66c0e', NULL, E'1bfa9cfbfa39bcb8b6926b52488de8b5acf43958', E'foo@bar.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."username" = E'foo@bar.com') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.1ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Delete all (0.1ms)[0m   [0mDELETE FROM "practitioners" [0m
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foobar') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foobar') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.1ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mINSERT INTO "practitioners" ("created_at", "updated_at", "username", "password_salt", "last_name", "password_hash", "email", "first_name") VALUES('2009-12-07 08:03:37.557000', '2009-12-07 08:03:37.557000', E'foobar', E'0d1785eb15cec622eb090822a7ad252899dd9258', NULL, E'ec823d9577d82748c6618296c4b01945fdd3424c', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."username" = E'foobar') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.1ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.1ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.1ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO "practitioners" ("created_at", "updated_at", "username", "password_salt", "last_name", "password_hash", "email", "first_name") VALUES('2009-12-07 08:03:37.564902', '2009-12-07 08:03:37.564902', E'foo', E'b8e2ac0591c833cc875fd8b203883206cd8a2aeb', NULL, E'5bbe78c3efd724663cbec4dd6001ebf167248fe2', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.1ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mPractitioner Delete all (0.2ms)[0m   [0mDELETE FROM "practitioners" [0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.2ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.2ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.1ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mPractitioner Delete all (0.1ms)[0m   [0mDELETE FROM "practitioners" [0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.2ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'odd ^&(@)') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.1ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mPractitioner Delete all (0.1ms)[0m   [0mDELETE FROM "practitioners" [0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.1ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.1ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.1ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.1ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.9ms)[0m   [0;1mINSERT INTO "practitioners" ("created_at", "updated_at", "username", "password_salt", "last_name", "password_hash", "email", "first_name") VALUES('2009-12-07 08:03:37.602979', '2009-12-07 08:03:37.602979', E'foo', E'1d8c26db14124933dd6b07e90334a11dda85a3cc', NULL, E'87a94fac1087710f0b06079cafef4214f00e2fd3', E'bar@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.4ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.1ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'uniquename') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.1ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mPractitioner Load (0.1ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'uniquename') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.1ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO "practitioners" ("created_at", "updated_at", "username", "password_salt", "last_name", "password_hash", "email", "first_name") VALUES('2009-12-07 08:03:37.614157', '2009-12-07 08:03:37.614157', E'uniquename', E'ac51cf34efde3515d80c76634b808c12dc39641a', NULL, E'073efbb3d4d3164ccc28a49ce84043d2d34a864f', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'uniquename') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.1ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mBooking Load (0.3ms)[0m   [0mSELECT * FROM "bookings" LIMIT 1[0m
+
+
+Processing BookingsController#destroy (for 0.0.0.0 at 2009-12-07 21:03:38) [DELETE]
+  Parameters: {"action"=>"destroy", "id"=>#<Booking id: 1538779612, starts_at: "2009-12-07 22:03:38", ends_at: "2009-12-07 23:03:38", name: "Pending", client_id: 2071878929, created_at: "2009-12-07 08:03:38", updated_at: "2009-12-07 08:03:38", practitioner_id: 1819705844>, "controller"=>"bookings"}
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT * FROM "practitioners" [0m
+  [4;35;1mBooking Load (0.4ms)[0m   [0mSELECT * FROM "bookings" WHERE ("bookings"."id" = 1538779612) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mBooking Destroy (0.3ms)[0m   [0mDELETE FROM "bookings" WHERE "id" = 1538779612[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mBooking Load (0.2ms)[0m   [0mSELECT * FROM "bookings" LIMIT 1[0m
+
+
+Processing BookingsController#edit (for 0.0.0.0 at 2009-12-07 21:03:38) [GET]
+  Parameters: {"action"=>"edit", "id"=>#<Booking id: 1538779612, starts_at: "2009-12-07 22:03:38", ends_at: "2009-12-07 23:03:38", name: "Pending", client_id: 2071878929, created_at: "2009-12-07 08:03:38", updated_at: "2009-12-07 08:03:38", practitioner_id: 1819705844>, "controller"=>"bookings"}
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT * FROM "practitioners" [0m
+  [4;35;1mBooking Load (0.2ms)[0m   [0mSELECT * FROM "bookings" WHERE ("bookings"."id" = 1538779612) [0m
+Rendering template within layouts/application
+Rendering bookings/edit
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+
+
+Processing BookingsController#index (for 0.0.0.0 at 2009-12-07 21:03:38) [GET]
+  Parameters: {"action"=>"index", "controller"=>"bookings"}
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT * FROM "practitioners" [0m
+  [4;35;1mBooking Load (0.2ms)[0m   [0mSELECT * FROM "bookings" [0m
+Rendering template within layouts/application
+Rendering bookings/index
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+
+
+Processing BookingsController#new (for 0.0.0.0 at 2009-12-07 21:03:39) [GET]
+  Parameters: {"action"=>"new", "controller"=>"bookings"}
+  [4;36;1mPractitioner Load (0.4ms)[0m   [0;1mSELECT * FROM "practitioners" [0m
+Rendering template within layouts/application
+Rendering bookings/new
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mBooking Load (0.2ms)[0m   [0mSELECT * FROM "bookings" LIMIT 1[0m
+
+
+Processing BookingsController#show (for 0.0.0.0 at 2009-12-07 21:03:39) [GET]
+  Parameters: {"action"=>"show", "id"=>#<Booking id: 1538779612, starts_at: "2009-12-07 22:03:38", ends_at: "2009-12-07 23:03:38", name: "Pending", client_id: 2071878929, created_at: "2009-12-07 08:03:38", updated_at: "2009-12-07 08:03:38", practitioner_id: 1819705844>, "controller"=>"bookings"}
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT * FROM "practitioners" [0m
+  [4;35;1mBooking Load (0.2ms)[0m   [0mSELECT * FROM "bookings" WHERE ("bookings"."id" = 1538779612) [0m
+Rendering template within layouts/application
+Rendering bookings/show
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-07 21:03:39) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT * FROM "practitioners" [0m
+  [4;36;1mClient Load (0.7ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Completed in 85ms (View: 8, DB: 2) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing PractitionersController#new (for 0.0.0.0 at 2009-12-07 21:03:39) [GET]
+  Parameters: {"action"=>"new", "controller"=>"practitioners"}
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT * FROM "practitioners" [0m
+Rendering template within layouts/application
+Rendering practitioners/new
+Completed in 10ms (View: 7, DB: 1) | 200 OK [http://test.host/signup]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+
+
+Processing SessionsController#new (for 0.0.0.0 at 2009-12-07 21:03:39) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT * FROM "practitioners" [0m
+Rendering template within layouts/application
+Rendering sessions/new
+Completed in 7ms (View: 4, DB: 1) | 200 OK [http://test.host/login]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-07 21:04:19) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT * FROM "practitioners" [0m
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Completed in 13ms (View: 9, DB: 7) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-07 21:07:14) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT * FROM "practitioners" [0m
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Completed in 13ms (View: 9, DB: 7) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-07 21:08:27) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT * FROM "practitioners" [0m
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Completed in 14ms (View: 9, DB: 7) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-07 21:08:40) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT * FROM "practitioners" [0m
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-07 21:08:40) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT * FROM "practitioners" [0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Completed in 11ms (View: 9, DB: 10) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-07 21:14:16) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT * FROM "practitioners" [0m
+  [4;36;1mClient Load (0.6ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Completed in 13ms (View: 9, DB: 9) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-07 21:14:38) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT * FROM "practitioners" [0m
+  [4;36;1mClient Load (0.6ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Completed in 13ms (View: 9, DB: 8) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-07 21:14:55) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT * FROM "practitioners" [0m
+  [4;36;1mClient Load (0.6ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Completed in 14ms (View: 9, DB: 8) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-07 21:16:16) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"3654", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT * FROM "practitioners" [0m
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/clients/2071878929
+Completed in 5ms (DB: 7) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=3654]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-07 21:16:16) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT * FROM "practitioners" [0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Completed in 11ms (View: 9, DB: 1) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (1.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-07 21:17:08) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"3654", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT * FROM "practitioners" [0m
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/clients/2071878929
+Completed in 5ms (DB: 8) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=3654]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-07 21:17:08) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT * FROM "practitioners" [0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Completed in 10ms (View: 9, DB: 1) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-07 21:17:08) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"1234", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT * FROM "practitioners" [0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/login_phone?login=cbonnet99%40gmail.com
+Completed in 2ms (DB: 1) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=1234]
+  [4;36;1mSQL (0.4ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-07 21:17:30) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"3654", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT * FROM "practitioners" [0m
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/clients/2071878929
+Completed in 5ms (DB: 7) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=3654]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-07 21:17:30) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT * FROM "practitioners" [0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Completed in 11ms (View: 9, DB: 1) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-07 21:17:30) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"1234", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT * FROM "practitioners" [0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/login_phone?login=cbonnet99%40gmail.com
+Completed in 2ms (DB: 1) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=1234]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m

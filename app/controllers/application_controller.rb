@@ -3,9 +3,16 @@
 
 class ApplicationController < ActionController::Base
   include Authentication
+  include Authentication
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
+  
+  before_filter :get_practitioners
+  
+  def get_practitioners
+    @practitioners = Practitioner.all
+  end
 end
