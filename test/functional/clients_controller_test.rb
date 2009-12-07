@@ -7,6 +7,19 @@ class ClientsControllerTest < ActionController::TestCase
     assert_template 'login_phone'
   end
   
+  def test_login_phone_no_number
+    ActionMailer::Base.delivery_method = :test
+    ActionMailer::Base.perform_deliveries = true
+    ActionMailer::Base.deliveries = []
+		
+    c = Factory(:client)
+    get :login_phone, :login => c.email
+    assert_not_nil flash[:warning]
+    assert_redirected_to root_url
+    
+    assert_equal 1, ActionMailer::Base.deliveries.size, "One email should have been sent with a reset link"
+  end
+  
   def test_login
     cyrille = clients(:cyrille)
     last4_digits = cyrille.phone_suffix[-4..cyrille.phone_suffix.length]

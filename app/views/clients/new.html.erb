@@ -7,7 +7,7 @@
     <%= f.label :email, "Email Address" %><br />
     <%= f.text_field :email %>
   </p>
-  <p id="client-question">
+  <p id="client-phone">
      <%= f.label :phone, "Your phone number (preferably a mobile number):" %><br />
      <%= f.select :phone_prefix, @phone_prefixes %><%= f.text_field :phone_suffix, :size => 10, :maxlength => 10   %>
    </p>

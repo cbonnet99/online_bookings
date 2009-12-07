@@ -1,0 +1,17 @@
+<% title "Change your phone number" %>
+<p>Please enter the last 4 digits of your OLD phone number and then enter your new phone number</p>
+<% form_tag update_phone_url do %>
+  <p>
+    <%= label_tag :login, "Your email address:" %><br />
+    <%= text_field_tag :login, params[:login] %>
+  </p>
+  <p>
+    <%= label_tag :phone_last4digits, "Your OLD phone number:" %><br />
+    <%= @client.phone_without_last4digits %><%= text_field_tag :phone_last4digits, "", :size => 4, :maxlength => 4  %>
+  </p>
+  <p>
+    <%= label_tag :phone, "Your NEW phone number (preferably a mobile number):" %><br />
+	<%= select_tag :phone_prefix, options_for_select(@phone_prefixes) %><%= text_field_tag :phone_suffix, "", :size => 10, :maxlength => 10   %>
+  </p>
+  <p><%= submit_tag "Change my phone number" %></p>
+<% end %>

@@ -29,7 +29,7 @@ a {
   background-color: #FFF;
 }
 
-#flash_notice, #flash_error {
+#flash_notice, #flash_error, #flash_warning {
   padding: 5px 8px;
   margin: 10px 0;
 }
@@ -37,6 +37,11 @@ a {
 #flash_notice {
   background-color: #CFC;
   border: solid 1px #6C6;
+}
+
+#flash_warning {
+  background-color: #F48E05;
+  border: solid 1px #C66;
 }
 
 #flash_error {

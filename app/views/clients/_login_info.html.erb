@@ -1,0 +1,4 @@
+<% if logged_in? -%>
+	<p>You are logged in as: <%= client.email%>&nbsp;<%= link_to "Logout", logout_url%></p>
+	<p>Your phone number is: <%= client.phone%>&nbsp;<%= link_to "Change", edit_phone_url%></p>
+<% end -%>

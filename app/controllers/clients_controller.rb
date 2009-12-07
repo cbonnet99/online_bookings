@@ -1,4 +1,54 @@
 class ClientsController < ApplicationController
+
+  def edit
+    @client = current_client
+    @phone_prefixes = Client::PHONE_SUFFIXES
+  end
+
+  def reset_phone
+    reset_code = params[:reset_code]
+    @client = Client.find_by_email(params[:email])
+    if reset_code == @client.reset_code
+      flash[:notice] = "Please enter a new phone number"
+    else
+      flash[:error] = "Sorry, there is a problem with your reset code. Please contact us at #{APP_CONFIG[:contact_email]}"
+      redirect_to root_url
+    end
+  end
+
+  def edit_phone
+    if logged_in?
+      redirect_to edit_client_url(current_client)
+    else
+      @client = Client.find_by_email(params["login"])
+      @phone_prefixes = Client::PHONE_SUFFIXES
+    end
+  end
+
+  def update_phone
+    if params[:phone_suffix].blank?
+      flash[:error] = "Please enter a NEW phone number"
+      redirect_to edit_phone_url(:login => params["login"] )
+    else
+      @client = Client.find_by_email(params["login"])
+      if @client.check_phone_first_4digits(params[:phone_last4digits])
+        @client.phone_prefix = params[:phone_prefix]
+        @client.phone_suffix = params[:phone_suffix]
+        if @client.save
+          session[:client_id] = @client.id
+          flash[:notice] = "Your phone number has been changed"
+          redirect_to @client
+        else
+          flash[:error] = "There were some errors while saving your phone number: #{@client.errors.full_messages.to_sentence}"
+          redirect_to edit_phone_url(:login => params["login"] )
+        end
+      else
+        flash[:error] = "Sorry, the numbers do not match. Please try again."
+        redirect_to edit_phone_url(:login => params["login"] )
+      end
+    end
+  end
+    
   def new
     @client = Client.new(:email => params[:email])
     @phone_prefixes = Client::PHONE_SUFFIXES
@@ -26,6 +76,11 @@ class ClientsController < ApplicationController
     
   def login_phone
     @client = Client.find_by_email(params[:login])
+    if @client.no_phone_number?
+      flash[:warning] = "Our records show that your phone number is empty: we have sent you an email with a link to reset your phone number."
+      @client.send_reset_phone_link
+      redirect_to root_url
+    end
   end
   
   def login

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091207045322) do
+ActiveRecord::Schema.define(:version => 20091207182644) do
 
   create_table "bookings", :force => true do |t|
     t.datetime "starts_at"
@@ -19,6 +19,14 @@ ActiveRecord::Schema.define(:version => 20091207045322) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "practitioner_id"
+  end
+
+  create_table "client_emails", :force => true do |t|
+    t.integer  "client_id"
+    t.string   "email_type"
+    t.datetime "sent_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "clients", :force => true do |t|
@@ -32,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20091207045322) do
     t.datetime "updated_at"
     t.string   "phone_prefix",  :limit => 3
     t.string   "phone_suffix",  :limit => 10
+    t.string   "reset_code",    :limit => 40
   end
 
   create_table "practitioners", :force => true do |t|

@@ -15,7 +15,7 @@
     <%= yield(:head) %>
   </head>
   <body>
-	  <% form_tag :controller => "practitioners", :action => "change" do%><p>Practitioner: <%= select_tag "practitioner_id", options_for_select([nil]+@practitioners.map{|p| [p.name, p.id]}, session[:selected_practitioner_id])%><%= submit_tag 'Change'%><% end%></p>
+	  <%= render :partial => "clients/login_info" ,:locals => {:client => current_client }  %>
       <%- flash.each do |name, msg| -%>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
       <%- end -%>

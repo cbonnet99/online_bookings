@@ -1,9 +1,10 @@
 class Client < ActiveRecord::Base
   
   has_many :bookings
+  has_many :client_emails
   
   # new columns need to be added here to be writable through mass assignment
-  attr_accessible :email, :password, :password_confirmation, :question, :answer
+  attr_accessible :email, :password, :password_confirmation, :phone_prefix, :phone_suffix
   
   attr_accessor :password
   before_save :prepare_password, :cleanup_phone
@@ -18,6 +19,14 @@ class Client < ActiveRecord::Base
   MOBILE_SUFFIXES = ["021", "022", "027", "029"]
   FIXED_SUFFIXES = ["03", "04", "06", "07", "09"]
   PHONE_SUFFIXES = MOBILE_SUFFIXES + FIXED_SUFFIXES
+
+  def send_reset_phone_link
+    UserMailer.deliver_reset_phone(self)
+  end
+
+  def no_phone_number?
+    self.phone == "-"
+  end
 
   def check_phone_first_4digits(last4_digits)
     !phone_suffix.nil? && phone_suffix[-4..phone_suffix.length] == last4_digits

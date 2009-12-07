@@ -1,18 +1,17 @@
 ActionController::Routing::Routes.draw do |map|
-  map.logout 'logout', :controller => 'sessions', :action => 'destroy'
-  map.login 'login', :controller => 'sessions', :action => 'new'
-  map.resources :sessions
-
   map.resources :practitioners, :collection => {:change => :post }
   map.resources :practitioners do |p|
     p.resources :bookings
   end
 
   map.forgotten_password 'forgotten_password', :controller => 'clients', :action => 'forgotten_password'
-  map.change_phone 'change_phone', :controller => 'clients', :action => 'change_phone'
+  map.edit_phone 'edit_phone', :controller => 'clients', :action => 'edit_phone'
+  map.update_phone 'update_phone', :controller => 'clients', :action => 'update_phone'
+  map.reset_phone 'reset_phone', :controller => 'clients', :action => 'reset_phone'
   map.client_login 'client_login', :controller => 'clients', :action => 'login'
   map.login_phone 'login_phone', :controller => 'clients', :action => 'login_phone'
   map.lookup 'lookup', :controller => 'clients', :action => 'lookup'
+  map.lookup_form 'lookup_form', :controller => 'clients', :action => 'lookup_form'
   map.signup 'signup', :controller => 'clients', :action => 'new'
   map.logout 'logout', :controller => 'sessions', :action => 'destroy'
   map.login 'login', :controller => 'sessions', :action => 'new'
@@ -67,5 +66,5 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing or commenting them out if you're using named routes and resources.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
-  map.root :controller => 'clients', :action => 'lookup_form'
+  map.root :controller => 'clients', :action => 'index'
 end

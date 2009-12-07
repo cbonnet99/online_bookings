@@ -1,6 +1,12 @@
 development:
     site_name: Online Bookings(DEV)
+    site_host: localhost:3000
+    contact_email: cbonnet99@gmail.com
 test:
     site_name: Online Bookings(TEST)
+    site_host: localhost
+    contact_email: cbonnet99@gmail.com
 production:
     site_name: Online Bookings
+    site_host: bookings.beamazing.co.nz
+    contact_email: cbonnet99@gmail.com

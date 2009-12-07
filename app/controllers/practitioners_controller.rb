@@ -6,9 +6,9 @@ class PractitionersController < ApplicationController
   def change
     @practitioner = Practitioner.find(params[:practitioner_id]) unless params[:practitioner_id].nil?
     unless @practitioner.nil?
-      session[:selected_practitioner_id] = @practitioner.id
+      cookies[:selected_practitioner_id] = @practitioner.id
     end
-    redirect_to_target_or_default(root_url)
+    redirect_to_target_or_default(lookup_form_url)
   end
   
   def create
