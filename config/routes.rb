@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   #PRACTITIONER
   map.edit_selected_practitioner 'edit_selected_practitioner', :controller => 'practitioners', :action => 'edit_selected'
   map.update_selected_practitioner 'update_selected_practitioner', :controller => 'practitioners', :action => 'update_selected'
-  
+    
   #CLIENT
   map.forgotten_password 'forgotten_password', :controller => 'clients', :action => 'forgotten_password'
   map.edit_phone 'edit_phone', :controller => 'clients', :action => 'edit_phone'

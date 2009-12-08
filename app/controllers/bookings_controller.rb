@@ -1,6 +1,9 @@
 class BookingsController < ApplicationController
+  
+  before_filter :get_selected_practitioner
+  
   def index
-    @bookings = Booking.all
+    @bookings = Booking.find_all_by_practitioner_id(@current_selected_pro)
   end
   
   def show

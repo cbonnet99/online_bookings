@@ -35,4 +35,22 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+	def assert_valid_json(json)	  
+	  if json.match(/\{\s*\{/)
+      raise "Invalid JSON (two consecutive brackets: {{): #{json}"
+	  end
+      if json.match(/:\s*\,/)
+        raise "Invalid JSON (a colon followed by a comma): #{json}"
+      end
+      if json.match(/\{\s*,/)
+        raise "Invalid JSON (a bracket followed by a comma): #{json}"
+      end
+		begin
+			ActiveSupport::JSON.decode(json)
+		rescue ActiveSupport::JSON::ParseError
+			raise "Invalid JSON: #{json}"
+		end
+	end
+
 end

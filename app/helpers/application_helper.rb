@@ -13,5 +13,8 @@ module ApplicationHelper
     content_for :calendar do
     	javascript_include_tag 'jquery.weekcalendar'
     end
+    content_for :css do
+      stylesheet_link_tag 'jquery.weekcalendar'
+    end
   end
 end

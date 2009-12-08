@@ -26,6 +26,12 @@ class ApplicationController < ActionController::Base
         cookies[:selected_practitioner_id] = @current_selected_pro.id 
       end
     end
+    if !params[:practitioner_id].nil?
+      @current_selected_pro = Practitioner.find_by_permalink(params[:practitioner_id])
+      unless @current_selected_pro.nil?
+        cookies[:selected_practitioner_id] = @current_selected_pro.id 
+      end
+    end
     #fall back on the cookie
     if @current_selected_pro.nil? && !cookies[:selected_practitioner_id].nil?
       @current_selected_pro = Practitioner.find(cookies[:selected_practitioner_id])
