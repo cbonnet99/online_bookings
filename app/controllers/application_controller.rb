@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
   
+  def get_phone_prefixes
+    @phone_prefixes = Client::PHONE_SUFFIXES    
+  end
+  
   def get_practitioners
     @practitioners = Practitioner.all
   end

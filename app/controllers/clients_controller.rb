@@ -73,7 +73,7 @@ class ClientsController < ApplicationController
     
   def new
     @client = Client.new(:email => params[:email])
-    @phone_prefixes = Client::PHONE_SUFFIXES
+    get_phone_prefixes
   end
   
   def lookup_form
@@ -122,9 +122,9 @@ class ClientsController < ApplicationController
     if @client.save
       session[:client_id] = @client.id
       flash[:notice] = "You can now book your appointment"
-      redirect_to @client
+      redirect_to session[:return_to] || @client
     else
-      @questions = ["What was the name of your first pet?", "What is your mother's maiden name?", "Which place did you grow up in?"]
+      get_phone_prefixes
       render :action => 'new'
     end
   end

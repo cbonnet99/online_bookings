@@ -2,6 +2,16 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ClientsControllerTest < ActionController::TestCase
 
+  def test_create
+    sav = practitioners(:sav)
+    session[:return_to] = practitioner_url(sav)
+    post :create, {:client => {:email => "cbonnnet@test.com", :phone_prefix => "021", :phone_suffix => "12345678" }}
+    assert_nil flash[:error]
+    assert_not_nil flash[:notice]
+    assert_redirected_to practitioner_url(sav)
+  end
+
+
   def test_lookup_form
     get :lookup_form
     assert_response :success

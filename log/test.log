@@ -4805,3 +4805,239 @@ Rendered clients/_login_info (0.1ms)
 Rendered practitioners/_selected_pro_info (0.1ms)
 Completed in 9ms (View: 7, DB: 0) | 200 OK [http://test.host/login]
   [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mPractitioner Load (0.4ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+
+
+Processing SessionsController#create (for 0.0.0.0 at 2009-12-08 22:42:04) [POST]
+  Parameters: {"action"=>"create", "client"=>{"phone_suffix"=>"12345678", "phone_prefix"=>"021", "email"=>"cbonnnet@test.com"}, "controller"=>"sessions"}
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" IS NULL) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering sessions/new
+Rendered clients/_login_info (0.5ms)
+Rendered practitioners/_selected_pro_info (0.4ms)
+Completed in 9ms (View: 6, DB: 8) | 200 OK [http://test.host/sessions?client%5Bemail%5D=cbonnnet%40test.com&client%5Bphone_prefix%5D=021&client%5Bphone_suffix%5D=12345678]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing SessionsController#new (for 0.0.0.0 at 2009-12-08 22:42:04) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/application
+Rendering sessions/new
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 3ms (View: 3, DB: 0) | 200 OK [http://test.host/login]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mPractitioner Load (0.4ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+
+
+Processing SessionsController#create (for 0.0.0.0 at 2009-12-08 22:42:46) [POST]
+  Parameters: {"action"=>"create", "client"=>{"phone_suffix"=>"12345678", "phone_prefix"=>"021", "email"=>"cbonnnet@test.com"}, "controller"=>"sessions"}
+  [4;36;1mClient Load (0.4ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" IS NULL) LIMIT 1[0m
+Rendering template within layouts/application
+Rendering sessions/new
+Rendered clients/_login_info (0.5ms)
+Rendered practitioners/_selected_pro_info (0.4ms)
+Completed in 10ms (View: 6, DB: 9) | 200 OK [http://test.host/sessions?client%5Bemail%5D=cbonnnet%40test.com&client%5Bphone_prefix%5D=021&client%5Bphone_suffix%5D=12345678]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing SessionsController#new (for 0.0.0.0 at 2009-12-08 22:42:46) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/application
+Rendering sessions/new
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 3ms (View: 3, DB: 0) | 200 OK [http://test.host/login]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mPractitioner Load (0.4ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+
+
+Processing ClientsController#create (for 0.0.0.0 at 2009-12-08 22:45:52) [POST]
+  Parameters: {"action"=>"create", "client"=>{"phone_suffix"=>"12345678", "phone_prefix"=>"021", "email"=>"cbonnnet@test.com"}, "controller"=>"clients"}
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'cbonnnet@test.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 09:45:52.329270', '2009-12-08 09:45:52.329270', E'12345678', E'021', NULL, NULL, NULL, NULL, NULL, E'cbonnnet@test.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/clients/2071878930
+Completed in 11ms (DB: 9) | 302 Found [http://test.host/clients?client%5Bemail%5D=cbonnnet%40test.com&client%5Bphone_prefix%5D=021&client%5Bphone_suffix%5D=12345678]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 22:45:52) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"3654", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/practitioners/david-savage
+Completed in 1ms (DB: 1) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=3654]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 22:45:52) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Rendered clients/_login_info (0.5ms)
+Rendered practitioners/_selected_pro_info (0.4ms)
+Completed in 9ms (View: 8, DB: 1) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 09:45:52.359764', '2009-12-08 09:45:52.359764', NULL, NULL, E'd326304844c58850c42665b65cb3cccbc0856de3', NULL, NULL, E'0b564a3da63d874db3db886c2747a4cb0eca0c89', NULL, E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 22:45:52) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"foo1@example.com"}
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com' AND "clients".id <> 2071878931) LIMIT 1[0m
+  [4;36;1mClient Update (0.3ms)[0m   [0;1mUPDATE "clients" SET "updated_at" = '2009-12-08 09:45:52.365203', "reset_code" = E'23eca0d597ca3078c6589450d5772bfa1f922c3b' WHERE "id" = 2071878931[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO "client_emails" ("created_at", "updated_at", "client_id", "sent_at", "email_type") VALUES('2009-12-08 09:45:52.380654', '2009-12-08 09:45:52.380654', 2071878931, '2009-12-08 09:45:52.366960', E'reset_phone') RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+Sent mail to foo1@example.com
+
+Date: Tue, 8 Dec 2009 22:45:52 +1300
+From: cbonnet99@gmail.com
+To: foo1@example.com
+Subject: [Online Bookings(TEST)] You have requested to reset your phone number
+Mime-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
+You can reset your phone number by clicking on the following link:
+
+http://localhost/request_reset_phone?reset_code=23eca0d597ca3078c6589450d5772bfa1f922c3b
+Redirected to http://test.host/
+Completed in 29ms (DB: 3) | 302 Found [http://test.host/login_phone?login=foo1%40example.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 22:45:52) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"1234", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/login_phone?login=cbonnet99%40gmail.com
+Completed in 1ms (DB: 1) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=1234]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing ClientsController#lookup_form (for 0.0.0.0 at 2009-12-08 22:45:52) [GET]
+  Parameters: {"action"=>"lookup_form", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/lookup_form
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 4ms (View: 4, DB: 0) | 200 OK [http://test.host/lookup_form]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mPractitioner Load (0.4ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+
+
+Processing ClientsController#create (for 0.0.0.0 at 2009-12-08 22:48:40) [POST]
+  Parameters: {"action"=>"create", "client"=>{"phone_suffix"=>"12345678", "phone_prefix"=>"021", "email"=>"cbonnnet@test.com"}, "controller"=>"clients"}
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'cbonnnet@test.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 09:48:40.638083', '2009-12-08 09:48:40.638083', E'12345678', E'021', NULL, NULL, NULL, NULL, NULL, E'cbonnnet@test.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/practitioners/david-savage
+Completed in 10ms (DB: 8) | 302 Found [http://test.host/clients?client%5Bemail%5D=cbonnnet%40test.com&client%5Bphone_prefix%5D=021&client%5Bphone_suffix%5D=12345678]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 22:48:40) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"3654", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/practitioners/david-savage
+Completed in 1ms (DB: 1) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=3654]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 22:48:40) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Rendered clients/_login_info (0.5ms)
+Rendered practitioners/_selected_pro_info (0.4ms)
+Completed in 9ms (View: 7, DB: 1) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 09:48:40.664819', '2009-12-08 09:48:40.664819', NULL, NULL, E'8a2666baca4f6656a2dfdad287f3bf62ce8d1cf0', NULL, NULL, E'75678af892b2f047681d7a2bb7cccfefc90845ff', NULL, E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 22:48:40) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"foo1@example.com"}
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com' AND "clients".id <> 2071878931) LIMIT 1[0m
+  [4;36;1mClient Update (0.2ms)[0m   [0;1mUPDATE "clients" SET "updated_at" = '2009-12-08 09:48:40.671226', "reset_code" = E'e7ab6002d9a5c627fe94e79978b1b642436e2dd3' WHERE "id" = 2071878931[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO "client_emails" ("created_at", "updated_at", "client_id", "sent_at", "email_type") VALUES('2009-12-08 09:48:40.686492', '2009-12-08 09:48:40.686492', 2071878931, '2009-12-08 09:48:40.672690', E'reset_phone') RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+Sent mail to foo1@example.com
+
+Date: Tue, 8 Dec 2009 22:48:40 +1300
+From: cbonnet99@gmail.com
+To: foo1@example.com
+Subject: [Online Bookings(TEST)] You have requested to reset your phone number
+Mime-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
+You can reset your phone number by clicking on the following link:
+
+http://localhost/request_reset_phone?reset_code=e7ab6002d9a5c627fe94e79978b1b642436e2dd3
+Redirected to http://test.host/
+Completed in 29ms (DB: 3) | 302 Found [http://test.host/login_phone?login=foo1%40example.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 22:48:40) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"1234", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/login_phone?login=cbonnet99%40gmail.com
+Completed in 1ms (DB: 1) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=1234]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing ClientsController#lookup_form (for 0.0.0.0 at 2009-12-08 22:48:40) [GET]
+  Parameters: {"action"=>"lookup_form", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/lookup_form
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 4ms (View: 4, DB: 0) | 200 OK [http://test.host/lookup_form]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
