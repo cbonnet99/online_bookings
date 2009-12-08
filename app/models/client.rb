@@ -47,7 +47,7 @@ class Client < ActiveRecord::Base
     "#{phone_prefix}-#{phone_suffix}"
   end
   
-  def has_mobile_phone
+  def has_mobile_phone?
     MOBILE_SUFFIXES.include?(phone_prefix)
   end
   

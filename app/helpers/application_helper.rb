@@ -8,5 +8,10 @@ module ApplicationHelper
 	def stylesheet(*files)
 		content_for(:css) { stylesheet_link_tag(*files) }
 	end
-
+  
+  def use_calendar
+    content_for :calendar do
+    	javascript_include_tag 'jquery.weekcalendar'
+    end
+  end
 end

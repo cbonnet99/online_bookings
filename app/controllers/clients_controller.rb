@@ -1,6 +1,5 @@
 class ClientsController < ApplicationController
-
-  before_filter :require_selected_practitioner, :only => [:lookup_form, :lookup] 
+  before_filter :login_required, :only => [:edit, :update]
 
   def index
     get_practitioners

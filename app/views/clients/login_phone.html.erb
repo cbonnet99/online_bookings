@@ -7,7 +7,7 @@
   </p>
   <p>
     <%= label_tag :phone_last4digits, "Your phone number:" %><br />
-    <%= @client.phone_without_last4digits %><%= text_field_tag :phone_last4digits, "", :size => 4, :maxlength => 4  %>
+    <%= @client.phone_without_last4digits %><%= password_field_tag :phone_last4digits, "", :size => 4, :maxlength => 4  %>
   </p>
   <p><%= link_to "My phone number has changed!", edit_phone_path(:login => params[:login]) %></p>
   <p><%= submit_tag "Book an appointment >" %></p>

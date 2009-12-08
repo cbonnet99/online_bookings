@@ -1,0 +1,3 @@
+<% unless @current_selected_pro.nil? -%>
+	<div id="selected-pro-info">You are booking with <%= @current_selected_pro.name%><%= link_to "Change", edit_selected_practitioner_url%></div>
+<% end -%>

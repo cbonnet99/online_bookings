@@ -16,4 +16,9 @@ class PractitionersControllerTest < ActionController::TestCase
     post :update_selected, :practitioner_id => sav.id
     assert_redirected_to lookup_form_url(:practitioner_permalink => sav.permalink) 
   end
+  
+  def test_show
+    get :show, {:practitioner_permalink => practitioners(:sav).permalink}, {:client_id => clients(:cyrille).id }
+    assert_template 'show'
+  end
 end

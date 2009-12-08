@@ -29,4 +29,16 @@ namespace :deploy do
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
+    desc "Deploy will throw up the maintenance.html page and run migrations then it restarts and enables the site again."
+    task :default do
+      transaction do
+        update_code
+        web.disable
+        symlink
+        migrate
+      end
+      restart
+      web.enable
+      cleanup
+    end
 end

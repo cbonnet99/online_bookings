@@ -32,7 +32,7 @@ module Authentication
     unless logged_in?
       flash[:error] = "You must first log in or sign up before accessing this page."
       store_target_location
-      redirect_to login_url
+      redirect_to lookup_form_url
     end
   end
   

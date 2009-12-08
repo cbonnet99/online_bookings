@@ -1,4 +1,8 @@
 class PractitionersController < ApplicationController
+  
+  before_filter :require_selected_practitioner, :only => [:show] 
+  before_filter :login_required, :only => [:show]
+  
   def new
     @practitioner = Practitioner.new
   end
@@ -24,5 +28,9 @@ class PractitionersController < ApplicationController
     else
       render :action => 'new'
     end
+  end
+  
+  def show
+    
   end
 end
