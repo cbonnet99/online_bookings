@@ -9,6 +9,7 @@ class PractitionersController < ApplicationController
 
   def edit_selected
     get_practitioners
+    session[:return_to] = request.referer
   end
 
   def update_selected
@@ -16,7 +17,11 @@ class PractitionersController < ApplicationController
     unless @practitioner.nil?
       cookies[:selected_practitioner_id] = @practitioner.id
     end
-    redirect_to_target_or_default lookup_form_url(:practitioner_permalink => @practitioner.permalink)
+    if session[:return_to].nil?
+      redirect_to @practitioner
+    else
+      redirect_to session[:return_to]
+    end
   end
   
   def create

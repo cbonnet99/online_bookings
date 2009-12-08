@@ -3374,3 +3374,1434 @@ Rendering sessions/new
 Rendered clients/_login_info (0.1ms)
 Completed in 6ms (View: 4, DB: 0) | 200 OK [http://test.host/login]
   [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.7ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 08:52:37.394873', '2009-12-08 08:52:37.394873', NULL, NULL, E'0b2aecf5be1ce6be23c6065af7e63cdc485f5b55', NULL, NULL, E'0f5f05d18705f465dd9c8fac6be7ee98556d983b', NULL, E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foobar') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'nonexisting') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 08:52:37.406822', '2009-12-08 08:52:37.406822', NULL, NULL, E'b461919eee7d5c10a8d88461318c66ff1776115c', NULL, NULL, E'0d6c0378a6438bc734b7a7f7f037a4297f7d1494', NULL, E'foo@bar.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 08:52:37.412924', '2009-12-08 08:52:37.412924', E'888762313', E'021', E'0b8ead82973c7ca0f413520d7a2f7e9b0ae8a913', NULL, NULL, E'8c31da50da06db4edbd2652d459c159ff4573eb7', NULL, E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 08:52:37.420559', '2009-12-08 08:52:37.420559', NULL, NULL, E'26f66c67d7be9de9938f5b9d0f897402851c5e75', NULL, NULL, E'ced92e9866bc04725194665bc4147c2c6c45a63d', NULL, E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo2@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 08:52:37.425567', '2009-12-08 08:52:37.425567', E'888762313', E'021', E'0081f2cfcd1c34a91b909eedfaf601517160b9d7', NULL, NULL, E'65aa604a62d45cc0ab1e4718845ba3658a2cd3b3', NULL, E'foo2@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo3@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 08:52:37.431772', '2009-12-08 08:52:37.431772', E'8887623135', E'021', E'71e6d6c778285ae8020aaad2654bed109fd4ef02', NULL, NULL, E'9c0a160cf0b6cce1bbf7b72681b97c484ced1c26', NULL, E'foo3@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.3ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 08:52:37.453039', '2009-12-08 08:52:37.453039', NULL, NULL, E'ce13860ac1a656134b4bbe20863cb61f317ef697', NULL, NULL, E'8cd0ad0750ab42dc4511445bf0d036eecdceebd2', NULL, E'bar@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.2ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Delete all (0.1ms)[0m   [0mDELETE FROM "practitioners" [0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foobar') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foobar') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.1ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO "practitioners" ("permalink", "created_at", "updated_at", "username", "password_salt", "last_name", "password_hash", "email", "first_name") VALUES(E'', '2009-12-08 08:52:37.638938', '2009-12-08 08:52:37.638938', E'foobar', E'09712ca51ebcc31d00d9cdaed238259490dd372a', NULL, E'750e799096a93008f19596fa4c6d19928cb402cc', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."username" = E'foobar') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.2ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."username" = E'nonexisting') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."email" = E'nonexisting') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mPractitioner Delete all (0.2ms)[0m   [0mDELETE FROM "practitioners" [0m
+  [4;36;1mPractitioner Delete all (0.1ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.1ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO "practitioners" ("permalink", "created_at", "updated_at", "username", "password_salt", "last_name", "password_hash", "email", "first_name") VALUES(E'', '2009-12-08 08:52:37.652763', '2009-12-08 08:52:37.652763', E'foo', E'5da4ee5a2e88f25c15f1ecbbc812d1012a7c4b92', NULL, E'560d5b92654e659397bb440317576749e168b7d6', E'foo@bar.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."username" = E'foo@bar.com') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.2ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Delete all (0.1ms)[0m   [0mDELETE FROM "practitioners" [0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foobar') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foobar') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.1ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mINSERT INTO "practitioners" ("permalink", "created_at", "updated_at", "username", "password_salt", "last_name", "password_hash", "email", "first_name") VALUES(E'', '2009-12-08 08:52:37.662470', '2009-12-08 08:52:37.662470', E'foobar', E'3419a84cb2bee8830adaf8bbd1eecdff18e4fbd8', NULL, E'22a274c0e46dc775d3b04eceb23ecc5b090bdcba', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."username" = E'foobar') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.1ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.1ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.1ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "practitioners" ("permalink", "created_at", "updated_at", "username", "password_salt", "last_name", "password_hash", "email", "first_name") VALUES(E'', '2009-12-08 08:52:37.670533', '2009-12-08 08:52:37.670533', E'foo', E'7bdbb8f6e0551c3274fcb413757928b8499dafa0', NULL, E'41713d12ebb3948381b8fc1af09bbdb148dfb9ea', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.2ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.6ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mPractitioner Delete all (0.2ms)[0m   [0mDELETE FROM "practitioners" [0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.1ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.2ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.2ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.1ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mPractitioner Delete all (0.3ms)[0m   [0mDELETE FROM "practitioners" [0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.1ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'odd ^&(@)') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mPractitioner Delete all (0.2ms)[0m   [0mDELETE FROM "practitioners" [0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.1ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.1ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.1ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "practitioners" ("permalink", "created_at", "updated_at", "username", "password_salt", "last_name", "password_hash", "email", "first_name") VALUES(E'', '2009-12-08 08:52:37.709460', '2009-12-08 08:52:37.709460', E'foo', E'1ce7daf0add23d82e062252f328b67798c905599', NULL, E'7978432aaf0f8430902c86a13da6e16cf8a46348', E'bar@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.1ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.2ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'uniquename') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'uniquename') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.1ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "practitioners" ("permalink", "created_at", "updated_at", "username", "password_salt", "last_name", "password_hash", "email", "first_name") VALUES(E'', '2009-12-08 08:52:37.720590', '2009-12-08 08:52:37.720590', E'uniquename', E'80b732c8b54a23363d98c594bb36661b40d15086', NULL, E'9722f3e0c9dc3fb7f810fe2ce41a525e06105e7e', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'uniquename') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 21:52:39) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"3654", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.7ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/clients/2071878929
+Completed in 5ms (DB: 14) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=3654]
+  [4;35;1mSQL (1.6ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 21:52:39) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Rendered clients/_login_info (0.6ms)
+Rendered practitioners/_selected_pro_info (0.4ms)
+Completed in 22ms (View: 20, DB: 2) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 08:52:39.164996', '2009-12-08 08:52:39.164996', NULL, NULL, E'1fa3b0ffb36fc2b9583af1bacad28d3eca860308', NULL, NULL, E'630e24840e8a2834b5aa99c8e84946392696a179', NULL, E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 21:52:39) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"foo1@example.com"}
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.5ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com' AND "clients".id <> 2071878930) LIMIT 1[0m
+  [4;36;1mClient Update (0.3ms)[0m   [0;1mUPDATE "clients" SET "updated_at" = '2009-12-08 08:52:39.173233', "reset_code" = E'c6bd8f601cad94a9bd907ada61bac2b76707ea40' WHERE "id" = 2071878930[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO "client_emails" ("created_at", "updated_at", "client_id", "sent_at", "email_type") VALUES('2009-12-08 08:52:39.316260', '2009-12-08 08:52:39.316260', 2071878930, '2009-12-08 08:52:39.174851', E'reset_phone') RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+Sent mail to foo1@example.com
+
+Date: Tue, 8 Dec 2009 21:52:39 +1300
+From: cbonnet99@gmail.com
+To: foo1@example.com
+Subject: [Online Bookings(TEST)] You have requested to reset your phone number
+Mime-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
+You can reset your phone number by clicking on the following link:
+
+http://localhost/request_reset_phone?reset_code=c6bd8f601cad94a9bd907ada61bac2b76707ea40
+Redirected to http://test.host/
+Completed in 181ms (DB: 3) | 302 Found [http://test.host/login_phone?login=foo1%40example.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 21:52:39) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"1234", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (1.4ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/login_phone?login=cbonnet99%40gmail.com
+Completed in 3ms (DB: 2) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=1234]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing ClientsController#lookup_form (for 0.0.0.0 at 2009-12-08 21:52:39) [GET]
+  Parameters: {"action"=>"lookup_form", "practitioner_permalink"=>"blabla", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/lookup_form
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 4ms (View: 4, DB: 0) | 200 OK [http://test.host/lookup_form?practitioner_permalink=blabla]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing PractitionersController#edit_selected (for 0.0.0.0 at 2009-12-08 21:52:39) [GET]
+  Parameters: {"action"=>"edit_selected", "controller"=>"practitioners"}
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT * FROM "practitioners" [0m
+Rendering template within layouts/application
+Rendering practitioners/edit_selected
+Rendered practitioners/_select (3.0ms)
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 8ms (View: 5, DB: 1) | 200 OK [http://test.host/edit_selected_practitioner]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+
+
+Processing PractitionersController#new (for 0.0.0.0 at 2009-12-08 21:52:39) [GET]
+  Parameters: {"action"=>"new", "controller"=>"practitioners"}
+Rendering template within layouts/application
+Rendering practitioners/new
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 7ms (View: 7, DB: 0) | 200 OK [http://test.host/practitioners/new]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing PractitionersController#show (for 0.0.0.0 at 2009-12-08 21:52:39) [GET]
+  Parameters: {"action"=>"show", "practitioner_permalink"=>"david-savage", "controller"=>"practitioners"}
+  [4;36;1mPractitioner Load (1.4ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."permalink" = E'david-savage') LIMIT 1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+Rendering template within layouts/application
+Rendering practitioners/show
+Rendered clients/_login_info (0.5ms)
+Rendered practitioners/_selected_pro_info (0.3ms)
+Completed in 9ms (View: 5, DB: 2) | 200 OK [http://test.host/practitioners/show?practitioner_permalink=david-savage]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+
+
+Processing PractitionersController#update_selected (for 0.0.0.0 at 2009-12-08 21:52:39) [POST]
+  Parameters: {"practitioner_id"=>"1819705844", "action"=>"update_selected", "controller"=>"practitioners"}
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+Redirected to http://test.host/lookup_form?practitioner_permalink=david-savage
+Completed in 1ms (DB: 1) | 302 Found [http://test.host/update_selected_practitioner?practitioner_id=1819705844]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+
+
+Processing SessionsController#new (for 0.0.0.0 at 2009-12-08 21:52:39) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/application
+Rendering sessions/new
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 6ms (View: 4, DB: 0) | 200 OK [http://test.host/login]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing PractitionersController#edit_selected (for 0.0.0.0 at 2009-12-08 22:11:49) [GET]
+  Parameters: {"action"=>"edit_selected", "controller"=>"practitioners"}
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT * FROM "practitioners" [0m
+Rendering template within layouts/application
+Rendering practitioners/edit_selected
+Rendered practitioners/_select (3.6ms)
+Rendered clients/_login_info (0.5ms)
+Rendered practitioners/_selected_pro_info (0.4ms)
+Completed in 11ms (View: 8, DB: 17) | 200 OK [http://test.host/edit_selected_practitioner]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+
+
+Processing PractitionersController#new (for 0.0.0.0 at 2009-12-08 22:11:49) [GET]
+  Parameters: {"action"=>"new", "controller"=>"practitioners"}
+Rendering template within layouts/application
+Rendering practitioners/new
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 8ms (View: 7, DB: 0) | 200 OK [http://test.host/practitioners/new]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Load (0.4ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing PractitionersController#show (for 0.0.0.0 at 2009-12-08 22:11:49) [GET]
+  Parameters: {"action"=>"show", "practitioner_permalink"=>"david-savage", "controller"=>"practitioners"}
+  [4;36;1mPractitioner Load (0.7ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."permalink" = E'david-savage') LIMIT 1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+Rendering template within layouts/application
+Rendering practitioners/show
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+
+
+Processing PractitionersController#update_selected (for 0.0.0.0 at 2009-12-08 22:11:49) [POST]
+  Parameters: {"practitioner_id"=>"1819705844", "action"=>"update_selected", "controller"=>"practitioners"}
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+Redirected to http://test.host/
+Completed in 1ms (DB: 1) | 302 Found [http://test.host/update_selected_practitioner?practitioner_id=1819705844]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing PractitionersController#edit_selected (for 0.0.0.0 at 2009-12-08 22:12:55) [GET]
+  Parameters: {"action"=>"edit_selected", "controller"=>"practitioners"}
+  [4;35;1mPractitioner Load (0.6ms)[0m   [0mSELECT * FROM "practitioners" [0m
+Rendering template within layouts/application
+Rendering practitioners/edit_selected
+Rendered practitioners/_select (3.6ms)
+Rendered clients/_login_info (0.4ms)
+Rendered practitioners/_selected_pro_info (0.4ms)
+Completed in 12ms (View: 8, DB: 9) | 200 OK [http://test.host/edit_selected_practitioner]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+
+
+Processing PractitionersController#new (for 0.0.0.0 at 2009-12-08 22:12:55) [GET]
+  Parameters: {"action"=>"new", "controller"=>"practitioners"}
+Rendering template within layouts/application
+Rendering practitioners/new
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 7ms (View: 6, DB: 0) | 200 OK [http://test.host/practitioners/new]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Load (0.4ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing PractitionersController#show (for 0.0.0.0 at 2009-12-08 22:12:55) [GET]
+  Parameters: {"action"=>"show", "practitioner_permalink"=>"david-savage", "controller"=>"practitioners"}
+  [4;36;1mPractitioner Load (0.6ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."permalink" = E'david-savage') LIMIT 1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+Rendering template within layouts/application
+Rendering practitioners/show
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+
+
+Processing PractitionersController#update_selected (for 0.0.0.0 at 2009-12-08 22:12:55) [POST]
+  Parameters: {"practitioner_id"=>"1819705844", "action"=>"update_selected", "controller"=>"practitioners"}
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+Redirected to http://test.host/
+Completed in 1ms (DB: 1) | 302 Found [http://test.host/update_selected_practitioner?practitioner_id=1819705844]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing PractitionersController#edit_selected (for 0.0.0.0 at 2009-12-08 22:13:16) [GET]
+  Parameters: {"action"=>"edit_selected", "controller"=>"practitioners"}
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT * FROM "practitioners" [0m
+Rendering template within layouts/application
+Rendering practitioners/edit_selected
+Rendered practitioners/_select (3.6ms)
+Rendered clients/_login_info (0.5ms)
+Rendered practitioners/_selected_pro_info (0.4ms)
+Completed in 11ms (View: 8, DB: 7) | 200 OK [http://test.host/edit_selected_practitioner]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+
+
+Processing PractitionersController#new (for 0.0.0.0 at 2009-12-08 22:13:16) [GET]
+  Parameters: {"action"=>"new", "controller"=>"practitioners"}
+Rendering template within layouts/application
+Rendering practitioners/new
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 7ms (View: 6, DB: 0) | 200 OK [http://test.host/practitioners/new]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Load (0.4ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing PractitionersController#show (for 0.0.0.0 at 2009-12-08 22:13:16) [GET]
+  Parameters: {"action"=>"show", "practitioner_permalink"=>"david-savage", "controller"=>"practitioners"}
+  [4;36;1mPractitioner Load (0.6ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."permalink" = E'david-savage') LIMIT 1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+Rendering template within layouts/application
+Rendering practitioners/show
+  [4;36;1mSQL (0.3ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+
+
+Processing PractitionersController#update_selected (for 0.0.0.0 at 2009-12-08 22:13:16) [POST]
+  Parameters: {"practitioner_id"=>"1819705844", "action"=>"update_selected", "controller"=>"practitioners"}
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+Redirected to http://test.host/practitioners/david-savage
+Completed in 1ms (DB: 1) | 302 Found [http://test.host/update_selected_practitioner?practitioner_id=1819705844]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing PractitionersController#edit_selected (for 0.0.0.0 at 2009-12-08 22:15:02) [GET]
+  Parameters: {"action"=>"edit_selected", "controller"=>"practitioners"}
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT * FROM "practitioners" [0m
+Rendering template within layouts/application
+Rendering practitioners/edit_selected
+Rendered practitioners/_select (3.7ms)
+Rendered clients/_login_info (0.4ms)
+Rendered practitioners/_selected_pro_info (0.4ms)
+Completed in 11ms (View: 9, DB: 7) | 200 OK [http://test.host/edit_selected_practitioner]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+
+
+Processing PractitionersController#new (for 0.0.0.0 at 2009-12-08 22:15:02) [GET]
+  Parameters: {"action"=>"new", "controller"=>"practitioners"}
+Rendering template within layouts/application
+Rendering practitioners/new
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 7ms (View: 6, DB: 0) | 200 OK [http://test.host/practitioners/new]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Load (0.4ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing PractitionersController#show (for 0.0.0.0 at 2009-12-08 22:15:02) [GET]
+  Parameters: {"action"=>"show", "practitioner_permalink"=>"david-savage", "controller"=>"practitioners"}
+  [4;36;1mPractitioner Load (1.0ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."permalink" = E'david-savage') LIMIT 1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+Rendering template within layouts/application
+Rendering practitioners/show
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+
+
+Processing PractitionersController#update_selected (for 0.0.0.0 at 2009-12-08 22:15:02) [POST]
+  Parameters: {"practitioner_id"=>"1819705844", "action"=>"update_selected", "controller"=>"practitioners"}
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+Redirected to http://test.host/practitioners/david-savage
+Completed in 2ms (DB: 1) | 302 Found [http://test.host/update_selected_practitioner?practitioner_id=1819705844]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing PractitionersController#edit_selected (for 0.0.0.0 at 2009-12-08 22:18:03) [GET]
+  Parameters: {"action"=>"edit_selected", "controller"=>"practitioners"}
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT * FROM "practitioners" [0m
+Rendering template within layouts/application
+Rendering practitioners/edit_selected
+Rendered practitioners/_select (3.7ms)
+Rendered clients/_login_info (0.5ms)
+Rendered practitioners/_selected_pro_info (0.4ms)
+Completed in 12ms (View: 9, DB: 8) | 200 OK [http://test.host/edit_selected_practitioner]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+
+
+Processing PractitionersController#new (for 0.0.0.0 at 2009-12-08 22:18:03) [GET]
+  Parameters: {"action"=>"new", "controller"=>"practitioners"}
+Rendering template within layouts/application
+Rendering practitioners/new
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 7ms (View: 7, DB: 0) | 200 OK [http://test.host/practitioners/new]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Load (0.4ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing PractitionersController#show (for 0.0.0.0 at 2009-12-08 22:18:03) [GET]
+  Parameters: {"action"=>"show", "practitioner_permalink"=>"david-savage", "controller"=>"practitioners"}
+  [4;36;1mPractitioner Load (0.6ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."permalink" = E'david-savage') LIMIT 1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+Rendering template within layouts/application
+Rendering practitioners/show
+Rendered clients/_login_info (2.5ms)
+Rendered practitioners/_selected_pro_info (0.4ms)
+Completed in 9ms (View: 6, DB: 2) | 200 OK [http://test.host/practitioners/show?practitioner_permalink=david-savage]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+
+
+Processing PractitionersController#update_selected (for 0.0.0.0 at 2009-12-08 22:18:03) [POST]
+  Parameters: {"practitioner_id"=>"1819705844", "action"=>"update_selected", "controller"=>"practitioners"}
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+Redirected to http://test.host/practitioners/david-savage
+Completed in 1ms (DB: 1) | 302 Found [http://test.host/update_selected_practitioner?practitioner_id=1819705844]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 22:19:14) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"3654", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.7ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/clients/2071878929
+Completed in 4ms (DB: 8) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=3654]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 22:19:14) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Rendered clients/_login_info (0.5ms)
+Rendered practitioners/_selected_pro_info (0.4ms)
+Completed in 8ms (View: 7, DB: 1) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 09:19:14.721903', '2009-12-08 09:19:14.721903', NULL, NULL, E'4ff4d5019a29cd1c569cc4c2f9226a3a8b37fd48', NULL, NULL, E'095a460059eaddcd744eaba2e90194dbe619fe3d', NULL, E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 22:19:14) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"foo1@example.com"}
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com' AND "clients".id <> 2071878930) LIMIT 1[0m
+  [4;36;1mClient Update (0.2ms)[0m   [0;1mUPDATE "clients" SET "updated_at" = '2009-12-08 09:19:14.731554', "reset_code" = E'24c84427742dd320a3c83f3bb6374facc27ef20c' WHERE "id" = 2071878930[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mINSERT INTO "client_emails" ("created_at", "updated_at", "client_id", "sent_at", "email_type") VALUES('2009-12-08 09:19:14.803926', '2009-12-08 09:19:14.803926', 2071878930, '2009-12-08 09:19:14.732990', E'reset_phone') RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+Sent mail to foo1@example.com
+
+Date: Tue, 8 Dec 2009 22:19:14 +1300
+From: cbonnet99@gmail.com
+To: foo1@example.com
+Subject: [Online Bookings(TEST)] You have requested to reset your phone number
+Mime-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
+You can reset your phone number by clicking on the following link:
+
+http://localhost/request_reset_phone?reset_code=24c84427742dd320a3c83f3bb6374facc27ef20c
+Redirected to http://test.host/
+Completed in 91ms (DB: 3) | 302 Found [http://test.host/login_phone?login=foo1%40example.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 22:19:14) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"1234", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/login_phone?login=cbonnet99%40gmail.com
+Completed in 1ms (DB: 1) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=1234]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing ClientsController#lookup_form (for 0.0.0.0 at 2009-12-08 22:19:14) [GET]
+  Parameters: {"action"=>"lookup_form", "practitioner_permalink"=>"blabla", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/lookup_form
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 4ms (View: 4, DB: 0) | 200 OK [http://test.host/lookup_form?practitioner_permalink=blabla]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 22:20:15) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"3654", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.6ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/clients/2071878929
+Completed in 4ms (DB: 8) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=3654]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 22:20:15) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Rendered clients/_login_info (0.6ms)
+Rendered practitioners/_selected_pro_info (0.4ms)
+Completed in 8ms (View: 7, DB: 1) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 09:20:15.513821', '2009-12-08 09:20:15.513821', NULL, NULL, E'1613e7743374cdd8089e6d491d72a8445216fae2', NULL, NULL, E'4f90e76e13ce4883042e8984b12d89c6314bb404', NULL, E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 22:20:15) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"foo1@example.com"}
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com' AND "clients".id <> 2071878930) LIMIT 1[0m
+  [4;36;1mClient Update (0.3ms)[0m   [0;1mUPDATE "clients" SET "updated_at" = '2009-12-08 09:20:15.521837', "reset_code" = E'85e71c3a55dc10fd425d0d1e24521247e6054a5a' WHERE "id" = 2071878930[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mINSERT INTO "client_emails" ("created_at", "updated_at", "client_id", "sent_at", "email_type") VALUES('2009-12-08 09:20:15.537420', '2009-12-08 09:20:15.537420', 2071878930, '2009-12-08 09:20:15.523503', E'reset_phone') RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+Sent mail to foo1@example.com
+
+Date: Tue, 8 Dec 2009 22:20:15 +1300
+From: cbonnet99@gmail.com
+To: foo1@example.com
+Subject: [Online Bookings(TEST)] You have requested to reset your phone number
+Mime-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
+You can reset your phone number by clicking on the following link:
+
+http://localhost/request_reset_phone?reset_code=85e71c3a55dc10fd425d0d1e24521247e6054a5a
+Redirected to http://test.host/
+Completed in 29ms (DB: 3) | 302 Found [http://test.host/login_phone?login=foo1%40example.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 22:20:15) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"1234", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/login_phone?login=cbonnet99%40gmail.com
+Completed in 1ms (DB: 1) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=1234]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing ClientsController#lookup_form (for 0.0.0.0 at 2009-12-08 22:20:15) [GET]
+  Parameters: {"action"=>"lookup_form", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/lookup_form
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 4ms (View: 4, DB: 0) | 200 OK [http://test.host/lookup_form]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+
+
+Processing ClientsController#client_login (for 0.0.0.0 at 2009-12-08 22:24:11) [POST]
+  Parameters: {"action"=>"client_login", "phone_last4digits"=>"3654", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 22:24:11) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"3654", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.7ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/clients/2071878929
+Completed in 3ms (DB: 1) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=3654]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 22:24:11) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (1.0ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Rendered clients/_login_info (0.5ms)
+Rendered practitioners/_selected_pro_info (0.4ms)
+Completed in 10ms (View: 8, DB: 2) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 09:24:11.058964', '2009-12-08 09:24:11.058964', NULL, NULL, E'a9dba9e10550869f9b12623cef0ab74cab4aa9e2', NULL, NULL, E'c38835f5de06405d15967f08a91ca2dfdb96fb52', NULL, E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 22:24:11) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"foo1@example.com"}
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com' AND "clients".id <> 2071878930) LIMIT 1[0m
+  [4;36;1mClient Update (0.3ms)[0m   [0;1mUPDATE "clients" SET "updated_at" = '2009-12-08 09:24:11.068444', "reset_code" = E'40b4aa9cbfce69c85927ab1dc3eb0f3abf056afa' WHERE "id" = 2071878930[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO "client_emails" ("created_at", "updated_at", "client_id", "sent_at", "email_type") VALUES('2009-12-08 09:24:11.085184', '2009-12-08 09:24:11.085184', 2071878930, '2009-12-08 09:24:11.070157', E'reset_phone') RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+Sent mail to foo1@example.com
+
+Date: Tue, 8 Dec 2009 22:24:11 +1300
+From: cbonnet99@gmail.com
+To: foo1@example.com
+Subject: [Online Bookings(TEST)] You have requested to reset your phone number
+Mime-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
+You can reset your phone number by clicking on the following link:
+
+http://localhost/request_reset_phone?reset_code=40b4aa9cbfce69c85927ab1dc3eb0f3abf056afa
+Redirected to http://test.host/
+Completed in 32ms (DB: 3) | 302 Found [http://test.host/login_phone?login=foo1%40example.com]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 22:24:11) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"1234", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/login_phone?login=cbonnet99%40gmail.com
+Completed in 2ms (DB: 1) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=1234]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing ClientsController#lookup_form (for 0.0.0.0 at 2009-12-08 22:24:11) [GET]
+  Parameters: {"action"=>"lookup_form", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/lookup_form
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 7ms (View: 6, DB: 0) | 200 OK [http://test.host/lookup_form]
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 22:24:52) [POST]
+  Parameters: {"action"=>"login", "controller"=>"clients", "phone_last4digits"=>"3654", "login"=>"cbonnet99@gmail.com"}
+  [4;35;1mClient Load (0.8ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/clients/2071878929
+Completed in 5ms (DB: 9) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=3654]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 22:24:52) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Rendered clients/_login_info (0.5ms)
+Rendered practitioners/_selected_pro_info (0.4ms)
+Completed in 8ms (View: 7, DB: 1) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 09:24:52.303768', '2009-12-08 09:24:52.303768', NULL, NULL, E'9ec22a5544ccf0314dbc7b42a5800ccf1c96f1dc', NULL, NULL, E'6905ee317cf9b2a1d70c390b28d51a4a86e10a19', NULL, E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 22:24:52) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"foo1@example.com"}
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com' AND "clients".id <> 2071878930) LIMIT 1[0m
+  [4;35;1mClient Update (0.4ms)[0m   [0mUPDATE "clients" SET "updated_at" = '2009-12-08 09:24:52.311443', "reset_code" = E'cd6439932510b526dba0ecb852c773a02a835f96' WHERE "id" = 2071878930[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO "client_emails" ("created_at", "updated_at", "client_id", "sent_at", "email_type") VALUES('2009-12-08 09:24:52.327161', '2009-12-08 09:24:52.327161', 2071878930, '2009-12-08 09:24:52.313200', E'reset_phone') RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+Sent mail to foo1@example.com
+
+Date: Tue, 8 Dec 2009 22:24:52 +1300
+From: cbonnet99@gmail.com
+To: foo1@example.com
+Subject: [Online Bookings(TEST)] You have requested to reset your phone number
+Mime-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
+You can reset your phone number by clicking on the following link:
+
+http://localhost/request_reset_phone?reset_code=cd6439932510b526dba0ecb852c773a02a835f96
+Redirected to http://test.host/
+Completed in 29ms (DB: 3) | 302 Found [http://test.host/login_phone?login=foo1%40example.com]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 22:24:52) [POST]
+  Parameters: {"action"=>"login", "controller"=>"clients", "phone_last4digits"=>"1234", "login"=>"cbonnet99@gmail.com"}
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/login_phone?login=cbonnet99%40gmail.com
+Completed in 1ms (DB: 1) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=1234]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+
+
+Processing ClientsController#lookup_form (for 0.0.0.0 at 2009-12-08 22:24:52) [GET]
+  Parameters: {"action"=>"lookup_form", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/lookup_form
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 4ms (View: 4, DB: 0) | 200 OK [http://test.host/lookup_form]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 22:25:54) [POST]
+  Parameters: {"action"=>"login", "controller"=>"clients", "phone_last4digits"=>"3654", "login"=>"cbonnet99@gmail.com"}
+  [4;35;1mClient Load (0.7ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/practitioners/david-savage
+Completed in 4ms (DB: 8) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=3654]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 22:25:54) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Rendered clients/_login_info (0.5ms)
+Rendered practitioners/_selected_pro_info (0.4ms)
+Completed in 8ms (View: 7, DB: 1) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 09:25:54.646976', '2009-12-08 09:25:54.646976', NULL, NULL, E'3bdb10a0e7ee38a9bbd33b23588fbdbb87f8d2cc', NULL, NULL, E'9d6d5892162cec05ac2096ac7af5cb455cb06370', NULL, E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 22:25:54) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"foo1@example.com"}
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com' AND "clients".id <> 2071878930) LIMIT 1[0m
+  [4;35;1mClient Update (0.2ms)[0m   [0mUPDATE "clients" SET "updated_at" = '2009-12-08 09:25:54.654377', "reset_code" = E'2ab2558ba1f4cb7f076de8526870378af402fad3' WHERE "id" = 2071878930[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO "client_emails" ("created_at", "updated_at", "client_id", "sent_at", "email_type") VALUES('2009-12-08 09:25:54.670306', '2009-12-08 09:25:54.670306', 2071878930, '2009-12-08 09:25:54.655873', E'reset_phone') RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+Sent mail to foo1@example.com
+
+Date: Tue, 8 Dec 2009 22:25:54 +1300
+From: cbonnet99@gmail.com
+To: foo1@example.com
+Subject: [Online Bookings(TEST)] You have requested to reset your phone number
+Mime-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
+You can reset your phone number by clicking on the following link:
+
+http://localhost/request_reset_phone?reset_code=2ab2558ba1f4cb7f076de8526870378af402fad3
+Redirected to http://test.host/
+Completed in 29ms (DB: 2) | 302 Found [http://test.host/login_phone?login=foo1%40example.com]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 22:25:54) [POST]
+  Parameters: {"action"=>"login", "controller"=>"clients", "phone_last4digits"=>"1234", "login"=>"cbonnet99@gmail.com"}
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/login_phone?login=cbonnet99%40gmail.com
+Completed in 1ms (DB: 1) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=1234]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+
+
+Processing ClientsController#lookup_form (for 0.0.0.0 at 2009-12-08 22:25:54) [GET]
+  Parameters: {"action"=>"lookup_form", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/lookup_form
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 4ms (View: 4, DB: 0) | 200 OK [http://test.host/lookup_form]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 22:28:17) [POST]
+  Parameters: {"action"=>"login", "controller"=>"clients", "phone_last4digits"=>"3654", "login"=>"cbonnet99@gmail.com"}
+  [4;35;1mClient Load (0.7ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/practitioners/david-savage
+Completed in 4ms (DB: 10) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=3654]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 22:28:17) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Rendered clients/_login_info (0.4ms)
+Rendered practitioners/_selected_pro_info (1.0ms)
+Completed in 9ms (View: 8, DB: 1) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 09:28:17.835834', '2009-12-08 09:28:17.835834', NULL, NULL, E'580fecf8d2bab75e5af5f98d7b1c8a36f3c04ef6', NULL, NULL, E'db16f954bc77061c8512164c5fd4091521c0cea5', NULL, E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 22:28:17) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"foo1@example.com"}
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.4ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com' AND "clients".id <> 2071878930) LIMIT 1[0m
+  [4;35;1mClient Update (0.3ms)[0m   [0mUPDATE "clients" SET "updated_at" = '2009-12-08 09:28:17.843452', "reset_code" = E'2a1835a5bf60c918a1f9b3a9720b01e3331826e5' WHERE "id" = 2071878930[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO "client_emails" ("created_at", "updated_at", "client_id", "sent_at", "email_type") VALUES('2009-12-08 09:28:17.858913', '2009-12-08 09:28:17.858913', 2071878930, '2009-12-08 09:28:17.845026', E'reset_phone') RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+Sent mail to foo1@example.com
+
+Date: Tue, 8 Dec 2009 22:28:17 +1300
+From: cbonnet99@gmail.com
+To: foo1@example.com
+Subject: [Online Bookings(TEST)] You have requested to reset your phone number
+Mime-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
+You can reset your phone number by clicking on the following link:
+
+http://localhost/request_reset_phone?reset_code=2a1835a5bf60c918a1f9b3a9720b01e3331826e5
+Redirected to http://test.host/
+Completed in 29ms (DB: 3) | 302 Found [http://test.host/login_phone?login=foo1%40example.com]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 22:28:17) [POST]
+  Parameters: {"action"=>"login", "controller"=>"clients", "phone_last4digits"=>"1234", "login"=>"cbonnet99@gmail.com"}
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/login_phone?login=cbonnet99%40gmail.com
+Completed in 1ms (DB: 1) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=1234]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+
+
+Processing ClientsController#lookup_form (for 0.0.0.0 at 2009-12-08 22:28:17) [GET]
+  Parameters: {"action"=>"lookup_form", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/lookup_form
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 4ms (View: 4, DB: 0) | 200 OK [http://test.host/lookup_form]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.6ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 09:31:27.980643', '2009-12-08 09:31:27.980643', NULL, NULL, E'f9da3b878300059adc95d7e5d90b481229170f84', NULL, NULL, E'b2a98aac2ac4ea463d24e665b062a9597822b812', NULL, E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foobar') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'nonexisting') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 09:31:27.992362', '2009-12-08 09:31:27.992362', NULL, NULL, E'1ed7dabb165cd49c942d8ed4108e7d3038f9bd84', NULL, NULL, E'712554ef48c69959f2977c5586f1f8f6acf5b4bb', NULL, E'foo@bar.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 09:31:27.997715', '2009-12-08 09:31:27.997715', E'888762313', E'021', E'64b94e96d3508030f42d05c411f73aae1fb64fd1', NULL, NULL, E'821fdd155b7f407c158b69bbe6d29ccfe79c94a1', NULL, E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 09:31:28.005125', '2009-12-08 09:31:28.005125', NULL, NULL, E'd91e235e57e6949c9629eaf756b06a9f358190b0', NULL, NULL, E'950fd32d60324a04795de779c29d24433f535e21', NULL, E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo2@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 09:31:28.009876', '2009-12-08 09:31:28.009876', E'888762313', E'021', E'b9e638d6150d5caa6bee5830dd0ced3c7202f98e', NULL, NULL, E'a85bf42d3264540d3d48a27ec34a70275f9438dc', NULL, E'foo2@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo3@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 09:31:28.015435', '2009-12-08 09:31:28.015435', E'8887623135', E'021', E'0272fa270ddfc716ca26708877f0264436b87fdc', NULL, NULL, E'5af82833919520e776c0383b10718de58193b3bb', NULL, E'foo3@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.2ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Delete all (0.1ms)[0m   [0;1mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.2ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Delete all (0.1ms)[0m   [0mDELETE FROM "clients" [0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.2ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 09:31:28.036819', '2009-12-08 09:31:28.036819', NULL, NULL, E'47dbeb5559d6f5e2be96a14ae64e2bbd0a31cacf', NULL, NULL, E'2b3bf8009a6870e6a341151f37b61274f1226ea8', NULL, E'bar@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+WARNING: Can't mass-assign these protected attributes: username
+  [4;35;1mClient Load (0.2ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.2ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Delete all (0.1ms)[0m   [0mDELETE FROM "practitioners" [0m
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foobar') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foobar') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.1ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO "practitioners" ("permalink", "created_at", "updated_at", "username", "password_salt", "last_name", "password_hash", "email", "first_name") VALUES(E'', '2009-12-08 09:31:28.214403', '2009-12-08 09:31:28.214403', E'foobar', E'f74b8f1216816268e27d947cb433d68fbd265125', NULL, E'84705796b579738472021f17ed9caacd8102572f', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."username" = E'foobar') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.2ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."username" = E'nonexisting') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."email" = E'nonexisting') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mPractitioner Delete all (0.1ms)[0m   [0mDELETE FROM "practitioners" [0m
+  [4;36;1mPractitioner Delete all (0.1ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.4ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.1ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO "practitioners" ("permalink", "created_at", "updated_at", "username", "password_salt", "last_name", "password_hash", "email", "first_name") VALUES(E'', '2009-12-08 09:31:28.228485', '2009-12-08 09:31:28.228485', E'foo', E'9983093cde05a3dde7ac0cce4ba75c662dc30b02', NULL, E'a636f034c844de916e8ec9ba5c9cf7a736cde1cc', E'foo@bar.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."username" = E'foo@bar.com') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."email" = E'foo@bar.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.2ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Delete all (0.1ms)[0m   [0mDELETE FROM "practitioners" [0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foobar') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.1ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foobar') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mINSERT INTO "practitioners" ("permalink", "created_at", "updated_at", "username", "password_salt", "last_name", "password_hash", "email", "first_name") VALUES(E'', '2009-12-08 09:31:28.238492', '2009-12-08 09:31:28.238492', E'foobar', E'fb4f265fccc270603b064748968fd113407537fd', NULL, E'0dc3defdcb6ebd97ac98c0fffbc635296610ea78', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."username" = E'foobar') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.1ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "practitioners" ("permalink", "created_at", "updated_at", "username", "password_salt", "last_name", "password_hash", "email", "first_name") VALUES(E'', '2009-12-08 09:31:28.246770', '2009-12-08 09:31:28.246770', E'foo', E'7b1e354644eb6f308b7b586e199d2504bc84afa3', NULL, E'9fe6a0ee45a1ec0e72c3d7434ce5c0d9bae8e86d', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.2ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.4ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mPractitioner Delete all (0.2ms)[0m   [0mDELETE FROM "practitioners" [0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.2ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.1ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.1ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mPractitioner Delete all (0.2ms)[0m   [0mDELETE FROM "practitioners" [0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.1ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.1ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.1ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.1ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'odd ^&(@)') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.1ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mPractitioner Delete all (0.1ms)[0m   [0mDELETE FROM "practitioners" [0m
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.5ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.2ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "practitioners" ("permalink", "created_at", "updated_at", "username", "password_salt", "last_name", "password_hash", "email", "first_name") VALUES(E'', '2009-12-08 09:31:28.286435', '2009-12-08 09:31:28.286435', E'foo', E'40b6ffa83c36b10d7d7033aa1b10f17e7b226320', NULL, E'5bc7cdaab59c5a2432892df9f42d505ebb6caada', E'bar@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mPractitioner Load (0.4ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'foo') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'bar@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mPractitioner Delete all (0.2ms)[0m   [0;1mDELETE FROM "practitioners" [0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'uniquename') LIMIT 1[0m
+  [4;36;1mPractitioner Load (0.1ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mPractitioner Load (0.2ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'uniquename') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.1ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mINSERT INTO "practitioners" ("permalink", "created_at", "updated_at", "username", "password_salt", "last_name", "password_hash", "email", "first_name") VALUES(E'', '2009-12-08 09:31:28.298013', '2009-12-08 09:31:28.298013', E'uniquename', E'785b32a385e2fd68722832a34d8e5350afed269c', NULL, E'22d6abde7ae0050480e15d39b77b3bce3c9a865d', E'foo@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."username" = E'uniquename') LIMIT 1[0m
+  [4;35;1mPractitioner Load (0.2ms)[0m   [0mSELECT "practitioners".id FROM "practitioners" WHERE ("practitioners"."email" = E'foo@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET client_min_messages TO 'panic'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET client_min_messages TO 'notice'[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+  [4;36;1mPractitioner Load (0.4ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 22:31:29) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"3654", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;35;1mClient Load (0.8ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/practitioners/david-savage
+Completed in 4ms (DB: 11) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=3654]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.4ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 22:31:29) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering clients/login_phone
+Rendered clients/_login_info (0.6ms)
+Rendered practitioners/_selected_pro_info (0.5ms)
+Completed in 11ms (View: 10, DB: 1) | 200 OK [http://test.host/login_phone?login=cbonnet99%40gmail.com]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSAVEPOINT active_record_1[0m
+  [4;35;1mClient Load (0.3ms)[0m   [0mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mINSERT INTO "clients" ("created_at", "updated_at", "phone_suffix", "phone_prefix", "password_salt", "question", "string", "password_hash", "reset_code", "email", "answer") VALUES('2009-12-08 09:31:29.785845', '2009-12-08 09:31:29.785845', NULL, NULL, E'075cdb568326334539193ea7436adf78d8c9add7', NULL, NULL, E'fa2ec85b7af29d847ab8514e47f8ad20ec027010', NULL, E'foo1@example.com', NULL) RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+
+
+Processing ClientsController#login_phone (for 0.0.0.0 at 2009-12-08 22:31:29) [GET]
+  Parameters: {"action"=>"login_phone", "controller"=>"clients", "login"=>"foo1@example.com"}
+  [4;36;1mClient Load (0.4ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."email" = E'foo1@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mClient Load (0.5ms)[0m   [0;1mSELECT "clients".id FROM "clients" WHERE ("clients"."email" = E'foo1@example.com' AND "clients".id <> 2071878930) LIMIT 1[0m
+  [4;35;1mClient Update (0.4ms)[0m   [0mUPDATE "clients" SET "updated_at" = '2009-12-08 09:31:29.795442', "reset_code" = E'eb8f01f9092a59a8efb9f6b886d11a5c96ce1351' WHERE "id" = 2071878930[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mRELEASE SAVEPOINT active_record_1[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSAVEPOINT active_record_1[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mINSERT INTO "client_emails" ("created_at", "updated_at", "client_id", "sent_at", "email_type") VALUES('2009-12-08 09:31:29.822365', '2009-12-08 09:31:29.822365', 2071878930, '2009-12-08 09:31:29.797409', E'reset_phone') RETURNING "id"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mRELEASE SAVEPOINT active_record_1[0m
+Sent mail to foo1@example.com
+
+Date: Tue, 8 Dec 2009 22:31:29 +1300
+From: cbonnet99@gmail.com
+To: foo1@example.com
+Subject: [Online Bookings(TEST)] You have requested to reset your phone number
+Mime-Version: 1.0
+Content-Type: text/html; charset=utf-8
+
+You can reset your phone number by clicking on the following link:
+
+http://localhost/request_reset_phone?reset_code=eb8f01f9092a59a8efb9f6b886d11a5c96ce1351
+Redirected to http://test.host/
+Completed in 46ms (DB: 3) | 302 Found [http://test.host/login_phone?login=foo1%40example.com]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mClient Load (0.3ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing ClientsController#login (for 0.0.0.0 at 2009-12-08 22:31:29) [POST]
+  Parameters: {"action"=>"login", "phone_last4digits"=>"1234", "controller"=>"clients", "login"=>"cbonnet99@gmail.com"}
+  [4;35;1mClient Load (0.4ms)[0m   [0mSELECT * FROM "clients" WHERE ("clients"."email" = E'cbonnet99@gmail.com') LIMIT 1[0m
+Redirected to http://test.host/login_phone?login=cbonnet99%40gmail.com
+Completed in 2ms (DB: 1) | 302 Found [http://test.host/client_login?login=cbonnet99%40gmail.com&phone_last4digits=1234]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+
+
+Processing ClientsController#lookup_form (for 0.0.0.0 at 2009-12-08 22:31:29) [GET]
+  Parameters: {"action"=>"lookup_form", "controller"=>"clients"}
+Rendering template within layouts/application
+Rendering clients/lookup_form
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 5ms (View: 4, DB: 0) | 200 OK [http://test.host/lookup_form]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+
+
+Processing PractitionersController#edit_selected (for 0.0.0.0 at 2009-12-08 22:31:29) [GET]
+  Parameters: {"action"=>"edit_selected", "controller"=>"practitioners"}
+  [4;36;1mPractitioner Load (0.3ms)[0m   [0;1mSELECT * FROM "practitioners" [0m
+Rendering template within layouts/application
+Rendering practitioners/edit_selected
+Rendered practitioners/_select (2.0ms)
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 11ms (View: 5, DB: 1) | 200 OK [http://test.host/edit_selected_practitioner]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing PractitionersController#new (for 0.0.0.0 at 2009-12-08 22:31:29) [GET]
+  Parameters: {"action"=>"new", "controller"=>"practitioners"}
+Rendering template within layouts/application
+Rendering practitioners/new
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 10ms (View: 10, DB: 0) | 200 OK [http://test.host/practitioners/new]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+  [4;36;1mClient Load (0.4ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+
+
+Processing PractitionersController#show (for 0.0.0.0 at 2009-12-08 22:31:29) [GET]
+  Parameters: {"action"=>"show", "practitioner_permalink"=>"david-savage", "controller"=>"practitioners"}
+  [4;35;1mPractitioner Load (0.4ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."permalink" = E'david-savage') LIMIT 1[0m
+  [4;36;1mClient Load (0.4ms)[0m   [0;1mSELECT * FROM "clients" WHERE ("clients"."id" = 2071878929) [0m
+Rendering template within layouts/application
+Rendering practitioners/show
+Rendered clients/_login_info (1.1ms)
+Rendered practitioners/_selected_pro_info (0.6ms)
+Completed in 10ms (View: 6, DB: 2) | 200 OK [http://test.host/practitioners/show?practitioner_permalink=david-savage]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mPractitioner Load (0.3ms)[0m   [0mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+
+
+Processing PractitionersController#update_selected (for 0.0.0.0 at 2009-12-08 22:31:29) [POST]
+  Parameters: {"practitioner_id"=>"1819705844", "action"=>"update_selected", "controller"=>"practitioners"}
+  [4;36;1mPractitioner Load (0.4ms)[0m   [0;1mSELECT * FROM "practitioners" WHERE ("practitioners"."id" = 1819705844) [0m
+Redirected to http://test.host/practitioners/david-savage
+Completed in 2ms (DB: 1) | 302 Found [http://test.host/update_selected_practitioner?practitioner_id=1819705844]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+
+
+Processing SessionsController#new (for 0.0.0.0 at 2009-12-08 22:31:29) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/application
+Rendering sessions/new
+Rendered clients/_login_info (0.1ms)
+Rendered practitioners/_selected_pro_info (0.1ms)
+Completed in 9ms (View: 7, DB: 0) | 200 OK [http://test.host/login]
+  [4;35;1mSQL (0.2ms)[0m   [0mROLLBACK[0m

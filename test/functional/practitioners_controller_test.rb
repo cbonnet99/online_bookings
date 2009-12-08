@@ -14,7 +14,7 @@ class PractitionersControllerTest < ActionController::TestCase
   def test_update_selected
     sav = practitioners(:sav)
     post :update_selected, :practitioner_id => sav.id
-    assert_redirected_to lookup_form_url(:practitioner_permalink => sav.permalink) 
+    assert_redirected_to sav
   end
   
   def test_show

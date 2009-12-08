@@ -3,11 +3,17 @@ class ClientsController < ApplicationController
 
   def index
     get_practitioners
+    session[:return_to] = request.referer
   end
   
   def edit
     @client = current_client
     @phone_prefixes = Client::PHONE_SUFFIXES
+    session[:return_to] = request.referer
+  end
+
+  def update
+    
   end
   
   def request_reset_phone
@@ -73,7 +79,7 @@ class ClientsController < ApplicationController
   def lookup_form
     if logged_in?
       flash[:notice] = "Welcome back!"
-      redirect_to current_client
+      redirect_to root_url
     else
       @client = Client.new
     end
@@ -104,7 +110,7 @@ class ClientsController < ApplicationController
     if @client.check_phone_first_4digits(params[:phone_last4digits])
       session[:client_id] = @client.id
       flash[:notice] = "You can now book your appointment"
-      redirect_to @client
+      redirect_to session[:return_to] || root_url
     else
       flash[:error] = "Sorry, the numbers do not match. Please try again."
       redirect_to login_phone_url(:login => params["login"] )
