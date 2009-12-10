@@ -20,6 +20,10 @@ class Client < ActiveRecord::Base
   FIXED_SUFFIXES = ["03", "04", "06", "07", "09"]
   PHONE_SUFFIXES = MOBILE_SUFFIXES + FIXED_SUFFIXES
 
+  def name
+    "#{first_name} #{last_name}"
+  end
+
   def send_reset_phone_link
     self.reset_code = Digest::SHA1.hexdigest("#{email}#{Time.now}#{id}")
     self.save!

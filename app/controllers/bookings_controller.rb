@@ -3,17 +3,7 @@ class BookingsController < ApplicationController
   before_filter :get_selected_practitioner
   
   def index
-    start_time = if params[:start].blank?
-      Time.now.beginning_of_week
-    else
-      Time.zone.at(params[:start])
-    end
-    end_time = if params[:end].blank?
-      Time.now.end_of_week
-    else
-      Time.zone.at(params[:end])
-    end
-    @bookings = Booking.find_all_by_practitioner_id(@current_selected_pro, :conditions => ["starts_at BETWEEN ? AND ?", start_time, end_time] )
+    @bookings = @current_selected_pro.all_bookings(current_client, params[:start].try(:to_f), params[:end].try(:to_f))
   end
   
   def show

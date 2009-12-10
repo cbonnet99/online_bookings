@@ -1,7 +1,28 @@
 Factory.define :client do |f|
-  # f.sequence(:first_name) {|n| "User#{n}"}
-  # f.last_name "Name"
+  f.sequence(:first_name) {|n| "User#{n}"}
+  f.last_name "Name"
   f.password "foobar"
   f.password_confirmation { |u| u.password }
   f.sequence(:email) { |n| "foo#{n}@example.com" }
+end
+
+Factory.define :practitioner do |f|
+  # f.sequence(:first_name) {|n| "User#{n}"}
+  # f.last_name "Name"
+  f.first_name "John"
+  f.last_name "Foo"
+  f.biz_hours_start "8"
+  f.biz_hours_end "18"
+  f.working_days "4,5"
+  f.password "foobar"
+  f.password_confirmation { |u| u.password }
+  f.sequence(:email) { |n| "foo#{n}@example.com" }
+end
+
+Factory.define :booking do |b|
+  b.association :client
+  b.association :practitioner
+  b.name {|b| b.client.name}
+  b.starts_at Time.now.tomorrow.beginning_of_day.advance(:hours=>9)
+  b.ends_at Time.now.tomorrow.beginning_of_day.advance(:hours=>10)
 end

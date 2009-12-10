@@ -1,4 +1,4 @@
-require 'test_helper'
+require File.dirname(__FILE__) + '/../test_helper'
 
 class PractitionerTest < ActiveSupport::TestCase
   def new_practitioner(attributes = {})
@@ -15,12 +15,42 @@ class PractitionerTest < ActiveSupport::TestCase
     Practitioner.delete_all
   end
   
-  def test_valid
-    assert new_practitioner.valid?
+  def test_all_bookings
+    megan = Factory(:practitioner, :working_days => "4,5")
+    cyrille = Factory(:client)
+    k = Factory(:client)
+    booking = Factory(:booking, :client => cyrille, :practitioner => megan )
+    booking = Factory(:booking, :client => k, :practitioner => megan )
+    megan_bookings = megan.all_bookings(cyrille, Time.now.beginning_of_week.to_f, Time.now.end_of_week.to_f)
+    assert megan_bookings.is_a?(Enumerable)
+    assert_equal 5, megan_bookings.size
+    cyrille_booking = megan_bookings.select{|b| b.is_a?(Booking) && b.client_id == cyrille.id}.first
+    assert !cyrille_booking.read_only?
+    k_booking = megan_bookings.select{|b| b.is_a?(Booking) && b.client_id == k.id}.first
+    assert k_booking.read_only?
   end
   
-  def test_require_username
-    assert new_practitioner(:username => '').errors.on(:username)
+  def test_works_weekends
+    megan = Factory(:practitioner, :working_days => "4,5")
+    assert !megan.works_weekends?
+    sav = Factory(:practitioner, :working_days => "4,5,6")
+    assert sav.works_weekends?
+    joe = Factory(:practitioner, :working_days => "4,5,7")
+    assert joe.works_weekends?
+  end
+  
+  def test_bookings_for_non_working_days
+    megan = Factory(:practitioner, :working_days => "4,5")
+    bookings = megan.bookings_for_non_working_days(Time.now.beginning_of_week, Time.now.end_of_week)
+    assert_equal 3, bookings.size, "There should 3 bookings for the 3 days when Megan doesn't work"
+    first_booking = bookings.first
+    json = first_booking.to_json
+    assert_valid_json(json)
+    assert_match %r{"id":}, json
+  end
+  
+  def test_valid
+    assert new_practitioner.valid?
   end
   
   def test_require_password
@@ -35,12 +65,7 @@ class PractitionerTest < ActiveSupport::TestCase
     new_practitioner(:email => 'bar@example.com').save!
     assert new_practitioner(:email => 'bar@example.com').errors.on(:email)
   end
-  
-  def test_validate_uniqueness_of_username
-    new_practitioner(:username => 'uniquename').save!
-    assert new_practitioner(:username => 'uniquename').errors.on(:username)
-  end
-  
+    
   def test_validate_odd_characters_in_username
     assert new_practitioner(:username => 'odd ^&(@)').errors.on(:username)
   end

@@ -1,9 +1,15 @@
 cyrille:
-  email: cbonnet99@gmail.com
-  # password: "secret"
-  password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f
-  password_salt: bef65e058905c379436d80d1a32e7374b139e7b0
-  question: What was your first pet's name?
-  answer: Mady
-  phone_prefix: "021"
-  phone_suffix: 1853654
+    email: cbonnet99@gmail.com
+    # password: "secret"
+    password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f
+    password_salt: bef65e058905c379436d80d1a32e7374b139e7b0
+    phone_prefix: "021"
+    phone_suffix: 1853654
+kartini:
+    email: kartini@gmail.com
+    # password: "secret"
+    password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f
+    password_salt: bef65e058905c379436d80d1a32e7374b139e7b0
+    phone_prefix: "021"
+    phone_suffix: 1854444
+    

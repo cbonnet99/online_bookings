@@ -9,8 +9,8 @@ $(document).ready(function() {
    $calendar.weekCalendar({
       timeslotsPerHour : 2,
 	  dateFormat: "j M Y",
-      allowCalEventOverlap : true,
-      overlapEventsSeparate: true,
+      allowCalEventOverlap : false,
+      overlapEventsSeparate: false,
       firstDayOfWeek : 1,
       businessHours :{start: 8, end: 18, limitDisplay: true },
       daysToShow : 5,
@@ -23,7 +23,7 @@ $(document).ready(function() {
          return $(window).height() - $("h1").outerHeight() - 1;
       },
       eventRender : function(calEvent, $event) {
-         if (calEvent.end.getTime() < new Date().getTime()) {
+         if ((calEvent.end.getTime() < new Date().getTime()) || calEvent.readOnly) {
             $event.css("backgroundColor", "#aaa");
             $event.find(".wc-time").css({
                "backgroundColor" : "#999",
@@ -149,8 +149,8 @@ $(document).ready(function() {
       data : function(start, end, callback) {
 		$.getJSON("/practitioners/<%=@current_selected_pro.permalink%>/bookings.json", 
 		                  { 
-		                     start: start.getTime(), 
-		                     end: end.getTime() 
+		                     start: start.getTime()/1000, 
+		                     end: end.getTime()/1000 
 		                  }, 
 		                  function(result) { 
 		                     callback(result); 

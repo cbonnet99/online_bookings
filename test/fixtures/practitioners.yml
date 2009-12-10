@@ -6,6 +6,9 @@ megan:
     # password: "secret"
     password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f
     password_salt: bef65e058905c379436d80d1a32e7374b139e7b0
+    biz_hours_start: "8"
+    biz_hours_end: "18"
+    working_days: "4,5"
 sav:
     first_name: David
     last_name: Savage
@@ -14,3 +17,6 @@ sav:
     # password: "secret"
     password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f
     password_salt: bef65e058905c379436d80d1a32e7374b139e7b0
+    biz_hours_start: "8"
+    biz_hours_end: "17"
+    working_days: "1,2,3,4"
