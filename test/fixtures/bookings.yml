@@ -1,19 +1,19 @@
 cyrille_megan:
     name: Cyrille Bonnet
-    starts_at: <%=Time.now.tomorrow.beginning_of_day.advance(:hours=>9).to_s(:db)%>
-    ends_at: <%=Time.now.tomorrow.beginning_of_day.advance(:hours=>10).to_s(:db)%>
+    starts_at: <%=Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>9).to_s(:db)%>
+    ends_at: <%=Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>10).to_s(:db)%>
     client: cyrille
     practitioner: megan
 
 cyrille_sav:
     name: Cyrille Bonnet
-    starts_at: <%=Time.now.tomorrow.beginning_of_day.advance(:hours=>11).to_s(:db)%>
-    ends_at: <%=Time.now.tomorrow.beginning_of_day.advance(:hours=>12).to_s(:db)%>
+    starts_at: <%=Time.now.beginning_of_week.advance(:days=>8).advance(:hours=>11).to_s(:db)%>
+    ends_at: <%=Time.now.beginning_of_week.advance(:days=>8).advance(:hours=>12).to_s(:db)%>
     client: cyrille
     practitioner: sav
 kartini_megan:
     name: Kartini T.
-    starts_at: <%=Time.now.tomorrow.beginning_of_day.advance(:hours=>13).to_s(:db)%>
-    ends_at: <%=Time.now.tomorrow.beginning_of_day.advance(:hours=>14).to_s(:db)%>
+    starts_at: <%=Time.beginning_of_week.advance(:days=>7).advance(:hours=>13).to_s(:db)%>
+    ends_at: <%=Time.beginning_of_week.advance(:days=>7).advance(:hours=>14).to_s(:db)%>
     client: kartini
     practitioner: megan
