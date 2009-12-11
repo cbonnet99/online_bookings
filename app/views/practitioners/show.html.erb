@@ -13,7 +13,7 @@ $(document).ready(function() {
       overlapEventsSeparate: false,
       firstDayOfWeek : 1,
       businessHours :{start: <%=@current_selected_pro.biz_hours_start%>, end: <%=@current_selected_pro.biz_hours_end%>, limitDisplay: true },
-      daysToShow : 5,
+      daysToShow : <%=@current_selected_pro.show_days%>,
 	  buttonText: {
 		today: "Today",
 		lastWeek: "< Previous week",
