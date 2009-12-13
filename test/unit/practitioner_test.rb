@@ -23,7 +23,7 @@ class PractitionerTest < ActiveSupport::TestCase
     booking = Factory(:booking, :client => k, :practitioner => megan )
     megan_bookings = megan.all_bookings(cyrille, Time.now.beginning_of_week.to_f, Time.now.end_of_week.to_f)
     assert megan_bookings.is_a?(Enumerable)
-    assert_equal 5, megan_bookings.size
+    assert_equal 7, megan_bookings.size
     cyrille_booking = megan_bookings.select{|b| b.is_a?(Booking) && b.client_id == cyrille.id}.first
     assert !cyrille_booking.read_only?
     k_booking = megan_bookings.select{|b| b.is_a?(Booking) && b.client_id == k.id}.first
@@ -42,7 +42,7 @@ class PractitionerTest < ActiveSupport::TestCase
   def test_bookings_for_non_working_days
     megan = Factory(:practitioner, :working_days => "4,5")
     bookings = megan.bookings_for_non_working_days(Time.now.beginning_of_week, Time.now.end_of_week)
-    assert_equal 3, bookings.size, "There should 3 bookings for the 3 days when Megan doesn't work"
+    assert_equal 5, bookings.size, "There should 5 bookings for the 5 days when Megan doesn't work"
     first_booking = bookings.first
     json = first_booking.to_json
     assert_valid_json(json)

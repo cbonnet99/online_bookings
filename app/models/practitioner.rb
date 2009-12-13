@@ -50,7 +50,7 @@ class Practitioner < ActiveRecord::Base
   def bookings_for_non_working_days(start_time, end_time)
     current = start_time
     res = []
-    ("1"..self.show_days.to_s).to_a.each do |current_day|
+    ("1".."7").to_a.each do |current_day|
       if !working_days.blank? && !working_days.include?(current_day)
         day, month, year = current.strftime("%d %m %Y").split(" ")
         res << NonWorkingBooking.new("#{self.id}-#{current_day}", "Booked", Time.parse("#{year}/#{month}/#{day} #{biz_hours_start}:00").iso8601, Time.parse("#{year}/#{month}/#{day} #{biz_hours_end}:00").iso8601, true)
