@@ -29,6 +29,9 @@ class BookingsControllerTest < ActionController::TestCase
     assert_not_nil new_booking.starts_at
     assert_not_nil new_booking.ends_at
     assert_not_nil new_booking.booking_type
+    cyrille.reload
+    assert_equal "Joe", cyrille.first_name
+    assert_equal "Sullivan", cyrille.last_name
   end
 
   def test_index

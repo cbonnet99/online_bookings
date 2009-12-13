@@ -13,6 +13,18 @@ class Booking < ActiveRecord::Base
   attr_accessible :starts_at, :ends_at, :name, :comment, :booking_type
   attr_accessor :current_client
   
+  after_create :save_client_name
+  after_update :save_client_name
+  
+  def save_client_name
+    if !self.name.blank? && client.name.blank?
+      names = self.name.split(" ")
+      client.first_name = names[0]
+      client.last_name = names[1..names.size].join(" ")
+      client.save!
+    end
+  end
+  
   def include_root_in_json
     false
   end
