@@ -1,10 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class BookingTest < ActiveSupport::TestCase
-  def test_should_be_valid
-    assert Booking.new.valid?
-  end
-  
+class BookingTest < ActiveSupport::TestCase  
   def test_to_json
     json = bookings(:cyrille_sav).to_json
     # puts "===== json: #{json}"

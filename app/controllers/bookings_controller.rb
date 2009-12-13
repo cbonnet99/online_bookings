@@ -15,12 +15,21 @@ class BookingsController < ApplicationController
   end
   
   def create
+    if current_client.nil?
+      flash[:error] = "Not authenticated as a client"
+      return false
+    end
+    if @current_selected_pro.nil?
+      flash[:error] = "No selected practitioner"
+      return false
+    end
     @booking = Booking.new(params[:booking])
+    @booking.client_id = current_client.id
+    @booking.practitioner_id = @current_selected_pro.id
+    @booking.name = current_client.default_name if @booking.name.blank?
+    @booking.current_client = current_client
     if @booking.save
-      flash[:notice] = "Successfully created booking."
-      redirect_to @booking
-    else
-      render :action => 'new'
+      flash.now[:notice] = "Your appointment is booked"
     end
   end
   

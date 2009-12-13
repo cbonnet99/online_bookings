@@ -15,6 +15,11 @@ class ClientTest < ActiveSupport::TestCase
     Client.delete_all
   end
   
+  def test_default_name
+    c = Factory(:client, :first_name => "", :last_name => "" )
+    assert_equal c.email, c.default_name
+  end
+  
   def test_cleanup_phone
     c = Factory(:client, :phone_prefix => "0 2-1/", :phone_suffix => "88 876-23/13"  )
     assert_equal "021", c.phone_prefix

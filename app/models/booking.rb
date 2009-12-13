@@ -7,8 +7,10 @@ end
 class Booking < ActiveRecord::Base
   belongs_to :practitioner
   belongs_to :client
+
+  validates_presence_of :name
   
-  attr_accessible :starts_at, :ends_at, :client_id
+  attr_accessible :starts_at, :ends_at, :name, :comment, :booking_type
   attr_accessor :current_client
   
   def include_root_in_json
@@ -24,10 +26,10 @@ class Booking < ActiveRecord::Base
   end
   
   def title
-    if !current_client.nil? && current_client.id == client_id
-      name
-    else
+    if read_only?
       "Booked"
+    else
+      name
     end
   end
   
@@ -40,6 +42,6 @@ class Booking < ActiveRecord::Base
   end
   
   def to_json(options={})
-    super options.merge(:only => [], :methods => [:id, :title, :start, :end, :readOnly])
+    super options.merge(:only => [:id], :methods => [:title, :start, :end, :readOnly, :errors])
   end
 end

@@ -19,6 +19,14 @@ class Client < ActiveRecord::Base
   MOBILE_SUFFIXES = ["021", "022", "027", "029"]
   FIXED_SUFFIXES = ["03", "04", "06", "07", "09"]
   PHONE_SUFFIXES = MOBILE_SUFFIXES + FIXED_SUFFIXES
+  
+  def default_name
+    if name.blank?
+      email
+    else
+      name
+    end
+  end
 
   def name
     "#{first_name} #{last_name}"

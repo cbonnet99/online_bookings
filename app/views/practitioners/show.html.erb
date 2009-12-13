@@ -13,7 +13,7 @@ $(document).ready(function() {
       overlapEventsSeparate: false,
       firstDayOfWeek : 1,
       businessHours :{start: <%=@current_selected_pro.biz_hours_start%>, end: <%=@current_selected_pro.biz_hours_end%>, limitDisplay: true },
-      daysToShow : <%=@current_selected_pro.show_days%>,
+      daysToShow : 7,
 	  buttonText: {
 		today: "Today",
 		lastWeek: "< Previous week",
@@ -49,8 +49,9 @@ $(document).ready(function() {
 	         resetForm($dialogContent);
 	         var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
 	         var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
-	         var titleField = $dialogContent.find("input[name='title']");
+	         var titleField = $dialogContent.find("input[name='title']").val('<%=current_client.name%>');
 	         var bodyField = $dialogContent.find("textarea[name='body']");
+			 var bookingTypeField = $dialogContent.find("select[name='booking_type']").val(calEvent.bookingType);
 
 
 	         $dialogContent.dialog({
@@ -63,16 +64,32 @@ $(document).ready(function() {
 	            },
 	            buttons: {
 	               save : function() {
-	                  calEvent.id = id;
-	                  id++;
+					  
 	                  calEvent.start = new Date(startField.val());
 	                  calEvent.end = new Date(endField.val());
 	                  calEvent.title = titleField.val();
 	                  calEvent.body = bodyField.val();
+					  calEvent.bookingType = $('#booking_type').val();
+	
+					  $.post("/practitioners/<%=@current_selected_pro.permalink%>/bookings", {"format": "json", "booking[name]": calEvent.title, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end, "booking[booking_type]": calEvent.bookingType}, function(data){
+						if ((data.flash.error === undefined) || (data.flash.error === '')) {
+							calEvent.id = data.booking.id;
+							calEvent.title = data.booking.title;
+							console.log('data.booking.title: '+data.booking.title);
+		                  	$calendar.weekCalendar("removeUnsavedEvents");
+		                  	$calendar.weekCalendar("updateEvent", calEvent);
+		                  	$dialogContent.dialog("close");
+							console.log('data.flash.notice: '+data.flash.notice);
+							if (data.flash.notice != '') {
+								console.log('Entering');
+								$("div#flash").html("<div id='flash_notice'>"+data.flash.notice+"</div>").fadeIn(2000, function(){$(this).fadeOut(3000)});
+							}
+						}
+						else {
+							
+						}
+						}, "json");
 
-	                  $calendar.weekCalendar("removeUnsavedEvents");
-	                  $calendar.weekCalendar("updateEvent", calEvent);
-	                  $dialogContent.dialog("close");
 	               },
 	               cancel : function() {
 	                  $dialogContent.dialog("close");
@@ -102,6 +119,7 @@ $(document).ready(function() {
          var titleField = $dialogContent.find("input[name='title']").val(calEvent.title);
          var bodyField = $dialogContent.find("textarea[name='body']");
          bodyField.val(calEvent.body);
+		 var bookingTypeField = $dialogContent.find("select[name='booking_type']").val(calEvent.bookingType);
 
          $dialogContent.dialog({
             modal: true,
@@ -113,11 +131,11 @@ $(document).ready(function() {
             },
             buttons: {
                save : function() {
-
                   calEvent.start = new Date(startField.val());
                   calEvent.end = new Date(endField.val());
                   calEvent.title = titleField.val();
                   calEvent.body = bodyField.val();
+				  calEvent.bookingType = $('#booking_type').val();
 
                   $calendar.weekCalendar("updateEvent", calEvent);
                   $dialogContent.dialog("close");
@@ -160,6 +178,7 @@ $(document).ready(function() {
 
    function resetForm($dialogContent) {
       $dialogContent.find("input").val("");
+      $dialogContent.find("select").val("");
       $dialogContent.find("textarea").val("");
    }
 
@@ -306,7 +325,7 @@ $(document).ready(function() {
 				<label for="start">Start time: </label><select name="start"><option value="">Select</option></select>
 			</li> 
 			<li> 
-				<label for="booking_type">Appointment type: </label><select name="booking_type"><option value="0.5">0.5h</option><option value="1">1h</option><option value="1.5">1.5h</option></select> 
+				<label for="booking_type">Appointment type: </label><select id="booking_type" name="booking_type"><option value="0.5">0.5h</option><option value="1">1h</option><option value="1.5">1.5h</option></select> 
 			</li> 
 			<li> 
 				<label for="end">End Time: </label><select name="end"><option value="">Select End Time</option></select> 
