@@ -46,9 +46,12 @@ class BookingsController < ApplicationController
   end
   
   def destroy
-    @booking = Booking.find(params[:id])
-    @booking.destroy
-    flash[:notice] = "Your appointment has been removed"
-    redirect_to bookings_url
+    @booking = current_client.bookings.find(params[:id])
+    if @booking.nil?
+      flash[:error] = "This appointment could not be found"
+    else
+      @booking.destroy
+      flash[:notice] = "Your appointment has been removed"
+    end
   end
 end

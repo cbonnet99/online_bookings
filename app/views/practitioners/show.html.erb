@@ -150,8 +150,18 @@ $(document).ready(function() {
 					}, "json");
                },
                "delete" : function() {
-                  $calendar.weekCalendar("removeEvent", calEvent.id);
-                  $dialogContent.dialog("close");
+				  $.post("/practitioners/<%=@current_selected_pro.permalink%>/bookings/"+calEvent.id, {"_method": "DELETE", "format": "json", "booking[name]": calEvent.title, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end, "booking[booking_type]": calEvent.bookingType}, function(data){
+					if ((data.flash.error === undefined) || (data.flash.error === '')) {
+	                  $calendar.weekCalendar("removeEvent", calEvent.id);
+	                  $dialogContent.dialog("close");
+						if (data.flash.notice != '') {
+							$("div#flash").html("<div id='flash_notice'>"+data.flash.notice+"</div>").fadeIn(2000, function(){$(this).fadeOut(3000)});
+						}
+					}
+					else {
+
+					}
+					}, "json");
                },
                cancel : function() {
                   $dialogContent.dialog("close");
