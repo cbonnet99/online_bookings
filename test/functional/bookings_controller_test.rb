@@ -4,10 +4,33 @@ class BookingsControllerTest < ActionController::TestCase
 
   def test_create_empty
     post :create, :format => "json" 
-    assert_response :success
-    assert_equal "Not authenticated as a client", flash[:error]
+    assert_redirected_to flash_url
+    assert_equal "No selected practitioner", flash[:error]
   end
 
+  def test_update_no_client
+    cyrille_sav = bookings(:cyrille_sav)
+    sav = practitioners(:sav)
+    post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
+                  :booking => {:name => "John Denver"} }
+    assert_redirected_to flash_url
+    assert_not_nil flash[:error]
+  end
+  
+  def test_update
+    cyrille_sav = bookings(:cyrille_sav)
+    sav = practitioners(:sav)
+    cyrille = clients(:cyrille)
+    post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
+                  :booking => {:name => "John Denver"} }, {:client_id => cyrille.id }
+    assert_response :success
+    assert_nil flash[:error]
+    assert_not_nil flash[:notice]
+    cyrille_sav.reload
+    assert_equal "John Denver", cyrille_sav.name
+    cyrille.reload
+    assert_equal "John Denver", cyrille.name
+  end
 
   def test_create
     sav = practitioners(:sav)
@@ -35,7 +58,7 @@ class BookingsControllerTest < ActionController::TestCase
   end
 
   def test_index
-    get :index, {:practitioner_id => practitioners(:sav).permalink, :format => "json", :start => Time.now.beginning_of_week, :end => Time.now.end_of_week}
+    get :index, {:practitioner_id => practitioners(:sav).permalink, :format => "json", :start => Time.now.beginning_of_week, :end => Time.now.end_of_week}, {:client_id => clients(:cyrille).id }
     # puts @response.body
     assert_valid_json(@response.body)
     assert_equal 3, assigns(:bookings).size, "Sav should have 0 booking and 3 non-working days, but bookings are: #{assigns(:bookings).to_json}"
@@ -51,7 +74,7 @@ class BookingsControllerTest < ActionController::TestCase
   end
 
   def test_index_next_week
-    get :index, {:practitioner_id => practitioners(:sav).permalink, :format => "json", :start => Time.now.end_of_week, :end => Time.now.end_of_week.advance(:days => 7 )}
+    get :index, {:practitioner_id => practitioners(:sav).permalink, :format => "json", :start => Time.now.end_of_week, :end => Time.now.end_of_week.advance(:days => 7 )}, {:client_id => clients(:cyrille).id }
     # puts @response.body
     assert_valid_json(@response.body)
     assert_equal 4, assigns(:bookings).size, "Sav should have 1 booking and 3 non-working day, but bookings are: #{assigns(:bookings).to_json}"

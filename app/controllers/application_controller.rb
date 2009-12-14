@@ -35,9 +35,6 @@ class ApplicationController < ActionController::Base
     #fall back on the cookie
     if @current_selected_pro.nil? && !cookies[:selected_practitioner_id].nil?
       @current_selected_pro = Practitioner.find(cookies[:selected_practitioner_id])
-      # unless @current_selected_pro.nil?
-      #   redirect_to :controller => controller_name, :action => action_name, :practitioner_permalink => @current_selected_pro.permalink
-      # end
     end    
   end
   
@@ -45,7 +42,15 @@ class ApplicationController < ActionController::Base
     get_selected_practitioner
     #otherwise ask the client to select a practitioner
     if @current_selected_pro.nil?
-      redirect_to edit_selected_practitioner_url
+      respond_to do |format|
+        format.json do
+          flash[:error] = "No selected practitioner"
+          redirect_to flash_url
+        end
+        format.html do
+          redirect_to edit_selected_practitioner_url
+        end
+      end
     end
   end
   

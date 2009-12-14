@@ -1,6 +1,7 @@
 class BookingsController < ApplicationController
   
-  before_filter :get_selected_practitioner
+  before_filter :require_selected_practitioner
+  before_filter :login_required
   
   def index
     @bookings = @current_selected_pro.all_bookings(current_client, params[:start].try(:to_f), params[:end].try(:to_f))
@@ -15,21 +16,13 @@ class BookingsController < ApplicationController
   end
   
   def create
-    if current_client.nil?
-      flash[:error] = "Not authenticated as a client"
-      return false
-    end
-    if @current_selected_pro.nil?
-      flash[:error] = "No selected practitioner"
-      return false
-    end
     @booking = Booking.new(params[:booking])
     @booking.client_id = current_client.id
     @booking.practitioner_id = @current_selected_pro.id
     @booking.name = current_client.default_name if @booking.name.blank?
     @booking.current_client = current_client
     if @booking.save
-      flash.now[:notice] = "Your appointment is booked"
+      flash.now[:notice] = "Your appointment has been booked"
     end
   end
   
@@ -38,19 +31,24 @@ class BookingsController < ApplicationController
   end
   
   def update
-    @booking = Booking.find(params[:id])
-    if @booking.update_attributes(params[:booking])
-      flash[:notice] = "Successfully updated booking."
-      redirect_to @booking
+    @booking = current_client.bookings.find(params[:id])
+    @booking.client_id = current_client.id
+    @booking.practitioner_id = @current_selected_pro.id
+    @booking.name = current_client.default_name if @booking.name.blank?
+    @booking.current_client = current_client
+    if @booking.nil?
+      flash[:error] = "This appointment can not be found"
     else
-      render :action => 'edit'
+      if @booking.update_attributes(params[:booking])
+        flash[:notice] = "Your appointment has been changed"
+      end
     end
   end
   
   def destroy
     @booking = Booking.find(params[:id])
     @booking.destroy
-    flash[:notice] = "Successfully destroyed booking."
+    flash[:notice] = "Your appointment has been removed"
     redirect_to bookings_url
   end
 end

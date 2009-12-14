@@ -3,6 +3,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :practitioners do |p|
     p.resources :bookings
   end
+
+  #FLASH
+  map.flash 'flash', :controller => 'bookings', :action => 'flash'
   
   #PRACTITIONER
   map.edit_selected_practitioner 'edit_selected_practitioner', :controller => 'practitioners', :action => 'edit_selected'

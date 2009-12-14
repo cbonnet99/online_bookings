@@ -30,9 +30,17 @@ module Authentication
   
   def login_required
     unless logged_in?
-      flash[:error] = "You must first log in or sign up before accessing this page."
-      store_target_location
-      redirect_to lookup_form_url
+      respond_to do |format|
+        format.json do
+          flash[:error] = "Not authenticated as a client"
+          redirect_to flash_url
+        end
+        format.html do
+          flash[:error] = "You must first log in or sign up before accessing this page."
+          store_target_location
+          redirect_to lookup_form_url
+        end
+      end
     end
   end
   
