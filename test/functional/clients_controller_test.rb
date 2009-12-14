@@ -2,6 +2,17 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ClientsControllerTest < ActionController::TestCase
 
+  def test_create_existing_client
+    sav = practitioners(:sav)
+    cyrille = clients(:cyrille)
+    session[:return_to] = practitioner_url(sav)
+    post :create, {:client => {:email => cyrille.email, :phone_prefix => cyrille.phone_prefix, :phone_suffix => cyrille.phone_suffix }}
+    assert_not_nil flash[:error]
+    client = assigns(:client)
+    assert_not_nil client
+    assert !client.errors.blank?, "There should be some errors on the client, as the email address already exists"
+  end
+
   def test_create
     sav = practitioners(:sav)
     session[:return_to] = practitioner_url(sav)
@@ -10,7 +21,6 @@ class ClientsControllerTest < ActionController::TestCase
     assert_not_nil flash[:notice]
     assert_redirected_to practitioner_url(sav)
   end
-
 
   def test_lookup_form
     get :lookup_form

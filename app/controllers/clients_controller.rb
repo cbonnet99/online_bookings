@@ -125,6 +125,7 @@ class ClientsController < ApplicationController
       redirect_to session[:return_to] || @client
     else
       get_phone_prefixes
+      flash[:error] = "This email address can not be registered"
       render :action => 'new'
     end
   end
