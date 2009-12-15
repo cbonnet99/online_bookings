@@ -81,15 +81,20 @@ class ClientsController < ApplicationController
       flash[:notice] = "Welcome back!"
       redirect_to root_url
     else
-      @client = Client.new
+      @client = Client.new(:email => params["email"])
     end
   end
   
   def lookup
     @client = Client.find_by_email(params[:client]["email"])
     if @client.nil?
-      flash[:notice]="To book your first appointment, please enter your phone number"
-      redirect_to signup_url(:email => params[:client]["email"])
+      if Client.valid_email?(params[:client]["email"])
+        flash[:notice]="To book your first appointment, please enter your phone number"
+        redirect_to signup_url(:email => params[:client]["email"])
+      else
+        flash[:error] = "The email address is not valid: maybe you are missing a dot(.) or the @ sign?"
+        redirect_to lookup_form_url(:email =>  params[:client]["email"])
+      end
     else
       flash[:notice]="Welcome back, please enter the last 4 digits of your phone number"
       redirect_to login_phone_url(:login => params[:client]["email"])

@@ -15,6 +15,14 @@ class ClientTest < ActiveSupport::TestCase
     Client.delete_all
   end
   
+  def test_validate_email
+    assert Client.valid_email?("cyrille@test.com")
+    assert !Client.valid_email?("cyrille@test/com")
+    assert !Client.valid_email?("cyrille@test")
+    assert !Client.valid_email?("@test.com")
+    assert !Client.valid_email?("cyrilletest.com")
+  end
+  
   def test_default_name
     c = Factory(:client, :first_name => "", :last_name => "" )
     assert_equal c.email, c.default_name

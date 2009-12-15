@@ -2,6 +2,23 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ClientsControllerTest < ActionController::TestCase
 
+  def test_lookup_client_exists
+    cyrille = clients(:cyrille)
+    post :lookup, {:client => {:email => cyrille.email} }
+    assert_redirected_to login_phone_url(:login => cyrille.email)    
+  end
+
+  def test_lookup_client_doesnt_exist
+    post :lookup, {:client => {:email => "test@test.com"} }
+    assert_redirected_to signup_url(:email => "test@test.com")    
+  end
+
+  def test_lookup_invalid_email
+    post :lookup, {:client => {:email => "BLA"} }
+    assert_redirected_to lookup_form_url(:email => "BLA")
+    assert_not_nil flash[:error]
+  end
+
   def test_create_existing_client
     sav = practitioners(:sav)
     cyrille = clients(:cyrille)

@@ -1,5 +1,7 @@
 class Client < ActiveRecord::Base
   
+  RE_EMAIL = /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
+
   has_many :bookings
   has_many :client_emails
   
@@ -11,7 +13,7 @@ class Client < ActiveRecord::Base
   
   validates_presence_of :email
   validates_uniqueness_of :email, :allow_blank => true
-  validates_format_of :email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
+  validates_format_of :email, :with => RE_EMAIL
   # validates_presence_of :password, :on => :create
   validates_confirmation_of :password
   validates_length_of :password, :minimum => 4, :allow_blank => true
@@ -19,6 +21,10 @@ class Client < ActiveRecord::Base
   MOBILE_SUFFIXES = ["021", "022", "027", "029"]
   FIXED_SUFFIXES = ["03", "04", "06", "07", "09"]
   PHONE_SUFFIXES = MOBILE_SUFFIXES + FIXED_SUFFIXES
+
+  def self.valid_email?(email)
+    email.match(RE_EMAIL)
+  end
   
   def default_name
     if name.blank?
