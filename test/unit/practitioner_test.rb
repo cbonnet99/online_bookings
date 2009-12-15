@@ -49,6 +49,18 @@ class PractitionerTest < ActiveSupport::TestCase
     assert_match %r{"id":}, json
   end
   
+  def test_bookings_for_working_hours_simple
+    simple = Factory(:practitioner, :working_days => "4,5", :working_hours => "9-18" )
+    bookings = simple.bookings_for_working_hours(Time.now.beginning_of_week, Time.now.end_of_week)
+    assert_equal 0, bookings.size, "There should 0 bookings as Simple works straight through"
+  end
+  
+  def test_bookings_for_working_hours_with_slots
+    user_with_slots = Factory(:practitioner, :working_days => "4,5", :working_hours => "9-10,10:30-11:30,12-1,1:30-2:30,3-4,4:30-5:30" )
+    bookings = user_with_slots.bookings_for_working_hours(Time.now.beginning_of_week, Time.now.end_of_week)
+    assert_equal 10, bookings.size, "There should 10 bookings as user_with_slots works in slots: 5 slots in 2 working days. Actual: #{bookings.inspect}"
+  end
+  
   def test_valid
     assert Factory(:practitioner).valid?
   end

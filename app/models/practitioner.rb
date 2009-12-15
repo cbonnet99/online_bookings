@@ -18,6 +18,8 @@ class Practitioner < ActiveRecord::Base
   validates_length_of :password, :minimum => 4, :allow_blank => true
   validates_uniqueness_of :email
 
+  TITLE_FOR_NON_WORKING = "Booked"
+
   def biz_hours_start
     StringUtils.fix_minutes(working_hours.split("-").first)
   end
@@ -63,7 +65,34 @@ class Practitioner < ActiveRecord::Base
     ("1".."7").to_a.each do |current_day|
       if !working_days.blank? && !working_days.include?(current_day)
         day, month, year = current.strftime("%d %m %Y").split(" ")
-        res << NonWorkingBooking.new("#{self.id}-#{current_day}", "Booked", Time.parse("#{year}/#{month}/#{day} #{biz_hours_start}").iso8601, Time.parse("#{year}/#{month}/#{day} #{biz_hours_end}").iso8601, true)
+        res << NonWorkingBooking.new("#{self.id}-#{current_day}", TITLE_FOR_NON_WORKING, Time.parse("#{year}/#{month}/#{day} #{biz_hours_start}").iso8601, Time.parse("#{year}/#{month}/#{day} #{biz_hours_end}").iso8601, true)
+      end
+      current += 1.day
+    end
+    res
+  end
+  
+  def bookings_for_working_hours(start_time, end_time)
+    res = []
+    current = start_time
+    ("1".."7").to_a.each do |current_day|
+      if !working_days.blank? && working_days.include?(current_day)
+        day, month, year = current.strftime("%d %m %Y").split(" ")
+        split_hours = working_hours.split(",")
+        split_hours.each_with_index do |str, i|
+          #we care about the intervals (to have a start and end time), so we avoid last entry
+          unless i >= split_hours.size-1
+            start_time = str.split("-").try(:last)
+            if start_time.nil?
+              raise "There is a format error on working hours for practitioner #{self.name}: #{self.working_hours} [start time for #{str}]"
+            end
+            end_time = split_hours[i+1].split("-").try(:first)
+            if end_time.nil?
+              raise "There is a format error on working hours for practitioner #{self.name}: #{self.working_hours} [end time for #{split_hours[i+1]}]"
+            end
+            res << NonWorkingBooking.new("#{self.id}-#{current_day}", TITLE_FOR_NON_WORKING, Time.parse("#{year}/#{month}/#{day} #{StringUtils.fix_minutes(start_time)}").iso8601, Time.parse("#{year}/#{month}/#{day} #{StringUtils.fix_minutes(end_time)}").iso8601, true)
+          end
+        end
       end
       current += 1.day
     end
