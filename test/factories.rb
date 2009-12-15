@@ -11,8 +11,7 @@ Factory.define :practitioner do |f|
   # f.last_name "Name"
   f.first_name "John"
   f.last_name "Foo"
-  f.biz_hours_start "8"
-  f.biz_hours_end "18"
+  f.working_hours "8-18"
   f.working_days "4,5"
   f.password "foobar"
   f.password_confirmation { |u| u.password }

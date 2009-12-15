@@ -6,8 +6,7 @@ megan:
     # password: "secret"
     password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f
     password_salt: bef65e058905c379436d80d1a32e7374b139e7b0
-    biz_hours_start: "8"
-    biz_hours_end: "18"
+    working_hours: "8-18"
     working_days: "4,5"
 sav:
     first_name: David
@@ -17,6 +16,5 @@ sav:
     # password: "secret"
     password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f
     password_salt: bef65e058905c379436d80d1a32e7374b139e7b0
-    biz_hours_start: "8"
-    biz_hours_end: "17"
+    working_hours: "9-10,10:30-11:30,12-1,1:30-2:30,3-4,4:30-5:30"
     working_days: "1,2,3,4"

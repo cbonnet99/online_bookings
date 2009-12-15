@@ -50,7 +50,7 @@ class PractitionerTest < ActiveSupport::TestCase
   end
   
   def test_valid
-    assert new_practitioner.valid?
+    assert Factory(:practitioner).valid?
   end
   
   def test_require_password
@@ -62,7 +62,7 @@ class PractitionerTest < ActiveSupport::TestCase
   end
   
   def test_validate_uniqueness_of_email
-    new_practitioner(:email => 'bar@example.com').save!
+    Factory(:practitioner, :email => 'bar@example.com')
     assert new_practitioner(:email => 'bar@example.com').errors.on(:email)
   end
     
@@ -75,26 +75,31 @@ class PractitionerTest < ActiveSupport::TestCase
   end
   
   def test_require_matching_password_confirmation
-    assert new_practitioner(:password_confirmation => 'nonmatching').errors.on(:password)
+    begin
+      Factory(:practitioner, :password_confirmation => 'nonmatching').errors.on(:password)
+    rescue ActiveRecord::RecordInvalid
+      #expected exception
+    else
+      raise "An ActiveRecord::RecordInvalid should have been raised"
+    end
   end
   
   def test_generate_password_hash_and_salt_on_create
-    practitioner = new_practitioner
-    practitioner.save!
+    practitioner = Factory(:practitioner)
     assert practitioner.password_hash
     assert practitioner.password_salt
   end
   
   def test_authenticate_by_username
     Practitioner.delete_all
-    practitioner = new_practitioner(:username => 'foobar', :password => 'secret')
+    practitioner = Factory(:practitioner, :username => 'foobar', :password => 'secret')
     practitioner.save!
     assert_equal practitioner, Practitioner.authenticate('foobar', 'secret')
   end
   
   def test_authenticate_by_email
     Practitioner.delete_all
-    practitioner = new_practitioner(:email => 'foo@bar.com', :password => 'secret')
+    practitioner = Factory(:practitioner, :email => 'foo@bar.com', :password => 'secret')
     practitioner.save!
     assert_equal practitioner, Practitioner.authenticate('foo@bar.com', 'secret')
   end
@@ -105,7 +110,7 @@ class PractitionerTest < ActiveSupport::TestCase
   
   def test_authenticate_bad_password
     Practitioner.delete_all
-    new_practitioner(:username => 'foobar', :password => 'secret').save!
+    Factory(:practitioner, :username => 'foobar', :password => 'secret')
     assert_nil Practitioner.authenticate('foobar', 'badpassword')
   end
 end
