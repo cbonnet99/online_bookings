@@ -21,11 +21,11 @@ class Practitioner < ActiveRecord::Base
   TITLE_FOR_NON_WORKING = "Booked"
 
   def biz_hours_start
-    StringUtils.fix_minutes(working_hours.split("-").first)
+    TimeUtils.round_previous_hour(working_hours.split("-").first)
   end
   
   def biz_hours_end
-    StringUtils.fix_minutes(working_hours.split("-").last)
+    TimeUtils.round_next_hour(working_hours.split("-").last)
   end
   
   def all_bookings(current_client=nil, start_timestamp=nil, end_timestamp=nil)
@@ -39,7 +39,7 @@ class Practitioner < ActiveRecord::Base
     else
       Time.at(end_timestamp)
     end
-    client_bookings(current_client, start_time, end_time) + bookings_for_non_working_days(start_time, end_time)
+    client_bookings(current_client, start_time, end_time) + bookings_for_non_working_days(start_time, end_time) + bookings_for_working_hours(start_time, end_time)
   end
   
   def client_bookings(current_client, start_time, end_time)
@@ -80,17 +80,21 @@ class Practitioner < ActiveRecord::Base
         day, month, year = current.strftime("%d %m %Y").split(" ")
         split_hours = working_hours.split(",")
         split_hours.each_with_index do |str, i|
-          #we care about the intervals (to have a start and end time), so we avoid last entry
-          unless i >= split_hours.size-1
-            start_time = str.split("-").try(:last)
-            if start_time.nil?
-              raise "There is a format error on working hours for practitioner #{self.name}: #{self.working_hours} [start time for #{str}]"
-            end
-            end_time = split_hours[i+1].split("-").try(:first)
-            if end_time.nil?
-              raise "There is a format error on working hours for practitioner #{self.name}: #{self.working_hours} [end time for #{split_hours[i+1]}]"
-            end
-            res << NonWorkingBooking.new("#{self.id}-#{current_day}", TITLE_FOR_NON_WORKING, Time.parse("#{year}/#{month}/#{day} #{StringUtils.fix_minutes(start_time)}").iso8601, Time.parse("#{year}/#{month}/#{day} #{StringUtils.fix_minutes(end_time)}").iso8601, true)
+          slot_start_time = str.split("-").try(:last)
+          if slot_start_time.nil?
+            raise "There is a format error on working hours for practitioner #{self.name}: #{self.working_hours} [start time for #{str}]"
+          end
+          is_last_entry = (i >= split_hours.size-1)
+          if is_last_entry
+            slot_end_time = self.biz_hours_end
+          else
+            slot_end_time = split_hours[i+1].split("-").try(:first)
+          end            
+          if slot_end_time.nil?
+            raise "There is a format error on working hours for practitioner #{self.name}: #{self.working_hours} [end time for #{split_hours[i+1]}]"
+          end
+          if slot_end_time > slot_start_time
+            res << NonWorkingBooking.new("#{self.id}-#{current_day}", TITLE_FOR_NON_WORKING, Time.parse("#{year}/#{month}/#{day} #{TimeUtils.fix_minutes(slot_start_time)}").iso8601, Time.parse("#{year}/#{month}/#{day} #{TimeUtils.fix_minutes(slot_end_time)}").iso8601, true)
           end
         end
       end

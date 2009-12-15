@@ -7,9 +7,9 @@
 #   Major.create(:name => 'Daley', :city => cities.first)
 
 Practitioner.create(:first_name => "David", :last_name => "Savage", :permalink => "david-savage", :email => "sav@beamazing.co.nz",
-                    :password => "secret", :password_confirmation => "secret", :working_hours => "9-10,10:30-11:30,12-1,1:30-2:30,3-4,4:30-5:30", 
+                    :password => "secret", :password_confirmation => "secret", :working_hours => "9-10,10:30-11:30,12-13,13:30-14:30,15-16,16:30-17:30", 
                     :working_days => "1,3" )
 Practitioner.create(:first_name => "Megan", :last_name => "Savage", :permalink => "megan-savage", :email => "megan@beamazing.co.nz",
-                    :password => "secret", :password_confirmation => "secret", :working_hours => "9-10,10:30-11:30,12-1,1:30-2:30,3-4,4:30-5:30", 
+                    :password => "secret", :password_confirmation => "secret", :working_hours => "9-10,10:30-11:30,12-13,13:30-14:30,15-16,16:30-17:30", 
                     :working_days => "2,4" )
 
