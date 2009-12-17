@@ -430,13 +430,14 @@
                var $renderedCalEvent = self._renderEvent(newCalEvent, $weekDay);
 
                if (!options.allowCalEventOverlap) {
-                  self._adjustForEventCollisions($weekDay, $renderedCalEvent, newCalEvent, newCalEvent);
+                  self._adjustForEventCollisions($weekDay, $renderedCalEvent, newCalEvent, newCalEvent, true);
                   self._positionEvent($weekDay, $renderedCalEvent);
                } else {
                   self._adjustOverlappingEvents($weekDay);
                }
 
-               options.eventNew(eventDuration, $renderedCalEvent);
+               // options.eventNew(eventDuration, $renderedCalEvent);
+               options.eventNew(newCalEvent, $renderedCalEvent);
             }
          });
       },
@@ -791,6 +792,7 @@
        * it's original location.
        */
       _adjustForEventCollisions : function($weekDay, $calEvent, newCalEvent, oldCalEvent, maintainEventDuration) {
+	// console.log("calling _adjustForEventCollisions with newCalEvent: ", newCalEvent.start, "-", newCalEvent.end, " and oldCalEvent: ", oldCalEvent.start, "-", oldCalEvent.end);
          var options = this.options;
 
          if (options.allowCalEventOverlap) {
@@ -801,11 +803,12 @@
 
          $weekDay.find(".wc-cal-event").not($calEvent).each(function() {
             var currentCalEvent = $(this).data("calEvent");
-
+// console.log("currentCalEvent: ", currentCalEvent.start, "-", currentCalEvent.end);
             //has been dropped onto existing event overlapping the end time
             if (newCalEvent.start.getTime() < currentCalEvent.end.getTime()
                   && newCalEvent.end.getTime() >= currentCalEvent.end.getTime()) {
 
+					// console.log("++++++++++++++++ has been dropped onto existing event overlapping the end time");
                adjustedStart = currentCalEvent.end;
             }
 
@@ -817,9 +820,11 @@
                adjustedEnd = currentCalEvent.start;
             }
             //has been dropped inside existing event with same or larger duration
-            if (! oldCalEvent.resizable || (newCalEvent.end.getTime() <= currentCalEvent.end.getTime()
-                  && newCalEvent.start.getTime() >= currentCalEvent.start.getTime())) {
-
+			//CB (17 Dec 2009): removing the resizable test, as it seems to NOT work properly
+            // if (!oldCalEvent.resizable || (newCalEvent.end.getTime() <= currentCalEvent.end.getTime()
+            //       && newCalEvent.start.getTime() >= currentCalEvent.start.getTime())) {
+	            if (newCalEvent.end.getTime() <= currentCalEvent.end.getTime()
+	                  && newCalEvent.start.getTime() >= currentCalEvent.start.getTime()) {
                adjustedStart = oldCalEvent.start;
                adjustedEnd = oldCalEvent.end;
                return false;
@@ -829,14 +834,18 @@
 
 
          newCalEvent.start = adjustedStart || newCalEvent.start;
-
          if (adjustedStart && maintainEventDuration) {
             newCalEvent.end = new Date(adjustedStart.getTime() + (oldCalEvent.end.getTime() - oldCalEvent.start.getTime()));
             self._adjustForEventCollisions($weekDay, $calEvent, newCalEvent, oldCalEvent);
          } else {
-            newCalEvent.end = adjustedEnd || newCalEvent.end;
+			if (adjustedEnd && maintainEventDuration) {
+	            newCalEvent.start = new Date(adjustedEnd.getTime() - (oldCalEvent.end.getTime() - oldCalEvent.start.getTime()));
+	            self._adjustForEventCollisions($weekDay, $calEvent, newCalEvent, oldCalEvent);
+			}
+			else {
+            	newCalEvent.end = adjustedEnd || newCalEvent.end;
+			}
          }
-
 
          //reset if new cal event has been forced to zero size
          if (newCalEvent.start.getTime() >= newCalEvent.end.getTime()) {
@@ -844,6 +853,7 @@
             newCalEvent.end = oldCalEvent.end;
          }
 
+		// console.log("------ newCalEvent: ", newCalEvent.start, "-", newCalEvent.end);
          $calEvent.data("calEvent", newCalEvent);
       },
 

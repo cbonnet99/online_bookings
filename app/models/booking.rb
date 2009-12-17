@@ -46,11 +46,12 @@ class Booking < ActiveRecord::Base
   end
   
   def start
-    starts_at
+    #  "2009-05-03T12:15:00.000+10:00"
+    starts_at.strftime("%Y-%m-%dT%H:%M:%S.000%z")
   end
   
   def end
-    ends_at
+    ends_at.strftime("%Y-%m-%dT%H:%M:%S.000%z")
   end
   
   def to_json(options={})

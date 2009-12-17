@@ -1,7 +1,7 @@
 class BookingsController < ApplicationController
   
   before_filter :require_selected_practitioner
-  before_filter :login_required
+  before_filter :login_required, :except => :flash 
   
   def index
     @bookings = @current_selected_pro.all_bookings(current_client, params[:start].try(:to_f), params[:end].try(:to_f))
@@ -37,10 +37,10 @@ class BookingsController < ApplicationController
     @booking.name = current_client.default_name if @booking.name.blank?
     @booking.current_client = current_client
     if @booking.nil?
-      flash[:error] = "This appointment can not be found"
+      flash.now[:error] = "This appointment can not be found"
     else
       if @booking.update_attributes(params[:booking])
-        flash[:notice] = "Your appointment has been changed"
+        flash.now[:notice] = "Your appointment has been changed"
       end
     end
   end
@@ -48,10 +48,10 @@ class BookingsController < ApplicationController
   def destroy
     @booking = current_client.bookings.find(params[:id])
     if @booking.nil?
-      flash[:error] = "This appointment could not be found"
+      flash.now[:error] = "This appointment could not be found"
     else
       @booking.destroy
-      flash[:notice] = "Your appointment has been removed"
+      flash.now[:notice] = "Your appointment has been removed"
     end
   end
 end

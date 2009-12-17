@@ -8,10 +8,12 @@ $(document).ready(function() {
 
    $calendar.weekCalendar({
       timeslotsPerHour : 2,
+	  defaultEventLength: 2,
 	  dateFormat: "j M Y",
       allowCalEventOverlap : false,
       overlapEventsSeparate: false,
       firstDayOfWeek : 1,
+	  newEventText: "New appointment",
       businessHours :{start: <%=@current_selected_pro.biz_hours_start%>, end: <%=@current_selected_pro.biz_hours_end%>, limitDisplay: true },
       daysToShow : 7,
 	  buttonText: {
@@ -33,10 +35,12 @@ $(document).ready(function() {
 		
       },
       draggable : function(calEvent, $event) {
-         return calEvent.readOnly != true;
+         // return calEvent.readOnly != true;
+         return false;
       },
       resizable : function(calEvent, $event) {
-         return calEvent.readOnly != true;
+         // return calEvent.readOnly != true;
+		return false;
       },
       eventNew : function(calEvent, $event) {
          if (calEvent.end.getTime() < new Date().getTime()) {
@@ -45,13 +49,13 @@ $(document).ready(function() {
 			return false;
 		 }
 		 else {
+			
 	         var $dialogContent = $("#event_edit_container");
 	         resetForm($dialogContent);
 	         var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
 	         var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
 	         var titleField = $dialogContent.find("input[name='title']").val('<%=current_client.name%>');
 	         var bodyField = $dialogContent.find("textarea[name='body']");
-			 var bookingTypeField = $dialogContent.find("select[name='booking_type']").val(calEvent.bookingType);
 
 
 	         $dialogContent.dialog({
@@ -69,9 +73,7 @@ $(document).ready(function() {
 	                  calEvent.end = new Date(endField.val());
 	                  calEvent.title = titleField.val();
 	                  calEvent.body = bodyField.val();
-					  calEvent.bookingType = $('#booking_type').val();
-	
-					  $.post("<%=practitioner_bookings_url(@current_selected_pro)%>", {"format": "json", "booking[name]": calEvent.title, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end, "booking[booking_type]": calEvent.bookingType}, function(data){
+					  $.post("<%=practitioner_bookings_url(@current_selected_pro)%>", {"format": "json", "booking[name]": calEvent.title, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end}, function(data){
 						if ((data.flash.error === undefined) || (data.flash.error === '')) {
 							calEvent.id = data.booking.id;
 							calEvent.title = data.booking.title;
@@ -94,7 +96,7 @@ $(document).ready(function() {
 	            }
 	         }).show();
 
-	         $dialogContent.find(".date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
+	         $dialogContent.find("#date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
 	         setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
 		  }
       },
@@ -116,7 +118,6 @@ $(document).ready(function() {
          var titleField = $dialogContent.find("input[name='title']").val(calEvent.title);
          var bodyField = $dialogContent.find("textarea[name='body']");
          bodyField.val(calEvent.body);
-		 var bookingTypeField = $dialogContent.find("select[name='booking_type']").val(calEvent.bookingType);
 
          $dialogContent.dialog({
             modal: true,
@@ -132,9 +133,8 @@ $(document).ready(function() {
                   calEvent.end = new Date(endField.val());
                   calEvent.title = titleField.val();
                   calEvent.body = bodyField.val();
-				  calEvent.bookingType = $('#booking_type').val();
 
-				  $.post("/practitioners/<%=@current_selected_pro.permalink%>/bookings/"+calEvent.id, {"_method": "PUT", "format": "json", "booking[name]": calEvent.title, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end, "booking[booking_type]": calEvent.bookingType}, function(data){
+				  $.post("/practitioners/<%=@current_selected_pro.permalink%>/bookings/"+calEvent.id, {"_method": "PUT", "format": "json", "booking[name]": calEvent.title, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end}, function(data){
 					if ((data.flash.error === undefined) || (data.flash.error === '')) {
 						calEvent.id = data.booking.id;
 						calEvent.title = data.booking.title;
@@ -150,7 +150,7 @@ $(document).ready(function() {
 					}, "json");
                },
                "delete" : function() {
-				  $.post("/practitioners/<%=@current_selected_pro.permalink%>/bookings/"+calEvent.id, {"_method": "DELETE", "format": "json", "booking[name]": calEvent.title, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end, "booking[booking_type]": calEvent.bookingType}, function(data){
+				  $.post("/practitioners/<%=@current_selected_pro.permalink%>/bookings/"+calEvent.id, {"_method": "DELETE", "format": "json"}, function(data){
 					if ((data.flash.error === undefined) || (data.flash.error === '')) {
 	                  $calendar.weekCalendar("removeEvent", calEvent.id);
 	                  $dialogContent.dialog("close");
@@ -171,7 +171,7 @@ $(document).ready(function() {
 
          var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
          var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
-         $dialogContent.find(".date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
+         $dialogContent.find("#date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
          setupStartAndEndTimeFields(startField, endField, calEvent, 	$calendar.weekCalendar("getTimeslotTimes", calEvent.start));
          $(window).resize().resize(); //fixes a bug in modal overlay size ??
 
@@ -201,61 +201,6 @@ $(document).ready(function() {
       $dialogContent.find("textarea").val("");
    }
 
-   function getEventData() {
-      var year = new Date().getFullYear();
-      var month = new Date().getMonth();
-      var day = new Date().getDate();
-
-      return {
-         events : [
-            {
-               "id":1,
-               "start": new Date(year, month, day, 12),
-               "end": new Date(year, month, day, 13, 30),
-               "title":"Booked",
-               readOnly : true
-            },
-            {
-               "id":2,
-               "start": new Date(year, month, day, 14),
-               "end": new Date(year, month, day, 14, 45),
-               "title":"Booked",
-               readOnly : true
-            },
-            {
-               "id":3,
-               "start": new Date(year, month, day + 1, 17),
-               "end": new Date(year, month, day + 1, 17, 45),
-               "title":"Booked",
-               readOnly : true
-            },
-            {
-               "id":4,
-               "start": new Date(year, month, day - 1, 8),
-               "end": new Date(year, month, day - 1, 9, 30),
-               "title":"Booked",
-               readOnly : true
-            },
-            {
-               "id":5,
-               "start": new Date(year, month, day + 3, 14),
-               "end": new Date(year, month, day + 3, 15),
-               "title":"Booked",
-               readOnly : true
-            },
-            {
-               "id":6,
-               "start": new Date(year, month, day, 10),
-               "end": new Date(year, month, day, 11),
-               "title":"Booked",
-               readOnly : true
-            }
-
-         ]
-      };
-   }
-
-
    /*
     * Sets up the start and end time fields in the calendar event
     * form for editing based on the calendar event being edited
@@ -266,7 +211,11 @@ $(document).ready(function() {
          var startTime = timeslotTimes[i].start;
          var endTime = timeslotTimes[i].end;
          var startSelected = "";
-         if (Math.round(startTime.getTime()/1000) === Math.round(calEvent.start.getTime()/1000)) {
+// console.log("startTime.getTime(): ", startTime.getTime());
+// console.log(calEvent.title, ": ", calEvent.start, ", ", calEvent.start.getTime());
+	// if (startTime.getTime() === calEvent.start.getTime()) {
+	if (Math.round(startTime.getTime()/1000) === Math.round(calEvent.start.getTime()/1000)) {
+// console.log("========= CLOSE enough");
             startSelected = "selected=\"selected\"";
          }
          var endSelected = "";
@@ -336,15 +285,10 @@ $(document).ready(function() {
 <div id="event_edit_container"> 
 	<form> 
 		<input type="hidden" /> 
+		<p id="date_holder"></p>
 		<ul> 
 			<li> 
-				<span>Date: </span><span class="date_holder"></span> 
-			</li> 
-			<li> 
 				<label for="start">Start time: </label><select name="start"><option value="">Select</option></select>
-			</li> 
-			<li> 
-				<label for="booking_type">Appointment type: </label><select id="booking_type" name="booking_type"><option value="0.5">0.5h</option><option value="1">1h</option><option value="1.5">1.5h</option></select> 
 			</li> 
 			<li> 
 				<label for="end">End Time: </label><select name="end"><option value="">Select End Time</option></select> 
