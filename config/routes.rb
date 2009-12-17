@@ -18,6 +18,7 @@ ActionController::Routing::Routes.draw do |map|
   map.reset_phone 'reset_phone', :controller => 'clients', :action => 'reset_phone'
   map.reset_phone 'request_reset_phone', :controller => 'clients', :action => 'request_reset_phone'
   map.client_login 'client_login', :controller => 'clients', :action => 'login'
+  map.client_name 'client_name', :controller => 'clients', :action => 'name'
   map.login_phone 'login_phone', :controller => 'clients', :action => 'login_phone'
   map.lookup 'lookup', :controller => 'clients', :action => 'lookup'
   map.lookup_form 'lookup_form', :controller => 'clients', :action => 'lookup_form'

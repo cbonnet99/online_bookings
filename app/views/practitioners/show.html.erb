@@ -56,6 +56,11 @@ $(document).ready(function() {
 	         var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
 	         var titleField = $dialogContent.find("input[name='title']").val('<%=current_client.name%>');
 	         var bodyField = $dialogContent.find("textarea[name='body']");
+	
+			//retrieve current client name
+			$.get("<%=client_name_url%>", {"format": "json"}, function(data){
+				$dialogContent.find("input[name='title']").val(data.name);
+			}, "json");
 
 
 	         $dialogContent.dialog({

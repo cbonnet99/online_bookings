@@ -17,7 +17,7 @@ class Booking < ActiveRecord::Base
   after_update :save_client_name
 
   def save_client_name
-    if !self.name.blank? && client.name.blank?
+    if !self.name.blank?
       names = self.name.split(" ")
       client.first_name = names[0]
       client.last_name = names[1..names.size].join(" ")

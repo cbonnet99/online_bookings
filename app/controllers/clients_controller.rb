@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  before_filter :login_required, :only => [:edit, :update]
+  before_filter :login_required, :only => [:edit, :update, :name]
 
   def index
     get_practitioners
@@ -10,10 +10,6 @@ class ClientsController < ApplicationController
     @client = current_client
     @phone_prefixes = Client::PHONE_SUFFIXES
     session[:return_to] = request.referer
-  end
-
-  def update
-    
   end
   
   def request_reset_phone
