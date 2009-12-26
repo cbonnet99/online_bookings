@@ -1,5 +1,6 @@
+<% javascript "lookup_form"%>
 <% title "Step 1: Your email address"%>
-<% form_for :client, @client, :url => { :controller => "clients", :action => "lookup"} do |f| %>
+<% form_for :client, @client, :url => { :controller => "clients", :action => "lookup"}, :id => "client_email_selection"  do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :email, "Your email Address" %><br />

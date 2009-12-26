@@ -8,8 +8,10 @@ class PractitionersController < ApplicationController
   end
 
   def edit_selected
+    get_selected_practitioner
     get_practitioners
-    session[:return_to] = request.referer
+    # session[:return_to] = request.referer
+    session[:return_to] = nil
   end
 
   def update_selected

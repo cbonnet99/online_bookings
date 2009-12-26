@@ -2,6 +2,7 @@ class ClientsController < ApplicationController
   before_filter :login_required, :only => [:edit, :update, :name]
 
   def index
+    get_selected_practitioner
     get_practitioners
     session[:return_to] = request.referer
   end
