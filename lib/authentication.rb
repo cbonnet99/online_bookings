@@ -16,7 +16,8 @@
 #   before_filter :login_required, :except => [:index, :show]
 module Authentication
   def self.included(controller)
-    controller.send :helper_method, :current_client, :logged_in?, :redirect_to_target_or_default
+    controller.send :helper_method, :current_client, :client_logged_in?, :redirect_to_target_or_default
+    controller.send :helper_method, :current_pro, :pro_logged_in?, :redirect_to_target_or_default
     controller.filter_parameter_logging :password
   end
   
@@ -24,12 +25,20 @@ module Authentication
     @current_client ||= Client.find(session[:client_id]) if session[:client_id]
   end
   
-  def logged_in?
+  def current_pro
+    @current_pro ||= Practitioner.find(session[:pro_id]) if session[:pro_id]
+  end
+  
+  def client_logged_in?
     current_client
   end
   
+  def pro_logged_in?
+    current_pro
+  end
+  
   def login_required
-    unless logged_in?
+    unless client_logged_in? || pro_logged_in?
       respond_to do |format|
         format.html do
           flash[:error] = "You must first log in or sign up before accessing this page."

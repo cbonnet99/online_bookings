@@ -39,16 +39,18 @@ class ApplicationController < ActionController::Base
   end
   
   def require_selected_practitioner
-    get_selected_practitioner
-    #otherwise ask the client to select a practitioner
-    if @current_selected_pro.nil?
-      respond_to do |format|
-        format.json do
-          flash[:error] = "No selected practitioner"
-          redirect_to flash_url
-        end
-        format.html do
-          redirect_to edit_selected_practitioner_url
+    unless pro_logged_in?
+      get_selected_practitioner
+      #otherwise ask the client to select a practitioner
+      if @current_selected_pro.nil?
+        respond_to do |format|
+          format.json do
+            flash[:error] = "No selected practitioner"
+            redirect_to flash_url
+          end
+          format.html do
+            redirect_to edit_selected_practitioner_url
+          end
         end
       end
     end

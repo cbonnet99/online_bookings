@@ -4,6 +4,8 @@ class Client < ActiveRecord::Base
 
   has_many :bookings
   has_many :client_emails
+  has_many :clients_practitioners
+  has_many :practitioners, :through => :clients_practitioners 
   
   # new columns need to be added here to be writable through mass assignment
   attr_accessible :email, :password, :password_confirmation, :phone_prefix, :phone_suffix
@@ -36,6 +38,14 @@ class Client < ActiveRecord::Base
 
   def name
     "#{first_name} #{last_name}"
+  end
+
+  def name_and_email
+    if first_name.blank? && last_name.blank?
+      "#{email}"
+    else
+      "#{first_name} #{last_name} (#{email})"
+    end
   end
 
   def send_reset_phone_link

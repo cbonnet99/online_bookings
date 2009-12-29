@@ -36,7 +36,7 @@ class ClientsController < ApplicationController
   end
 
   def edit_phone
-    if logged_in?
+    if client_logged_in?
       redirect_to edit_client_url(current_client)
     else
       @client = Client.find_by_email(params["login"])
@@ -74,7 +74,7 @@ class ClientsController < ApplicationController
   end
   
   def lookup_form
-    if logged_in?
+    if client_logged_in?
       flash[:notice] = "Welcome back!"
       redirect_to root_url
     else

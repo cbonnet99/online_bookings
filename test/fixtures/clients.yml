@@ -1,4 +1,6 @@
 cyrille:
+    first_name: Cyrille
+    last_name: Bonnet
     email: cbonnet99@gmail.com
     # password: "secret"
     password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f

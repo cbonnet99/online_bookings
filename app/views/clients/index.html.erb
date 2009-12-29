@@ -1,4 +1,4 @@
-<% title "Welcome to Online Bookings" %>
+<% title "Welcome to #{APP_CONFIG[:site_name]}" %>
 
 <div id="book-appointment">Book an appointment with:<br/><br/> <%= render :partial => "practitioners/select", :locals => {:submit_text => "Book now >"} %></div>
-<div id="register-pro">Are you a health practitioner? Register with us for a <%= link_to "60-day free trial", new_practitioner_url %></div>
+<div id="pro-register">Are you a health practitioner? <%= link_to "Register with us for a 60-day free trial", new_practitioner_url %></div>

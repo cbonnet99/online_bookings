@@ -5,6 +5,7 @@ class PractitionersController < ApplicationController
   
   def new
     @practitioner = Practitioner.new
+    @practitioner.working_hours = "8-12,13-18"
   end
 
   def edit_selected
@@ -31,9 +32,15 @@ class PractitionersController < ApplicationController
     if @practitioner.save
       session[:practitioner_id] = @practitioner.id
       flash[:notice] = "Thank you for signing up! You are now logged in."
-      redirect_to root_url
+      redirect_to practitioner_url(@practitioner.id)
     else
       render :action => 'new'
+    end
+  end
+  
+  def show
+    if pro_logged_in?
+      @clients = current_pro.clients
     end
   end
   

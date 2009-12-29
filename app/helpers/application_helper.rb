@@ -17,4 +17,8 @@ module ApplicationHelper
       stylesheet_link_tag 'jquery.weekcalendar'
     end
   end
+  
+  def own_calendar?(pro, current_pro)
+    !pro.nil? && !current_pro.nil? && current_pro == pro
+  end
 end

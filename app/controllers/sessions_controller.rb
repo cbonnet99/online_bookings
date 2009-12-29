@@ -1,13 +1,11 @@
 class SessionsController < ApplicationController
-  def new
-  end
-  
   def create
-    client = Client.authenticate(params[:login], params[:password])
-    if client
-      session[:client_id] = client.id
-      flash[:notice] = "Logged in successfully."
-      redirect_to_target_or_default(root_url)
+    pro = Practitioner.authenticate(params[:email], params[:password])
+    if pro
+      session[:pro_id] = pro.id
+      flash[:notice] = "Welcome to #{APP_CONFIG[:site_name]}"
+      redirect_to pro
+      # redirect_to_target_or_default(pro)
     else
       flash.now[:error] = "Invalid login or password."
       render :action => 'new'
@@ -16,6 +14,7 @@ class SessionsController < ApplicationController
   
   def destroy
     session[:client_id] = nil
+    session[:pro_id] = nil
     flash[:notice] = "You have been logged out."
     redirect_to root_url
   end

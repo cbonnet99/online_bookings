@@ -20,7 +20,8 @@
     <%= yield(:head) %>
   </head>
   <body>
-	  <%= render :partial => "clients/login_info" ,:locals => {:client => current_client }  %>
+	  <%= render :partial => "clients/login_info" %>
+	  <%= render :partial => "practitioners/login_info" %>
 	  <%= render :partial => "practitioners/selected_pro_info"  %>
 	  <div class="cleaner"></div>
 	  <div id="flash">

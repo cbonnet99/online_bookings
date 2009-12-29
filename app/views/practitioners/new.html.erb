@@ -1,16 +1,20 @@
-<% title "Sign up" %>
+<% title "Register for a free trial" %>
 
 <p>Already have an account? <%= link_to "Log in", login_path %>.</p>
 
 <% form_for @practitioner do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :username %><br />
-    <%= f.text_field :username %>
-  </p>
-  <p>
     <%= f.label :email, "Email Address" %><br />
     <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :working_hours, "Working hours" %><br />
+    <%= f.text_field :working_hours %>
+  </p>
+  <p>
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
   </p>
   <p>
     <%= f.label :password %><br />
@@ -20,5 +24,5 @@
     <%= f.label :password_confirmation, "Confirm Password" %><br />
     <%= f.password_field :password_confirmation %>
   </p>
-  <p><%= f.submit "Sign up" %></p>
+  <p><%= f.submit "Register" %></p>
 <% end %>

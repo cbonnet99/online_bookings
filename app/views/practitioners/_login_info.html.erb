@@ -1,0 +1,5 @@
+<% if pro_logged_in? -%>
+	<div id="pro-login-info">You are logged in as: <%= current_pro.email%>&nbsp;<%= link_to "Edit", edit_practitioner_url(current_pro)%> | <%= link_to "Logout", logout_url%></div>
+<% else -%>
+	<div id="pro-login">Login: <% form_tag sessions_url do %><%= label_tag :email, "Email: " %><%= text_field_tag :email %><%= label_tag :password, "Password: " %><%= password_field_tag :password %><%= submit_tag "Login" %><% end%></div>
+<% end -%>

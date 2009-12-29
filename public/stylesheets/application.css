@@ -4,8 +4,7 @@
 /************** client SHOW ******************/
 #event_edit_container{display: none;}
 /******************************************/
-#login-info{font-size: small; color: grey; float: left;}
-#selected-pro-info{font-size: small; color: grey; float: right; }
+#pro-login, #client-login-info, #pro-login-info, #selected-pro-info{font-size: small; color: grey; float: right; }
 .cleaner { clear:both; line-height:1%; margin:0; padding:0; width:100%; }
 body {
   font-family: Verdana, Helvetica, Arial;

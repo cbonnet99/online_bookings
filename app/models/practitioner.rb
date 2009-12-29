@@ -2,9 +2,11 @@ class Practitioner < ActiveRecord::Base
   include Permalinkable
   
   has_many :bookings
+  has_many :clients_practitioners
+  has_many :clients, :through => :clients_practitioners
 
   # new columns need to be added here to be writable through mass assignment
-  attr_accessible :username, :email, :password, :password_confirmation
+  attr_accessible :username, :email, :password, :password_confirmation, :working_hours
   
   attr_accessor :password
   before_save :prepare_password
@@ -19,6 +21,14 @@ class Practitioner < ActiveRecord::Base
   validates_uniqueness_of :email
 
   TITLE_FOR_NON_WORKING = "Booked"
+
+  def calendar_title(current_pro)
+    if (current_pro == self)
+      self.name
+    else
+      "Step 3: book your appointment with #{self.name}"
+    end    
+  end
 
   def biz_hours_start
     TimeUtils.round_previous_hour(working_hours.split("-").first)
