@@ -2,8 +2,7 @@ class Practitioner < ActiveRecord::Base
   include Permalinkable
   
   has_many :bookings
-  has_many :clients_practitioners
-  has_many :clients, :through => :clients_practitioners
+  has_many :clients, :through => :bookings, :uniq => true
 
   # new columns need to be added here to be writable through mass assignment
   attr_accessible :username, :email, :password, :password_confirmation, :working_hours
@@ -22,6 +21,14 @@ class Practitioner < ActiveRecord::Base
 
   TITLE_FOR_NON_WORKING = "Booked"
 
+  def clients_options
+    res = []
+    clients.map do |c|
+      res << [c.name, c.id]
+    end
+    return res
+  end
+  
   def calendar_title(current_pro)
     if (current_pro == self)
       self.name
@@ -36,6 +43,24 @@ class Practitioner < ActiveRecord::Base
   
   def biz_hours_end
     TimeUtils.round_next_hour(working_hours.split("-").last)
+  end
+
+  def own_bookings(start_timestamp=nil, end_timestamp=nil)
+    start_time = if start_timestamp.blank?
+      Time.now.beginning_of_week
+    else
+      Time.at(start_timestamp)
+    end
+    end_time = if end_timestamp.blank?
+      Time.now.end_of_week
+    else
+      Time.at(end_timestamp)
+    end
+    raw_own_bookings = Booking.find_all_by_practitioner_id(self.id, :conditions => ["starts_at BETWEEN ? AND ?", start_time, end_time] )
+    raw_own_bookings.each do |b|
+      b.current_pro = self
+    end
+    raw_own_bookings + bookings_for_non_working_days(start_time, end_time) + bookings_for_working_hours(start_time, end_time)
   end
   
   def all_bookings(current_client=nil, start_timestamp=nil, end_timestamp=nil)

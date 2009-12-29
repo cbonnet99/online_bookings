@@ -53,14 +53,16 @@ $(document).ready(function() {
 	         resetForm($dialogContent);
 	         var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
 	         var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
-	         var titleField = $dialogContent.find("input[name='title']").val('<%=client.try(:name)%>');
+	         var titleField = $dialogContent.find("input[name='title']").val('<%=current_client.try(:name)%>');
 	         var bodyField = $dialogContent.find("textarea[name='body']");
-	
-			//retrieve current client name
-			$.get("<%=client_name_url%>", {"format": "json"}, function(data){
-				$dialogContent.find("input[name='title']").val(data.name);
-			}, "json");
-
+	         var clientField = $dialogContent.find("select[name='client_id']");
+			
+			if ($dialogContent.find("input[name='title']").is(":visible")) {
+				//retrieve current client name
+				$.get("<%=client_name_url%>", {"format": "json"}, function(data){
+					$dialogContent.find("input[name='title']").val(data.name);
+				}, "json");
+			}
 
 	         $dialogContent.dialog({
 	            modal: true,
@@ -77,7 +79,8 @@ $(document).ready(function() {
 	                  calEvent.end = new Date(endField.val());
 	                  calEvent.title = titleField.val();
 	                  calEvent.body = bodyField.val();
-					  $.post("<%=practitioner_bookings_url(pro)%>", {"format": "json", "booking[name]": calEvent.title, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end}, function(data){
+					  var client_id = clientField.val();
+					  $.post("<%=practitioner_bookings_url(pro)%>", {"format": "json", "booking[name]": calEvent.title, "booking[client_id]": client_id, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end}, function(data){
 						if ((data.flash.error === undefined) || (data.flash.error === '')) {
 							calEvent.id = data.booking.id;
 							calEvent.title = data.booking.title;
@@ -299,7 +302,7 @@ $(document).ready(function() {
 			</li> 
 			<li> 
 				<% if own_calendar?(pro, current_pro)%>
-				<label for="title">Client: </label><select name="title"><%= options_for_select(@clients.map(&:name_and_email))%></select>
+				<label for="title">Client: </label><select name="client_id"><%= current_pro_client_options(current_pro)%></select>
 				<%else%>
 				<label for="title">Your name: </label><input type="text" name="title"></input>
 				<%end%>

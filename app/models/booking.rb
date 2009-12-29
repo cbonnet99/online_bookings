@@ -10,8 +10,8 @@ class Booking < ActiveRecord::Base
 
   validates_presence_of :name
   
-  attr_accessible :starts_at, :ends_at, :name, :comment, :booking_type
-  attr_accessor :current_client
+  attr_accessible :starts_at, :ends_at, :name, :comment, :booking_type, :client_id
+  attr_accessor :current_client, :current_pro
   
   after_create :save_client_name
   after_update :save_client_name
@@ -34,7 +34,7 @@ class Booking < ActiveRecord::Base
   end
   
   def read_only?
-    current_client.nil? || current_client.id != client_id
+    (current_pro.nil? || current_pro.id != practitioner_id) && (current_client.nil? || current_client.id != client_id)
   end
   
   def title

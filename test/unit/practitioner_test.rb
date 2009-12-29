@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class PractitionerTest < ActiveSupport::TestCase
+  fixtures :all
+  
   def new_practitioner(attributes = {})
     attributes[:username] ||= 'foo'
     attributes[:email] ||= 'foo@example.com'
@@ -15,6 +17,17 @@ class PractitionerTest < ActiveSupport::TestCase
     Practitioner.delete_all
   end
   
+  def test_clients_options
+    megan = Factory(:practitioner, :working_days => "4,5")
+    cyrille = Factory(:client)
+    k = Factory(:client)
+    booking = Factory(:booking, :client => cyrille, :practitioner => megan )
+    booking = Factory(:booking, :client => k, :practitioner => megan )
+    opts = megan.clients_options
+    assert_equal 2, opts.size
+    assert_equal [cyrille.name, cyrille.id], opts.first
+  end
+
   def test_all_bookings
     megan = Factory(:practitioner, :working_days => "4,5")
     cyrille = Factory(:client)

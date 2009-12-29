@@ -21,4 +21,12 @@ module ApplicationHelper
   def own_calendar?(pro, current_pro)
     !pro.nil? && !current_pro.nil? && current_pro == pro
   end
+  
+  def current_pro_client_options(current_pro)
+    res = ""
+    current_pro.clients_options.each do |name, id|
+      res << "<option value='#{id}'>#{name}</option"
+    end
+    return res
+  end
 end

@@ -4,7 +4,11 @@ class BookingsController < ApplicationController
   before_filter :login_required, :except => :flash 
   
   def index
-    @bookings = @current_selected_pro.all_bookings(current_client, params[:start].try(:to_f), params[:end].try(:to_f))
+    if pro_logged_in?
+      @bookings = current_pro.own_bookings(params[:start].try(:to_f), params[:end].try(:to_f))
+    else
+      @bookings = @current_selected_pro.all_bookings(current_client, params[:start].try(:to_f), params[:end].try(:to_f))
+    end
   end
   
   def show
@@ -16,11 +20,20 @@ class BookingsController < ApplicationController
   end
   
   def create
-    @booking = Booking.new(params[:booking])
-    @booking.client_id = current_client.id
-    @booking.practitioner_id = @current_selected_pro.id
-    @booking.name = current_client.default_name if @booking.name.blank?
-    @booking.current_client = current_client
+    @booking = Booking.new(JsonUtils.scrub_undefined(params[:booking]))
+    if @booking.client_id.nil?
+      client = current_client
+      pro = @current_selected_pro
+    else
+      client = current_pro.clients.find(@booking.client_id)
+      pro = current_pro
+      @booking.name = @client.try(:default_name)
+    end
+    @booking.current_client = client
+    @booking.current_pro = pro
+    @booking.name = client.try(:default_name) if @booking.name.blank?
+    @booking.client_id = client.try(:id)
+    @booking.practitioner_id = pro.try(:id)
     if @booking.save
       flash.now[:notice] = "Your appointment has been booked"
     end
