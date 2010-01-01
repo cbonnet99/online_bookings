@@ -1,4 +1,6 @@
-<% title "Welcome to #{APP_CONFIG[:site_name]}" %>
-
-<div id="book-appointment">Book an appointment with:<br/><br/> <%= render :partial => "practitioners/select", :locals => {:submit_text => "Book now >"} %></div>
-<div id="pro-register">Are you a health practitioner? <%= link_to "Register with us for a 60-day free trial", new_practitioner_url %></div>
+<% javascript "home"%>
+<% title "#{APP_CONFIG[:site_name]}"%>
+<div class="cleaner"></div>
+<div id="colibri-logo"><%= image_tag "colibri.jpg", :id => "colibri-logo", :size => "80x80" %></div>
+<div id="book-appointment" class="rounded"><%= link_to "Book an appointment", edit_selected_practitioner_url%></div>
+<div class="cleaner"></div>

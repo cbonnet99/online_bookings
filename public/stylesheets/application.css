@@ -1,10 +1,28 @@
-/************** client NEW ******************/
+/************** client INDEX ******************/
+#colibri-logo{float: left;}
+div#book-appointment{background-color: #c33; color: #fff; width: 120px; padding: 10px; text-align: center;float: left;}
+div#book-appointment a{color: #fff; font-weight: bold; font-size: 16px; text-decoration: none;}
+div#book-appointment a:hover{text-decoration: underline;}
 /******************************************/
 
 /************** client SHOW ******************/
 #event_edit_container{display: none;}
 /******************************************/
-#pro-login, #client-login-info, #pro-login-info, #selected-pro-info{font-size: small; color: grey; float: right; }
+
+body{margin:0;padding:0;}
+div.header{background-color: #222; font-size: 14px;	line-height: 1.7em; height: 50px; color:#fff;}
+div.header div.container {padding: 10px 0;}
+div.header div.container div#general-public-links{float: left;}
+div.header div.container div#pro-links{float: right;}
+div.header div.container div#pro-links{color: #BCFC3D}
+div.header div.container div#pro-links a{color: #BCFC3D}
+div.header a {margin-left: 10px; color: #fff; text-decoration: none; line-height: 1.7em;}
+div.header div.container div#pro-links a {margin-left: 0px; margin-right: 10px;}
+div.header a:hover {text-decoration: underline;}
+div#content{margin: 10px;}
+div.login-info{float: left;}
+div#selected-pro-info{float: right;}
+#pro-login, #client-login-info, #pro-login-info, #selected-pro-info{font-size: small; color: grey;}
 .cleaner { clear:both; line-height:1%; margin:0; padding:0; width:100%; }
 body {
   font-family: Verdana, Helvetica, Arial;

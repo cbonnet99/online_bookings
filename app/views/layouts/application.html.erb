@@ -14,12 +14,28 @@
 		<%= javascript_include_tag 'jquery-ui.min.js' %>
 	<%end-%>
 	<%= javascript_include_tag 'application' %>
+	<%= javascript_include_tag 'jquery.corners.min.js' %>
 	<%= yield :calendar %>
 	<%= yield :js %>
 	<%= yield :css %>
     <%= yield(:head) %>
   </head>
   <body>
+	<div class="header">
+		<div class="container">
+			<div id="general-public-links">
+				<%= link_to "Home", root_url, :class => "link"%>
+				<%= link_to "Book an appointment", edit_selected_practitioner_url, :class => "link"%>
+			</div>
+			<div id="pro-links">
+				<span>Health professionals:</span>
+				<%= link_to "Login", login_url, :class => "link"%>
+				<%= link_to "Register for a free trial", new_practitioner_url, :class => "link"%>
+			</div>
+		</div>
+	</div>
+	<div class="cleaner"></div>
+	<div id="content">
 	  <%= render :partial => "clients/login_info" %>
 	  <%= render :partial => "practitioners/login_info" %>
 	  <%= render :partial => "practitioners/selected_pro_info"  %>
@@ -33,5 +49,6 @@
         <h1><%=h yield(:title) %></h1>
       <%- end -%>
       <%= yield %>
+	</div>
   </body>
 </html>
