@@ -21,6 +21,11 @@ class Practitioner < ActiveRecord::Base
 
   TITLE_FOR_NON_WORKING = "Booked"
 
+  def generate_bookings_publish_code
+    self.bookings_publish_code = Digest::SHA256.hexdigest(self.email+Time.now.to_s)[0..11]
+    self.save
+  end
+
   def clients_options
     res = []
     clients.map do |c|
@@ -97,10 +102,10 @@ class Practitioner < ActiveRecord::Base
   def bookings_for_non_working_days(start_time, end_time)
     current = start_time
     res = []
-    ("1".."7").to_a.each do |current_day|
-      if !working_days.blank? && !working_days.include?(current_day)
-        day, month, year = current.strftime("%d %m %Y").split(" ")
-        res << NonWorkingBooking.new("#{self.id}-#{current_day}", TITLE_FOR_NON_WORKING, Time.parse("#{year}/#{month}/#{day} #{biz_hours_start}").iso8601, Time.parse("#{year}/#{month}/#{day} #{biz_hours_end}").iso8601, true)
+    while current < end_time
+      day, month, year, week_day = current.strftime("%d %m %Y %w").split(" ")
+      if !working_days.blank? && !working_days.include?(week_day)
+        res << NonWorkingBooking.new("#{self.id}-#{day}-#{month}-#{year}", TITLE_FOR_NON_WORKING, Time.parse("#{year}/#{month}/#{day} #{biz_hours_start}"), Time.parse("#{year}/#{month}/#{day} #{biz_hours_end}"), true)
       end
       current += 1.day
     end
@@ -110,9 +115,9 @@ class Practitioner < ActiveRecord::Base
   def bookings_for_working_hours(start_time, end_time)
     res = []
     current = start_time
-    ("1".."7").to_a.each do |current_day|
-      if !working_days.blank? && working_days.include?(current_day)
-        day, month, year = current.strftime("%d %m %Y").split(" ")
+    while current < end_time
+      day, month, year, week_day = current.strftime("%d %m %Y %w").split(" ")
+      if !working_days.blank? && working_days.include?(week_day)
         split_hours = working_hours.split(",")
         split_hours.each_with_index do |str, i|
           slot_start_time = str.split("-").try(:last)
@@ -129,7 +134,7 @@ class Practitioner < ActiveRecord::Base
             raise "There is a format error on working hours for practitioner #{self.name}: #{self.working_hours} [end time for #{split_hours[i+1]}]"
           end
           if slot_end_time > slot_start_time
-            res << NonWorkingBooking.new("#{self.id}-#{current_day}", TITLE_FOR_NON_WORKING, Time.parse("#{year}/#{month}/#{day} #{TimeUtils.fix_minutes(slot_start_time)}").iso8601, Time.parse("#{year}/#{month}/#{day} #{TimeUtils.fix_minutes(slot_end_time)}").iso8601, true)
+            res << NonWorkingBooking.new("#{self.id}-#{day}-#{month}-#{year}-#{slot_start_time}", TITLE_FOR_NON_WORKING, Time.parse("#{year}/#{month}/#{day} #{TimeUtils.fix_minutes(slot_start_time)}"), Time.parse("#{year}/#{month}/#{day} #{TimeUtils.fix_minutes(slot_end_time)}"), true)
           end
         end
       end

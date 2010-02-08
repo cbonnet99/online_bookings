@@ -93,6 +93,15 @@ class BookingsControllerTest < ActionController::TestCase
     assert_not_nil new_booking.booking_type
   end
 
+  def test_index_cal
+    sav = practitioners(:sav)
+    get :index_cal, {:pub_code => sav.bookings_publish_code, :practitioner_id => sav.permalink, :format => "ics"}
+    assert_response :success
+    assert_not_nil assigns(:practitioner)
+    assert_not_nil assigns(:bookings)
+    assert !assigns(:bookings).blank?
+  end
+
   def test_index
     get :index, {:practitioner_id => practitioners(:sav).permalink, :format => "json", :start => Time.now.beginning_of_week, :end => Time.now.end_of_week}, {:client_id => clients(:cyrille).id }
     # puts @response.body

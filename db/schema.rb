@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091215004156) do
+ActiveRecord::Schema.define(:version => 20100126181856) do
 
   create_table "bookings", :force => true do |t|
     t.datetime "starts_at"
@@ -57,8 +57,9 @@ ActiveRecord::Schema.define(:version => 20091215004156) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "permalink"
-    t.string   "working_days",  :limit => 20
+    t.string   "working_days",          :limit => 20
     t.string   "working_hours"
+    t.string   "bookings_publish_code"
   end
 
 end

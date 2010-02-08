@@ -1,6 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class PractitionersControllerTest < ActionController::TestCase
+  
   def test_new
     get :new
     assert_template 'new'

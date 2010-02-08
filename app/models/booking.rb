@@ -1,6 +1,30 @@
-NonWorkingBooking = Struct.new(:id, :title, :start_time, :end_time, :read_only) do
+class NonWorkingBooking
+  attr_accessor :id, :title, :start_time, :end_time, :read_only
+  def initialize(id, title, start_time, end_time, read_only)
+    @id = id
+    @title = title
+    @start_time = start_time
+    @end_time = end_time
+    @read_only = read_only
+  end
+  
   def to_json(options={})
-    %({"id": "#{id}", "title": "#{title}", "start": "#{start_time}", "end": "#{end_time}", "readOnly": #{read_only}})
+    %({"id": "#{@id}", "title": "#{@title}", "start": "#{@start_time.iso8601}", "end": "#{@end_time.iso8601}", "readOnly": #{@read_only}})
+  end
+  
+  def to_ics
+    booking = Icalendar::Event.new
+    booking.start = @start_time.strftime("%Y%m%dT%H%M%S")
+    booking.end = @end_time.strftime("%Y%m%dT%H%M%S")
+    booking.summary = @title
+    booking.description = ""
+    booking.location = ''
+    booking.klass = "PUBLIC"
+    booking.created = Time.now
+    booking.last_modified = Time.now
+    booking.uid = booking.url = "#{@id}"
+    booking.add_comment("BLA")
+    booking
   end
 end
 
@@ -15,6 +39,22 @@ class Booking < ActiveRecord::Base
   
   after_create :save_client_name
   after_update :save_client_name
+
+  def to_ics
+    booking = Icalendar::Event.new
+    booking.start = self.starts_at.strftime("%Y%m%dT%H%M%S")
+    booking.end = self.ends_at.strftime("%Y%m%dT%H%M%S")
+    booking.summary = self.name
+    booking.description = self.comment
+    booking.location = ''
+    booking.klass = "PUBLIC"
+    booking.created = self.created_at
+    booking.last_modified = self.updated_at
+    # booking.uid = booking.url = "#{edit_practitioner_booking_url(:practitioner_id => self.practitioner.permalink, :id => self.id)}"
+    booking.uid = booking.url = "#{self.id}"
+    booking.add_comment("")
+    booking
+  end
 
   def save_client_name
     if !self.name.blank?

@@ -1,8 +1,13 @@
 ActionController::Routing::Routes.draw do |map|
+
+  #BOOKINGS
+  map.calendar_bookings '/practitioners/:practitioner_id/bookings/:pub_code', :controller => 'bookings', :action => 'index_cal', :format  => "ics"
+
   map.resources :practitioners
   map.resources :practitioners do |p|
     p.resources :bookings
   end
+
 
   #FLASH
   map.flash 'flash', :controller => 'bookings', :action => 'flash'

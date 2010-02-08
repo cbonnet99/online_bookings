@@ -1,6 +1,11 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class BookingTest < ActiveSupport::TestCase  
+
+  def test_to_ics
+    ics = bookings(:cyrille_sav).to_ics
+    # puts "======= ics: #{ics}"
+  end
   def test_to_json
     json = bookings(:cyrille_sav).to_json
     # puts "===== json: #{json}"

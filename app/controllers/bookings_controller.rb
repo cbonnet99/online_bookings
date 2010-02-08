@@ -1,7 +1,7 @@
 class BookingsController < ApplicationController
   
   before_filter :require_selected_practitioner
-  before_filter :login_required, :except => :flash 
+  before_filter :login_required, :except => [:flash, :index_cal]
   
   def index
     if pro_logged_in?
@@ -9,6 +9,23 @@ class BookingsController < ApplicationController
     else
       @bookings = @current_selected_pro.all_bookings(current_client, params[:start].try(:to_f), params[:end].try(:to_f))
     end
+  end
+
+  def index_cal
+    @practitioner = Practitioner.find_by_bookings_publish_code(params["pub_code"])
+    if @practitioner.nil?
+      flash[:error] = "Could not find this practitioner"
+      render :action => "flash"
+    else
+      @bookings = @practitioner.own_bookings(Time.now.advance(:month => -1).beginning_of_month, Time.now.advance(:months => 1).end_of_month)
+      calendar = Icalendar::Calendar.new
+      @bookings.each do |b|
+        calendar.add_event(b.to_ics)
+      end
+      calendar.publish
+      headers['Content-Type'] = "text/calendar; charset=UTF-8"
+      render :text => calendar.to_ical
+    end 
   end
   
   def show
