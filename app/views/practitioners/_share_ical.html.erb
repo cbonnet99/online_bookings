@@ -1,0 +1,10 @@
+<% if sharing_ical -%>
+<div><p>Your iCal feed URL is <%= link_to calendar_bookings_url(:practitioner_id => current_pro.id, :pub_code => current_pro.bookings_publish_code), calendar_bookings_url(:practitioner_id => current_pro.id, :pub_code => current_pro.bookings_publish_code)%></p></div>
+<%if !current_pro.nil?-%>
+<%= link_to_remote "Stop sharing iCal feed", :update => "ical-feed", :url  => reset_ical_sharing_practitioner_url(current_pro.permalink)%>
+<% end -%>
+<% else -%>
+<%if !current_pro.nil?-%>
+<%= link_to_remote "Share iCal feed", :update => "ical-feed", :url  =>  reset_ical_sharing_practitioner_url(current_pro.permalink)%>
+<% end -%>
+<%end -%>

@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
       end
     end
     #fall back on the cookie
-    if @current_selected_pro.nil? && !cookies[:selected_practitioner_id].nil?
+    if @current_selected_pro.nil? && !cookies[:selected_practitioner_id].blank?
       @current_selected_pro = Practitioner.find(cookies[:selected_practitioner_id])
     end    
   end

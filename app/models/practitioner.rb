@@ -21,9 +21,16 @@ class Practitioner < ActiveRecord::Base
 
   TITLE_FOR_NON_WORKING = "Booked"
 
+  def toggle_bookings_publish_code
+    if bookings_publish_code.blank?
+      generate_bookings_publish_code
+    else
+      self.update_attribute(:bookings_publish_code, nil)
+    end
+  end
+
   def generate_bookings_publish_code
-    self.bookings_publish_code = Digest::SHA256.hexdigest(self.email+Time.now.to_s)[0..11]
-    self.save
+    self.update_attribute(:bookings_publish_code, Digest::SHA256.hexdigest(self.email+Time.now.to_s)[0..11])
   end
 
   def clients_options

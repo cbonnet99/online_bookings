@@ -2,6 +2,16 @@ class PractitionersController < ApplicationController
   
   before_filter :require_selected_practitioner, :only => [:show] 
   before_filter :login_required, :only => [:show]
+
+  def reset_ical_sharing
+    if current_pro.nil?
+      flash[:error] = "Could not find this practitioner"
+    else
+      current_pro.toggle_bookings_publish_code
+      flash[:notice] = "You can now visualize your calendar in iCal"
+    end
+    render :layout => false 
+  end
   
   def new
     @practitioner = Practitioner.new

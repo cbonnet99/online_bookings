@@ -24,8 +24,14 @@
 	<div class="header">
 		<div class="container">
 			<div id="general-public-links">
-				<%= link_to "Home", root_url, :class => "link"%>
-				<%= link_to "Book an appointment", edit_selected_practitioner_url, :class => "link"%>
+				<% if pro_logged_in?-%>
+				<%= link_to "Calendar", practitioner_url(current_pro.permalink), :class => "link"%>
+				<% else -%>
+					<% if !client_logged_in?-%>
+						<%= link_to "Home", root_url, :class => "link"%>
+					<% end %>
+					<%= link_to "Book an appointment", edit_selected_practitioner_url, :class => "link"%>
+				<% end -%>
 			</div>
 			<div id="pro-links">
 				<span>Health professionals:</span>

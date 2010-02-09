@@ -7,6 +7,22 @@ class PractitionersControllerTest < ActionController::TestCase
     assert_template 'new'
   end
 
+  def test_reset_ical_sharing_on
+    megan = Factory(:practitioner, :bookings_publish_code => "")
+    post :reset_ical_sharing, {:id => megan.id }, {:pro_id => megan.id}
+    assert_response :success
+    megan.reload
+    assert !megan.bookings_publish_code.blank?
+  end
+
+  def test_reset_ical_sharing_off
+    megan = Factory(:practitioner, :bookings_publish_code => "1234")
+    post :reset_ical_sharing, {:id => megan.id }, {:pro_id => megan.id}
+    assert_response :success
+    megan.reload
+    assert megan.bookings_publish_code.blank?
+  end
+
   def test_create
     old_size = Practitioner.all.size
     post :create, :practitioner => {:email => "cb@test.com", :password => "blabla", :password_confirmation => "blabla", :working_hours => "9-12,13-18" }
