@@ -23,28 +23,37 @@
   <body>
 	<div class="header">
 		<div class="container">
-			<div id="general-public-links">
-				<% if pro_logged_in?-%>
-				<%= link_to "Calendar", practitioner_url(current_pro.permalink), :class => "link"%>
-				<% else -%>
-					<% if !client_logged_in?-%>
-						<%= link_to "Home", root_url, :class => "link"%>
-					<% end %>
-					<%= link_to "Book an appointment", edit_selected_practitioner_url, :class => "link"%>
-				<% end -%>
-			</div>
+			<div id="general-public-links"><% if pro_logged_in?-%>
+			<%= link_to "Calendar", practitioner_url(current_pro.permalink), :class => "link"%>
+			<% else -%>
+				<% if !client_logged_in?-%>
+					<%= link_to "Home", root_url, :class => "link"%> |
+				<% end %>
+				<%= link_to "Book an appointment", edit_selected_practitioner_url, :class => "link"%>
+				<% if client_logged_in?-%> |&nbsp;<% end -%> 
+			<% end -%>
+			</div>	
+			<% if client_logged_in?-%>
+				<%= render :partial => "clients/login_info" %>
+			<% end %>
+			
 			<div id="pro-links">
-				<span>Health professionals:</span>
-				<%= link_to "Login", login_url, :class => "link"%>
-				<%= link_to "Register for a free trial", new_practitioner_url, :class => "link"%>
+				<% if pro_logged_in?-%>
+				<%= render :partial => "practitioners/login_info" %>
+				<% else -%>
+					<% if client_logged_in? -%>
+					<%= render :partial => "practitioners/selected_pro_info"  %>
+					<%else -%>
+						<span>Health professionals:</span>
+						<%= link_to "Login", login_url, :class => "link"%> |
+						<%= link_to "Register for a free trial", new_practitioner_url, :class => "link"%>
+					<%end -%>
+				<% end -%>
 			</div>
 		</div>
 	</div>
 	<div class="cleaner"></div>
 	<div id="content">
-	  <%= render :partial => "clients/login_info" %>
-	  <%= render :partial => "practitioners/login_info" %>
-	  <%= render :partial => "practitioners/selected_pro_info"  %>
 	  <div class="cleaner"></div>
 	  <div id="flash">
       <%- flash.each do |name, msg| -%>
