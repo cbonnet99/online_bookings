@@ -2,6 +2,26 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class BookingsControllerTest < ActionController::TestCase
 
+  def test_confirm
+    booking = Factory(:booking)
+    assert booking.unconfirmed?
+    assert_not_nil booking.confirmation_code
+    post :confirm, {:id => booking.id, :confirmation_code => booking.confirmation_code}
+    assert_response :success
+    booking.reload
+    assert booking.confirmed?
+  end
+
+  def test_cancel
+    booking = Factory(:booking)
+    assert booking.unconfirmed?
+    assert_not_nil booking.confirmation_code
+    post :cancel, {:id => booking.id, :confirmation_code => booking.confirmation_code}
+    assert_response :success
+    booking.reload
+    assert booking.cancelled?
+  end
+
   def test_destroy
     cyrille_sav = bookings(:cyrille_sav)
     sav = practitioners(:sav)

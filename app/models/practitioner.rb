@@ -1,3 +1,10 @@
+class ProStub
+  attr_accessor :name
+  def initialize(name)
+    @name = name
+  end
+end
+
 class Practitioner < ActiveRecord::Base
   include Permalinkable
   
@@ -68,7 +75,7 @@ class Practitioner < ActiveRecord::Base
     else
       Time.at(end_timestamp)
     end
-    raw_own_bookings = Booking.find_all_by_practitioner_id(self.id, :conditions => ["starts_at BETWEEN ? AND ?", start_time, end_time] )
+    raw_own_bookings = Booking.find_all_by_practitioner_id(self.id, :conditions => ["state <> ? AND starts_at BETWEEN ? AND ?", "cancelled", start_time, end_time] )
     raw_own_bookings.each do |b|
       b.current_pro = self
     end
@@ -90,7 +97,7 @@ class Practitioner < ActiveRecord::Base
   end
   
   def client_bookings(current_client, start_time, end_time)
-    raw_bookings = Booking.find_all_by_practitioner_id(self.id, :conditions => ["starts_at BETWEEN ? AND ?", start_time, end_time] )
+    raw_bookings = Booking.find_all_by_practitioner_id(self.id, :conditions => ["state <> ? AND starts_at BETWEEN ? AND ?", "cancelled", start_time, end_time] )
     raw_bookings.each {|rb| rb.current_client = current_client}
   end
   

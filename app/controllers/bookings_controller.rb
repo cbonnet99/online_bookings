@@ -1,7 +1,29 @@
 class BookingsController < ApplicationController
   
-  before_filter :require_selected_practitioner
-  before_filter :login_required, :except => [:flash, :index_cal]
+  before_filter :require_selected_practitioner, :except => [:confirm, :cancel] 
+  before_filter :login_required, :except => [:flash, :index_cal, :confirm, :cancel]
+
+  def cancel
+    @booking = Booking.find_by_confirmation_code_and_id(params[:confirmation_code], params[:id])
+    if @booking.nil?
+      logger.error("Invalid attempt to cancel an with ID: #{params[:id]} and confirmation_code: #{params[:confirmation_code]}")
+      flash[:error] = "This appointment is invalid"
+    else
+      @booking.cancel!
+      flash[:notice] = "Your appointment was cancelled"
+    end    
+  end
+  
+  def confirm
+    @booking = Booking.find_by_confirmation_code_and_id(params[:confirmation_code], params[:id])
+    if @booking.nil?
+      logger.error("Invalid attempt to confirm an with ID: #{params[:id]} and confirmation_code: #{params[:confirmation_code]}")
+      flash[:error] = "This appointment is invalid"
+    else
+      @booking.confirm!
+      flash[:notice] = "Your appointment was confirmed"
+    end
+  end
   
   def index
     if pro_logged_in?
@@ -27,11 +49,7 @@ class BookingsController < ApplicationController
       render :text => calendar.to_ical
     end 
   end
-  
-  def show
-    @booking = Booking.find(params[:id])
-  end
-  
+    
   def new
     @booking = Booking.new
   end

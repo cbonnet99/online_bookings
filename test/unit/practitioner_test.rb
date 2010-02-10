@@ -32,8 +32,9 @@ class PractitionerTest < ActiveSupport::TestCase
     megan = Factory(:practitioner, :working_days => "4,5")
     cyrille = Factory(:client)
     k = Factory(:client)
-    booking = Factory(:booking, :client => cyrille, :practitioner => megan )
-    booking = Factory(:booking, :client => k, :practitioner => megan )
+    booking1 = Factory(:booking, :client => cyrille, :practitioner => megan )
+    booking2 = Factory(:booking, :client => k, :practitioner => megan )
+    booking_cancelled = Factory(:booking, :state => "cancelled",  :client => k, :practitioner => megan )
     megan_bookings = megan.all_bookings(cyrille, Time.now.beginning_of_week.to_f, Time.now.end_of_week.to_f)
     assert megan_bookings.is_a?(Enumerable)
     assert_equal 7, megan_bookings.size

@@ -36,7 +36,7 @@ ActionController::Routing::Routes.draw do |map|
     c.resources :bookings
   end
 
-  # map.resources :bookings
+  map.resources :bookings, :member => {:confirm => [:post, :get], :cancel => [:post, :get]  } 
 
   map.resources :clients, :member => {:calendar => :get }
 

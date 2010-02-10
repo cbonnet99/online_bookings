@@ -23,7 +23,9 @@ Rails::Initializer.run do |config|
                :lib    => "factory_girl",
                :source => "http://gems.github.com"
   config.gem 'icalendar'
-               
+  config.gem 'whenever', :lib => false, :source => 'http://gemcutter.org/'
+  config.gem 'aasm', :source => "http://gemcutter.org"
+  
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]

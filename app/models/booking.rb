@@ -29,17 +29,65 @@ class NonWorkingBooking
 end
 
 class Booking < ActiveRecord::Base
+  include AASM
+  
   belongs_to :practitioner
   belongs_to :client
 
-  validates_presence_of :name
+  validates_presence_of :name, :client, :practitioner, :starts_at, :ends_at
   
-  attr_accessible :starts_at, :ends_at, :name, :comment, :booking_type, :client_id
+  attr_accessible :starts_at, :ends_at, :name, :comment, :booking_type, :client_id, :client, :practitioner, :practitioner_id
   attr_accessor :current_client, :current_pro
   
   after_create :save_client_name
   after_update :save_client_name
+  before_create :generate_confirmation_code
 
+  aasm_column :state
+
+  aasm_initial_state :unconfirmed
+
+  aasm_state :unconfirmed
+  aasm_state :reminder_sent, :enter => :send_reminder_email
+  aasm_state :confirmed
+  aasm_state :cancelled
+
+  aasm_event :confirm do
+    transitions :to => :confirmed, :from => [:unconfirmed, :reminder_sent]
+  end
+
+  aasm_event :cancel do
+    transitions :to => :cancelled, :from => [:unconfirmed, :reminder_sent]
+  end
+  
+  aasm_event :send_reminder do
+    transitions :to => :reminder_sent, :from => [:unconfirmed]
+  end
+  
+  def send_reminder_email
+    UserMailer.deliver_booking_reminder(self)
+  end
+
+  def generate_confirmation_code
+    self.confirmation_code = Digest::SHA256.hexdigest(self.name+Time.now.to_s)
+  end
+
+  def self.need_reminders
+    Booking.find(:all, :conditions => ["state = ? AND starts_at BETWEEN ? AND ?", "unconfirmed", 1.day.from_now.advance(:hours => -1), 1.day.from_now])
+  end
+  
+  def start_date_and_time_str
+    "on #{self.start_date_str} at #{self.start_time_str}"
+  end
+  
+  def start_date_str
+    "#{self.starts_at.strftime('%A %d %B %Y')}"
+  end
+  
+  def start_time_str
+    "#{self.starts_at.strftime('%H:%M%p')}"
+  end
+  
   def to_ics
     booking = Icalendar::Event.new
     booking.start = self.starts_at.strftime("%Y%m%dT%H%M%S")

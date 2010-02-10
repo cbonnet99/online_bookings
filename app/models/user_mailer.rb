@@ -15,12 +15,28 @@ class UserMailer < ActionMailer::Base
     end
   end
   
+  def setup_sender(pro=nil)
+    if pro.nil?
+      @body[:sender] = ProStub.new(:name => "The #{APP_CONFIG[:site_name]} team")
+    else
+      @body[:sender] = pro
+    end
+  end
+  
   def caller_method_name
       parse_caller(caller(2).first).last
   end
 
+  def booking_reminder(booking)
+    setup_email(booking.client)
+    setup_sender(booking.practitioner)
+    @subject << "You have an appointment tomorrow with #{booking.practitioner.name}"
+    @body[:booking] = booking
+  end
+
   def reset_phone(client)
     setup_email(client)
+    setup_sender
     @subject << "You have requested to reset your phone number"
     @body[:reset_link] = reset_phone_url(:reset_code => client.reset_code)
   end
