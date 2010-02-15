@@ -12,7 +12,7 @@ class Practitioner < ActiveRecord::Base
   has_many :clients, :through => :bookings, :uniq => true
 
   # new columns need to be added here to be writable through mass assignment
-  attr_accessible :username, :email, :password, :password_confirmation, :working_hours
+  attr_accessible :username, :email, :password, :password_confirmation, :working_hours, :working_days, :first_name, :last_name
   
   attr_accessor :password
   before_save :prepare_password
