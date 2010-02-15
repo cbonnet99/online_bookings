@@ -1,7 +1,5 @@
 # Be sure to restart your server when you modify this file
 
-require 'smtp-tls'
-
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
 
@@ -57,4 +55,9 @@ Rails::Initializer.run do |config|
       :user_name      => 'colibriapp@gmail.com',
       :password       => 'mavslr55'
   }
+  config.after_initialize do
+    require 'smtp-tls'
+  end
+  
 end
+
