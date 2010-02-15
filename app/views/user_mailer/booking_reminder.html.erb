@@ -1,13 +1,13 @@
-Dear <%= @booking.client.first_name%>,
-
-We would like to remind you that you have an appointment with <%= @booking.practitioner.name%> tomorrow (<%= @booking.start_date_str%>) at <%= @booking.start_time_str%>.
-
-To confirm this appointment, please simply click on the link below:
-
-<%= link_to confirm_booking_url(:id => @booking.id, :confirmation_code => @booking.confirmation_code), confirm_booking_url(:id => @booking.id, :confirmation_code => @booking.confirmation_code)%>
-
-If you cannot make it, please cancel your appointment by clicking on the link below:
-
-<%= link_to cancel_booking_url(:id => @booking.id, :confirmation_code => @booking.confirmation_code), cancel_booking_url(:id => @booking.id, :confirmation_code => @booking.confirmation_code)%>
-
+Dear <%= @booking.client.first_name%>,<br/>
+<br/>
+We would like to remind you that you have an appointment with <%= @booking.practitioner.name%> tomorrow (<%= @booking.start_date_str%>) at <%= @booking.start_time_str%>.<br/>
+<br/>
+To confirm this appointment, please simply click on the link below:<br/>
+<br/>
+<%= link_to confirm_booking_url(:id => @booking.id, :confirmation_code => @booking.confirmation_code), confirm_booking_url(:id => @booking.id, :confirmation_code => @booking.confirmation_code)%><br/>
+<br/>
+If you cannot make it, please cancel your appointment by clicking on the link below:<br/>
+<br/>
+<%= link_to cancel_booking_url(:id => @booking.id, :confirmation_code => @booking.confirmation_code), cancel_booking_url(:id => @booking.id, :confirmation_code => @booking.confirmation_code)%><br/>
+<br/>
 <%= render :partial => "signature" %>
