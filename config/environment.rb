@@ -27,6 +27,7 @@ Rails::Initializer.run do |config|
   config.gem 'icalendar'
   config.gem 'whenever', :lib => false, :source => 'http://gemcutter.org/'
   config.gem 'aasm', :source => "http://gemcutter.org"
+  config.gem 'ambethia-smtp-tls', :lib => "smtp-tls", :source => "http://gems.github.com"
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
