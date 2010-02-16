@@ -23,6 +23,16 @@ class Client < ActiveRecord::Base
   FIXED_SUFFIXES = ["03", "04", "06", "07", "09"]
   PHONE_SUFFIXES = MOBILE_SUFFIXES + FIXED_SUFFIXES
 
+  def update_booking(booking, hash_booking, current_client, current_selected_pro)
+    booking.client_id = current_client.id
+    booking.practitioner_id = current_selected_pro.id
+    booking.name = current_client.default_name if booking.name.blank?
+    booking.current_client = current_client
+    hash_booking.delete("practitioner_id")
+    hash_booking.delete("client_id")
+    return booking, hash_booking
+  end
+
   def self.valid_email?(email)
     email.match(RE_EMAIL)
   end

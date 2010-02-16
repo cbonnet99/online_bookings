@@ -113,7 +113,6 @@ $(document).ready(function() {
       eventResize : function(calEvent, $event) {
       },
       eventClick : function(calEvent, $event) {
-
          if (calEvent.readOnly) {
             return;
          }
@@ -124,6 +123,7 @@ $(document).ready(function() {
          var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
          var titleField = $dialogContent.find("input[name='title']").val(calEvent.title);
          var bodyField = $dialogContent.find("textarea[name='body']");
+         var clientField = $dialogContent.find("select[name='client_id']");
          bodyField.val(calEvent.body);
 
          $dialogContent.dialog({
@@ -140,8 +140,8 @@ $(document).ready(function() {
                   calEvent.end = new Date(endField.val());
                   calEvent.title = titleField.val();
                   calEvent.body = bodyField.val();
-
-				  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id, {"_method": "PUT", "format": "json", "booking[name]": calEvent.title, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end}, function(data){
+				  var client_id = clientField.val();
+				  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json", "booking[client_id]": client_id, "booking[name]": calEvent.title, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end}, function(data){
 					if ((data.flash.error === undefined) || (data.flash.error === '')) {
 						calEvent.id = data.booking.id;
 						calEvent.title = data.booking.title;

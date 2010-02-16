@@ -28,6 +28,18 @@ class Practitioner < ActiveRecord::Base
 
   TITLE_FOR_NON_WORKING = "Booked"
 
+  def update_booking(booking, hash_booking, current_pro)
+    booking.practitioner_id = current_pro.id
+    booking.current_pro = current_pro
+    unless hash_booking["client_id"].nil?
+      client = Client.find(hash_booking["client_id"])
+      booking.name = client.default_name
+    end
+    hash_booking.delete("practitioner_id")
+    hash_booking.delete("name")
+    return booking, hash_booking
+  end
+
   def toggle_bookings_publish_code
     if bookings_publish_code.blank?
       generate_bookings_publish_code

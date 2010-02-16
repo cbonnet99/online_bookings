@@ -3,6 +3,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 class RoutingTest < ActionController::TestCase
 
   def test_routes
+    # assert_recognizes { :controller => "bookings", :action => "update", :practitioner_id => "bla", :id => "123", :format => "json" }, "/practitioners/bla/bookings/123.json", {:method => :put }
+    assert_generates "/practitioners/bla/bookings/123.json", { :controller => "bookings", :action => "update", :practitioner_id => "bla", :id => "123", :format => "json" }
     assert_generates "/practitioners/bla/bookings/czb123", { :controller => "bookings", :action => "index_cal", :practitioner_id => "bla", :pub_code => "czb123", :format => "ics"}
     assert_generates "/practitioners/bla/reset_ical_sharing", { :controller => "practitioners", :action => "reset_ical_sharing", :id => "bla"}
     assert_generates "/practitioners/bla/bookings/123.json", { :controller => "bookings", :action => "destroy", :practitioner_id => "bla", :id => "123", :format => "json"}

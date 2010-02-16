@@ -50,19 +50,36 @@ class BookingsControllerTest < ActionController::TestCase
     assert_not_nil flash[:error]
   end
   
-  def test_update
+  def test_update_as_client
     cyrille_sav = bookings(:cyrille_sav)
     sav = practitioners(:sav)
     cyrille = clients(:cyrille)
+    kartini = clients(:kartini)
     post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
-                  :booking => {:name => "John Denver"} }, {:client_id => cyrille.id }
+                  :booking => {:name => "John Denver", :client_id  => kartini.id} }, {:client_id => cyrille.id }
     assert_response :success
     assert_nil flash[:error]
     assert_not_nil flash[:notice]
     cyrille_sav.reload
+    assert_equal cyrille.id, cyrille_sav.client_id, "Even though the client tried to cheat and send Kartini's as client_id, it should stay with the currently logged in client (Cyrille)"
     assert_equal "John Denver", cyrille_sav.name
     cyrille.reload
     assert_equal "John Denver", cyrille.name
+  end
+
+  def test_update_as_pro
+    cyrille_sav = bookings(:cyrille_sav)
+    sav = practitioners(:sav)
+    cyrille = clients(:cyrille)
+    kartini = clients(:kartini)
+    post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
+                  :booking => {:client_id => kartini.id } }, {:pro_id => sav.id }
+    assert_response :success
+    assert_nil flash[:error]
+    assert_not_nil flash[:notice]
+    cyrille_sav.reload
+    assert_equal kartini.default_name, cyrille_sav.name
+    assert_equal kartini.id, cyrille_sav.client_id
   end
 
   def test_create
