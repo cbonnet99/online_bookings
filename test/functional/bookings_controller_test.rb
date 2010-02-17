@@ -22,13 +22,26 @@ class BookingsControllerTest < ActionController::TestCase
     assert booking.cancelled?
   end
 
-  def test_destroy
+  def test_destroy_client
     cyrille_sav = bookings(:cyrille_sav)
     sav = practitioners(:sav)
     cyrille = clients(:cyrille)
     old_size = Booking.all.size
     post :destroy, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id},
      {:client_id => cyrille.id }
+    assert_response :success
+    assert_nil flash[:error]
+    assert_not_nil flash[:notice]
+    assert_equal old_size-1, Booking.all.size
+  end
+
+  def test_destroy_pro
+    cyrille_sav = bookings(:cyrille_sav)
+    sav = practitioners(:sav)
+    cyrille = clients(:cyrille)
+    old_size = Booking.all.size
+    post :destroy, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id},
+     {:pro_id => sav.id }
     assert_response :success
     assert_nil flash[:error]
     assert_not_nil flash[:notice]

@@ -79,14 +79,7 @@ class BookingsController < ApplicationController
   end
   
   def update
-    hash_booking = params[:booking]
-    if current_pro.nil?
-      @booking = current_client.bookings.find(params[:id])
-      @booking, hash_booking = current_client.update_booking(@booking, hash_booking, current_client, @current_selected_pro)
-    else
-      @booking = current_pro.bookings.find(params[:id])
-      @booking, hash_booking = current_pro.update_booking(@booking, hash_booking, current_pro)      
-    end
+    @booking, hash_booking = Booking.prepare_update(current_pro, current_client, @current_selected_pro, params[:booking], params[:id])
     if @booking.nil?
       flash.now[:error] = "This appointment can not be found"
     else
@@ -97,7 +90,7 @@ class BookingsController < ApplicationController
   end
   
   def destroy
-    @booking = current_client.bookings.find(params[:id])
+    @booking = Booking.prepare_delete(current_pro, current_client, params[:id])
     if @booking.nil?
       flash.now[:error] = "This appointment could not be found"
     else

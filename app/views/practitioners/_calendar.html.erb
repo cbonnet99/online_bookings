@@ -160,7 +160,7 @@ $(document).ready(function() {
 					}, "json");
                },
                "delete" : function() {
-				  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id, {"_method": "DELETE", "format": "json"}, function(data){
+				  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "DELETE", "format": "json"}, function(data){
 					if ((data.flash.error === undefined) || (data.flash.error === '')) {
 	                  $calendar.weekCalendar("removeEvent", calEvent.id);
 	                  $dialogContent.dialog("close");

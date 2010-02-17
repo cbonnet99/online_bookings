@@ -63,6 +63,26 @@ class Booking < ActiveRecord::Base
   aasm_event :send_reminder do
     transitions :to => :reminder_sent, :from => [:unconfirmed]
   end
+
+  def self.prepare_delete(current_pro, current_client, id)
+    if current_pro.nil?
+      booking = current_client.bookings.find(id)
+    else
+      booking = current_pro.bookings.find(id)
+    end
+    return booking
+  end
+
+  def self.prepare_update(current_pro, current_client, current_selected_pro, hash_booking, id)
+    if current_pro.nil?
+      booking = current_client.bookings.find(id)
+      booking, hash_booking = current_client.update_booking(booking, hash_booking, current_client, current_selected_pro)
+    else
+      booking = current_pro.bookings.find(id)
+      booking, hash_booking = current_pro.update_booking(booking, hash_booking, current_pro)      
+    end
+    return booking, hash_booking
+  end
   
   def send_reminder_email
     UserMailer.deliver_booking_reminder(self)
