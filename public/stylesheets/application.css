@@ -7,6 +7,9 @@ div#book-appointment a:hover{text-decoration: underline;}
 
 /************** client SHOW ******************/
 #event_edit_container{display: none;}
+ul.event-fields li{list-style: none; padding: 5px;}
+ul.event-fields li select{float: right;}
+
 /******************************************/
 
 body{margin:0;padding:0;}

@@ -139,6 +139,7 @@ $(document).ready(function() {
             },
             buttons: {
                save : function() {
+				  $(this).backgroundColor = "red";
                   calEvent.start = new Date(startField.val());
                   calEvent.end = new Date(endField.val());
                   if (titleField) {calEvent.title = titleField.val()} else {calEvent.title = ""};
@@ -296,7 +297,7 @@ $(document).ready(function() {
 	<form> 
 		<input type="hidden" /> 
 		<p id="date_holder"></p>
-		<ul> 
+		<ul class="event-fields"> 
 			<li> 
 				<label for="start">Start time: </label><select name="start"><option value="">Select</option></select>
 			</li> 
