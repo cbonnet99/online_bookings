@@ -143,6 +143,6 @@ class Booking < ActiveRecord::Base
   end
   
   def to_json(options={})
-    super options.merge(:only => [:id], :methods => [:title, :start, :end, :readOnly, :errors])
+    super options.merge(:only => [:id, :client_id], :methods => [:title, :start, :end, :readOnly, :errors])
   end
 end

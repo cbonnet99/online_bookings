@@ -34,8 +34,11 @@ $(document).ready(function() {
 		
       },
       draggable : function(calEvent, $event) {
-         // return calEvent.readOnly != true;
+		 <% if @current_pro.nil?-%>
          return false;
+		<%else -%>
+         return calEvent.readOnly != true;
+		<% end -%>
       },
       resizable : function(calEvent, $event) {
          // return calEvent.readOnly != true;
@@ -79,8 +82,8 @@ $(document).ready(function() {
 	                  calEvent.end = new Date(endField.val());
 	                  calEvent.title = titleField.val();
 	                  calEvent.body = bodyField.val();
-					  var client_id = clientField.val();
-					  $.post("<%=practitioner_bookings_url(pro)%>", {"format": "json", "booking[name]": calEvent.title, "booking[client_id]": client_id, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end}, function(data){
+					  calEvent.client_id = clientField.val();
+					  $.post("<%=practitioner_bookings_url(pro)%>", {"format": "json", "booking[name]": calEvent.title, "booking[client_id]": calEvent.client_id, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end}, function(data){
 						if ((data.flash.error === undefined) || (data.flash.error === '')) {
 							calEvent.id = data.booking.id;
 							calEvent.title = data.booking.title;
@@ -123,7 +126,7 @@ $(document).ready(function() {
          var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
          var titleField = $dialogContent.find("input[name='title']").val(calEvent.title);
          var bodyField = $dialogContent.find("textarea[name='body']");
-         var clientField = $dialogContent.find("select[name='client_id']");
+         var clientField = $dialogContent.find("select[name='client_id']").val(calEvent.client_id);
          bodyField.val(calEvent.body);
 
          $dialogContent.dialog({
@@ -138,7 +141,7 @@ $(document).ready(function() {
                save : function() {
                   calEvent.start = new Date(startField.val());
                   calEvent.end = new Date(endField.val());
-                  calEvent.title = titleField.val();
+                  if (titleField) {calEvent.title = titleField.val()} else {calEvent.title = ""};
                   calEvent.body = bodyField.val();
 				  var client_id = clientField.val();
 				  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json", "booking[client_id]": client_id, "booking[name]": calEvent.title, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end}, function(data){
