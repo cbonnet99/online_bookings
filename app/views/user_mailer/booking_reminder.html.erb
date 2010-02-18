@@ -6,8 +6,6 @@ To confirm this appointment, please simply click on the link below:<br/>
 <br/>
 <%= link_to confirm_booking_url(:id => @booking.id, :confirmation_code => @booking.confirmation_code), confirm_booking_url(:id => @booking.id, :confirmation_code => @booking.confirmation_code)%><br/>
 <br/>
-If you cannot make it, please cancel your appointment by clicking on the link below:<br/>
-<br/>
-<%= link_to cancel_booking_url(:id => @booking.id, :confirmation_code => @booking.confirmation_code), cancel_booking_url(:id => @booking.id, :confirmation_code => @booking.confirmation_code)%><br/>
+If you cannot make it, please call <%= @booking.practitioner.first_name%> on <%= @booking.practitioner.phone %>.<br/>
 <br/>
 <%= render :partial => "signature" %>
