@@ -144,7 +144,7 @@ $(document).ready(function() {
                   calEvent.end = new Date(endField.val());
                   if (titleField) {calEvent.title = titleField.val()} else {calEvent.title = ""};
                   calEvent.body = bodyField.val();
-				  var client_id = clientField.val();
+				  calEvent.client_id = clientField.val();
 				  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json", "booking[client_id]": client_id, "booking[name]": calEvent.title, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end}, function(data){
 					if ((data.flash.error === undefined) || (data.flash.error === '')) {
 						calEvent.id = data.booking.id;
