@@ -37,7 +37,7 @@ $(document).ready(function() {
 		 <% if @current_pro.nil?-%>
          return false;
 		<%else -%>
-         return calEvent.readOnly != true;
+         return ((calEvent.readOnly != true) && (calEvent.state != "confirmed"));
 		<% end -%>
       },
       resizable : function(calEvent, $event) {
