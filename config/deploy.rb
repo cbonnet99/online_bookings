@@ -26,6 +26,10 @@ set :db_password, "test0user"
 # these http://github.com/rails/irs_process_scripts
 
 namespace :deploy do
+  desc "Write the crontab file"
+  task :write_crontab, :roles => :db do
+    run "cd #{release_path} && whenever --write-crontab #{application}"
+  end
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
@@ -36,6 +40,7 @@ namespace :deploy do
         web.disable
         symlink
         migrate
+        write_crontab
       end
       restart
       web.enable
