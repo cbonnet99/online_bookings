@@ -44,12 +44,12 @@ class PractitionersControllerTest < ActionController::TestCase
   end
   
   def test_show
-    get :show, {:practitioner_permalink => practitioners(:sav).permalink}, {:client_id => clients(:cyrille).id }
+    get :show, {:id => practitioners(:sav).permalink}, {:client_id => clients(:cyrille).id }
     assert_template 'show'
   end
   
   def test_show_pro
-    get :show, {:practitioner_permalink => practitioners(:sav).permalink}, {:pro_id => practitioners(:sav).id }
+    get :show, {:id => practitioners(:sav).permalink}, {:pro_id => practitioners(:sav).id }
     assert_template 'show'
   end
   

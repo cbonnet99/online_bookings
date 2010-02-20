@@ -20,8 +20,8 @@ class ApplicationController < ActionController::Base
   
   def get_selected_practitioner
     #check the URL
-    if !params[:practitioner_permalink].nil?
-      @current_selected_pro = Practitioner.find_by_permalink(params[:practitioner_permalink])
+    if !params[:id].nil?
+      @current_selected_pro = Practitioner.find_by_permalink(params[:id])
       unless @current_selected_pro.nil?
         cookies[:selected_practitioner_id] = @current_selected_pro.id 
       end
