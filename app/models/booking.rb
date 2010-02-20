@@ -93,7 +93,7 @@ class Booking < ActiveRecord::Base
   end
 
   def self.need_reminders
-    Booking.find(:all, :conditions => ["state = ? AND starts_at BETWEEN ? AND ?", "unconfirmed", 1.day.from_now.advance(:hours => -1), 1.day.from_now])
+    Booking.find(:all, :conditions => ["state = ? AND starts_at < ?", "unconfirmed", 1.day.from_now])
   end
   
   def start_date_and_time_str
