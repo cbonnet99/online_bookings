@@ -8,6 +8,7 @@ $(document).ready(function() {
    $calendar.weekCalendar({
       timeslotsPerHour : 2,
 	  defaultEventLength: 2,
+	  timeSeparator : "-",
 	  dateFormat: "j M Y",
       allowCalEventOverlap : false,
       overlapEventsSeparate: false,
@@ -58,7 +59,9 @@ $(document).ready(function() {
 	         var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
 	         var titleField = $dialogContent.find("input[name='title']").val('<%=current_client.try(:name)%>');
 	         var bodyField = $dialogContent.find("textarea[name='body']");
+			 <% if own_calendar?(pro, current_pro) -%>
 	         var clientField = $dialogContent.find("select[name='client_id']");
+			 <%end -%>
 			
 			if ($dialogContent.find("input[name='title']").is(":visible")) {
 				//retrieve current client name
@@ -77,13 +80,16 @@ $(document).ready(function() {
 	            },
 	            buttons: {
 	               save : function() {
-					  
+					  <% if own_calendar?(pro, current_pro) -%>
 	                  calEvent.start = new Date(startField.val());
 	                  calEvent.end = new Date(endField.val());
+					  <% end -%>
 	                  calEvent.title = titleField.val();
 	                  calEvent.body = bodyField.val();
+					  <% if own_calendar?(pro, current_pro) -%>
 					  calEvent.client_id = clientField.val();
-					  $.post("<%=practitioner_bookings_url(pro)%>", {"format": "json", "booking[name]": calEvent.title, "booking[client_id]": calEvent.client_id, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end}, function(data){
+					  <% end -%>
+					  $.post("<%=practitioner_bookings_url(pro)%>", {"format": "json", "booking[name]": calEvent.title<% if own_calendar?(pro, current_pro) -%>, "booking[client_id]": calEvent.client_id<%end -%>, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end}, function(data){
 						if ((data.flash.error === undefined) || (data.flash.error === '')) {
 							calEvent.id = data.booking.id;
 							calEvent.title = data.booking.title;
@@ -106,8 +112,14 @@ $(document).ready(function() {
 	            }
 	         }).show();
 
+			<% if own_calendar?(pro, current_pro)-%>
 	         $dialogContent.find("#date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
+			<% else -%>
+			$dialogContent.find("#date_holder").text($calendar.weekCalendar("formatDate", calEvent.start)+": "+$calendar.weekCalendar("formatTime", calEvent.start)+"-"+$calendar.weekCalendar("formatTime", calEvent.start));
+			<% end -%>
+			<% if own_calendar?(pro, current_pro)-%>
 	         setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
+			<% end -%>
 		  }
       },
       eventDrop : function(calEvent, $event) {
@@ -122,8 +134,10 @@ $(document).ready(function() {
 
          var $dialogContent = $("#event_edit_container");
          resetForm($dialogContent);
+		  <% if own_calendar?(pro, current_pro) -%>
          var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
          var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
+		<% end -%>
          var titleField = $dialogContent.find("input[name='title']").val(calEvent.title);
          var bodyField = $dialogContent.find("textarea[name='body']");
          var clientField = $dialogContent.find("select[name='client_id']").val(calEvent.client_id);
@@ -140,12 +154,16 @@ $(document).ready(function() {
             buttons: {
                save : function() {
 				  $(this).backgroundColor = "red";
+				  <% if own_calendar?(pro, current_pro) -%>
                   calEvent.start = new Date(startField.val());
                   calEvent.end = new Date(endField.val());
+				  <% end -%>
                   if (titleField) {calEvent.title = titleField.val()} else {calEvent.title = ""};
                   calEvent.body = bodyField.val();
+				  <% if own_calendar?(pro, current_pro) -%>
 				  calEvent.client_id = clientField.val();
-				  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json", "booking[client_id]": client_id, "booking[name]": calEvent.title, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end}, function(data){
+				  <% end -%>
+				  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json"<% if own_calendar?(pro, current_pro) -%>, "booking[client_id]": calEvent.client_id<%end-%>, "booking[name]": calEvent.title, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end}, function(data){
 					if ((data.flash.error === undefined) || (data.flash.error === '')) {
 						calEvent.id = data.booking.id;
 						calEvent.title = data.booking.title;
@@ -298,18 +316,20 @@ $(document).ready(function() {
 		<input type="hidden" /> 
 		<p id="date_holder"></p>
 		<ul class="event-fields"> 
+			<% if own_calendar?(pro, current_pro)-%>
 			<li> 
 				<label for="start">Start time: </label><select name="start"><option value="">Select</option></select>
 			</li> 
 			<li> 
 				<label for="end">End Time: </label><select name="end"><option value="">Select End Time</option></select> 
 			</li> 
+			<% end-%>
 			<li> 
-				<% if own_calendar?(pro, current_pro)%>
-				<label for="title">Client: </label><select name="client_id"><%= current_pro_client_options(current_pro)%></select>
-				<%else%>
+				<% if own_calendar?(pro, current_pro)-%>
+				<label for="title">Client: </label><select name="client_id"><%= current_pro_client_options(current_pro)-%></select>
+				<%else-%>
 				<label for="title">Your name: </label><input type="text" name="title"></input>
-				<%end%>
+				<%end-%>
 			</li> 
 			<li> 
 				<label for="body">Comment: </label><textarea name="body"></textarea> 
