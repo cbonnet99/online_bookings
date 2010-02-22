@@ -135,7 +135,17 @@ $(document).ready(function() {
 		  }
       },
       eventDrop : function(calEvent, $event) {
-        
+		  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json", "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end}, function(data){
+			if ((data.flash.error === undefined) || (data.flash.error === '')) {
+				if (data.flash.notice != '') {
+					$("div#flash").html("<div id='flash_notice'>"+data.flash.notice+"</div>").fadeIn(2000, function(){$(this).fadeOut(3000)});
+				}
+			}
+			else {
+				
+			}
+			}, "json");
+
       },
       eventResize : function(calEvent, $event) {
       },
@@ -165,7 +175,6 @@ $(document).ready(function() {
             },
             buttons: {
                save : function() {
-				  $(this).backgroundColor = "red";
 				  <% if own_calendar?(pro, current_pro) -%>
                   calEvent.start = new Date(startField.val());
                   calEvent.end = new Date(endField.val());
