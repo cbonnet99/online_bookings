@@ -61,3 +61,18 @@ Rails::Initializer.run do |config|
   
 end
 
+module ActiveSupport
+   class TimeWithZone
+     def js_args
+       year = self.strftime("%Y").to_i
+       #in Javascript, month count starts at 0!!!
+       month = (self.strftime("%m").to_i-1)
+       day = self.strftime("%d").to_i
+       hour = self.strftime("%H").to_i
+       min = self.strftime("%M").to_i
+       sec = self.strftime("%S").to_i
+       [year, month, day, hour, min, sec].map(&:to_s).join(",")
+     end
+   end
+ end
+

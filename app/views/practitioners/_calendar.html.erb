@@ -39,10 +39,7 @@ $(document).ready(function() {
             $event.css("backgroundColor", "#0C6");			
 		}
 	
-		 <% new_time = 18.hours.from_now%>
-		<% #Javacript months start at 0 !!! %>
-		<% month = (new_time.strftime("%m").to_i-1).to_s%>
-		 if ((calEvent.state == "unconfirmed") && (calEvent.start.getTime() > new Date().getTime()) && (calEvent.start.getTime() < new Date(<%=new_time.strftime("%Y,")+month+new_time.strftime(",%d,%H,%M,%S")%>).getTime())) {
+		 if ((calEvent.state == "unconfirmed") && (calEvent.start.getTime() > new Date().getTime()) && (calEvent.start.getTime() < new Date(<%=18.hours.from_now.js_args%>).getTime())) {
             $event.css("backgroundColor", "#bf0000");			
 		}
 		<%end -%>
@@ -59,7 +56,7 @@ $(document).ready(function() {
 		 <% if @current_pro.nil?-%>
          return false;
 		<%else -%>
-         return ((calEvent.readOnly != true) && (calEvent.state != "confirmed"));
+         return ((calEvent.readOnly !== true) && (calEvent.state != "confirmed"));
 		<% end -%>
       },
       resizable : function(calEvent, $event) {
@@ -176,7 +173,7 @@ $(document).ready(function() {
                   calEvent.start = new Date(startField.val());
                   calEvent.end = new Date(endField.val());
 				  <% end -%>
-                  if (titleField) {calEvent.title = titleField.val()} else {calEvent.title = ""};
+                  if (titleField) {calEvent.title = titleField.val()} else {calEvent.title = ""}
                   calEvent.body = bodyField.val();
 				  <% if own_calendar?(pro, current_pro) -%>
 				  calEvent.client_id = clientField.val();
@@ -195,14 +192,9 @@ $(document).ready(function() {
 				  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "DELETE", "format": "json"}, function(data){
 					if ((data.flash.error === undefined) || (data.flash.error === '')) {
 	                  $calendar.weekCalendar("removeEvent", calEvent.id);
-	                  $dialogContent.dialog("close");
-						if (data.flash.notice != '') {
-							displayFlash(data.flash);
-						}
-					}
-					else {
-
-					}
+	                }
+	                $dialogContent.dialog("close");
+					displayFlash(data.flash);
 					}, "json");
                },
                cancel : function() {
@@ -211,10 +203,10 @@ $(document).ready(function() {
             }
          }).show();
 
-         var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
-         var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
+         var startField2 = $dialogContent.find("select[name='start']").val(calEvent.start);
+         var endField2 = $dialogContent.find("select[name='end']").val(calEvent.end);
          $dialogContent.find("#date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
-         setupStartAndEndTimeFields(startField, endField, calEvent, 	$calendar.weekCalendar("getTimeslotTimes", calEvent.start));
+         setupStartAndEndTimeFields(startField2, endField2, calEvent, 	$calendar.weekCalendar("getTimeslotTimes", calEvent.start));
          $(window).resize().resize(); //fixes a bug in modal overlay size ??
 
       },
@@ -283,7 +275,7 @@ $(document).ready(function() {
             $endTimeOptions.filter(function() {
                return startTime < $(this).val();
             })
-            );
+      );
 
       var endTimeSelected = false;
       $endTimeField.find("option").each(function() {
