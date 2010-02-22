@@ -43,6 +43,8 @@ class Booking < ActiveRecord::Base
   after_update :save_client_name
   before_create :generate_confirmation_code
 
+  named_scope :need_pro_reminder, :conditions => ["pro_reminder_sent_at IS NULL AND starts_at BETWEEN ? AND ?", 1.day.from_now.beginning_of_day, 1.day.from_now.end_of_day]
+
   aasm_column :state
 
   aasm_initial_state :unconfirmed
@@ -62,6 +64,10 @@ class Booking < ActiveRecord::Base
   
   aasm_event :send_reminder do
     transitions :to => :reminder_sent, :from => [:unconfirmed]
+  end
+
+  def mark_as_pro_reminder_sent!
+    update_attribute(:pro_reminder_sent_at, Time.now)
   end
 
   def partner_name

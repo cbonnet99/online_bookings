@@ -1,3 +1,5 @@
+require File.dirname(__FILE__) + '/../../lib/helpers'
+
 class UserMailer < ActionMailer::Base
 
   def setup_email(client)
@@ -32,6 +34,15 @@ class UserMailer < ActionMailer::Base
     setup_sender(booking.practitioner)
     @subject << "You have an appointment tomorrow with #{booking.practitioner.name}"
     @body[:booking] = booking
+  end
+
+  def booking_pro_reminder(pro)
+    @bookings = pro.bookings.need_pro_reminder
+    setup_email(pro)
+    setup_sender
+    @subject << "You have #{help.pluralize(@bookings.size, 'appointment')} tomorrow"
+    @body[:bookings] = @bookings
+    @body[:pro] = pro
   end
 
   def reset_phone(client)

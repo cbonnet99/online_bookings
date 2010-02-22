@@ -1,0 +1,10 @@
+Dear <%= @pro.first_name%>,<br/>
+<br/>
+We would like to remind you that you have <%=pluralize(@bookings.size, "appointment")%> tomorrow:<br/>
+<ul>
+	<% @bookings.each do |b| -%>
+	<li><%b.starts_at%>: <%= b.client.name%>(<%= b.state%>)</li>
+	<% end -%>
+</ul>
+<br/>
+<%= render :partial => "signature" %>

@@ -7,4 +7,11 @@ class TaskUtils
     end
   end
   
+  def self.send_pro_reminders
+    Practitioner.need_reminders.each do |pro|
+      puts "Sending PRO reminder to: #{pro.name}"
+      pro.send_reminder!
+    end    
+  end
+  
 end

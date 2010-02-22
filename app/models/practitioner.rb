@@ -28,6 +28,16 @@ class Practitioner < ActiveRecord::Base
 
   TITLE_FOR_NON_WORKING = "Booked"
 
+  def self.need_reminders
+    Practitioner.all.reject{|p| p.bookings.need_pro_reminder.blank?}
+  end
+  
+  def send_reminder!
+    UserMailer.deliver_booking_pro_reminder(self)
+    self.bookings.need_pro_reminder.each {|b| b.mark_as_pro_reminder_sent!}
+  end
+  
+
   def update_booking(booking, hash_booking, current_pro)
     booking.practitioner_id = current_pro.id
     booking.current_pro = current_pro

@@ -17,6 +17,26 @@ class PractitionerTest < ActiveSupport::TestCase
     Practitioner.delete_all
   end
   
+  def test_need_reminders
+    pro = Factory(:practitioner)
+    remind_me = Factory(:booking, :starts_at => 1.day.from_now, :practitioner_id => pro.id)
+    dont_remind_me_too_late = Factory(:booking, :starts_at => 2.days.from_now, :practitioner_id => pro.id)
+    dont_remind_me_already_sent = Factory(:booking, :starts_at => 1.day.from_now, :pro_reminder_sent_at => Time.now, :practitioner_id => pro.id)
+    
+    all_pros_size = Practitioner.all.size
+    assert Practitioner.need_reminders.size <= all_pros_size
+  end
+  
+  def test_bookings_need_pro_reminder
+    pro = Factory(:practitioner)
+    remind_me = Factory(:booking, :starts_at => 1.day.from_now, :practitioner_id => pro.id)
+    dont_remind_me_already_passed = Factory(:booking, :starts_at => 1.day.ago, :practitioner_id => pro.id)
+    dont_remind_me_too_far_in_the_future = Factory(:booking, :starts_at => 2.days.from_now, :practitioner_id => pro.id)
+    dont_remind_me_already_sent = Factory(:booking, :starts_at => 1.day.from_now, :pro_reminder_sent_at => Time.now, :practitioner_id => pro.id)
+    
+    assert_equal 1, pro.bookings.need_pro_reminder.size, "Bookings are: #{pro.bookings.need_pro_reminder.inspect}"
+  end
+  
   def test_clients_options
     megan = Factory(:practitioner, :working_days => "4,5")
     cyrille = Factory(:client)

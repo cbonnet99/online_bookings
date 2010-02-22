@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100218072810) do
+ActiveRecord::Schema.define(:version => 20100222184825) do
 
   create_table "bookings", :force => true do |t|
     t.datetime "starts_at"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20100218072810) do
     t.string   "booking_type"
     t.string   "confirmation_code"
     t.string   "state"
+    t.datetime "pro_reminder_sent_at"
   end
 
   create_table "client_emails", :force => true do |t|
