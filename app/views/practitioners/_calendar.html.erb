@@ -109,7 +109,7 @@ $(document).ready(function() {
 		                  	$calendar.weekCalendar("updateEvent", calEvent);
 		                  	$dialogContent.dialog("close");
 							if (data.flash.notice != '') {
-								$("div#flash").html("<div id='flash_notice'>"+data.flash.notice+"</div>").fadeIn(2000, function(){$(this).fadeOut(3000)});
+								$("div#flash").html("<div id='flash_notice'>"+data.flash.notice+"</div>").fadeIn(2000, function(){$(this)});
 							}
 						}
 						else {
@@ -138,7 +138,7 @@ $(document).ready(function() {
 		  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json", "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end}, function(data){
 			if ((data.flash.error === undefined) || (data.flash.error === '')) {
 				if (data.flash.notice != '') {
-					$("div#flash").html("<div id='flash_notice'>"+data.flash.notice+"</div>").fadeIn(2000, function(){$(this).fadeOut(3000)});
+					$("div#flash").html("<div id='flash_notice'>"+data.flash.notice+"</div>").fadeIn(2000, function(){$(this)});
 				}
 			}
 			else {
@@ -191,7 +191,7 @@ $(document).ready(function() {
 		                $calendar.weekCalendar("updateEvent", calEvent);
 		                $dialogContent.dialog("close");
 						if (data.flash.notice != '') {
-							$("div#flash").html("<div id='flash_notice'>"+data.flash.notice+"</div>").fadeIn(2000, function(){$(this).fadeOut(3000)});
+							$("div#flash").html("<div id='flash_notice'>"+data.flash.notice+"</div>").fadeIn(2000, function(){$(this)});
 						}
 					}
 					else {
@@ -205,7 +205,7 @@ $(document).ready(function() {
 	                  $calendar.weekCalendar("removeEvent", calEvent.id);
 	                  $dialogContent.dialog("close");
 						if (data.flash.notice != '') {
-							$("div#flash").html("<div id='flash_notice'>"+data.flash.notice+"</div>").fadeIn(2000, function(){$(this).fadeOut(3000)});
+							$("div#flash").html("<div id='flash_notice'>"+data.flash.notice+"</div>").fadeIn(2000, function(){$(this)});
 						}
 					}
 					else {

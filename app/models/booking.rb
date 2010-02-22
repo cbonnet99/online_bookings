@@ -64,6 +64,14 @@ class Booking < ActiveRecord::Base
     transitions :to => :reminder_sent, :from => [:unconfirmed]
   end
 
+  def partner_name
+    if current_pro.nil?
+      self.try(:client).try(:name)
+    else
+      self.try(:practitioner).try(:name)
+    end
+  end
+
   def self.prepare_delete(current_pro, current_client, id)
     if current_pro.nil?
       booking = current_client.bookings.find(id)
