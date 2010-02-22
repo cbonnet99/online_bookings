@@ -1,6 +1,7 @@
 <% javascript "home"%>
 <% title "#{APP_CONFIG[:site_name]}"%>
 <div class="cleaner"></div>
-<div id="colibri-logo"><%= image_tag "colibri.jpg", :id => "colibri-logo", :size => "80x80" %></div>
+<p>With Colibri, book an appointment with your health practitioner anytime, from anywhere. And you get an automatic reminder via email!</p>
 <div id="book-appointment" class="rounded"><%= link_to "Book an appointment", edit_selected_practitioner_url%></div>
 <div class="cleaner"></div>
+<p>Health professional? <%=link_to "Register for a free 60 day trial", new_practitioner_url%>

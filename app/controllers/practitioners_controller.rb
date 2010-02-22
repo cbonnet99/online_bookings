@@ -16,6 +16,7 @@ class PractitionersController < ApplicationController
   def new
     @practitioner = Practitioner.new
     @practitioner.working_hours = "8-12,13-18"
+    @days_in_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
   end
 
   def edit_selected
@@ -44,6 +45,7 @@ class PractitionersController < ApplicationController
       flash[:notice] = "Thank you for signing up! You are now logged in."
       redirect_to practitioner_url(@practitioner.id)
     else
+      @days_in_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
       render :action => 'new'
     end
   end

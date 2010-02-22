@@ -5,16 +5,30 @@
 <% form_for @practitioner do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :email, "Email Address" %><br />
+    <%= f.label :email, "Your first name:" %><br />
+    <%= f.text_field :first_name %>
+  </p>
+  <p>
+    <%= f.label :email, "Your last name:" %><br />
+    <%= f.text_field :last_name %>
+  </p>
+  <p>
+    <%= f.label :email, "Your mail address:" %><br />
     <%= f.text_field :email %>
   </p>
   <p>
-    <%= f.label :working_hours, "Working hours" %><br />
-    <%= f.text_field :working_hours %>
+    <%= f.label :phone, "Your phone number:" %><br />
+    <%= f.text_field :phone %>
   </p>
   <p>
-    <%= f.label :password %><br />
-    <%= f.password_field :password %>
+    <%= f.label :working_hours, "What days do you work?" %><br />
+	<% @days_in_week.each_with_index do |day, index| -%>
+    	<%= f.check_box "working_day_#{day}".to_sym, :checked => (index<5) %><%=day%>
+	<%end -%>
+  </p>
+  <p>
+    <%= f.label :working_hours, "What are your working hours? (please use 24 hour times. For instance, if you work from 8am to 12pm, and then from 1pm to 6pm, enter below: 8-12,13-18)" %><br />
+    <%= f.text_field :working_hours %>
   </p>
   <p>
     <%= f.label :password %><br />
