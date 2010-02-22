@@ -22,6 +22,6 @@ every 1.hour do
   runner "TaskUtils.send_reminders"
 end
 
-every 1.day, :at => "11:30 pm" do
+every 1.day, :at => "6 pm" do
   runner "TaskUtils.send_pro_reminders"
 end 
