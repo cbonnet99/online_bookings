@@ -1,9 +1,17 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
-
    var $calendar = $('#calendar');
    var id = 10;
+
+   var displayFlash = function(flash) {
+		if (flash.notice !== undefined && flash.notice !== '') {
+			$("div#flash").html("<div id='flash_notice'>"+flash.notice+"</div>").fadeIn(2000, function(){$(this)});
+		}
+		if (flash.error !== undefined && flash.error !== '') {
+			$("div#flash").html("<div id='flash_error'>"+flash.error+"</div>").fadeIn(2000, function(){$(this)});
+		}
+	  };
 
    $calendar.weekCalendar({
       timeslotsPerHour : 2,
@@ -21,6 +29,7 @@ $(document).ready(function() {
 		lastWeek: "< Previous week",
 		nextWeek: "Next week >"
 	  },
+	  
       height : function($calendar) {
          return $(window).height() - $("h1").outerHeight() - 1;
       },
@@ -105,16 +114,11 @@ $(document).ready(function() {
 						if ((data.flash.error === undefined) || (data.flash.error === '')) {
 							calEvent.id = data.booking.id;
 							calEvent.title = data.booking.title;
-		                  	$calendar.weekCalendar("removeUnsavedEvents");
 		                  	$calendar.weekCalendar("updateEvent", calEvent);
-		                  	$dialogContent.dialog("close");
-							if (data.flash.notice != '') {
-								$("div#flash").html("<div id='flash_notice'>"+data.flash.notice+"</div>").fadeIn(2000, function(){$(this)});
-							}
-						}
-						else {
-							
-						}
+		                 }
+		                 $calendar.weekCalendar("removeUnsavedEvents");
+		                 $dialogContent.dialog("close");
+		                 displayFlash(data.flash);
 						}, "json");
 
 	               },
@@ -136,14 +140,7 @@ $(document).ready(function() {
       },
       eventDrop : function(calEvent, $event) {
 		  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json", "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end}, function(data){
-			if ((data.flash.error === undefined) || (data.flash.error === '')) {
-				if (data.flash.notice != '') {
-					$("div#flash").html("<div id='flash_notice'>"+data.flash.notice+"</div>").fadeIn(2000, function(){$(this)});
-				}
-			}
-			else {
-				
-			}
+				displayFlash(data.flash);
 			}, "json");
 
       },
@@ -189,14 +186,9 @@ $(document).ready(function() {
 						calEvent.id = data.booking.id;
 						calEvent.title = data.booking.title;
 		                $calendar.weekCalendar("updateEvent", calEvent);
-		                $dialogContent.dialog("close");
-						if (data.flash.notice != '') {
-							$("div#flash").html("<div id='flash_notice'>"+data.flash.notice+"</div>").fadeIn(2000, function(){$(this)});
-						}
-					}
-					else {
-						
-					}
+		             }
+		             $dialogContent.dialog("close");
+					 displayFlash(data.flash);
 					}, "json");
                },
                "delete" : function() {
@@ -205,7 +197,7 @@ $(document).ready(function() {
 	                  $calendar.weekCalendar("removeEvent", calEvent.id);
 	                  $dialogContent.dialog("close");
 						if (data.flash.notice != '') {
-							$("div#flash").html("<div id='flash_notice'>"+data.flash.notice+"</div>").fadeIn(2000, function(){$(this)});
+							displayFlash(data.flash);
 						}
 					}
 					else {
