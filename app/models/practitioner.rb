@@ -25,11 +25,13 @@ class Practitioner < ActiveRecord::Base
   validates_confirmation_of :password
   validates_length_of :password, :minimum => 4, :allow_blank => true
   validates_uniqueness_of :email
-
+  
+  named_scope :want_reminder_night_before, :conditions => "reminder_night_before IS true"
+  
   TITLE_FOR_NON_WORKING = "Booked"
 
   def self.need_reminders
-    Practitioner.all.reject{|p| p.bookings.need_pro_reminder.blank?}
+    Practitioner.want_reminder_night_before.reject{|p| p.bookings.need_pro_reminder.blank?}
   end
   
   def send_reminder!
