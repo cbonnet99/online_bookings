@@ -63,6 +63,18 @@ end
 
 module ActiveSupport
    class TimeWithZone
+     
+     def simple_time
+       hour = strftime('%H')
+       min = strftime('%M')
+       ampm = strftime('%p').downcase
+       if min.to_i == 0
+         "#{hour}#{ampm}"
+       else
+         "#{hour}:#{min}#{ampm}"
+       end
+     end
+     
      def js_args
        year = self.strftime("%Y").to_i
        #in Javascript, month count starts at 0!!!

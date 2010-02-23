@@ -119,7 +119,7 @@ class Booking < ActiveRecord::Base
   end
   
   def start_time_str
-    "#{self.starts_at.strftime('%H:%M%p')}"
+    "#{self.starts_at.simple_time}"
   end
   
   def to_ics

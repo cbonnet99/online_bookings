@@ -2,6 +2,11 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class BookingTest < ActiveSupport::TestCase  
 
+  def test_simple_time
+    booking = Factory(:booking)
+    booking.starts_at.simple_time
+  end
+
   def test_js_args
     my_str = 18.hours.from_now.js_args
     assert_no_match %r{,0}, my_str, "There should be no leading 0 in JS date arguments, otherwise Javascript thinks it is an octal value"
