@@ -215,7 +215,7 @@ $(document).ready(function() {
          $dialogContent.find("#date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
          setupStartAndEndTimeFields(startField2, endField2, calEvent, 	$calendar.weekCalendar("getTimeslotTimes", calEvent.start));
          $(window).resize().resize(); //fixes a bug in modal overlay size ??
-
+         $("button:contains('save')").css({"background-color", "#090");
       },
       eventMouseover : function(calEvent, $event) {
       },
