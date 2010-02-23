@@ -1,3 +1,5 @@
+<% javascript "calendar_flash"%>
 <% use_calendar %>
 <div id="ical-feed"><%= render :partial => "practitioners/share_ical" %></div>
+
 <%= render :partial => "calendar", :locals => {:pro => @current_selected_pro || current_pro, :client => @current_selected_pro || current_client  }  %>

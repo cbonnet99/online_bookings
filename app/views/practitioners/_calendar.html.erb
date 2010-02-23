@@ -3,13 +3,19 @@ $(document).ready(function() {
 
    var $calendar = $('#calendar');
    var id = 10;
-
+	
+   var hideFlash = function() {
+	console.log("HIDE flash");
+	$("div#flash_calendar").fadeOut(2000, function(){$(this)});
+   };
    var displayFlash = function(flash) {
 		if (flash.notice !== undefined && flash.notice !== '') {
-			$("div#flash").html("<div id='flash_notice'>"+flash.notice+"</div>").fadeIn(2000, function(){$(this)});
+			$("div#flash_calendar").html("<div id='flash_notice'>"+flash.notice+"<span id='flash_hide'>Close</span></div>").fadeIn(2000, function(){$(this)});
+			$("#flash_hide").click(function(){hideFlash();});
+			
 		}
 		if (flash.error !== undefined && flash.error !== '') {
-			$("div#flash").html("<div id='flash_error'>"+flash.error+"</div>").fadeIn(2000, function(){$(this)});
+			$("div#flash_calendar").html("<div id='flash_error'>"+flash.error+"</div>").fadeIn(2000, function(){$(this)});
 		}
 	  };
 
@@ -223,7 +229,8 @@ $(document).ready(function() {
 		                     start: start.getTime()/1000, 
 		                     end: end.getTime()/1000 
 		                  }, 
-		                  function(result) { 
+		                  function(result) {
+			                 addFlashCalendar(); 
 		                     callback(result); 
 		                  });
       }
