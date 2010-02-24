@@ -41,7 +41,7 @@ module Authentication
     unless client_logged_in? || pro_logged_in?
       respond_to do |format|
         format.html do
-          flash[:error] = "You must first log in or sign up before accessing this page."
+          flash[:error] = "Please enter your email address"
           store_target_location
           redirect_to lookup_form_url
         end
