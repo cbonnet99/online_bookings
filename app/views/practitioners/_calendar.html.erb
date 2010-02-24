@@ -56,8 +56,7 @@ $(document).ready(function() {
                "backgroundColor" : "#999",
                "border" : "1px solid #888"
             });
-         }
-		
+         }		
       },
       draggable : function(calEvent, $event) {
 		 <% if @current_pro.nil?-%>
@@ -215,7 +214,7 @@ $(document).ready(function() {
          $dialogContent.find("#date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
          setupStartAndEndTimeFields(startField2, endField2, calEvent, 	$calendar.weekCalendar("getTimeslotTimes", calEvent.start));
          $(window).resize().resize(); //fixes a bug in modal overlay size ??
-         $("button:contains('save')").css({"background-color", "#090");
+         $("button:contains('save')").css("background-color", "#090");
       },
       eventMouseover : function(calEvent, $event) {
       },
