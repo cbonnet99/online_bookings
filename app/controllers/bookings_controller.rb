@@ -10,7 +10,7 @@ class BookingsController < ApplicationController
       flash[:error] = "This appointment is invalid"
     else
       @booking.cancel!
-      flash[:notice] = "Your appointment with #{@booking.partner_name} #{@booking.start_date_and_time_str} was cancelled"
+      flash[:notice] = "Your appointment with #{@booking.partner_name(current_client, current_pro)} #{@booking.start_date_and_time_str} was cancelled"
     end    
   end
   
@@ -21,7 +21,7 @@ class BookingsController < ApplicationController
       flash[:error] = "This appointment is invalid"
     else
       @booking.confirm!
-      flash[:notice] = "Appointment with #{@booking.partner_name} #{@booking.start_date_and_time_str} was confirmed"
+      flash[:notice] = "Appointment with #{@booking.partner_name(current_client, current_pro)} #{@booking.start_date_and_time_str} was confirmed"
     end
   end
   
@@ -70,7 +70,7 @@ class BookingsController < ApplicationController
     @booking.client_id = client.try(:id)
     @booking.practitioner_id = pro.try(:id)
     if @booking.save
-      flash.now[:notice] = "Your appointment with #{@booking.partner_name} #{@booking.start_date_and_time_str} has been booked"
+      flash.now[:notice] = "Your appointment with #{@booking.partner_name(current_client, current_pro)} #{@booking.start_date_and_time_str} has been booked"
     end
   end
   
@@ -84,14 +84,14 @@ class BookingsController < ApplicationController
       flash.now[:error] = "This appointment can not be found"
     else
       if @booking.update_attributes(hash_booking)
-        flash.now[:notice] = "Your appointment with #{@booking.partner_name} #{@booking.start_date_and_time_str} has been changed"
+        flash.now[:notice] = "Your appointment with #{@booking.partner_name(current_client, current_pro)} #{@booking.start_date_and_time_str} has been changed"
       end
     end
   end
   
   def destroy
     @booking = Booking.prepare_delete(current_pro, current_client, params[:id])
-    str = "with #{@booking.partner_name} #{@booking.start_date_and_time_str}"
+    str = "with #{@booking.partner_name(current_client, current_pro)} #{@booking.start_date_and_time_str}"
     if @booking.nil?
       flash.now[:error] = "This appointment could not be found"
     else

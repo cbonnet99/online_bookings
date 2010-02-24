@@ -3,6 +3,14 @@ $(document).ready(function() {
 
    var $calendar = $('#calendar');
    var id = 10;
+
+   var changeButtonColors = function() {
+       $("button:contains('save')").hover(function(){$(this).css("background-color", "#090");}, function(){$(this).css("background-color", "#0078AE");}).css("font-size", "18px").css("vertical-align", "middle");
+       $("button:contains('delete')").hover(function(){$(this).css("background-color", "#C00");}, function(){$(this).css("background-color", "#0078AE");}).css("vertical-align", "middle");
+       $("button:contains('delete')").css("background-color", "#").css("font-size", "14px").css("vertical-align", "middle");
+       $("button:contains('cancel')").html("don't save").css("font-size", "14px").css("vertical-align", "middle");
+	
+   }
 	
    var hideFlash = function() {
 	console.log("HIDE flash");
@@ -43,7 +51,7 @@ $(document).ready(function() {
       eventRender : function(calEvent, $event) {
 		<% if own_calendar?(pro, current_pro) -%>
 		 if (calEvent.state == "confirmed") {
-            $event.css("backgroundColor", "#0C6");			
+            $event.css("backgroundColor", "#0C6")
 		}
 	
 		 if ((calEvent.state == "unconfirmed") && (calEvent.start.getTime() > new Date().getTime()) && (calEvent.start.getTime() < new Date(<%=18.hours.from_now.js_args%>).getTime())) {
@@ -134,11 +142,12 @@ $(document).ready(function() {
 			<% if own_calendar?(pro, current_pro)-%>
 	         $dialogContent.find("#date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
 			<% else -%>
-			$dialogContent.find("#date_holder").text($calendar.weekCalendar("formatDate", calEvent.start)+": "+$calendar.weekCalendar("formatTime", calEvent.start)+"-"+$calendar.weekCalendar("formatTime", calEvent.start));
+			$dialogContent.find("#date_holder").text($calendar.weekCalendar("formatDate", calEvent.start)+": "+$calendar.weekCalendar("formatTime", calEvent.start)+"-"+$calendar.weekCalendar("formatTime", calEvent.end));
 			<% end -%>
 			<% if own_calendar?(pro, current_pro)-%>
 	         setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
 			<% end -%>
+         changeButtonColors();			
 		  }
       },
       eventDrop : function(calEvent, $event) {
@@ -211,10 +220,14 @@ $(document).ready(function() {
 
          var startField2 = $dialogContent.find("select[name='start']").val(calEvent.start);
          var endField2 = $dialogContent.find("select[name='end']").val(calEvent.end);
-         $dialogContent.find("#date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
+			<% if own_calendar?(pro, current_pro)-%>
+	         $dialogContent.find("#date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
+			<% else -%>
+			$dialogContent.find("#date_holder").text($calendar.weekCalendar("formatDate", calEvent.start)+": "+$calendar.weekCalendar("formatTime", calEvent.start)+"-"+$calendar.weekCalendar("formatTime", calEvent.end));
+			<% end -%>
          setupStartAndEndTimeFields(startField2, endField2, calEvent, 	$calendar.weekCalendar("getTimeslotTimes", calEvent.start));
          $(window).resize().resize(); //fixes a bug in modal overlay size ??
-         $("button:contains('save')").css("background-color", "#090");
+         changeButtonColors();
       },
       eventMouseover : function(calEvent, $event) {
       },

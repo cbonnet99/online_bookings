@@ -70,7 +70,7 @@ class Booking < ActiveRecord::Base
     update_attribute(:pro_reminder_sent_at, Time.now)
   end
 
-  def partner_name
+  def partner_name(current_client, current_pro)
     if current_client.nil?
       self.try(:practitioner).try(:name)
     else
