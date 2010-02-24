@@ -1,6 +1,18 @@
 class ClientsController < ApplicationController
   before_filter :login_required, :only => [:edit, :update, :name]
 
+  def update
+    @client = current_pro.nil? ? current_client : current_pro.clients.find(params[:id])
+    if @client.update_attributes(params[:client])
+      flash[:notice] = current_pro.nil? ? "Your information was changed" : "Client information was changed"
+      redirect_to edit_client_url(@client)
+    else
+      flash[:error] = "Error while saving information"
+      @phone_prefixes = Client::PHONE_SUFFIXES
+      render :action => "edit" 
+    end
+  end
+
   def index
     get_selected_practitioner
     get_practitioners

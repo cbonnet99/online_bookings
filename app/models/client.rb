@@ -36,6 +36,14 @@ class Client < ActiveRecord::Base
   def self.valid_email?(email)
     email.match(RE_EMAIL)
   end
+  
+  def first_name_or_email
+    if first_name.blank?
+      email
+    else
+      first_name
+    end
+  end
     
   def default_name
     if name.blank?

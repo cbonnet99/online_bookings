@@ -2,6 +2,27 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ClientsControllerTest < ActionController::TestCase
 
+  def test_update
+    client = Factory(:client)
+    post :update, {:client => {:email => "newaddress@test.com", :phone_prefix => "027", :phone_suffix => "123456"} }, {:client_id => client.id }
+    assert_redirected_to edit_client_url(client)
+    assert_nil flash[:error]
+    assert_not_nil flash[:notice]
+    client.reload
+    assert_equal "newaddress@test.com", client.email
+    assert_equal "027-123456", client.phone
+  end
+
+  def test_update_error
+    client = Factory(:client)
+    post :update, {:client => {:email => "", :phone_prefix => "027", :phone_suffix => "123456"} }, {:client_id => client.id }
+    assert_response :success
+    assert_nil flash[:notice]
+    assert_not_nil flash[:error]
+    client.reload
+    assert !client.email.blank?
+  end
+
   def test_lookup_client_exists
     cyrille = clients(:cyrille)
     post :lookup, {:client => {:email => cyrille.email} }

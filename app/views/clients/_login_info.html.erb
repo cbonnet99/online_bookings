@@ -1,3 +1,3 @@
 <% if client_logged_in? -%>
-	<div id="client-login-info" class="login-info">You are logged in as: <%= current_client.email%>&nbsp;<%= link_to "Edit", edit_client_url(current_client)%> | <%= link_to "Logout", logout_url%></div>
+	<div id="client-login-info" class="login-info">You are logged in as: <%= current_client.default_name%>&nbsp;<%= link_to "Edit", edit_client_url(current_client)%> | <%= link_to "I am not #{current_client.first_name_or_email}!", logout_url%></div>
 <% end -%>
