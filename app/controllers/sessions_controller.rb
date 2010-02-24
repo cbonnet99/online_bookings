@@ -15,6 +15,7 @@ class SessionsController < ApplicationController
   def destroy
     session[:client_id] = nil
     session[:pro_id] = nil
+    session[:email] = nil
     cookies[:selected_practitioner_id] = nil
     flash[:notice] = "You have been logged out."
     redirect_to root_url

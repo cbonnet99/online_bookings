@@ -73,11 +73,11 @@ class Practitioner < ActiveRecord::Base
   end
   
   def calendar_title(current_pro)
-    if (current_pro == self)
+    # if (current_pro == self)
       self.name
-    else
-      "Step 3: book your appointment with #{self.name}"
-    end    
+    # else
+    #   "Step 3: book your appointment with #{self.name}"
+    # end    
   end
 
   def biz_hours_start

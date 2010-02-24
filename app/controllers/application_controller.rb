@@ -7,7 +7,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   # Scrub sensitive parameters from your log
-  # filter_parameter_logging :password
+  filter_parameter_logging :password
+
+  before_filter :get_selected_practitioner
   
   def get_phone_prefixes
     @phone_prefixes = Client::PHONE_SUFFIXES    
@@ -26,15 +28,13 @@ class ApplicationController < ActionController::Base
       end
     end
     if !params[:practitioner_id].nil?
-      @current_selected_pro = Practitioner.find_by_permalink(params[:practitioner_id])
-      unless @current_selected_pro.nil?
-        cookies[:selected_practitioner_id] = @current_selected_pro.id 
-      end
+      @current_selected_pro = Practitioner.find_by_permalink(params[:practitioner_id])      
+      cookies[:selected_practitioner_id] = @current_selected_pro.id unless @current_selected_pro.nil?
     end
     #fall back on the cookie
     if @current_selected_pro.nil? && !cookies[:selected_practitioner_id].blank?
       @current_selected_pro = Practitioner.find(cookies[:selected_practitioner_id])
-    end    
+    end
   end
   
   def require_selected_practitioner

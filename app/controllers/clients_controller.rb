@@ -112,6 +112,7 @@ class ClientsController < ApplicationController
     
   def login_phone
     @client = Client.find_by_email(params[:login])
+    session[:email] = @client.email unless @client.nil?
     if @client.no_phone_number?
       flash[:warning] = "Our records show that your phone number is empty: we have sent you an email with a link to reset your phone number."
       @client.send_reset_phone_link

@@ -1,6 +1,22 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+  def current_step
+    if @current_selected_pro.nil?
+      edit_selected_practitioner_url
+    else
+      if session[:email].nil?
+        lookup_form_url
+      else
+        if session[:client_id].nil?
+          login_phone_url(:login => session[:email])
+        else
+          practitioner_url(@current_selected_pro)
+        end
+      end
+    end
+  end
+
 	def javascript(*files)
 		content_for(:js) { javascript_include_tag(*files) }
 	end

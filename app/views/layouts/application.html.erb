@@ -30,7 +30,7 @@
 				<% if !client_logged_in?-%>
 					<%= link_to "Home", root_url, :class => "link"%> |
 				<% end %>
-				<%= link_to "Book an appointment", edit_selected_practitioner_url, :class => "link"%>
+				<%= link_to "Book an appointment", current_step, :class => "link"%>
 				<% if client_logged_in?-%> |&nbsp;<% end -%> 
 			<% end -%>
 			</div>	
@@ -42,7 +42,7 @@
 				<% if pro_logged_in?-%>
 				<%= render :partial => "practitioners/login_info" %>
 				<% else -%>
-					<% if client_logged_in? -%>
+					<% if !@current_selected_pro.nil? -%>
 					<%= render :partial => "practitioners/selected_pro_info"  %>
 					<%else -%>
 						<span>Health professionals:</span>
