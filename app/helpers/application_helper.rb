@@ -5,11 +5,11 @@ module ApplicationHelper
     if @current_selected_pro.nil?
       edit_selected_practitioner_url
     else
-      if session[:email].nil?
+      if cookies[:email].nil?
         lookup_form_url
       else
         if session[:client_id].nil?
-          login_phone_url(:login => session[:email])
+          login_phone_url(:login => cookies[:email])
         else
           practitioner_url(@current_selected_pro)
         end
