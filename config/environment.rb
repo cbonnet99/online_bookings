@@ -65,7 +65,7 @@ module ActiveSupport
    class TimeWithZone
      
      def simple_time
-       hour = strftime('%H')
+       hour = strftime('%H').to_i
        min = strftime('%M')
        ampm = strftime('%p').downcase
        if min.to_i == 0

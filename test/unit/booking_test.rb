@@ -4,7 +4,7 @@ class BookingTest < ActiveSupport::TestCase
 
   def test_simple_time
     booking = Factory(:booking)
-    booking.starts_at.simple_time
+    booking.starts_at.simple_time    
   end
 
   def test_js_args
