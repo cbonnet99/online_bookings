@@ -1,6 +1,8 @@
 /************** client INDEX ******************/
-#colibri-logo{float: left;}
-div#book-appointment{background-color: #c33; color: #fff; width: 120px; padding: 10px; text-align: center;float: left;}
+#container-home{margin: 160px 0 0 280px;padding: 10px;background-color: #303030;}
+#container-home a{color: #0cc;}
+body {color:#fff;}
+div#book-appointment{background-color: #c33; color: #fff; width: 140px; padding: 10px; text-align: center;float: left;}
 div#book-appointment a{color: #fff; font-weight: bold; font-size: 16px; text-decoration: none;}
 div#book-appointment a:hover{text-decoration: underline;}
 /******************************************/
