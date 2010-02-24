@@ -11,7 +11,7 @@ module ApplicationHelper
   
   def use_calendar
     content_for :calendar do
-    	javascript_include_tag 'jquery-weekcalendar/jquery.weekcalendar'
+    	javascript_include_tag 'jquery-weekcalendar/jquery.weekcalendar.js'
     end
     content_for :css do
       stylesheet_link_tag 'jquery.weekcalendar'
