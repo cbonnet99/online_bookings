@@ -8,6 +8,8 @@ class BookingsControllerTest < ActionController::TestCase
     assert_not_nil booking.confirmation_code
     post :confirm, {:id => booking.id, :confirmation_code => booking.confirmation_code}
     assert_response :success
+    assert_not_nil flash[:notice]
+    assert_match %r{#{booking.practitioner.name}}, flash[:notice]
     booking.reload
     assert booking.confirmed?
   end

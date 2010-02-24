@@ -71,10 +71,10 @@ class Booking < ActiveRecord::Base
   end
 
   def partner_name
-    if current_pro.nil?
-      self.try(:client).try(:name)
-    else
+    if current_client.nil?
       self.try(:practitioner).try(:name)
+    else
+      self.try(:client).try(:name)
     end
   end
 
