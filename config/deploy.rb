@@ -8,6 +8,7 @@ set :scm, :git
 #set :repository, "git://github.com/cbonnet99/cbba.git"
 set :repository, "git@github.com:cbonnet99/online_bookings.git"
 set :branch, "master"
+set :git_enable_submodules, 1
 ssh_options[:forward_agent] = true
 
 role :app, "75.101.132.186"
