@@ -8,6 +8,10 @@ ActionController::Routing::Routes.draw do |map|
     p.resources :bookings
   end
 
+  map.resources :practitioners do |p|
+    p.resources :clients
+  end
+
 
   #FLASH
   map.flash 'flash', :controller => 'bookings', :action => 'flash'

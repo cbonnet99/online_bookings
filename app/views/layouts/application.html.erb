@@ -25,7 +25,8 @@
 	<div class="header">
 		<div class="container">
 			<div id="general-public-links"><% if pro_logged_in?-%>
-			<%= link_to "Calendar", practitioner_url(current_pro.permalink), :class => "link"%>
+				<%= link_to "Calendar", practitioner_url(current_pro.permalink), :class => "link"%>
+				<%= link_to "Clients", practitioner_clients_url(current_pro.permalink), :class => "link"%>
 			<% else -%>
 				<% if !client_logged_in?-%>
 					<%= link_to "Home", root_url, :class => "link"%> |

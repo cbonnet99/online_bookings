@@ -14,9 +14,14 @@ class ClientsController < ApplicationController
   end
 
   def index
-    get_selected_practitioner
-    get_practitioners
-    session[:return_to] = request.referer
+    if pro_logged_in?
+      @clients = current_pro.clients.find(:all, :order => "first_name, last_name" )
+      render :template => "clients/index_pro" 
+    else
+      get_selected_practitioner
+      get_practitioners
+      # session[:return_to] = request.referer
+    end
   end
   
   def edit
