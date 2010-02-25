@@ -4,7 +4,8 @@ class Client < ActiveRecord::Base
 
   has_many :bookings
   has_many :client_emails
-  has_many :practitioners, :through => :bookings, :uniq => true 
+  has_many :relations
+  has_many :practitioners, :through => :relations
   
   # new columns need to be added here to be writable through mass assignment
   attr_accessible :email, :password, :password_confirmation, :phone_prefix, :phone_suffix

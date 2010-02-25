@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100222202715) do
+ActiveRecord::Schema.define(:version => 20100225003323) do
 
   create_table "bookings", :force => true do |t|
     t.datetime "starts_at"
@@ -65,6 +65,13 @@ ActiveRecord::Schema.define(:version => 20100222202715) do
     t.string   "bookings_publish_code"
     t.string   "phone"
     t.boolean  "reminder_night_before"
+  end
+
+  create_table "relations", :force => true do |t|
+    t.integer  "client_id"
+    t.integer  "practitioner_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

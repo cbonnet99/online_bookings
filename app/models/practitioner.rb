@@ -9,7 +9,8 @@ class Practitioner < ActiveRecord::Base
   include Permalinkable
   
   has_many :bookings
-  has_many :clients, :through => :bookings, :uniq => true
+  has_many :relations
+  has_many :clients, :through => :relations
 
   # new columns need to be added here to be writable through mass assignment
   attr_accessible :username, :email, :password, :password_confirmation, :working_hours, :working_days, :first_name, :last_name

@@ -39,7 +39,8 @@ class Booking < ActiveRecord::Base
   attr_accessible :starts_at, :ends_at, :name, :comment, :booking_type, :client_id, :client, :practitioner, :practitioner_id
   attr_accessor :current_client, :current_pro
   
-  after_create :save_client_name
+  after_create :save_client_name, :update_relations_after_create
+  after_destroy :update_relations_after_destroy
   after_update :save_client_name
   before_create :generate_confirmation_code
 
@@ -64,6 +65,33 @@ class Booking < ActiveRecord::Base
   
   aasm_event :send_reminder do
     transitions :to => :reminder_sent, :from => [:unconfirmed]
+  end
+
+  def state_color
+    case state
+    when "confirmed":
+      "#0C6"
+    when "unconfirmed":
+      "#bf0000"
+    else
+      "grey"
+    end
+  end
+
+  def update_relations_after_create
+    first_appointment_with_this_client = (self.client.bookings.find_all_by_practitioner_id(self.practitioner_id).size == 1)
+    if first_appointment_with_this_client
+      if self.client.relations.find_by_practitioner_id(self.practitioner_id).nil?
+        Relation.create(:practitioner_id => self.practitioner_id, :client_id => self.client_id )
+      end
+    end
+  end
+
+  def update_relations_after_destroy
+    last_appointment_with_this_client = (self.client.bookings.find_all_by_practitioner_id(self.practitioner_id).size == 0)
+    if last_appointment_with_this_client
+      self.client.relations.find_by_practitioner_id(self.practitioner_id).try(:destroy)
+    end
   end
 
   def mark_as_pro_reminder_sent!

@@ -18,6 +18,11 @@ Factory.define :practitioner do |f|
   f.sequence(:email) { |n| "foo#{n}@example.com" }
 end
 
+Factory.define :relation do |b|
+  b.association :client
+  b.association :practitioner
+end
+
 Factory.define :booking do |b|
   b.association :client
   b.association :practitioner
