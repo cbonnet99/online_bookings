@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
     if pro
       session[:pro_id] = pro.id
       flash[:notice] = "Welcome to #{APP_CONFIG[:site_name]}"
-      redirect_to pro
+      redirect_to practitioner_url(pro, :tab => "calendar")
       # redirect_to_target_or_default(pro)
     else
       flash.now[:error] = "Invalid login or password."

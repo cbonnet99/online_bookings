@@ -2,6 +2,17 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ClientsControllerTest < ActionController::TestCase
 
+  def test_destroy
+    pro = Factory(:practitioner)
+    client = Factory(:client)
+    pro.clients << client
+    old_size = pro.clients.size
+    post :destroy, {:id => client.id }, {:pro_id => pro.id}
+    assert_redirected_to practitioner_clients_url(pro.permalink, :tab => "clients")
+    assert_not_nil flash[:notice]
+    assert_equal old_size, pro.clients.size+1
+  end
+
   def test_update
     client = Factory(:client)
     post :update, {:client => {:email => "newaddress@test.com", :phone_prefix => "027", :phone_suffix => "123456"} }, {:client_id => client.id }
@@ -45,7 +56,7 @@ class ClientsControllerTest < ActionController::TestCase
     cyrille = clients(:cyrille)
     old_size = sav.clients.size
     post :create, {:emails => "cbgt@test.com #{cyrille.email}" }, {:pro_id => sav.id}
-    assert_redirected_to practitioner_clients_url(sav.permalink, :emails => "cbgt@test.com #{cyrille.email}")
+    assert_redirected_to practitioner_clients_url(sav.permalink, :emails => "cbgt@test.com #{cyrille.email}", :tab => "clients")
     assert_equal old_size+1, sav.clients.size, "Only 1 client should be added, as Cyrille is already a client"
   end
 
@@ -54,7 +65,7 @@ class ClientsControllerTest < ActionController::TestCase
     cyrille = clients(:cyrille)
     old_size = sav.clients.size
     post :create, {:emails => "cbgt@test.com test #{cyrille.email}" }, {:pro_id => sav.id}
-    assert_redirected_to new_practitioner_client_url(sav.permalink, :emails => "cbgt@test.com test #{cyrille.email}")
+    assert_redirected_to new_practitioner_client_url(sav.permalink, :emails => "cbgt@test.com test #{cyrille.email}", :tab => "clients")
     assert_not_nil flash[:error]
     assert_equal old_size, sav.clients.size
   end

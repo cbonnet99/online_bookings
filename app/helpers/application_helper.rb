@@ -1,6 +1,14 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-
+  
+  def selected_tab_classes(tab, expected)
+    if tab == expected
+      "link selected"
+    else
+      "link"
+    end
+  end
+  
   def current_step
     if @current_selected_pro.nil?
       edit_selected_practitioner_url
@@ -11,7 +19,7 @@ module ApplicationHelper
         if session[:client_id].nil?
           login_phone_url(:login => cookies[:email])
         else
-          practitioner_url(@current_selected_pro)
+          practitioner_url(@current_selected_pro, :tab => "calendar")
         end
       end
     end

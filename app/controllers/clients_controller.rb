@@ -1,5 +1,17 @@
 class ClientsController < ApplicationController
   before_filter :login_required, :only => [:edit, :update, :name]
+  before_filter :pro_login_required, :only => [:destroy]
+
+  def destroy
+    @client = current_pro.clients.find(params[:id])
+    if @client.nil?
+      flash[:error] = "Invalid client"
+    else
+      current_pro.clients.delete(@client)
+      flash[:notice] = "Client deleted"
+    end
+    redirect_to practitioner_clients_url(current_pro.permalink, :tab => "clients")
+  end
 
   def update
     @client = current_pro.nil? ? current_client : current_pro.clients.find(params[:id])
@@ -154,9 +166,9 @@ class ClientsController < ApplicationController
           flash[:notice] = "Clients were added"
         end
         if flash[:error].blank?
-          redirect_to practitioner_clients_url(current_pro.permalink, :emails => params[:emails])
+          redirect_to practitioner_clients_url(current_pro.permalink, :emails => params[:emails], :tab => "clients")
         else
-          redirect_to new_practitioner_client_url(current_pro.permalink, :emails => params[:emails])
+          redirect_to new_practitioner_client_url(current_pro.permalink, :emails => params[:emails], :tab => "clients")
         end
       else
         flash[:error] = "You must be logged in"
