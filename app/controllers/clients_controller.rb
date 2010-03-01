@@ -86,8 +86,12 @@ class ClientsController < ApplicationController
   end
     
   def new
-    @client = Client.new(:email => params[:email])
-    get_phone_prefixes
+    if pro_logged_in?
+      render :template => "clients/new_multiple"
+    else
+      @client = Client.new(:email => params[:email])
+      get_phone_prefixes
+    end
   end
   
   def lookup_form
@@ -138,15 +142,37 @@ class ClientsController < ApplicationController
   end
   
   def create
-    @client = Client.new(params[:client])
-    if @client.save
-      session[:client_id] = @client.id
-      flash[:notice] = "You can now book your appointment"
-      redirect_to session[:return_to] || @client
+    if params[:emails]
+      if pro_logged_in?
+        begin
+          current_pro.add_clients(params[:emails])
+        rescue BlankEmailsException
+          flash[:error] = "Email addresses can not be empty"
+        rescue InvalidEmailsException => e
+          flash[:error] = "Some email addresses are invalid: #{e.message}"
+        else
+          flash[:notice] = "Clients were added"
+        end
+        if flash[:error].blank?
+          redirect_to practitioner_clients_url(current_pro.permalink, :emails => params[:emails])
+        else
+          redirect_to new_practitioner_client_url(current_pro.permalink, :emails => params[:emails])
+        end
+      else
+        flash[:error] = "You must be logged in"
+        redirect_to login_url
+      end
     else
-      get_phone_prefixes
-      flash[:error] = "This email address can not be registered"
-      render :action => 'new'
+      @client = Client.new(params[:client])
+      if @client.save
+        session[:client_id] = @client.id
+        flash[:notice] = "You can now book your appointment"
+        redirect_to session[:return_to] || @client
+      else
+        get_phone_prefixes
+        flash[:error] = "This email address can not be registered"
+        render :action => 'new'
+      end
     end
   end
 end

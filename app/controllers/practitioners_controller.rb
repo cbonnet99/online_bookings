@@ -30,11 +30,12 @@ class PractitionersController < ApplicationController
     unless @practitioner.nil?
       cookies[:selected_practitioner_id] = @practitioner.id
     end
-    if session[:return_to].nil?
-      redirect_to @practitioner
-    else
-      redirect_to session[:return_to]
-    end
+    redirect_to session[:return_to].nil? ? @practitioner : session[:return_to]
+  end
+  
+  def clear_selected
+    cookies.delete(:selected_practitioner_id)
+    redirect_to root_url
   end
   
   def create

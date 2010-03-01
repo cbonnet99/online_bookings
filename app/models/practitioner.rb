@@ -5,6 +5,12 @@ class ProStub
   end
 end
 
+class BlankEmailsException < Exception
+end
+
+class InvalidEmailsException < Exception
+end
+
 class Practitioner < ActiveRecord::Base
   include Permalinkable
   
@@ -30,6 +36,34 @@ class Practitioner < ActiveRecord::Base
   named_scope :want_reminder_night_before, :conditions => "reminder_night_before IS true"
   
   TITLE_FOR_NON_WORKING = "Booked"
+
+  def add_clients(emails_string)
+    emails = emails_string.gsub(/\,/, " ").split(" ")
+    invalid_emails = []
+    if emails.blank?
+      raise BlankEmailsException
+    else
+      emails.each do |email|
+        unless email.match(/^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i)
+          invalid_emails << email
+        end
+      end
+      if invalid_emails.blank?
+        emails.each do |email|
+          unless self.clients.find_by_email(email)
+            existing_client = Client.find_by_email(email)
+            if existing_client
+              self.clients << existing_client
+            else
+              self.clients.create(:email => email)
+            end
+          end
+        end
+      else
+        raise InvalidEmailsException.new(invalid_emails.to_sentence)
+      end
+    end
+  end
 
   def self.need_reminders
     Practitioner.want_reminder_night_before.reject{|p| p.bookings.need_pro_reminder.blank?}

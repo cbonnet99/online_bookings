@@ -1,0 +1,10 @@
+<% javascript 'add-clients'%>
+<% title "Add clients"%>
+<p>To add clients, simply enter their email addresses below:</p>
+<p class="optional">(you can enter multiple email addresses, separated by commas and/or spaces)</p>
+<% form_tag practitioner_clients_url do %>
+  <p>
+    <%= text_area_tag :emails, params[:emails], :cols => "80", :rows => "5"   %>
+  </p>
+  <p><%= submit_tag "Add" %></p>
+<%end -%>

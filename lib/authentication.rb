@@ -53,6 +53,14 @@ module Authentication
     end
   end
   
+  def pro_login_required
+    unless pro_logged_in?
+      flash[:error] = "You must be logged in to see this page"
+      store_target_location
+      redirect_to login_url
+    end
+  end
+  
   def redirect_to_target_or_default(default)
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil

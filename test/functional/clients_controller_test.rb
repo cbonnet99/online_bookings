@@ -40,6 +40,25 @@ class ClientsControllerTest < ActionController::TestCase
     assert_not_nil flash[:error]
   end
 
+  def test_create_multiple
+    sav = practitioners(:sav)
+    cyrille = clients(:cyrille)
+    old_size = sav.clients.size
+    post :create, {:emails => "cbgt@test.com #{cyrille.email}" }, {:pro_id => sav.id}
+    assert_redirected_to practitioner_clients_url(sav.permalink, :emails => "cbgt@test.com #{cyrille.email}")
+    assert_equal old_size+1, sav.clients.size, "Only 1 client should be added, as Cyrille is already a client"
+  end
+
+  def test_create_multiple_error
+    sav = practitioners(:sav)
+    cyrille = clients(:cyrille)
+    old_size = sav.clients.size
+    post :create, {:emails => "cbgt@test.com test #{cyrille.email}" }, {:pro_id => sav.id}
+    assert_redirected_to new_practitioner_client_url(sav.permalink, :emails => "cbgt@test.com test #{cyrille.email}")
+    assert_not_nil flash[:error]
+    assert_equal old_size, sav.clients.size
+  end
+
   def test_create_existing_client
     sav = practitioners(:sav)
     cyrille = clients(:cyrille)

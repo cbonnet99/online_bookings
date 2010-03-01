@@ -39,17 +39,32 @@ class PractitionersControllerTest < ActionController::TestCase
     assert_template 'edit_selected'
   end
   
+  def test_edit_selected_invalid_cookie
+    cookies[:practitioner_id] = 999
+    get :edit_selected
+    assert_template 'edit_selected'
+    assert_nil cookies[:practitioner_id], "Invalid cookies should be deleted"
+  end
+  
   def test_update_selected
     sav = practitioners(:sav)
     post :update_selected, :practitioner_id => sav.id
     assert_redirected_to sav
   end
   
+  def test_clear_selected
+    sav = practitioners(:sav)
+    cookies[:practitioner_id] = sav.id
+    post :clear_selected
+    assert_redirected_to root_url
+    assert_nil cookies[:practitioner_id]
+  end
+  
   def test_show
     get :show, {:id => practitioners(:sav).permalink}, {:client_id => clients(:cyrille).id }
     assert_template 'show'
   end
-  
+    
   def test_show_pro
     get :show, {:id => practitioners(:sav).permalink}, {:pro_id => practitioners(:sav).id }
     assert_template 'show'

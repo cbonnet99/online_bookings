@@ -16,6 +16,48 @@ class PractitionerTest < ActiveSupport::TestCase
   def setup
     Practitioner.delete_all
   end
+
+  def test_add_client_existing
+    pro = Factory(:practitioner)
+    client = Factory(:client)
+    old_overall_size = Client.all.size
+    old_size = pro.clients.size
+        
+    pro.add_clients(client.email)
+    assert_equal old_overall_size, Client.all.size
+    assert_equal old_size+1, pro.clients.size
+  end
+
+  def test_add_client
+    pro = Factory(:practitioner)
+    client = Factory(:client)
+    old_size = Client.all.size
+    
+    pro.add_clients("cbonnet@test.com")
+    assert_equal old_size+1, Client.all.size
+  end
+    
+  def test_add_client_invalid_email
+    pro = Factory(:practitioner)
+    client = Factory(:client)
+    old_size = Client.all.size
+    
+    assert_raise InvalidEmailsException do
+      pro.add_clients("cbonnet")
+    end    
+  end
+  
+  def test_add_client_invalid_email_double
+    pro = Factory(:practitioner)
+    client = Factory(:client)
+    old_size = Client.all.size
+    
+    begin
+      pro.add_clients("cbonnet,eeee")
+    rescue InvalidEmailsException => e
+      assert_equal 2, e.message.gsub(/and/, ",").split(",").size, "There should 2 invalid emails, but message was: #{e.message}"       
+    end
+  end
   
   def test_need_reminders
     pro = Factory(:practitioner)

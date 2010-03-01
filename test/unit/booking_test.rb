@@ -9,7 +9,7 @@ class BookingTest < ActiveSupport::TestCase
 
   def test_js_args
     my_str = 18.hours.from_now.js_args
-    assert_no_match %r{,0}, my_str, "There should be no leading 0 in JS date arguments, otherwise Javascript thinks it is an octal value"
+    assert_no_match %r{,0[1-9]+}, my_str, "There should be no leading 0 in JS date arguments, otherwise Javascript thinks it is an octal value"
   end
 
   def test_create
