@@ -19,12 +19,12 @@ class Practitioner < ActiveRecord::Base
   has_many :clients, :through => :relations
 
   # new columns need to be added here to be writable through mass assignment
-  attr_accessible :username, :email, :password, :password_confirmation, :working_hours, :working_days, :first_name, :last_name
+  attr_accessible :username, :email, :password, :password_confirmation, :working_hours, :working_days, :first_name, :last_name, :phone
   
   attr_accessor :password
   before_save :prepare_password
   
-  validates_presence_of :working_hours
+  validates_presence_of :working_hours, :phone
   validates_format_of :working_hours, :with => /\-/, :message => "should contain at least one dash to denote start and end times"
   validates_format_of :username, :with => /^[-\w\._@]+$/i, :allow_blank => true, :message => "should only contain letters, numbers, or .-_@"
   validates_format_of :email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
