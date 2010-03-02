@@ -111,6 +111,7 @@ class BookingsControllerTest < ActionController::TestCase
     assert assigns["booking"].errors.blank?, "There should be no errors, but got: #{assigns['booking'].errors.full_messages.to_sentence}"
     assert_nil flash[:error]
     assert_not_nil flash[:notice]
+    assert_match %r{#{assigns["booking"].practitioner.name}}, flash[:notice]
     assert_equal old_size+1, Booking.all.size
     new_booking = Booking.all.last
     assert_equal "Joe Sullivan", new_booking.name
