@@ -5,10 +5,10 @@ $(document).ready(function() {
    var id = 10;
 
    var changeButtonColors = function() {
-       $("button:contains('save')").hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("color", "#090").css("background", "url('/images/green_tick.gif')").css("background-repeat", "no-repeat").css("padding-left", "22px");
+       $("button:contains('save')").hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("color", "#090").css("background", "url('/images/green_tick.gif')").css("background-repeat", "no-repeat").css("padding-left", "20px").css("font-size", "14px");
        $("button:contains('delete')").hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("background", "url('/images/red_x.gif')").css("background-repeat", "no-repeat").css("color", "#C00");
-       $("button:contains('delete')").css("background-color", "white").css("padding-left", "22px");
-       $("button:contains('cancel')").html("don't save").hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("background-color", "white").css("color", "black");
+       $("button:contains('delete')").css("background-color", "white").css("padding-left", "20px").css("font-size", "14px");
+       $("button:contains('cancel')").html("don't save").hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("background-color", "white").css("color", "black").css("font-size", "14px");
 	
    }
 	
@@ -204,6 +204,9 @@ $(document).ready(function() {
 					 displayFlash(data.flash);
 					}, "json");
                },
+               cancel : function() {
+                  $dialogContent.dialog("close");
+               },
                "delete" : function() {
 				  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "DELETE", "format": "json"}, function(data){
 					if ((data.flash.error === undefined) || (data.flash.error === '')) {
@@ -212,9 +215,6 @@ $(document).ready(function() {
 	                $dialogContent.dialog("close");
 					displayFlash(data.flash);
 					}, "json");
-               },
-               cancel : function() {
-                  $dialogContent.dialog("close");
                }
             }
          }).show();
