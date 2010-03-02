@@ -5,10 +5,10 @@ $(document).ready(function() {
    var id = 10;
 
    var changeButtonColors = function() {
-       $("button:contains('save')").hover(function(){$(this).css("background-color", "#090");}, function(){$(this).css("background-color", "#0078AE");}).css("font-size", "18px").css("vertical-align", "middle");
-       $("button:contains('delete')").hover(function(){$(this).css("background-color", "#C00");}, function(){$(this).css("background-color", "#0078AE");}).css("vertical-align", "middle");
-       $("button:contains('delete')").css("background-color", "#").css("font-size", "14px").css("vertical-align", "middle");
-       $("button:contains('cancel')").html("don't save").css("font-size", "14px").css("vertical-align", "middle");
+       $("button:contains('save')").hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("color", "#090").css("background", "url('/images/green_tick.gif')").css("background-repeat", "no-repeat").css("padding-left", "22px");
+       $("button:contains('delete')").hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("background", "url('/images/red_x.gif')").css("background-repeat", "no-repeat").css("color", "#C00");
+       $("button:contains('delete')").css("background-color", "white").css("padding-left", "22px");
+       $("button:contains('cancel')").html("don't save").hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("background-color", "white").css("color", "black");
 	
    }
 	
@@ -59,12 +59,13 @@ $(document).ready(function() {
 		}
 		<%end -%>
          if ((calEvent.end.getTime() < new Date().getTime()) || calEvent.readOnly) {
+			$event.css("cursor", "default");
             $event.css("backgroundColor", "#aaa");
             $event.find(".wc-time").css({
                "backgroundColor" : "#999",
                "border" : "1px solid #888"
             });
-         }		
+         }
       },
       draggable : function(calEvent, $event) {
 		 <% if @current_pro.nil?-%>

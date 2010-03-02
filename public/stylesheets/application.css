@@ -1,3 +1,4 @@
+.ui-state-default, .ui-widget-content .ui-state-default { background-color: white;}
 div.header a.selected{color: #222; background-color: white;font-weight: bold; padding: 20px;}
 /************** client NEW MULTIPLE ******************/
 .optional{color: grey;font-size: 12px;}
