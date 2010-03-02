@@ -1,5 +1,7 @@
-// $(document).ready(function() {
-// 	$('select#practitioner_id').change(function() {
-// 		alert($(this).val());
-// 	});
-// });
+$(document).ready(function() {
+	$(':input').keydown(function(e) {
+		if (e.keyCode == 13) {
+			$("form").submit();
+		}
+	});
+});
