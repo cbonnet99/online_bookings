@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100225003323) do
+ActiveRecord::Schema.define(:version => 20100303022128) do
 
   create_table "bookings", :force => true do |t|
     t.datetime "starts_at"
@@ -60,11 +60,12 @@ ActiveRecord::Schema.define(:version => 20100225003323) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "permalink"
-    t.string   "working_days",          :limit => 20
+    t.string   "working_days",                    :limit => 20
     t.string   "working_hours"
     t.string   "bookings_publish_code"
     t.string   "phone"
     t.boolean  "reminder_night_before"
+    t.integer  "no_cancellation_period_in_hours"
   end
 
   create_table "relations", :force => true do |t|

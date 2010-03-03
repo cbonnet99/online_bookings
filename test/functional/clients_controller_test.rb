@@ -15,7 +15,7 @@ class ClientsControllerTest < ActionController::TestCase
 
   def test_update
     client = Factory(:client)
-    post :update, {:client => {:email => "newaddress@test.com", :phone_prefix => "027", :phone_suffix => "123456"} }, {:client_id => client.id }
+    post :update, {:client => {:phone_prefix => "027", :phone_suffix => "123456"} }, {:client_id => client.id, :email => "newaddress@test.com" }
     assert_redirected_to edit_client_url(client)
     assert_nil flash[:error]
     assert_not_nil flash[:notice]

@@ -1,3 +1,6 @@
+#no-cancellation{display: none;}
+#no-cancellation .warning {font-weight: bold; color: #c00;}
+#no-cancellation .phone {font-weight: bold;}
 .ui-state-default, .ui-widget-content .ui-state-default { background-color: white;}
 div.header a.selected{color: #222; background-color: white;font-weight: bold; padding: 20px;}
 /************** client NEW MULTIPLE ******************/

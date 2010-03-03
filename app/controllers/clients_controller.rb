@@ -142,7 +142,7 @@ class ClientsController < ApplicationController
   end
   
   def login
-    @client = Client.find_by_email(params["login"])
+    @client = Client.find_by_email(session["email"])
     if @client.check_phone_first_4digits(params[:phone_last4digits])
       session[:client_id] = @client.id
       flash[:notice] = "You can now book your appointment"

@@ -1,11 +1,11 @@
 <% title "Step 2: your phone number" %>
+<% javascript "new-client"%>
 
 <% form_for @client do |f| %>
  <%= f.error_messages %>
   <p>Please enter your phone number</p>
   <p>
-    <%= f.label :email, "Email Address" %><br />
-    <%= f.text_field :email %>
+    Your email address: <%= @client.email %> (<%= link_to "change", lookup_form_url%>)
   </p>
   <p id="client-phone">
      <%= f.label :phone, "Your phone number (preferably a mobile number):" %><br />

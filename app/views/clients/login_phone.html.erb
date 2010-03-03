@@ -3,8 +3,7 @@
 <p>Please enter the last 4 digits of your phone number</p>
 <% form_tag client_login_url do %>
   <p>
-    <%= label_tag :login, "Your email address:" %><br />
-    <%= text_field_tag :login, params[:login] %>
+    Your email address: <%= @client.email %> (<%= link_to "change", lookup_form_url%>)
   </p>
   <p>
     <%= label_tag :phone_last4digits, "Your phone number:" %><br />

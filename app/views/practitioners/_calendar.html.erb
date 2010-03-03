@@ -147,7 +147,8 @@ $(document).ready(function() {
 			<% if own_calendar?(pro, current_pro)-%>
 	         setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
 			<% end -%>
-         changeButtonColors();			
+         changeButtonColors();
+         $("#no-cancellation").css("display", "none");			
 		  }
       },
       eventDrop : function(calEvent, $event) {
@@ -173,7 +174,6 @@ $(document).ready(function() {
          var bodyField = $dialogContent.find("textarea[name='body']");
          var clientField = $dialogContent.find("select[name='client_id']").val(calEvent.client_id);
          bodyField.val(calEvent.body);
-
          $dialogContent.dialog({
             modal: true,
             title: "Edit - " + calEvent.title,
@@ -217,6 +217,12 @@ $(document).ready(function() {
                }
             }
          }).show();
+         if ((calEvent.state == "unconfirmed") && (calEvent.start.getTime() > new Date().getTime()) && (calEvent.start.getTime() < new Date(<%=pro.no_cancellation_period_in_hours.hours.from_now.js_args%>).getTime())){
+	       $("#no-cancellation").css("display", "block");
+           $("button:contains('delete')").css("display", "none");
+         } else {
+	         $("#no-cancellation").css("display", "none");	      
+         };
 
          var startField2 = $dialogContent.find("select[name='start']").val(calEvent.start);
          var endField2 = $dialogContent.find("select[name='end']").val(calEvent.end);
@@ -340,6 +346,9 @@ $(document).ready(function() {
 	<form> 
 		<input type="hidden" /> 
 		<p id="date_holder"></p>
+		<% if !own_calendar?(pro, current_pro)-%>
+		<p id="no-cancellation"><span class="warning">Warning!</span> This appointment will happen in the next <%= pro.no_cancellation_period_in_hours%> hours: it can not be changed. If you need to cancel, please call <%=pro.first_name%> on <span class="phone"><%=pro.phone%></span></p>
+		<% end -%>
 		<ul class="event-fields"> 
 			<% if own_calendar?(pro, current_pro)-%>
 			<li> 
