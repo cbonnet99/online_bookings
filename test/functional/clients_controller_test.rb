@@ -15,7 +15,7 @@ class ClientsControllerTest < ActionController::TestCase
 
   def test_update
     client = Factory(:client)
-    post :update, {:client => {:phone_prefix => "027", :phone_suffix => "123456"} }, {:client_id => client.id, :email => "newaddress@test.com" }
+    post :update, {:client => {:phone_prefix => "027", :phone_suffix => "123456", :email => "newaddress@test.com"} }, {:client_id => client.id }
     assert_redirected_to edit_client_url(client)
     assert_nil flash[:error]
     assert_not_nil flash[:notice]
@@ -56,8 +56,25 @@ class ClientsControllerTest < ActionController::TestCase
     cyrille = clients(:cyrille)
     old_size = sav.clients.size
     post :create, {:emails => "cbgt@test.com #{cyrille.email}" }, {:pro_id => sav.id}
-    assert_redirected_to practitioner_clients_url(sav.permalink, :emails => "cbgt@test.com #{cyrille.email}", :tab => "clients")
+    assert_redirected_to practitioner_clients_url(sav.permalink, :tab => "clients")
     assert_equal old_size+1, sav.clients.size, "Only 1 client should be added, as Cyrille is already a client"
+  end
+
+  def test_create_multiple_with_email
+    sav = practitioners(:sav)
+    cyrille = clients(:cyrille)
+    old_size = sav.clients.size
+    
+    old_mail_size = ActionMailer::Base.deliveries.size
+    
+    post :create, {:emails => "cbgt@test.com #{cyrille.email}", :send_email => true, :email_text => "Hello,\n\nThis is my new booking site: ", :email_signoff => "Regards,"  }, {:pro_id => sav.id}
+    assert_redirected_to practitioner_clients_url(sav.permalink, :tab => "clients")
+    assert_equal old_size+1, sav.clients.size, "Only 1 client should be added, as Cyrille is already a client"
+    assert_equal old_mail_size+1, ActionMailer::Base.deliveries.size
+    last_email = ActionMailer::Base.deliveries.last
+    assert_equal ["cbgt@test.com"], last_email.to
+    assert_equal [sav.email], last_email.from
+    assert_match %r{Hello,<br/><br/>}, last_email.body
   end
 
   def test_create_multiple_error
@@ -102,8 +119,8 @@ class ClientsControllerTest < ActionController::TestCase
     last4_digits = cyrille.phone_suffix[-4..cyrille.phone_suffix.length]
     session[:return_to] = practitioner_url(sav)
     post :login, {:login => cyrille.email, :phone_last4digits => last4_digits }
-    assert_nil flash[:error]
-    assert_not_nil flash[:notice]
+    assert_nil flash[:error], "Flash: #{flash.inspect}"
+    assert_not_nil flash[:notice], "Flash: #{flash.inspect}"
     assert_redirected_to practitioner_url(sav)
   end
   

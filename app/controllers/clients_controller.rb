@@ -142,7 +142,7 @@ class ClientsController < ApplicationController
   end
   
   def login
-    @client = Client.find_by_email(session["email"])
+    @client = Client.find_by_email(params[:login])
     if @client.check_phone_first_4digits(params[:phone_last4digits])
       session[:client_id] = @client.id
       flash[:notice] = "You can now book your appointment"
@@ -157,7 +157,7 @@ class ClientsController < ApplicationController
     if params[:emails]
       if pro_logged_in?
         begin
-          current_pro.add_clients(params[:emails])
+          current_pro.add_clients(params[:emails], params[:send_email], params[:email_text], params[:email_signoff])
         rescue BlankEmailsException
           flash[:error] = "Email addresses can not be empty"
         rescue InvalidEmailsException => e
@@ -166,9 +166,10 @@ class ClientsController < ApplicationController
           flash[:notice] = "Clients were added"
         end
         if flash[:error].blank?
-          redirect_to practitioner_clients_url(current_pro.permalink, :emails => params[:emails], :tab => "clients")
+          redirect_to practitioner_clients_url(current_pro.permalink, :tab => "clients")
         else
-          redirect_to new_practitioner_client_url(current_pro.permalink, :emails => params[:emails], :tab => "clients")
+          # render :action => "new" 
+          redirect_to new_practitioner_client_url(current_pro.permalink, :emails => params[:emails], :send_email => params[:send_email], :email_text => params[:email_text], :email_signoff => params[:email_signoff], :tab => "clients")
         end
       else
         flash[:error] = "You must be logged in"

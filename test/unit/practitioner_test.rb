@@ -17,13 +17,20 @@ class PractitionerTest < ActiveSupport::TestCase
     Practitioner.delete_all
   end
 
+  def test_client_with_empty_cancel_period
+    assert_raise ActiveRecord::RecordInvalid do
+      Factory(:practitioner, :no_cancellation_period_in_hours  => nil)
+    end
+    Factory(:practitioner, :no_cancellation_period_in_hours  => 0)
+  end
+
   def test_add_client_existing
     pro = Factory(:practitioner)
     client = Factory(:client)
     old_overall_size = Client.all.size
     old_size = pro.clients.size
         
-    pro.add_clients(client.email)
+    pro.add_clients(client.email, false, "", "")
     assert_equal old_overall_size, Client.all.size
     assert_equal old_size+1, pro.clients.size
   end
@@ -33,7 +40,7 @@ class PractitionerTest < ActiveSupport::TestCase
     client = Factory(:client)
     old_size = Client.all.size
     
-    pro.add_clients("cbonnet@test.com")
+    pro.add_clients("cbonnet@test.com", false, "", "")
     assert_equal old_size+1, Client.all.size
   end
     
@@ -43,7 +50,7 @@ class PractitionerTest < ActiveSupport::TestCase
     old_size = Client.all.size
     
     assert_raise InvalidEmailsException do
-      pro.add_clients("cbonnet")
+      pro.add_clients("cbonnet", false, "", "")
     end    
   end
   
@@ -53,7 +60,7 @@ class PractitionerTest < ActiveSupport::TestCase
     old_size = Client.all.size
     
     begin
-      pro.add_clients("cbonnet,eeee")
+      pro.add_clients("cbonnet,eeee", false, "", "")
     rescue InvalidEmailsException => e
       assert_equal 2, e.message.gsub(/and/, ",").split(",").size, "There should 2 invalid emails, but message was: #{e.message}"       
     end

@@ -29,6 +29,15 @@ class UserMailer < ActionMailer::Base
       parse_caller(caller(2).first).last
   end
 
+  def initial_client_email(pro, client, email_text, email_signoff)
+    setup_email(client)
+    @from = pro.email
+    @body[:text] = email_text.gsub(/\n/, "<br/>")
+    @body[:link] = practitioner_url(pro.permalink)
+    @body[:signoff] = email_signoff.gsub(/\n/, "<br/>")
+    @body[:pro_first_name] = pro.first_name
+  end
+
   def booking_reminder(booking)
     setup_email(booking.client)
     setup_sender(booking.practitioner)

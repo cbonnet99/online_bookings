@@ -1,7 +1,9 @@
 class Client < ActiveRecord::Base
   
   RE_EMAIL = /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
-
+  DEFAULT_EMAIL_TEXT = "Hello,\n\nYou can now book appointments with me online at ColibriApp.com by clicking on the following link:\n"
+  DEFAULT_EMAIL_SIGNOFF = "Regards,"
+  
   has_many :bookings
   has_many :client_emails
   has_many :relations

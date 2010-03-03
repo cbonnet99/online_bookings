@@ -6,5 +6,12 @@
   <p>
     <%= text_area_tag :emails, params[:emails], :cols => "80", :rows => "5"   %>
   </p>
+  <p><%= check_box_tag :send_email, 'yes', params[:send_email].nil? ? true : params[:send_email] %>Send them an email</p>
+  <p id="email_text_paragraph">This is what will be sent:<br/>
+  <br/>
+  <%= text_area_tag :email_text, params[:email_text] || Client::DEFAULT_EMAIL_TEXT, :cols => "80", :rows => "10"  %></p>
+  <%= link_to practitioner_url(current_pro.permalink), practitioner_url(current_pro.permalink) %>
+  <p><%= text_area_tag :email_signoff, params[:email_signoff] || Client::DEFAULT_EMAIL_SIGNOFF, :cols => "80", :rows => "5"  %></p>
+  <%= current_pro.first_name%>
   <p><%= submit_tag "Add" %></p>
 <%end -%>

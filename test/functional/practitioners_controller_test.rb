@@ -27,7 +27,7 @@ class PractitionersControllerTest < ActionController::TestCase
     old_size = Practitioner.all.size
     post :create, :practitioner => {:email => "cb@test.com", :phone => "021 221312312", :first_name => "Joe",
        :last_name => "Test", :password => "blabla", :password_confirmation => "blabla",
-        :working_day_monday => true, :working_hours => "9-12,13-18" }
+        :working_day_monday => true, :working_hours => "9-12,13-18", :no_cancellation_period_in_hours => 24 }
     assert_not_nil assigns(:practitioner)
     assert assigns(:practitioner).errors.blank?, "Errors found: #{assigns(:practitioner).errors.full_messages.to_sentence}"
     assert_nil flash[:error]
