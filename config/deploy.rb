@@ -11,9 +11,12 @@ set :branch, "master"
 set :git_enable_submodules, 1
 ssh_options[:forward_agent] = true
 
-role :app, "75.101.132.186"
-role :web, "75.101.132.186"
-role :db, "75.101.132.186", :primary => true
+# role :app, "75.101.132.186"
+# role :web, "75.101.132.186"
+# role :db, "75.101.132.186", :primary => true
+role :app, "bookings.beamazing.co.nz"
+role :web, "bookings.beamazing.co.nz"
+role :db, "bookings.beamazing.co.nz", :primary => true
 set :user,          "cyrille"
 set :runner,        "cyrille"
 set :password,  "mavslr55"

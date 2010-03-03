@@ -2,6 +2,12 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ClientsControllerTest < ActionController::TestCase
 
+  def test_new
+    get :new
+    assert_response :success
+    assert_select "input#client_email"
+  end
+
   def test_destroy
     pro = Factory(:practitioner)
     client = Factory(:client)

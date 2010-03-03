@@ -6,6 +6,7 @@
   <p>Please enter your phone number</p>
   <p>
     Your email address: <%= @client.email %> (<%= link_to "change", lookup_form_url%>)
+	<%= f.hidden_field :email%>
   </p>
   <p id="client-phone">
      <%= f.label :phone, "Your phone number (preferably a mobile number):" %><br />
