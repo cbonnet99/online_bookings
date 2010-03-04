@@ -18,9 +18,14 @@ ssh_options[:forward_agent] = true
 # these http://github.com/rails/irs_process_scripts
 
 namespace :deploy do
-  desc "Write the crontab file"
-  task :write_crontab, :roles => :db do
-    run "cd #{release_path} && whenever --update-crontab #{application}"
+  desc "Update the crontab file"
+  task :update_crontab, :roles => :db do
+    if rails_env == :production
+      puts "*** Deploying cron jobs"
+      run "cd #{release_path} && whenever --update-crontab #{application}"
+    else
+      puts "*** No cron jobs deployed as the enviroment is NOT production, but #{rails_env}"
+    end
   end
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
@@ -32,7 +37,7 @@ namespace :deploy do
         web.disable
         symlink
         migrate
-        write_crontab
+        update_crontab
       end
       restart
       web.enable
