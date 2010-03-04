@@ -13,7 +13,9 @@ config.action_view.cache_template_loading            = true
 # config.log_level = :debug
 
 # Use a different logger for distributed setups
-config.logger = SyslogLogger.new
+$:.unshift File.join(RAILS_ROOT, "vendor", "SyslogLogger-1.4.0", "lib")
+require 'syslog_logger'
+config.logger = RAILS_DEFAULT_LOGGER = SyslogLogger.new('colibri_production')
 
 # Use a different cache store in production
 # config.cache_store = :mem_cache_store
