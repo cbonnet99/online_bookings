@@ -1,6 +1,6 @@
 <% title "Your clients"%>
 <%if @clients.blank? -%>
-You have no clients for the moment. You can <%= link_to "add clients", new_practitioner_client_url(:practitioner_id => current_pro.permalink)%> at any time.
+You have no clients for the moment. You can <%= link_to "add clients", new_practitioner_client_url(:practitioner_id => current_pro.permalink, :tab => "clients")%> at any time.
 <%else -%>
 <%= link_to "Add more", new_practitioner_client_url(:practitioner_id => current_pro.permalink, :tab => "clients")%>
 <ul id="clients">

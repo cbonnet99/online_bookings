@@ -3,8 +3,10 @@
 #no-cancellation .phone {font-weight: bold;}
 .ui-state-default, .ui-widget-content .ui-state-default { background-color: white;}
 div.header a.selected{color: #222; background-color: white;font-weight: bold; padding: 20px;}
+.help{color: grey;font-size: 12px;}
 /************** client NEW MULTIPLE ******************/
 .optional{color: grey;font-size: 12px;}
+#email_all{background-color: lightgrey;}
 /******************************************/
 /************** client INDEX PRO ******************/
 ul#clients li{list-style: none; padding: 5px;}
