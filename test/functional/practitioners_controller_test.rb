@@ -32,6 +32,7 @@ class PractitionersControllerTest < ActionController::TestCase
     assert_redirected_to practitioner_url(assigns(:practitioner).permalink)
     assert_not_nil assigns(:practitioner)
     assert assigns(:practitioner).errors.blank?, "Errors found: #{assigns(:practitioner).errors.full_messages.to_sentence}"
+    assert_equal "1", assigns(:practitioner).working_days
     assert_nil flash[:error]
     assert_equal old_size+1, Practitioner.all.size
   end

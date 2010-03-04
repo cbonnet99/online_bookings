@@ -25,10 +25,10 @@
     <%= f.text_field :no_cancellation_period_in_hours, :size => "2"  %> hours
   </p>
   <p>
-    <%= f.label :working_hours, "What days do you work?" %><br />
-	<ul>
+    <%= f.label :working_days, "What days do you work?" %><br />
+	<ul id="working_days_list">
 	<% @days_in_week.each_with_index do |day, index| -%>
-    	<li><%= f.check_box "working_day_#{day}".to_sym, :checked => (index<5) %><%=day%></li>
+    	<li><%= f.check_box "working_day_#{day}".to_sym, :checked => (index<5) %><%=day.capitalize%></li>
 	<%end -%>
 	</ul>
   </p>

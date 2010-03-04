@@ -19,9 +19,12 @@ class Practitioner < ActiveRecord::Base
   has_many :clients, :through => :relations
 
   # new columns need to be added here to be writable through mass assignment
-  attr_accessible :username, :email, :password, :password_confirmation, :working_hours, :working_days, :first_name, :last_name, :phone, :no_cancellation_period_in_hours
+  attr_accessible :username, :email, :password, :password_confirmation, :working_hours, :working_days, :first_name,
+   :last_name, :phone, :no_cancellation_period_in_hours, :working_day_monday, :working_day_tuesday, :working_day_wednesday,
+    :working_day_thursday, :working_day_friday, :working_day_saturday, :working_day_sunday
   
-  attr_accessor :password
+  attr_accessor :password, :working_day_monday, :working_day_tuesday, :working_day_wednesday, :working_day_thursday,
+   :working_day_friday, :working_day_saturday, :working_day_sunday
   before_save :prepare_password
   
   validates_presence_of :working_hours, :phone, :no_cancellation_period_in_hours
@@ -35,8 +38,23 @@ class Practitioner < ActiveRecord::Base
   
   named_scope :want_reminder_night_before, :conditions => "reminder_night_before IS true"
   
+  before_create :set_working_days
+  
   TITLE_FOR_NON_WORKING = "Booked"
-
+  WORKING_DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+  
+  def set_working_days
+    if working_days.blank? && !WORKING_DAYS.map{|day| self.send("working_day_#{day}".to_sym)}.select{|value| value == true}.blank?
+      res = []
+      WORKING_DAYS.each_with_index do |day, index|
+        if self.send("working_day_#{day}".to_sym)
+          res << (index+1).to_s
+        end
+      end
+      self.working_days = res.join(",")
+    end
+  end
+  
   def add_clients(emails_string, send_email, email_text, email_signoff)
     emails = emails_string.gsub(/\,/, " ").split(" ")
     invalid_emails = []

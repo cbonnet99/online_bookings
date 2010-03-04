@@ -17,7 +17,7 @@ class PractitionersController < ApplicationController
     @practitioner = Practitioner.new
     @practitioner.working_hours = "8-12,13-18"
     @practitioner.no_cancellation_period_in_hours = 24
-    @days_in_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    @days_in_week = Practitioner::WORKING_DAYS
   end
 
   def edit_selected
@@ -46,7 +46,7 @@ class PractitionersController < ApplicationController
       flash[:notice] = "Thank you for signing up! You are now logged in."
       redirect_to practitioner_url(@practitioner.permalink)
     else
-      @days_in_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+      @days_in_week = Practitioner::WORKING_DAYS
       render :action => 'new'
     end
   end
