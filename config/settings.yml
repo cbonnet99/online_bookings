@@ -8,5 +8,9 @@ test:
     contact_email: cbonnet99@gmail.com
 production:
     site_name: Colibri
-    site_host: bookings.beamazing.co.nz
+    site_host: www.colibriapp.com
+    contact_email: cbonnet99@gmail.com
+staging:
+    site_name: Colibri (STAGING)
+    site_host: staging.colibriapp.com
     contact_email: cbonnet99@gmail.com
