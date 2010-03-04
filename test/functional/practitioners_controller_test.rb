@@ -29,6 +29,8 @@ class PractitionersControllerTest < ActionController::TestCase
        :last_name => "Test", :password => "blabla", :password_confirmation => "blabla",
         :working_day_monday => true, :working_hours => "9-12,13-18", :no_cancellation_period_in_hours => 24 }
     assert_not_nil assigns(:practitioner)
+    assert_redirected_to practitioner_url(assigns(:practitioner).permalink)
+    assert_not_nil assigns(:practitioner)
     assert assigns(:practitioner).errors.blank?, "Errors found: #{assigns(:practitioner).errors.full_messages.to_sentence}"
     assert_nil flash[:error]
     assert_equal old_size+1, Practitioner.all.size

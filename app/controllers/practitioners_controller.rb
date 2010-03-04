@@ -42,9 +42,9 @@ class PractitionersController < ApplicationController
   def create
     @practitioner = Practitioner.new(params[:practitioner])
     if @practitioner.save
-      session[:practitioner_id] = @practitioner.id
+      session[:pro_id] = @practitioner.id
       flash[:notice] = "Thank you for signing up! You are now logged in."
-      redirect_to practitioner_url(@practitioner.id)
+      redirect_to practitioner_url(@practitioner.permalink)
     else
       @days_in_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
       render :action => 'new'

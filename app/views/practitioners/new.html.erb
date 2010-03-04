@@ -21,10 +21,16 @@
     <%= f.text_field :phone %>
   </p>
   <p>
+    <%= f.label :no_cancellation_period_in_hours, "No cancellation period:" %><br />
+    <%= f.text_field :no_cancellation_period_in_hours, :size => "2"  %> hours
+  </p>
+  <p>
     <%= f.label :working_hours, "What days do you work?" %><br />
+	<ul>
 	<% @days_in_week.each_with_index do |day, index| -%>
-    	<%= f.check_box "working_day_#{day}".to_sym, :checked => (index<5) %><%=day%>
+    	<li><%= f.check_box "working_day_#{day}".to_sym, :checked => (index<5) %><%=day%></li>
 	<%end -%>
+	</ul>
   </p>
   <p>
     <%= f.label :working_hours, "What are your working hours? (please use 24 hour times. For instance, if you work from 8am to 12pm, and then from 1pm to 6pm, enter below: 8-12,13-18)" %><br />
