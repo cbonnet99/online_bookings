@@ -1,15 +1,20 @@
 development:
     adapter: postgresql
-    database: online_bookings_development
+    database: colibri_development
     username: postgres
     password: test0user
 test:
     adapter: postgresql
-    database: online_bookings_test
+    database: colibri_test
     username: postgres
     password: test0user
 production:
     adapter: postgresql
-    database: online_bookings_production
-    username: postgres
+    database: colibri_production
+    username: colibri
+    password: test0user
+staging:
+    adapter: postgresql
+    database: colibri_staging
+    username: colibri
     password: test0user
