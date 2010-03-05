@@ -20,9 +20,9 @@ ActionController::Routing::Routes.draw do |map|
   map.edit_selected_practitioner 'edit_selected_practitioner', :controller => 'practitioners', :action => 'edit_selected'
   map.update_selected_practitioner 'update_selected_practitioner', :controller => 'practitioners', :action => 'update_selected'
   map.clear_selected_practitioner 'clear_selected_practitioner', :controller => 'practitioners', :action => 'clear_selected'
+  map.forgotten_password 'forgotten_password', :controller => 'practitioners', :action => 'forgotten_password'
     
   #CLIENT
-  map.forgotten_password 'forgotten_password', :controller => 'clients', :action => 'forgotten_password'
   map.edit_phone 'edit_phone', :controller => 'clients', :action => 'edit_phone'
   map.update_phone 'update_phone', :controller => 'clients', :action => 'update_phone'
   map.reset_phone 'reset_phone', :controller => 'clients', :action => 'reset_phone'

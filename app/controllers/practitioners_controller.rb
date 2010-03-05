@@ -3,6 +3,10 @@ class PractitionersController < ApplicationController
   before_filter :require_selected_practitioner, :only => [:show] 
   before_filter :login_required, :only => [:show]
 
+  def forgotten_password
+    
+  end
+
   def reset_ical_sharing
     if current_pro.nil?
       flash[:error] = "Could not find this practitioner"
