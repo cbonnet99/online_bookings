@@ -10,7 +10,17 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password
 
   before_filter :get_selected_practitioner
+  before_filter :set_locale
   
+  def set_locale
+    I18n.locale = extract_locale_from_subdomain
+  end
+  
+  def extract_locale_from_subdomain
+    parsed_locale = request.subdomains.first.try(:to_sym)
+    (I18n.available_locales.include? parsed_locale) ? parsed_locale  : nil
+  end
+      
   def get_phone_prefixes
     @phone_prefixes = Client::PHONE_SUFFIXES    
   end

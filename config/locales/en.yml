@@ -1,5 +1,2 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
+  colibri_intro: With Colibri, book an appointment with your health practitioner at anytime, from anywhere. And you get an automatic reminder via email!
