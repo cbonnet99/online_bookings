@@ -1,0 +1,10 @@
+--- 
+javascripts: 
+- base: 
+  - jrails
+  - jquery-weekcalendar/jquery.weekcalendar
+stylesheets: 
+- base:
+  - application
+  - jquery-ui
+  - jquery.calendar
