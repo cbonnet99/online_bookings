@@ -134,4 +134,12 @@ fr:
           even: "doit être pair"
           record_invalid: "La validation a échoué : {{errors}}"    
     
-    colibri_intro: Avec Colibri, prenez rendez-vous quand vous voulez, d'ou vous voulez. Et nous vous rappellons votre rendez-vous par email!
+    colibri_intro: Avec Colibri, prenez rendez-vous quand vous voulez, d'où vous voulez. Un rappel vous sera envoyé automatiquement par email!
+    colibri_intro_book_appointment_button: Prendre rendez-vous
+    colibri_intro_health_professional: Vous êtes un professionnel?
+    colibri_intro_register_trial: Essayez Colibri gratuitement pendant 30 jours
+    colibri_header_register: Essayez Colibri gratuitement
+    login: connexion
+    header_health_pro: professionnels
+    home: Accueil
+    header_book_appointment: Prendre un rendez-vous

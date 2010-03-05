@@ -29,9 +29,9 @@
 				<%= link_to "Clients", practitioner_clients_url(current_pro.permalink, :tab => "clients"), :class => selected_tab_classes(params[:tab], "clients")%>
 			<% else -%>
 				<% if !client_logged_in?-%>
-					<%= link_to "Home", root_url, :class => "link"%> |
+					<%= link_to t(:home), root_url, :class => "link"%> |
 				<% end %>
-				<%= link_to "Book an appointment", current_step, :class => "link"%>
+				<%= link_to t(:header_book_appointment), current_step, :class => "link"%>
 				<% if client_logged_in?-%> |&nbsp;<% end -%> 
 			<% end -%>
 			</div>	
@@ -46,9 +46,9 @@
 					<% if !@current_selected_pro.nil? -%>
 					<%= render :partial => "practitioners/selected_pro_info"  %>
 					<%else -%>
-						<span>Health professionals:</span>
-						<%= link_to "Login", login_url, :class => "link"%> |
-						<%= link_to "Register for a free trial", new_practitioner_url, :class => "link"%>
+						<span><%= t(:header_health_pro) %>:</span>
+						<%= link_to t(:login), login_url, :class => "link"%> |
+						<%= link_to t(:colibri_header_register), new_practitioner_url, :class => "link"%>
 					<%end -%>
 				<% end -%>
 			</div>
