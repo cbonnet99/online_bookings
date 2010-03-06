@@ -19,7 +19,7 @@ class UserMailer < ActionMailer::Base
   
   def setup_sender(pro=nil)
     if pro.nil?
-      @body[:sender] = ProStub.new(:name => "The #{APP_CONFIG[:site_name]} team")
+      @body[:sender] = ProStub.new("The #{APP_CONFIG[:site_name]} team")
     else
       @body[:sender] = pro
     end

@@ -10,7 +10,7 @@ class TaskUtilsTest < ActiveSupport::TestCase
     TaskUtils.send_reminders
     
     assert_equal 1, ActionMailer::Base.deliveries.size
-
+    
     ActionMailer::Base.deliveries.clear
     TaskUtils.send_reminders
     assert_equal 0, ActionMailer::Base.deliveries.size
