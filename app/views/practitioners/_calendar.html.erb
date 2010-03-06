@@ -22,6 +22,7 @@ $(document).ready(function() {
 			
 		}
 		if (flash.error !== undefined && flash.error !== '') {
+			console.log(" in NOTICE, flash.error: ", flash.error);
 			$("div#flash_calendar").html("<div id='flash_error'>"+flash.error+"</div>").fadeIn(2000, function(){$(this)});
 		}
 	  };

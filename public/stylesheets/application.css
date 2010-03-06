@@ -1,10 +1,16 @@
+#logo{float: left;}
+#logged-client-name, #logged-pro-name{color: #f8f8f8;}
+#container-center{margin: 60px 0 0 60px;padding: 10px 24px 10px 24px;background-color: #303030;width:80%;}
+#container-center a{color: #0cc;}
+#container-center {color:#f8f8f8;}
 #no-cancellation{display: none;}
 #no-cancellation .warning {font-weight: bold; color: #c00;}
 #no-cancellation .phone {font-weight: bold;}
-.ui-state-default, .ui-widget-content .ui-state-default { background-color: white;}
-div.header a.selected{color: #222; background-color: white;font-weight: bold; padding: 20px;}
+.ui-state-default, .ui-widget-content .ui-state-default { background-color: #f8f8f8;}
+div.header a.selected{color: #222; background-color: #f8f8f8;font-weight: bold; padding: 20px;}
 .help{color: grey;font-size: 12px;}
-
+#container-center .wc-header{color: #000;}
+#container-center #flash_calendar{color: #000;}
 /************** practitioner NEW ******************/
 #working_days_list li{list-style: none;}
 /******************************************/
@@ -20,9 +26,9 @@ ul#clients {padding:0;}
 /************** client INDEX ******************/
 #container-home{margin: 160px 0 0 280px;padding: 10px 24px 10px 24px;background-color: #303030;width:400px;}
 #container-home a{color: #0cc;}
-#container-home {color:#fff;}
-div#book-appointment{background-color: #c33; color: #fff; width: 140px; padding: 10px; text-align: center;float: left;}
-div#book-appointment a{color: #fff; font-weight: bold; font-size: 16px; text-decoration: none;}
+#container-home {color:#f8f8f8;}
+div#book-appointment{background-color: #c33; color: #f8f8f8; width: 140px; padding: 10px; text-align: center;float: left;}
+div#book-appointment a{color: #f8f8f8; font-weight: bold; font-size: 16px; text-decoration: none;}
 div#book-appointment a:hover{text-decoration: underline;}
 /******************************************/
 
@@ -30,19 +36,19 @@ div#book-appointment a:hover{text-decoration: underline;}
 #event_edit_container{display: none;}
 ul.event-fields li{list-style: none; padding: 5px;}
 ul.event-fields li select{float: right;}
-#flash_calendar{float: left; margin-left: 20%; font-size: 12px; font-weight: bold;}
+#flash_calendar{float: left; margin-left: 0px; font-size: 12px; font-weight: bold;}
 #flash_calendar #flash_notice, #flash_calendar #flash_error, #flash_calendar #flash_warning{margin: 0;} 
 #flash_calendar #flash_hide{margin: 3px 3px 3px 5px;text-decoration: underline; color: blue;cursor:pointer;}
 /******************************************/
 
-body{margin:0;padding:0;}
-div.header{background-color: #222; font-size: 14px;	line-height: 1.7em; height: 50px; color:#fff;}
+body{margin:0;padding:0;background-color: #f8f8f8;}
+div.header{background-color: #222; font-size: 14px;	line-height: 1.7em; height: 50px; color:#f8f8f8;}
 div.header div.container {padding: 10px 0;}
 div.header div.container div#general-public-links{float: left;}
 div.header div.container div#pro-links{float: right;}
-div.header div.container div#pro-links{color: #BCFC3D}
-div.header div.container div#pro-links a{color: #BCFC3D}
-div.header a {margin-left: 10px; color: #fff; text-decoration: none; line-height: 1.7em;}
+div.header div.container div#pro-links{color: #0cc}
+div.header div.container div#pro-links a{color: #0cc}
+div.header a {margin-left: 10px; color: #f8f8f8; text-decoration: none; line-height: 1.7em;}
 div.header div.container div#pro-links a {margin-left: 0px; margin-right: 10px;}
 div.header a:hover {text-decoration: underline;}
 div#content{margin: 10px;}
@@ -115,7 +121,7 @@ a {
   font-size: 12px;
   margin: 0;
   background-color: #c00;
-  color: #fff;
+  color: #f8f8f8;
 }
 
 #errorExplanation p {

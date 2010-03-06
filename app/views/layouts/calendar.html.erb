@@ -14,7 +14,6 @@
 		<%= javascript_include_tag 'jquery-ui.min.js' %>
 	<%end-%>
     <%= stylesheet_link_tag 'application' %>
-	<%= javascript_include_tag 'application' %>
 	<%= javascript_include_tag 'jquery.corners.min.js' %>
 	<%= yield :calendar %>
 	<%= yield :js %>
@@ -63,12 +62,10 @@
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
       <%- end -%>
       </div>
-	  <div id="container-center" class="rounded">
-	      <%- if show_title? -%>
-	        <h1><%=h yield(:title) %></h1>
-	      <%- end -%>
-      	  <%= yield %>
-	  </div>
+      <%- if show_title? -%>
+        <h1><%=h yield(:title) %></h1>
+      <%- end -%>
+     	  <%= yield %>
 	</div>
   </body>
 </html>

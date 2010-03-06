@@ -33,6 +33,7 @@ class ClientsController < ApplicationController
       get_selected_practitioner
       get_practitioners
       # session[:return_to] = request.referer
+      render :layout => "home" 
     end
   end
   
