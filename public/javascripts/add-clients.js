@@ -1,11 +1,15 @@
 $(document).ready(function(){
-	$("textarea#emails").focus();
-	$("#send_email").click(function(){
+	var setSendEmail = function(){
 		if ($("#send_email").is(':checked')){
 			$("#email_all").show();
 		}
 		else {
 			$("#email_all").hide();
-		}
+		}		
+	};
+	setSendEmail();
+	$("textarea#emails").focus();
+	$("#send_email").click(function(){
+		setSendEmail();
 	});
 });
