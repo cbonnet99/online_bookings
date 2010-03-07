@@ -139,6 +139,12 @@ class PractitionerTest < ActiveSupport::TestCase
     assert_match %r{"id":}, json
   end
   
+  def test_bookings_for_non_working_days_with_sunday
+    workaholic = Factory(:practitioner, :working_days => "1,2,3,4,5,6,7")
+    bookings = workaholic.bookings_for_non_working_days(Time.now.beginning_of_week, Time.now.end_of_week)
+    assert_equal 0, bookings.size, "There should 0 bookings as Workaholic works every day..."
+  end
+  
   def test_bookings_for_working_hours_simple
     simple = Factory(:practitioner, :working_days => "4,5", :working_hours => "9-18" )
     bookings = simple.bookings_for_working_hours(Time.now.beginning_of_week, Time.now.end_of_week)
