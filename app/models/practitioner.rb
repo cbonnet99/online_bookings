@@ -200,7 +200,6 @@ class Practitioner < ActiveRecord::Base
       #for us Sunday is 7, for Ruby it's 0
       week_day = "7" if week_day == "0"
       if !working_days.blank? && !working_days.include?(week_day)
-        puts "====== ADDING #{week_day}"
         res << NonWorkingBooking.new("#{self.id}-#{day}-#{month}-#{year}", TITLE_FOR_NON_WORKING, Time.parse("#{year}/#{month}/#{day} #{biz_hours_start}"), Time.parse("#{year}/#{month}/#{day} #{biz_hours_end}"), true)
       end
       current += 1.day
