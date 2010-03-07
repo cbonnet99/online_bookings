@@ -17,6 +17,13 @@ class PractitionerTest < ActiveSupport::TestCase
     Practitioner.delete_all
   end
 
+  def test_set_working_days
+    pro = Factory(:practitioner, :working_days => nil, :working_day_monday => "1", :working_day_tuesday => "1",
+                  :working_day_wednesday => "1", :working_day_thursday => "1", :working_day_friday => "1",
+                  :working_day_saturday => "0", :working_day_sunday => "0")
+    assert_equal "1,2,3,4,5", pro.working_days
+  end
+
   def test_client_with_empty_cancel_period
     assert_raise ActiveRecord::RecordInvalid do
       Factory(:practitioner, :no_cancellation_period_in_hours  => nil)

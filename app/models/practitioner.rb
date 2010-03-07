@@ -44,10 +44,11 @@ class Practitioner < ActiveRecord::Base
   WORKING_DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
   
   def set_working_days
-    if working_days.blank? && !WORKING_DAYS.map{|day| self.send("working_day_#{day}".to_sym)}.select{|value| value == true}.blank?
+    if working_days.blank? && !WORKING_DAYS.map{|day| self.send("working_day_#{day}".to_sym)}.select{|value| value == true || value.to_s == "1"}.blank?
       res = []
       WORKING_DAYS.each_with_index do |day, index|
-        if self.send("working_day_#{day}".to_sym)
+        value = self.send("working_day_#{day}".to_sym)
+        if  value == true || value.to_s == "1"
           res << (index+1).to_s
         end
       end
