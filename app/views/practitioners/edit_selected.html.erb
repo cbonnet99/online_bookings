@@ -1,4 +1,4 @@
-<% title "Select a practitioner"%>
+<% title t(:select_practicioner_title)%>
 <% javascript "edit-selected"%>
-<p>Please select a practitioner:</p>
-<p><%= render :partial => "practitioners/select", :locals => {:submit_text => "Select >"} %></p>
+<p><%  t(:select_practicioner_message)%></p>
+<p><%= render :partial => "practitioners/select", :locals => {:submit_text => t(:select_button)} %></p>

@@ -133,13 +133,37 @@ fr:
           odd: "doit être impair"
           even: "doit être pair"
           record_invalid: "La validation a échoué : {{errors}}"    
-    
-    colibri_intro: Avec Colibri, prenez rendez-vous quand vous voulez, d'où vous voulez. Un rappel vous sera envoyé automatiquement par email!
+  # colibri app
+  # main keyword
+  # button
+    select_button: "Choisir"
+    enter_button: "Entrer"
+  # intro
+    colibri_intro: "Avec Colibri, prenez rendez-vous quand vous voulez, d'où vous voulez. Un rappel vous sera envoyé automatiquement par email!"
     colibri_intro_book_appointment_button: Prendre rendez-vous
     colibri_intro_health_professional: Vous êtes un professionnel?
     colibri_intro_register_trial: Essayez Colibri gratuitement pendant 30 jours
+   # header 
     colibri_header_register: Essayez Colibri gratuitement
-    login: connexion
-    header_health_pro: professionnels
+    login: Connexion
+    header_health_pro: Professionnels
     home: Accueil
     header_book_appointment: Prendre un rendez-vous
+   # client lookup form
+    client_lookupform_title: "Etape 1: Entrez votre adresse email"
+    client_lookupform_email_address: "Adresse email"
+   # select_practicioner
+    select_practicioner_title: "Choisissez un professionel"
+    select_practicioner_message: "Chossisez votre professionel:"
+    #client login info
+    login_info_logged_as: "Vous êtes connecté avec: "
+    login_info_edit_link: "Modifier"
+    login_info_I_am_not: Je ne suis pas !"
+    #login_phone
+    login_phone_title: "Etape 2: Votre numéro de téléphone"
+    login_phone_message: "Veuillez entrer les quatres derniers chiffres de votre numéro de téléphone"
+    login_phone_email_address: "Votre adresse email:" 
+    login_phone_change_link: "Modifier" 
+    login_phone_number: "Votre numéro de téléphone:"
+    login_phone_number_changed: "Votre numéro a changé!"
+    login_phone_book: "Prendre un rendez vous"

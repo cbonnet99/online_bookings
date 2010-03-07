@@ -44,7 +44,7 @@ ul.event-fields li select{float: right;}
 
 body{margin:0;padding:0;background-color: #f8f8f8;}
 div.header{background-color: #222; font-size: 14px;	line-height: 1.7em; height: 50px; color:#f8f8f8;}
-div.header div.container {padding: 10px 0;}
+div.header div.container {padding: 10px 0; }
 div.header div.container div#general-public-links{float: left;}
 div.header div.container div#pro-links{float: right;}
 div.header div.container div#pro-links{color: #0cc}
@@ -52,7 +52,7 @@ div.header div.container div#pro-links a{color: #0cc}
 div.header a {margin-left: 10px; color: #f8f8f8; text-decoration: none; line-height: 1.7em;}
 div.header div.container div#pro-links a {margin-left: 0px; margin-right: 10px;}
 div.header a:hover {text-decoration: underline;}
-div#content{margin: 10px;}
+div#content{margin: 10px; padding-left: 100px;padding-right:100px;}
 div.login-info{float: left;}
 div#selected-pro-info{float: right;}
 #pro-login, #client-login-info, #pro-login-info, #selected-pro-info{font-size: small; color: grey;}

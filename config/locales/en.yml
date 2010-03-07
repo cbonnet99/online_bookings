@@ -1,12 +1,33 @@
 en:
+ #button       
+  select_button: "Select"
+  enter_button: "Enter"
+ #intro
   colibri_intro: With Colibri, book an appointment with your health practitioner at anytime, from anywhere. And you get an automatic reminder via email!
   colibri_intro_book_appointment_button: Book an appointment
   colibri_intro_health_professional: Health professional?
   colibri_intro_register_trial: Register for a free 30 day trial
-  
+ #header 
   colibri_header_register: Register for a free trial
   login: Login
   header_health_pro: Health professionals
   home: Home
   header_book_appointment: Book an appointment
-  
+  #client lookup form
+  client_lookupform_title: "Step 1: Your email address"
+  client_lookupform_email_address: "Your email address"
+  #select practicioner
+  select_practicioner_title: "Select a practitioner"
+  select_practicioner_message: "Please select a practitioner:"
+  #client login info
+  login_info_logged_as: "You are logged in as: "
+  login_info_edit_link: "Edit"
+  login_info_I_am_not: "I am not !"
+  #login_phone
+  login_phone_title: "Step 2: your phone number"
+  login_phone_message: "Please enter the last 4 digits of your phone number"
+  login_phone_email_address: "Your email address:" 
+  login_phone_change_link: "change1" 
+  login_phone_number: "Your phone number:"
+  login_phone_number_changed: "My phone number has changed!"
+  login_phone_book: "Book an appointment" 

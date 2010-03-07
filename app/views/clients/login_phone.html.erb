@@ -1,15 +1,15 @@
 <% javascript "login_phone"%>
-<% title "Step 2: your phone number" %>
-<p>Please enter the last 4 digits of your phone number</p>
+<% title t(:login_phone_title) %>
+<p><%=t(:login_phone_message)%></p>
 <% form_tag client_login_url do %>
   <p>
-    Your email address: <%= @client.email %> (<%= link_to "change", lookup_form_url%>)
+    <%=t(:login_phone_email_address)%> <%= @client.email %> (<%= link_to t(:login_phone_change_link), lookup_form_url%>)
   </p>
   <p>
 	<%= hidden_field_tag :login, params[:login]%>
-    <%= label_tag :phone_last4digits, "Your phone number:" %><br />
+    <%= label_tag :phone_last4digits, t(:login_phone_number) %><br />
     <%= @client.phone_without_last4digits %><%= password_field_tag :phone_last4digits, "", :size => 4, :maxlength => 4  %>
   </p>
-  <p><%= link_to "My phone number has changed!", edit_phone_path(:login => params[:login]) %></p>
-  <p><%= submit_tag "Book an appointment >" %></p>
+  <p><%= link_to t(:login_phone_number_changed), edit_phone_path(:login => params[:login]) %></p>
+  <p><%= submit_tag t(:login_phone_book) %></p>
 <% end %>

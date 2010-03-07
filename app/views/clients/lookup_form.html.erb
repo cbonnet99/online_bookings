@@ -1,10 +1,10 @@
 <% javascript "lookup_form"%>
-<% title "Step 1: Your email address"%>
+<% title t(:client_lookupform_title)%>
 <% form_for :client, @client, :url => { :controller => "clients", :action => "lookup"}, :id => "client_email_selection"  do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :email, "Your email address" %><br />
+    <%= f.label :email, t(:client_lookupform_email_address)%><br />
     <%= f.text_field :email %>
   </p>
-  <p><%= f.submit "Enter >" %></p>
+  <p><%= f.submit t(:enter_button) %></p>
 <% end %>
