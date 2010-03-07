@@ -10,7 +10,7 @@ class ClientsController < ApplicationController
       current_pro.clients.delete(@client)
       flash[:notice] = "Client deleted"
     end
-    redirect_to practitioner_clients_url(current_pro.permalink, :tab => "clients")
+    redirect_to practitioner_clients_url(current_pro.permalink)
   end
 
   def update
@@ -27,6 +27,7 @@ class ClientsController < ApplicationController
 
   def index
     if pro_logged_in?
+      @selected_tab = "clients"
       @clients = current_pro.clients.find(:all, :order => "first_name, last_name" )
       render :template => "clients/index_pro" 
     else
@@ -100,6 +101,7 @@ class ClientsController < ApplicationController
     
   def new
     if pro_logged_in?
+      @selected_tab = "clients"
       render :template => "clients/new_multiple"
     else
       @client = Client.new(:email => params[:email])
@@ -167,10 +169,10 @@ class ClientsController < ApplicationController
           flash[:notice] = "Clients were added"
         end
         if flash[:error].blank?
-          redirect_to practitioner_clients_url(current_pro.permalink, :tab => "clients")
+          redirect_to practitioner_clients_url(current_pro.permalink)
         else
           # render :action => "new" 
-          redirect_to new_practitioner_client_url(current_pro.permalink, :emails => params[:emails], :send_email => params[:send_email], :email_text => params[:email_text], :email_signoff => params[:email_signoff], :tab => "clients")
+          redirect_to new_practitioner_client_url(current_pro.permalink, :emails => params[:emails], :send_email => params[:send_email], :email_text => params[:email_text], :email_signoff => params[:email_signoff])
         end
       else
         flash[:error] = "You must be logged in"

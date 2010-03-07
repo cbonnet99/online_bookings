@@ -13,7 +13,7 @@ class SessionsControllerTest < ActionController::TestCase
     assert_nil flash[:error]
     assert_not_nil flash[:notice]
     assert_not_nil session[:pro_id]
-    assert_redirected_to practitioner_url(sav, :tab => "calendar")    
+    assert_redirected_to practitioner_url(sav)    
   end    
   
   def test_create_megan
@@ -23,7 +23,7 @@ class SessionsControllerTest < ActionController::TestCase
     assert_nil flash[:error]
     assert_not_nil flash[:notice]
     assert_not_nil session[:pro_id]
-    assert_redirected_to practitioner_url(megan, :tab => "calendar")    
+    assert_redirected_to practitioner_url(megan)    
   end    
   
 end

@@ -14,7 +14,7 @@ class ClientsControllerTest < ActionController::TestCase
     pro.clients << client
     old_size = pro.clients.size
     post :destroy, {:id => client.id }, {:pro_id => pro.id}
-    assert_redirected_to practitioner_clients_url(pro.permalink, :tab => "clients")
+    assert_redirected_to practitioner_clients_url(pro.permalink)
     assert_not_nil flash[:notice]
     assert_equal old_size, pro.clients.size+1
   end
@@ -62,7 +62,7 @@ class ClientsControllerTest < ActionController::TestCase
     cyrille = clients(:cyrille)
     old_size = sav.clients.size
     post :create, {:emails => "cbgt@test.com #{cyrille.email}" }, {:pro_id => sav.id}
-    assert_redirected_to practitioner_clients_url(sav.permalink, :tab => "clients")
+    assert_redirected_to practitioner_clients_url(sav.permalink)
     assert_equal old_size+1, sav.clients.size, "Only 1 client should be added, as Cyrille is already a client"
   end
 
@@ -74,7 +74,7 @@ class ClientsControllerTest < ActionController::TestCase
     old_mail_size = ActionMailer::Base.deliveries.size
     
     post :create, {:emails => "cbgt@test.com #{cyrille.email}", :send_email => true, :email_text => "Hello,\n\nThis is my new booking site: ", :email_signoff => "Regards,"  }, {:pro_id => sav.id}
-    assert_redirected_to practitioner_clients_url(sav.permalink, :tab => "clients")
+    assert_redirected_to practitioner_clients_url(sav.permalink)
     assert_equal old_size+1, sav.clients.size, "Only 1 client should be added, as Cyrille is already a client"
     assert_equal old_mail_size+1, ActionMailer::Base.deliveries.size
     last_email = ActionMailer::Base.deliveries.last
@@ -88,7 +88,7 @@ class ClientsControllerTest < ActionController::TestCase
     cyrille = clients(:cyrille)
     old_size = sav.clients.size
     post :create, {:emails => "cbgt@test.com test #{cyrille.email}" }, {:pro_id => sav.id}
-    assert_redirected_to new_practitioner_client_url(sav.permalink, :emails => "cbgt@test.com test #{cyrille.email}", :tab => "clients")
+    assert_redirected_to new_practitioner_client_url(sav.permalink, :emails => "cbgt@test.com test #{cyrille.email}")
     assert_not_nil flash[:error]
     assert_equal old_size, sav.clients.size
   end

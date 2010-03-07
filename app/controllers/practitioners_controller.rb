@@ -57,6 +57,7 @@ class PractitionersController < ApplicationController
   
   def show
     if pro_logged_in?
+      @selected_tab = "calendar"
       @clients = current_pro.clients
     end
   end
