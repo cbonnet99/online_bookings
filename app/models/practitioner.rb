@@ -57,26 +57,38 @@ class Practitioner < ActiveRecord::Base
   end
   
   def add_clients(emails_string, send_email, email_text, email_signoff)
-    emails = emails_string.gsub(/\,/, " ").split(" ")
+    emails = emails_string.split(",")
     invalid_emails = []
     if emails.blank?
       raise BlankEmailsException
     else
       emails.each do |email|
-        unless email.match(/^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i)
+        email.strip!
+        m = email.match(/\"(.*)(\s)*\" \<(.*)\>/)
+        if m
+          email = m[3]
+        end
+        if email.nil? || !email.match(/^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i)
           invalid_emails << email
         end
+        
       end
       if invalid_emails.blank?
         emails.each do |email|
+          email.strip!
+          m = email.match(/\"(.*)(\s)*\" \<(.*)\>/)
+          if m
+            name, email = m[1], m[3]
+          end
           unless self.clients.find_by_email(email)
             existing_client = Client.find_by_email(email)
             if existing_client
               self.clients << existing_client
+              client = existing_client
             else
-              client = self.clients.create(:email => email)
-              UserMailer.deliver_initial_client_email(self, client, email_text, email_signoff) if send_email
+              client = self.clients.create(:email => email, :name => name)
             end
+            UserMailer.deliver_initial_client_email(self, client, email_text, email_signoff) if send_email
           end
         end
       else

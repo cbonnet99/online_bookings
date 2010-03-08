@@ -4,6 +4,7 @@ div#errorExplanation li{color: #333;}
 #container-center{margin: 60px 0 0 60px;padding: 10px 24px 10px 24px;background-color: #303030;width:80%;}
 #container-center a{color: #0cc;}
 #container-center {color:#f8f8f8;}
+#container-center fieldset#email_all p{color:#000;}
 #no-cancellation{display: none;}
 #no-cancellation .warning {font-weight: bold; color: #c00;}
 #no-cancellation .phone {font-weight: bold;}

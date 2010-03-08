@@ -32,7 +32,13 @@ class UserMailer < ActionMailer::Base
   def initial_client_email(pro, client, email_text, email_signoff)
     setup_email(client)
     @from = pro.email
-    @body[:text] = email_text.gsub(/\n/, "<br/>")
+    @subject = "Book appointments with me online"
+    if client.first_name
+      text = "Dear #{client.first_name},<br/>"
+    else
+      text = "Hello,<br/>"
+    end
+    @body[:text] = text + email_text.gsub(/\n/, "<br/>")
     @body[:link] = practitioner_url(pro.permalink, :email => client.email )
     @body[:signoff] = email_signoff.gsub(/\n/, "<br/>")
     @body[:pro_first_name] = pro.first_name

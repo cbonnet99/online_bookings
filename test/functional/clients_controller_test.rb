@@ -73,11 +73,20 @@ class ClientsControllerTest < ActionController::TestCase
     assert_not_nil flash[:error]
   end
 
+  def test_create_multiple_with_name
+    sav = practitioners(:sav)
+    cyrille = clients(:cyrille)
+    old_size = sav.clients.size
+    post :create, {:emails => "\"David Savage\" <cbgt@test.com>, \"Cyrille Test\" <#{cyrille.email}>" }, {:pro_id => sav.id}
+    assert_redirected_to practitioner_clients_url(sav.permalink)
+    assert_equal old_size+1, sav.clients.size, "Only 1 client should be added, as Cyrille is already a client"
+  end
+
   def test_create_multiple
     sav = practitioners(:sav)
     cyrille = clients(:cyrille)
     old_size = sav.clients.size
-    post :create, {:emails => "cbgt@test.com #{cyrille.email}" }, {:pro_id => sav.id}
+    post :create, {:emails => "cbgt@test.com, #{cyrille.email}" }, {:pro_id => sav.id}
     assert_redirected_to practitioner_clients_url(sav.permalink)
     assert_equal old_size+1, sav.clients.size, "Only 1 client should be added, as Cyrille is already a client"
   end
@@ -89,7 +98,7 @@ class ClientsControllerTest < ActionController::TestCase
     
     old_mail_size = ActionMailer::Base.deliveries.size
     
-    post :create, {:emails => "cbgt@test.com #{cyrille.email}", :send_email => true, :email_text => "Hello,\n\nThis is my new booking site: ", :email_signoff => "Regards,"  }, {:pro_id => sav.id}
+    post :create, {:emails => "cbgt@test.com, #{cyrille.email}", :send_email => true, :email_text => "Hello,\n\nThis is my new booking site: ", :email_signoff => "Regards,"  }, {:pro_id => sav.id}
     assert_redirected_to practitioner_clients_url(sav.permalink)
     assert_equal old_size+1, sav.clients.size, "Only 1 client should be added, as Cyrille is already a client"
     assert_equal old_mail_size+1, ActionMailer::Base.deliveries.size

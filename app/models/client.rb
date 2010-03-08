@@ -1,7 +1,7 @@
 class Client < ActiveRecord::Base
   
   RE_EMAIL = /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
-  DEFAULT_EMAIL_TEXT = "Hello,\n\nYou can now book appointments with me online at ColibriApp.com by clicking on the following link:\n"
+  DEFAULT_EMAIL_TEXT = "You can now book appointments with me online at ColibriApp.com by clicking on the following link:\n"
   DEFAULT_EMAIL_SIGNOFF = "Regards,"
   
   has_many :bookings
@@ -10,7 +10,7 @@ class Client < ActiveRecord::Base
   has_many :practitioners, :through => :relations
   
   # new columns need to be added here to be writable through mass assignment
-  attr_accessible :email, :password, :password_confirmation, :phone_prefix, :phone_suffix
+  attr_accessible :email, :password, :password_confirmation, :phone_prefix, :phone_suffix, :name
   
   attr_accessor :password
   before_save :prepare_password, :cleanup_phone
@@ -25,7 +25,15 @@ class Client < ActiveRecord::Base
   MOBILE_SUFFIXES = ["021", "022", "027", "029"]
   FIXED_SUFFIXES = ["03", "04", "06", "07", "09"]
   PHONE_SUFFIXES = MOBILE_SUFFIXES + FIXED_SUFFIXES
-
+  
+  def name=(new_name)
+    unless new_name.nil?
+      split_names = new_name.split(' ')
+      self.first_name = split_names[0..split_names.size-2].join(" ")
+      self.last_name = split_names[split_names.size-1]
+    end
+  end
+  
   def update_booking(booking, hash_booking, current_client, current_selected_pro)
     booking.client_id = current_client.id
     booking.practitioner_id = current_selected_pro.id
