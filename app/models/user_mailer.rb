@@ -33,7 +33,7 @@ class UserMailer < ActionMailer::Base
     setup_email(client)
     @from = pro.email
     @body[:text] = email_text.gsub(/\n/, "<br/>")
-    @body[:link] = practitioner_url(pro.permalink)
+    @body[:link] = practitioner_url(pro.permalink, :email => client.email )
     @body[:signoff] = email_signoff.gsub(/\n/, "<br/>")
     @body[:pro_first_name] = pro.first_name
   end

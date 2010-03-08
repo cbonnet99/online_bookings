@@ -68,6 +68,17 @@ class PractitionersControllerTest < ActionController::TestCase
     assert_template 'show'
   end
     
+  def test_show_not_logged_in
+    get :show, {:id => practitioners(:sav).permalink}
+    assert_redirected_to lookup_form_url 
+  end
+    
+  def test_show_not_logged_in_with_email
+    client = Factory(:client)
+    get :show, {:id => practitioners(:sav).permalink, :email => client.email}
+    assert_redirected_to login_phone_url(:login => client.email)
+  end
+    
   def test_show_pro
     get :show, {:id => practitioners(:sav).permalink}, {:pro_id => practitioners(:sav).id }
     assert_template 'show'

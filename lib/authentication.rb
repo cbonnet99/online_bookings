@@ -41,9 +41,14 @@ module Authentication
     unless client_logged_in? || pro_logged_in?
       respond_to do |format|
         format.html do
-          flash[:error] = "Please enter your email address"
           store_target_location
-          redirect_to lookup_form_url
+          if params[:email]
+            flash[:error] = "Please enter your phone number"
+            redirect_to login_phone_url(:login => params[:email] )
+          else
+            flash[:error] = "Please enter your email address"
+            redirect_to lookup_form_url
+          end
         end
         format.json do
           flash[:error] = "Not authenticated as a client"
