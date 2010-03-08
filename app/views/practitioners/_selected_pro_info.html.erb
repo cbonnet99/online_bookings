@@ -1,3 +1,3 @@
 <% unless @current_selected_pro.nil? -%>
-	<div id="selected-pro-info">You are booking with: <%= link_to @current_selected_pro.name, @current_selected_pro%> | <%= link_to "Change", edit_selected_practitioner_url%> | <%= link_to "I don't want to book!", clear_selected_practitioner_url%></div>
+	<div id="selected-pro-info"><%= t(:practitioner_selected_pro_info_message)%><%= link_to @current_selected_pro.name, @current_selected_pro%> | <%= link_to t(:practitioner_selected_pro_info_change_link), edit_selected_practitioner_url%> | <%= link_to t(:practitioner_selected_pro_info_nobooking), clear_selected_practitioner_url%></div>
 <% end -%>

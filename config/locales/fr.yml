@@ -141,7 +141,7 @@ fr:
   # intro
     colibri_intro: "Avec Colibri, prenez rendez-vous quand vous voulez, d'où vous voulez. Un rappel vous sera envoyé automatiquement par email!"
     colibri_intro_book_appointment_button: Prendre rendez-vous
-    colibri_intro_health_professional: Vous êtes un professionnel?
+    colibri_intro_health_professional: Vous êtes un(e) professionnel(le)?
     colibri_intro_register_trial: Essayez Colibri gratuitement pendant 30 jours
    # header 
     colibri_header_register: Essayez Colibri gratuitement
@@ -149,15 +149,17 @@ fr:
     header_health_pro: Professionnels
     home: Accueil
     header_book_appointment: Prendre un rendez-vous
+    home_calendar_tab: "Calendrier"
+    home_clients_tab: "Clients"
    # client lookup form
     client_lookupform_title: "Etape 1: Entrez votre adresse email"
     client_lookupform_email_address: "Adresse email"
    # select_practicioner
     select_practicioner_title: "Choisissez un professionel"
-    select_practicioner_message: "Chossisez votre professionel:"
+    select_practicioner_message: "Choissisez votre professionel:"
     #client login info
-    login_info_logged_as: "Vous êtes connecté avec: "
-    login_info_edit_link: "Modifier"
+    login_info_logged_as: "Connecté(e) avec: "
+    login_info_edit_link: "Modifier vos infos perso"
     login_info_I_am_not: Je ne suis pas !"
     #login_phone
     login_phone_title: "Etape 2: Votre numéro de téléphone"
@@ -167,3 +169,27 @@ fr:
     login_phone_number: "Votre numéro de téléphone:"
     login_phone_number_changed: "Votre numéro a changé!"
     login_phone_book: "Prendre un rendez vous"
+    #session/new
+    session_new_title: "Connection"
+    session_new_remember: "J'ai oublié(e) mon mot de passe"
+    session_new_email: "Votre adresse email"
+    session_new_login: "Se connecter"
+    session_new_password: "Mot de passe"
+    #practitioner/login_info
+    practitioner_login_info_message: "Connecté(e) avec: "
+    practitioner_login_info_edit_link: "Modifier"
+    practitioner_login_info_logout_link: "Se déconnecter"
+    #practitioner/share-ical
+    practitioner_share_ical_message : "L'URL de votre Flux Ical est: "
+    practitioner_share_ical_stop : "Désactiver le flux Ical"
+    practitioner_share_ical_start : "Activer le flux Ical"
+    #practitioner/selected_pro_info
+    practitioner_selected_pro_info_message: "Votre professionel(le): "
+    practitioner_selected_pro_info_change_link: "Changer"
+    practitioner_selected_pro_info_nobooking: "Je ne veux pas réserver maintenant"
+    #clients/edit
+    clients_edit_title: "Modifier vos informations personelles" 
+    #Clients/_form
+    clients_form_email: "Votre adresse email"
+    clients_form_phone: "Votre téléphone (de préférence un portable):"
+    clients_form_change_button: "Modifier"   

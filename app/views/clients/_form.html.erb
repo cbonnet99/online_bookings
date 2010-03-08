@@ -1,12 +1,12 @@
 <% form_for @client do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :email, "Your email address:" %><br />
+    <%= f.label :email, t(:clients_form_email) %><br />
     <%= f.text_field :email %>
   </p>
   <p id="client-phone">
-     <%= f.label :phone, "Your phone number (preferably a mobile number):" %><br />
+     <%= f.label :phone, t(:clients_form_phone) %><br />
      <%= f.select :phone_prefix, @phone_prefixes %><%= f.text_field :phone_suffix, :size => 10, :maxlength => 10   %>
    </p>
-  <p><%= f.submit "Change" %></p>
+  <p><%= f.submit t(:clients_form_change_button) %></p>
 <% end %>
