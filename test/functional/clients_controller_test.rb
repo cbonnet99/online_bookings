@@ -2,6 +2,22 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ClientsControllerTest < ActionController::TestCase
 
+  def test_homepage
+    get :homepage
+    assert_response :success
+  end
+  
+  def test_index
+    pro = Factory(:practitioner)
+    get :index, {}, {:pro_id => pro.id}
+    assert_response :success
+  end
+  
+  def test_index_not_logged_in
+    get :index
+    assert_redirected_to login_url
+  end
+  
   def test_new
     get :new
     assert_response :success

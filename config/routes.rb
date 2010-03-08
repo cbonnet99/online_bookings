@@ -23,6 +23,7 @@ ActionController::Routing::Routes.draw do |map|
   map.forgotten_password 'forgotten_password', :controller => 'practitioners', :action => 'forgotten_password'
     
   #CLIENT
+  map.homepage 'homepage', :controller => 'clients', :action => 'homepage'
   map.edit_phone 'edit_phone', :controller => 'clients', :action => 'edit_phone'
   map.update_phone 'update_phone', :controller => 'clients', :action => 'update_phone'
   map.reset_phone 'reset_phone', :controller => 'clients', :action => 'reset_phone'
@@ -86,5 +87,5 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing or commenting them out if you're using named routes and resources.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
-  map.root :controller => 'clients', :action => 'index'
+  map.root :controller => 'clients', :action => 'homepage'
 end

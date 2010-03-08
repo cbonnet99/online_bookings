@@ -1,6 +1,6 @@
 class ClientsController < ApplicationController
   before_filter :login_required, :only => [:edit, :update, :name]
-  before_filter :pro_login_required, :only => [:destroy]
+  before_filter :pro_login_required, :only => [:destroy, :index]
 
   def destroy
     @client = current_pro.clients.find(params[:id])
@@ -25,17 +25,16 @@ class ClientsController < ApplicationController
     end
   end
 
+  def homepage
+    get_selected_practitioner
+    get_practitioners
+    # session[:return_to] = request.referer
+    render :layout => "home"    
+  end
+  
   def index
-    if pro_logged_in?
-      @selected_tab = "clients"
-      @clients = current_pro.clients.find(:all, :order => "first_name, last_name" )
-      render :template => "clients/index_pro" 
-    else
-      get_selected_practitioner
-      get_practitioners
-      # session[:return_to] = request.referer
-      render :layout => "home" 
-    end
+    @selected_tab = "clients"
+    @clients = current_pro.clients.find(:all, :order => "first_name, last_name" )
   end
   
   def edit
