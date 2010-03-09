@@ -1,16 +1,16 @@
 <% javascript "login_pro"%>
-<% title "Login" %>
+<% title t(:session_new_title) %>
 
-<p><%= link_to "I can't remember my password", forgotten_password_path %></p>
+<p><%= link_to t(:session_new_remember), forgotten_password_path %></p>
 
 <% form_tag sessions_path do %>
   <p>
-    <%= label_tag :email, "Your email address" %><br />
+    <%= label_tag :email, t(:session_new_email) %><br />
     <%= text_field_tag :email, params[:email] %>
   </p>
   <p>
-    <%= label_tag :password %><br />
+    <%= label_tag t(:session_new_password) %><br />
     <%= password_field_tag :password %>
   </p>
-  <p><%= submit_tag "Log in" %></p>
+  <p><%= submit_tag t(:session_new_login) %></p>
 <% end %>
