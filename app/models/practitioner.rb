@@ -42,6 +42,7 @@ class Practitioner < ActiveRecord::Base
   
   TITLE_FOR_NON_WORKING = "Booked"
   WORKING_DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+  #WORKING_DAYS = Date::DAY_NAMES
   
   def set_working_days
     if working_days.blank? && !WORKING_DAYS.map{|day| self.send("working_day_#{day}".to_sym)}.select{|value| value == true || value.to_s == "1"}.blank?

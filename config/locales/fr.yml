@@ -132,7 +132,11 @@ fr:
           less_than_or_equal_to: "doit être inférieur ou égal à {{count}}"
           odd: "doit être impair"
           even: "doit être pair"
-          record_invalid: "La validation a échoué : {{errors}}"    
+          record_invalid: "La validation a échoué : {{errors}}"
+  #flash
+    flash_error_invalid_email: "Votre addresse email n'est pas valide: vérifiez qu'il be manque pas un (.) ou le signe @ ?"
+    flash_error_cant_find_email: "Nous ne trouvons pas votre adresse email dans notre base de donnée, veuillez vous enregistrer"
+    flash_error_session_invalid_login_password: "Votre mot de passe ou votre address email est invalide."
   # colibri app
   # main keyword
   # button
@@ -192,4 +196,19 @@ fr:
     #Clients/_form
     clients_form_email: "Votre adresse email"
     clients_form_phone: "Votre téléphone (de préférence un portable):"
-    clients_form_change_button: "Modifier"   
+    clients_form_change_button: "Modifier"
+    #Practitioner/new
+    practitioner_new_title: "Créer un compte (Gratuit pendant 30 jours)"
+    practitioner_new_message1: "Vous avez déjà un compte?"
+    practitioner_new_login_link: "Se connecter"
+    practitioner_new_first_name: "Prénom:"
+    practitioner_new_last_name: "Nom:"
+    practitioner_new_email: "Votre addresse email:"
+    practitioner_new_phone: "Votre numéro de téléphone:"
+    practitioner_new_nocancellation: "Période pendant laquelle un rendez vous ne peut plus être annulé en ligne:"
+    practitioner_new_worked_days: "Que jours travaillez vous?"
+    practitioner_new_working_hours: "Entrez vos heures de travail hebdomadaires? (Utilisez un format de 0 à 24h. Par exemple, si vous travaillez de 8h à 12h, et 13h de à 18h, entrez: 8-12,13-18)"
+    practitioner_new_hours: "heures"
+    practitioner_new_password: "Mot de passe"
+    practitioner_new_confirm_password: "Confirmez votre mot de passe"
+    practitioner_new_register_button: "Créer votre compte"   
