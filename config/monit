@@ -1,0 +1,3 @@
+check process delayed_job with pidfile /var/rails/online_bookings/shared/pids/delayed_job.pid
+start program = "/var/rails/online_bookings/current/script/delayed_job -e production start"
+stop program = "/var/rails/online_bookings/current/script/delayed_job -e production stop"

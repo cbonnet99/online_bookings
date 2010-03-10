@@ -88,7 +88,7 @@ class Practitioner < ActiveRecord::Base
             else
               client = self.clients.create(:email => email, :name => name)
             end
-            UserMailer.deliver_initial_client_email(self, client, email_text, email_signoff) if send_email
+            UserMailer.send_later :deliver_initial_client_email, self, client, email_text, email_signoff if send_email
           end
         end
       else

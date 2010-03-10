@@ -33,7 +33,7 @@ class UserMailer < ActionMailer::Base
     setup_email(client)
     @from = pro.email
     @subject = "Book appointments with me online"
-    if client.first_name
+    if !client.first_name.blank?
       text = "Dear #{client.first_name},<br/>"
     else
       text = "Hello,<br/>"
