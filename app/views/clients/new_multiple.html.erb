@@ -16,5 +16,5 @@
 	  <p><%= text_area_tag :email_signoff, params[:email_signoff] || Client::DEFAULT_EMAIL_SIGNOFF, :cols => "80", :rows => "5"  %></p>
 	  <%= current_pro.first_name%>
 	</fieldset>
-  <p><%= submit_tag "Add" %></p>
+  <p><%= submit_tag "Add", :class => "button submit" %></p>
 <%end -%>

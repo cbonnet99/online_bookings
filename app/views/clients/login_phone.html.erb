@@ -11,5 +11,5 @@
     <%= @client.phone_without_last4digits %><%= password_field_tag :phone_last4digits, "", :size => 4, :maxlength => 4  %>
   </p>
   <p><%= link_to t(:login_phone_number_changed), edit_phone_path(:login => params[:login]) %></p>
-  <p><%= submit_tag t(:login_phone_book) %></p>
+  <p><%= submit_tag t(:login_phone_book), :class => "button submit" %></p>
 <% end %>

@@ -1,1 +1,1 @@
-<% form_tag update_selected_practitioner_url do%><%= select_tag "practitioner_id", options_for_select(@practitioners.map{|p| [p.name, p.id]}, @current_selected_pro.try(:id))%><%= submit_tag submit_text%><% end%>
+<% form_tag update_selected_practitioner_url do%><%= select_tag "practitioner_id", options_for_select(@practitioners.map{|p| [p.name, p.id]}, @current_selected_pro.try(:id))%><%= submit_tag submit_text, :id => "select_pro_submit", :class => "button submit" %><% end%>

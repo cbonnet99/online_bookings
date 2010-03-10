@@ -14,5 +14,5 @@
 	<%= select_tag :phone_prefix, options_for_select(@phone_prefixes) %><%= text_field_tag :phone_suffix, "", :size => 10, :maxlength => 10   %>
   </p>
   <p><%= link_to "I can't remember my old phone number", request_reset_phone_url(:email => params[:login] )%></p>
-  <p><%= submit_tag "Change my phone number" %></p>
+  <p><%= submit_tag "Change my phone number", :class => "button submit" %></p>
 <% end %>

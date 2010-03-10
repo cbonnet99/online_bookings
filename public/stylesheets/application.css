@@ -1,3 +1,7 @@
+button {background: url(../images/inputBg.png) repeat-x;font-weight:bold;height:30px;padding:0 10px;border-color:#CCCCCC #999999 #999999 #CCCCCC;border-style:double;color:#333333;cursor:pointer;font-size:11px;margin-right:2px;overflow:visible;width:auto;}
+button:hover {background:#090; }
+input.button {background: url(../images/inputBg.png) repeat-x;font-weight:bold;height:30px;padding:0 10px;border-color:#CCCCCC #999999 #999999 #CCCCCC;border-style:double;color:#333333;cursor:pointer;font-size:11px;margin-right:2px;overflow:visible;width:auto;}
+input.submit:hover {background:#090; }
 div#errorExplanation li{color: #333;}
 #logo{float: left;}
 #logged-client-name, #logged-pro-name{color: #f8f8f8;}
@@ -32,6 +36,10 @@ ul#clients {padding:0;}
 div#book-appointment{background-color: #c33; color: #f8f8f8; width: 140px; padding: 10px; text-align: center;float: left;}
 div#book-appointment a{color: #f8f8f8; font-weight: bold; font-size: 16px; text-decoration: none;}
 div#book-appointment a:hover{text-decoration: underline;}
+/******************************************/
+
+/************** client edit selected ******************/
+input#select_pro_submit  {margin-left: 10px;}
 /******************************************/
 
 /************** client SHOW ******************/
