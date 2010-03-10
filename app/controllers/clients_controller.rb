@@ -46,7 +46,8 @@ class ClientsController < ApplicationController
   def request_reset_phone
     @client = Client.find_by_email(params[:email])
     if @client.nil?
-      flash[:notice] = "We can not find your email address in our records, please register with us"
+     #flash[:notice] = "We can not find your email address in our records, please register with us"
+       flash[:notice] = t(:flash_error_cant_find_email)
       redirect_to signup_url(:email => params[:email] )
     else
       @client.send_reset_phone_link
@@ -124,7 +125,7 @@ class ClientsController < ApplicationController
         flash[:notice]="To book your first appointment, please enter your phone number"
         redirect_to signup_url(:email => params[:client]["email"])
       else
-        flash[:error] = "The email address is not valid: maybe you are missing a dot(.) or the @ sign?"
+        flash[:error] = t(:flash_error_invalid_email)
         redirect_to lookup_form_url(:email =>  params[:client]["email"])
       end
     else

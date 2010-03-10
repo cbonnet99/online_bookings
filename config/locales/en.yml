@@ -1,5 +1,10 @@
 en:
- #button       
+  date:
+    day_names: [ Monday1, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday,]
+  flash_error_cant_find_email: "We can not find your email address in our records, please register with us"
+  flash_error_invalid_email: "The email address is not valid: maybe you are missing a dot(.) or the @ sign?"
+  flash_error_session_invalid_login_password: "Invalid login or password."
+  #button       
   select_button: "Select"
   enter_button: "Enter"
  #intro
@@ -57,3 +62,20 @@ en:
   clients_form_email: "Your email address:"
   clients_form_phone: "Your phone number (preferably a mobile number):"
   clients_form_change_button: "Change"
+  #Practitioner/new
+  practitioner_new_title: "Register for a free trial"
+  practitioner_new_message1: "Already have an account?"
+  practitioner_new_login_link: "Log in"
+  practitioner_new_first_name: "Your first name:"
+  practitioner_new_last_name: "Your last name:"
+  practitioner_new_email: "Your mail address:"
+  practitioner_new_phone: "Your phone number:"
+  practitioner_new_nocancellation: "No cancellation period:"
+  practitioner_new_worked_days: "What days do you work?"
+  practitioner_new_working_hours: "What are your working hours? (please use 24 hour times. For instance, if you work from 8am to 12pm, and then from 1pm to 6pm, enter below: 8-12,13-18)"
+  practitioner_new_hours: "hours"
+  practitioner_new_password: "Password"
+  practitioner_new_confirm_password: "Confirm Password"
+  practitioner_new_register_button: "Register"
+  
+  

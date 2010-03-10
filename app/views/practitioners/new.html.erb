@@ -1,31 +1,31 @@
-<% title "Register for a free trial" %>
+<% title t(:practitioner_new_title) %>
 
-<p>Already have an account? <%= link_to "Log in", login_path %>.</p>
+<p><%= t(:practitioner_new_message1)%> <%= link_to t(:practitioner_new_login_link), login_path %>.</p>
 
 <% form_for @practitioner do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :email, "Your first name:" %><br />
+    <%= f.label :email, t(:practitioner_new_first_name) %><br />
     <%= f.text_field :first_name %>
   </p>
   <p>
-    <%= f.label :email, "Your last name:" %><br />
+    <%= f.label :email, t(:practitioner_new_last_name) %><br />
     <%= f.text_field :last_name %>
   </p>
   <p>
-    <%= f.label :email, "Your mail address:" %><br />
+    <%= f.label :email, t(:practitioner_new_email) %><br />
     <%= f.text_field :email %>
   </p>
   <p>
-    <%= f.label :phone, "Your phone number:" %><br />
+    <%= f.label :phone, t(:practitioner_new_phone) %><br />
     <%= f.text_field :phone %>
   </p>
   <p>
-    <%= f.label :no_cancellation_period_in_hours, "No cancellation period:" %><br />
-    <%= f.text_field :no_cancellation_period_in_hours, :size => "2"  %> hours
+    <%= f.label :no_cancellation_period_in_hours, t(:practitioner_new_nocancellation) %><br />
+    <%= f.text_field :no_cancellation_period_in_hours, :size => "2"  %> <%= t(:practitioner_new_hours) %>
   </p>
   <p>
-    <%= f.label :working_days, "What days do you work?" %><br />
+    <%= f.label :working_days, t(:practitioner_new_worked_days) %><br />
 	<ul id="working_days_list">
 	<% @days_in_week.each_with_index do |day, index| -%>
     	<li><%= f.check_box "working_day_#{day}".to_sym, :checked => (index<5) %><label for="practitioner_working_day_<%=day%>"><%=day.capitalize%></label></li>
@@ -33,16 +33,16 @@
 	</ul>
   </p>
   <p>
-    <%= f.label :working_hours, "What are your working hours? (please use 24 hour times. For instance, if you work from 8am to 12pm, and then from 1pm to 6pm, enter below: 8-12,13-18)" %><br />
+    <%= f.label :working_hours, t(:practitioner_new_working_hours) %><br />
     <%= f.text_field :working_hours %>
   </p>
   <p>
-    <%= f.label :password %><br />
+    <%= f.label t(:practitioner_new_password) %><br />
     <%= f.password_field :password %>
   </p>
   <p>
-    <%= f.label :password_confirmation, "Confirm Password" %><br />
+    <%= f.label :password_confirmation, t(:practitioner_new_confirm_password) %><br />
     <%= f.password_field :password_confirmation %>
   </p>
-  <p><%= f.submit "Register" %></p>
+  <p><%= f.submit t(:practitioner_new_register_button) %></p>
 <% end %>

@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
       redirect_to practitioner_url(pro)
       # redirect_to_target_or_default(pro)
     else
-      flash.now[:error] = "Invalid login or password."
+      flash.now[:error] = t(:flash_error_session_invalid_login_password)
       render :action => 'new'
     end
   end
