@@ -77,5 +77,27 @@ en:
   practitioner_new_password: "Password"
   practitioner_new_confirm_password: "Confirm Password"
   practitioner_new_register_button: "Register"
-  
+  #Client/new
+  client_new_title: "Step 2: your phone number"
+  client_new_message: "Please enter your phone number"
+  client_new_email: "Your email address: "
+  client_new_change_link: "change"
+  client_new_phone: "Your phone number (preferably a mobile number):"
+  client_new_book_button: "Book an appointment"
+  #client/new_multiple
+  client_new_multiple_title: "Add clients"
+  client_new_multiple_message1: "To add clients, simply enter their email addresses below:"
+  client_new_multiple_send_email: "Send them an email"
+  client_new_multiple_sample: "You can enter multiple email addresses, separated by commas (for example: jsmith@gmail.com, jhernandez@yahoo.com).<br/> You can also specify your clients' names along with their email addresses (for example: &quot;Jane Smith&quot; &lt;jsmith@gmail.com&gt;, &quot;Joe Hernandez&quot; &lt;jhernandez@yahoo.com&gt;)"
+  client_new_multiple_message2: "This is what will be sent:"
+  client_new_multiple_message3: "Dear [first name],"
+  client_new_multiple_add_button: "Add"
+  client_default_email_signoff: "Regards,"
+  client_default_email: "You can now book appointments with me online at ColibriApp.com by clicking on the following link:\n"
+  #client/index
+  client_index_title: "Your clients"
+  client_index_message: "You have no clients for the moment. You can"
+  client_index_add_link: "add clients"
+  client_index_message1: "at any time."
+  client_index_add_more: "Add more"
   

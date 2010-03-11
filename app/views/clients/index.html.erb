@@ -1,8 +1,8 @@
-<% title "Your clients"%>
+<% title t(:client_index_title) %>
 <%if @clients.blank? -%>
-You have no clients for the moment. You can <%= link_to "add clients", new_practitioner_client_url(:practitioner_id => current_pro.permalink)%> at any time.
+<%= t(:client_index_message) %> <%= link_to t(:client_index_add_link), new_practitioner_client_url(:practitioner_id => current_pro.permalink)%> <%= t(:client_index_message1)%>
 <%else -%>
-<%= link_to "Add more", new_practitioner_client_url(:practitioner_id => current_pro.permalink)%>
+<%= link_to t(:client_index_add_more), new_practitioner_client_url(:practitioner_id => current_pro.permalink)%>
 <ul id="clients">
 <% @clients.each do |c| -%>
 	<li class="<%= cycle('odd', 'even')%>"><%= render :partial => "clients/row", :locals => {:client => c}  %></li>

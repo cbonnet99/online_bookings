@@ -1,7 +1,7 @@
 class ClientsController < ApplicationController
   before_filter :login_required, :only => [:edit, :update, :name]
   before_filter :pro_login_required, :only => [:destroy, :index]
-
+  
   def destroy
     @client = current_pro.clients.find(params[:id])
     if @client.nil?

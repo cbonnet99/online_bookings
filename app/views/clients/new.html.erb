@@ -1,16 +1,16 @@
-<% title "Step 2: your phone number" %>
+<% title t(:client_new_title) %>
 <% javascript "new-client"%>
 
 <% form_for @client do |f| %>
  <%= f.error_messages %>
-  <p>Please enter your phone number</p>
+  <p><%= t(:client_new_message)%></p>
   <p>
-    Your email address: <%= @client.email %> (<%= link_to "change", lookup_form_url%>)
+   <%= t(:client_new_email)%><%= @client.email %> (<%= link_to t(:client_new_change_link), lookup_form_url%>)
 	<%= f.hidden_field :email%>
   </p>
   <p id="client-phone">
-     <%= f.label :phone, "Your phone number (preferably a mobile number):" %><br />
+     <%= f.label :phone, t(:client_new_phone) %><br />
      <%= f.select :phone_prefix, @phone_prefixes %><%= f.text_field :phone_suffix, :size => 10, :maxlength => 10   %>
    </p>
-  <p><%= f.submit "Book an appointment >" %></p>
+  <p><%= f.submit t(:client_new_book_button) %></p>
 <% end %>

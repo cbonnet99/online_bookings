@@ -1,20 +1,19 @@
 <% javascript 'add-clients'%>
-<% title "Add clients"%>
-<p>To add clients, simply enter their email addresses below:</p>
-<p class="optional">You can enter multiple email addresses, separated by commas (for example: jsmith@gmail.com, jhernandez@yahoo.com).<br/>
-	You can also specify your clients' names along with their email addresses (for example: &quot;Jane Smith&quot; &lt;jsmith@gmail.com&gt;, &quot;Joe Hernandez&quot; &lt;jhernandez@yahoo.com&gt;)</p>
+<% title t(:client_new_multiple_title)%>
+<p><%= t(:client_new_multiple_message1)%> </p>
+<p class="optional"><%= t(:client_new_multiple_sample)%></p>
 <% form_tag practitioner_clients_url do %>
   <p>
     <%= text_area_tag :emails, params[:emails], :cols => "80", :rows => "5"   %>
   </p>
-  <p><%= check_box_tag :send_email, 'yes', params[:send_email].nil? ? true : params[:send_email] %>Send them an email</p>
+  <p><%= check_box_tag :send_email, 'yes', params[:send_email].nil? ? true : params[:send_email] %><%= t(:client_new_multiple_send_email)%></p>
   <fieldset id="email_all">
-	  <p>This is what will be sent:</p>
-	  <p>Dear [first name],</p>
-	  <p><%= text_area_tag :email_text, params[:email_text] || Client::DEFAULT_EMAIL_TEXT, :cols => "80", :rows => "10"  %></p>
+	  <p><%= t(:client_new_multiple_message2) %></p>
+	  <p><%= t(:client_new_multiple_message3) %></p>
+	  <p><%= text_area_tag :email_text, params[:email_text] || t(:client_default_email), :cols => "80", :rows => "10"  %></p>
 	  <%= link_to practitioner_url(current_pro.permalink), practitioner_url(current_pro.permalink) %>
-	  <p><%= text_area_tag :email_signoff, params[:email_signoff] || Client::DEFAULT_EMAIL_SIGNOFF, :cols => "80", :rows => "5"  %></p>
+	  <p><%= text_area_tag :email_signoff, params[:email_signoff] || t(:client_default_email_signoff) , :cols => "80", :rows => "5"  %></p>
 	  <%= current_pro.first_name%>
 	</fieldset>
-  <p><%= submit_tag "Add", :class => "button submit" %></p>
+  <p><%= submit_tag t(:client_new_multiple_add_button), :class => "button submit" %></p>
 <%end -%>
