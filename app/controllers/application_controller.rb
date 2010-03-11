@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
       if @current_selected_pro.nil?
         respond_to do |format|
           format.json do
-            flash[:error] = "No selected practitioner"
+            flash[:error] = t(:flash_error_session_not_selected_pro) 
             redirect_to flash_url
           end
           format.html do

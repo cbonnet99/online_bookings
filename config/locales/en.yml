@@ -1,23 +1,59 @@
 en:
   date:
     day_names: [ Monday1, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday,]
-  flash_error_cant_find_email: "We can not find your email address in our records, please register with us"
-  flash_error_invalid_email: "The email address is not valid: maybe you are missing a dot(.) or the @ sign?"
+  #flash message
+  #practicioner
+  flash_error_practitioner_not_found: "Could not find this practitioner"
+  flash_notice_practitioner_visualize_ical: "You can now visualize your calendar in iCal"
+  flash_notice_practitioner_thanks_signup: "Thank you for signing up! You are now logged in."
+  #application
+  flash_error_session_not_selected_pro: "No selected practitioner"
+  #session
+  flash_notice_session_welcome: "Welcome to #{APP_CONFIG[:site_name]}"
   flash_error_session_invalid_login_password: "Invalid login or password."
+  flash_notice_session_logout: "You have been logged out."
+  #client
+  flash_error_client_invalid_client: "Invalid client"
+  flash_notice_client_client_deleted: "Client deleted"
+  flash_notice_client_info_change: "Your information was changed"  
+  flash_notice_client_client_info_change: "Client information was changed"
+  flash_error_client_error_saving : "Error while saving information"
+  flash_notice_client_cant_find_email_in_db : "We can not find your email address in our records, please register with us"
+  flash_notice_cant_find_email: "We can not find your email address in our records, please register with us"
+  flash_notice_client_email_sent: "We've sent you an email"
+  flash_notice_client_enter_new_phone : "Please enter a new phone number"
+  flash_error_client_problem_reset_code : "Sorry, there is a problem with your reset code. Please contact us at "
+  flash_error_client_enter_new_phone_upper : "Please enter a NEW phone number"
+  flash_notice_client_phone_changed : "Your phone number has been changed"
+  flash_error_client_errors_saving_phone : "There were some errors while saving your phone number: "
+  flash_error_client_phone_mismatch : "Sorry, the numbers do not match. Please try again."
+  flash_notice_client_welcome_back : "Welcome back!"
+  flash_notice_client_book_enter_phone: "To book your first appointment, please enter your phone number"
+  flash_error_invalid_email: "The email address is not valid: maybe you are missing a dot(.) or the @ sign?"
+  flash_notice_client_enter_4_digit : "Welcome back, please enter the last 4 digits of your phone number"
+  flash_warning_client_phone_empty: "Our records show that your phone number is empty: we have sent you an email with a link to reset your phone number."
+  flash_notice_client_can_book : "You can now book your appointment"
+  flash_error_client_try_again : "Sorry, the numbers do not match. Please try again."
+  flash_error_client_email_not_empty : "Email addresses can not be empty"
+  flash_error_client_some_emails_invalid : "Some email addresses are invalid: "
+  flash_notice_client_clients_added : "Clients were added"
+  flash_error_client_must_be_logged_in : "You must be logged in"
+  flash_notice_client_can_book_now : "You can now book your appointment"
+  flash_error_client_email_cant_register : "This email address can not be registered"
   #button       
   select_button: "Select"
   enter_button: "Enter"
  #intro
-  colibri_intro: With Colibri, book an appointment with your health practitioner at anytime, from anywhere. And you get an automatic reminder via email!
-  colibri_intro_book_appointment_button: Book an appointment
-  colibri_intro_health_professional: Health professional?
-  colibri_intro_register_trial: Register for a free 30 day trial
+  colibri_intro: "With Colibri, book an appointment with your health practitioner at anytime, from anywhere. And you get an automatic reminder via email!"
+  colibri_intro_book_appointment_button: "Book an appointment"
+  colibri_intro_health_professional: "Health professional?"
+  colibri_intro_register_trial: "Register for a free 30 day trial"
  #header 
-  colibri_header_register: Register for a free trial
-  login: Login
-  header_health_pro: Health professionals
-  home: Home
-  header_book_appointment: Book an appointment
+  colibri_header_register: "Register for a free trial"
+  login: "Login"
+  header_health_pro: "Health professionals"
+  home: "Home"
+  header_book_appointment: "Book an appointment"
   home_calendar_tab: "Calendar"
   home_clients_tab: "Clients"
   #client lookup form
@@ -29,7 +65,7 @@ en:
   #client login info
   login_info_logged_as: "You are logged in as: "
   login_info_edit_link: "Edit"
-  login_info_I_am_not: "I am not !"
+  login_info_I_am_not: "I am not"
   #login_phone
   login_phone_title: "Step 2: your phone number"
   login_phone_message: "Please enter the last 4 digits of your phone number"

@@ -1,4 +1,4 @@
 <% if client_logged_in? -%>
 	<div id="client-login-info" class="login-info"><%= t(:login_info_logged_as)%><span id="logged-client-name"><%= current_client.default_name%></span>&nbsp;
-	<%= link_to t(:login_info_edit_link), edit_client_url(current_client)%> | <%= link_to "I am not #{current_client.first_name_or_email}!", logout_url%></div>
+	<%= link_to t(:login_info_edit_link), edit_client_url(current_client)%> | <%= link_to t(:login_info_I_am_not) + "#{current_client.first_name_or_email}!", logout_url%></div>
 <% end -%>

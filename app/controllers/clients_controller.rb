@@ -5,10 +5,10 @@ class ClientsController < ApplicationController
   def destroy
     @client = current_pro.clients.find(params[:id])
     if @client.nil?
-      flash[:error] = "Invalid client"
+      flash[:error] = t(:flash_error_client_invalid_client) 
     else
       current_pro.clients.delete(@client)
-      flash[:notice] = "Client deleted"
+      flash[:notice] = t(:flash_notice_client_client_deleted)
     end
     redirect_to practitioner_clients_url(current_pro.permalink)
   end
@@ -16,10 +16,10 @@ class ClientsController < ApplicationController
   def update
     @client = current_pro.nil? ? current_client : current_pro.clients.find(params[:id])
     if @client.update_attributes(params[:client])
-      flash[:notice] = current_pro.nil? ? "Your information was changed" : "Client information was changed"
+      flash[:notice] = current_pro.nil? ? t(:flash_notice_client_info_change) : t(:flash_notice_client_client_info_change)
       redirect_to edit_client_url(@client)
     else
-      flash[:error] = "Error while saving information"
+      flash[:error] = t(:flash_error_client_error_saving)
       @phone_prefixes = Client::PHONE_SUFFIXES
       render :action => "edit" 
     end
@@ -46,12 +46,12 @@ class ClientsController < ApplicationController
   def request_reset_phone
     @client = Client.find_by_email(params[:email])
     if @client.nil?
-     #flash[:notice] = "We can not find your email address in our records, please register with us"
-       flash[:notice] = t(:flash_error_cant_find_email)
+     #flash[:notice] = t(:flash_notice_client_cant_find_email_in_db)
+       flash[:notice] = t(:flash_notice_cant_find_email)
       redirect_to signup_url(:email => params[:email] )
     else
       @client.send_reset_phone_link
-      flash[:notice] = "We've sent you an email"
+      flash[:notice] = t(:flash_notice_client_email_sent)
     end
   end
 
@@ -59,9 +59,9 @@ class ClientsController < ApplicationController
     reset_code = params[:reset_code]
     @client = Client.find_by_email(params[:email])
     if reset_code == @client.reset_code
-      flash[:notice] = "Please enter a new phone number"
+      flash[:notice] = t(:flash_notice_client_enter_new_phone)
     else
-      flash[:error] = "Sorry, there is a problem with your reset code. Please contact us at #{APP_CONFIG[:contact_email]}"
+      flash[:error] = t(:flash_error_client_problem_reset_code) + "#{APP_CONFIG[:contact_email]}"
       redirect_to root_url
     end
   end
@@ -77,7 +77,7 @@ class ClientsController < ApplicationController
 
   def update_phone
     if params[:phone_suffix].blank?
-      flash[:error] = "Please enter a NEW phone number"
+      flash[:error] = t(:flash_error_client_enter_new_phone_upper)
       redirect_to edit_phone_url(:login => params["login"] )
     else
       @client = Client.find_by_email(params["login"])
@@ -86,14 +86,14 @@ class ClientsController < ApplicationController
         @client.phone_suffix = params[:phone_suffix]
         if @client.save
           session[:client_id] = @client.id
-          flash[:notice] = "Your phone number has been changed"
+          flash[:notice] = t(:flash_notice_client_phone_changed)
           redirect_to @client
         else
-          flash[:error] = "There were some errors while saving your phone number: #{@client.errors.full_messages.to_sentence}"
+          flash[:error] = t(:flash_error_client_errors_saving_phone) + "#{@client.errors.full_messages.to_sentence}"
           redirect_to edit_phone_url(:login => params["login"] )
         end
       else
-        flash[:error] = "Sorry, the numbers do not match. Please try again."
+        flash[:error] = t(:flash_error_client_phone_mismatch)
         redirect_to edit_phone_url(:login => params["login"] )
       end
     end
@@ -111,7 +111,7 @@ class ClientsController < ApplicationController
   
   def lookup_form
     if client_logged_in?
-      flash[:notice] = "Welcome back!"
+      flash[:notice] = t(:flash_notice_client_welcome_back)
       redirect_to root_url
     else
       @client = Client.new(:email => params["email"])
@@ -122,14 +122,14 @@ class ClientsController < ApplicationController
     @client = Client.find_by_email(params[:client]["email"])
     if @client.nil?
       if Client.valid_email?(params[:client]["email"])
-        flash[:notice]="To book your first appointment, please enter your phone number"
+        flash[:notice]= t(:flash_notice_client_book_enter_phone)
         redirect_to signup_url(:email => params[:client]["email"])
       else
         flash[:error] = t(:flash_error_invalid_email)
         redirect_to lookup_form_url(:email =>  params[:client]["email"])
       end
     else
-      flash[:notice]="Welcome back, please enter the last 4 digits of your phone number"
+      flash[:notice]= t(:flash_notice_client_enter_4_digit)
       redirect_to login_phone_url(:login => params[:client]["email"])
     end
   end
@@ -138,7 +138,7 @@ class ClientsController < ApplicationController
     @client = Client.find_by_email(params[:login])
     cookies[:email] = @client.email unless @client.nil?
     if @client.no_phone_number?
-      flash[:warning] = "Our records show that your phone number is empty: we have sent you an email with a link to reset your phone number."
+      flash[:warning] = t(:flash_warning_client_phone_empty)
       @client.send_reset_phone_link
       redirect_to root_url
     end
@@ -148,10 +148,10 @@ class ClientsController < ApplicationController
     @client = Client.find_by_email(params[:login])
     if @client.check_phone_first_4digits(params[:phone_last4digits])
       session[:client_id] = @client.id
-      flash[:notice] = "You can now book your appointment"
+      flash[:notice] = t(:flash_notice_client_can_book)
       redirect_to session[:return_to] || root_url
     else
-      flash[:error] = "Sorry, the numbers do not match. Please try again."
+      flash[:error] = t(:flash_error_client_try_again)
       redirect_to login_phone_url(:login => params["login"] )
     end
   end
@@ -162,11 +162,11 @@ class ClientsController < ApplicationController
         begin
           current_pro.add_clients(params[:emails], params[:send_email], params[:email_text], params[:email_signoff])
         rescue BlankEmailsException
-          flash[:error] = "Email addresses can not be empty"
+          flash[:error] = t(:flash_error_client_email_not_empty)
         rescue InvalidEmailsException => e
-          flash[:error] = "Some email addresses are invalid: #{e.message}"
+          flash[:error] = t(:flash_error_client_some_emails_invalid) + "#{e.message}"
         else
-          flash[:notice] = "Clients were added"
+          flash[:notice] = t(:flash_notice_client_clients_added)
         end
         if flash[:error].blank?
           redirect_to practitioner_clients_url(current_pro.permalink)
@@ -175,18 +175,18 @@ class ClientsController < ApplicationController
           redirect_to new_practitioner_client_url(current_pro.permalink, :emails => params[:emails], :send_email => params[:send_email], :email_text => params[:email_text], :email_signoff => params[:email_signoff])
         end
       else
-        flash[:error] = "You must be logged in"
+        flash[:error] = t(:flash_error_client_must_be_logged_in)
         redirect_to login_url
       end
     else
       @client = Client.new(params[:client])
       if @client.save
         session[:client_id] = @client.id
-        flash[:notice] = "You can now book your appointment"
+        flash[:notice] = t(:flash_notice_client_can_book_now)
         redirect_to session[:return_to] || @client
       else
         get_phone_prefixes
-        flash[:error] = "This email address can not be registered"
+        flash[:error] = t(:flash_error_client_email_cant_register)
         render :action => 'new'
       end
     end
