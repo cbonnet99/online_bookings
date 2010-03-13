@@ -140,10 +140,13 @@ class Booking < ActiveRecord::Base
   
   def start_date_and_time_str
     "on #{self.start_date_str} at #{self.start_time_str}"
+    #t(:date_and_time, :start_date => "#{self.start_date_str}" , :start_time => "#{self.start_time_str}")
+    
   end
   
   def start_date_str
     "#{self.starts_at.strftime('%A %d %B %Y')}"
+    
   end
   
   def start_time_str

@@ -43,15 +43,15 @@ module Authentication
         format.html do
           store_target_location
           if params[:email]
-            flash[:error] = "Please enter your phone number"
+            flash[:error] = t(:flash_error_authentication_enter_phone)
             redirect_to login_phone_url(:login => params[:email] )
           else
-            flash[:error] = "Please enter your email address"
+            flash[:error] = t(:flash_error_authentication_enter_email)
             redirect_to lookup_form_url
           end
         end
         format.json do
-          flash[:error] = "Not authenticated as a client"
+          flash[:error] = t(:flash_error_authentication_not_authent_client)
           redirect_to flash_url
         end
       end
@@ -60,7 +60,7 @@ module Authentication
   
   def pro_login_required
     unless pro_logged_in?
-      flash[:error] = "You must be logged in to see this page"
+      flash[:error] = t(:flash_error_authentication_must_be_logged)
       store_target_location
       redirect_to login_url
     end

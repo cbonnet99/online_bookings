@@ -21,6 +21,8 @@ fr:
         long: "%A %d %B %Y %H:%M:%S %Z"
         long_ordinal: "%A %d %B %Y %H:%M:%S %Z"
         only_second: "%S"
+        booking: "%A %d %B %Y"
+        
       am: 'am'
       pm: 'pm'
 
@@ -269,3 +271,11 @@ fr:
     client_index_add_link: "ajouter des clients"
     client_index_message1: "à n'importe quel moment."
     client_index_add_more: "Ajouter"
+    #authentication
+    flash_error_authentication_enter_phone : "Veuillez entrer votre numéro de téléphone"
+    flash_error_authentication_enter_email : "Veuillez entrer votre adresse email"
+    flash_error_authentication_not_authent_client : "Vous n'êtes pas authentifié(e)"
+    flash_error_authentication_must_be_logged : "Vous devez être connecté(e) pour pouvoir afficher cette page"
+    #booking
+    flash_notice_booking_appointment_booked : "Votre rendez-vous avec {{booking_partner}} {{booking_date}} a été enregistré"
+    date_and_time: "le {{start_date} à {{start_time}}"

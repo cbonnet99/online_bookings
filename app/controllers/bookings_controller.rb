@@ -21,7 +21,7 @@ class BookingsController < ApplicationController
       flash[:error] = "This appointment is invalid"
     else
       @booking.confirm!
-      flash[:notice] = "Appointment with #{@booking.partner_name(current_client, current_pro)} #{@booking.start_date_and_time_str} was confirmed"
+      flash[:notice] = "Appointment with 111  #{@booking.partner_name(current_client, current_pro)} #{@booking.start_date_and_time_str} was confirmed"
     end
   end
   
@@ -70,7 +70,11 @@ class BookingsController < ApplicationController
     @booking.client_id = client.try(:id)
     @booking.practitioner_id = pro.try(:id)
     if @booking.save
-      flash.now[:notice] = "Your appointment with #{@booking.partner_name(current_client, current_pro)} #{@booking.start_date_and_time_str} has been booked"
+      flash.now[:notice] = t(:flash_notice_booking_appointment_booked , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => "#{@booking.start_date_and_time_str}")
+      #flash.now[:notice] = t(:flash_notice_booking_appointment_booked , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date =>  l(Time.now, :format => :booking))
+       #flash.now[:notice] = t(:flash_notice_booking_appointment_booked , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date =>  Time.now)
+     
+     
     end
   end
   

@@ -136,4 +136,12 @@ en:
   client_index_add_link: "add clients"
   client_index_message1: "at any time."
   client_index_add_more: "Add more"
+  #lib/authentication
+  flash_error_authentication_enter_phone : "Please enter your phone number"
+  flash_error_authentication_enter_email : "Please enter your email address"
+  flash_error_authentication_not_authent_client : "Not authenticated as a client"
+  flash_error_authentication_must_be_logged : "You must be logged in to see this page"
+  #booking
+  flash_notice_booking_appointment_booked : "Your appointment with {{booking_partner}} {{booking_date}} has been booked"
+  date_and_time: "on {{start_date} at {{start_time}}"
   
