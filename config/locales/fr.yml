@@ -21,10 +21,11 @@ fr:
         long: "%A %d %B %Y %H:%M:%S %Z"
         long_ordinal: "%A %d %B %Y %H:%M:%S %Z"
         only_second: "%S"
-        booking: "%A %d %B %Y"
+        custo_date: "%A %d %B %Y"
+        timeampm: "%H:%M %p"
         
-      am: 'am'
-      pm: 'pm'
+      am: ''
+      pm: ''
 
     datetime:
       distance_in_words:
@@ -173,6 +174,20 @@ fr:
     flash_error_client_must_be_logged_in : "Vous devez préalablement vous connecter "
     flash_notice_client_can_book_now : "Vous pouvez maintenant prendre rendez-vous"
     flash_error_client_email_cant_register : "Cette adresse email ne peut pas être enregistrée"
+    #authentication
+    flash_error_authentication_enter_phone : "Veuillez entrer votre numéro de téléphone"
+    flash_error_authentication_enter_email : "Veuillez entrer votre adresse email"
+    flash_error_authentication_not_authent_client : "Vous n'êtes pas authentifié(e)"
+    flash_error_authentication_must_be_logged : "Vous devez être connecté(e) pour pouvoir afficher cette page"
+    #booking
+    flash_notice_booking_appointment_booked : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} a été enregistré"
+    flash_error_booking_invalid_appointment : "Ce rendez-vous n'est pas valide"
+    flash_notice_booking_appointment_cancelled : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} a été annulé"
+    flash_notice_booking_confirmed : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} est confirmé"
+    flash_error_booking_couldnot_find_practitioner : "Nous n'avons pas trouvé votre professionel(le)"
+    flash_error_booking_appointment_not_found : "Nous avons pas trouvé ce rendez-vous"
+    flash_notice_booking_appointment_changed : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} a été modifié"
+    flash_notice_booking_appointment_removed : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} a été effacé"
   # colibri app
   # main keyword
   # button
@@ -271,11 +286,4 @@ fr:
     client_index_add_link: "ajouter des clients"
     client_index_message1: "à n'importe quel moment."
     client_index_add_more: "Ajouter"
-    #authentication
-    flash_error_authentication_enter_phone : "Veuillez entrer votre numéro de téléphone"
-    flash_error_authentication_enter_email : "Veuillez entrer votre adresse email"
-    flash_error_authentication_not_authent_client : "Vous n'êtes pas authentifié(e)"
-    flash_error_authentication_must_be_logged : "Vous devez être connecté(e) pour pouvoir afficher cette page"
-    #booking
-    flash_notice_booking_appointment_booked : "Votre rendez-vous avec {{booking_partner}} {{booking_date}} a été enregistré"
-    date_and_time: "le {{start_date} à {{start_time}}"
+    

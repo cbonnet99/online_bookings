@@ -143,15 +143,22 @@ class Booking < ActiveRecord::Base
     #t(:date_and_time, :start_date => "#{self.start_date_str}" , :start_time => "#{self.start_time_str}")
     
   end
-  
+  def start_date
+            self.starts_at
+  end
   def start_date_str
     "#{self.starts_at.strftime('%A %d %B %Y')}"
-    
   end
   
   def start_time_str
     "#{self.starts_at.simple_time}"
+    
   end
+  def start_time
+    self.starts_at
+    
+  end
+ 
   
   def to_ics
     booking = Icalendar::Event.new
