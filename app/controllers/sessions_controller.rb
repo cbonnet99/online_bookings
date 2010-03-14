@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
     pro = Practitioner.authenticate(params[:email], params[:password])
     if pro
       session[:pro_id] = pro.id
-      flash[:notice] = "Welcome to #{APP_CONFIG[:site_name]}"
+      flash[:notice] = t(:flash_notice_session_welcome) + "#{APP_CONFIG[:site_name]}"
       redirect_to practitioner_url(pro)
       # redirect_to_target_or_default(pro)
     else
@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
     session[:pro_id] = nil
     cookies[:email] = nil
     cookies[:selected_practitioner_id] = nil
-    flash[:notice] = "You have been logged out."
+    flash[:notice] = t(:flash_notice_session_logout)
     redirect_to root_url
   end
 end

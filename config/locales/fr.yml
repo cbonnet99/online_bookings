@@ -21,8 +21,11 @@ fr:
         long: "%A %d %B %Y %H:%M:%S %Z"
         long_ordinal: "%A %d %B %Y %H:%M:%S %Z"
         only_second: "%S"
-      am: 'am'
-      pm: 'pm'
+        custo_date: "%A %d %B %Y"
+        timeampm: "%H:%M %p"
+        
+      am: ''
+      pm: ''
 
     datetime:
       distance_in_words:
@@ -134,9 +137,57 @@ fr:
           even: "doit être pair"
           record_invalid: "La validation a échoué : {{errors}}"
   #flash
-    flash_error_invalid_email: "Votre addresse email n'est pas valide: vérifiez qu'il be manque pas un (.) ou le signe @ ?"
-    flash_error_cant_find_email: "Nous ne trouvons pas votre adresse email dans notre base de donnée, veuillez vous enregistrer"
-    flash_error_session_invalid_login_password: "Votre mot de passe ou votre address email est invalide."
+    #practicioner
+    flash_error_practitioner_not_found : "Nous n'avons pas trouvé votre professionel(le)"
+    flash_notice_practitioner_visualize_ical : "Vous pouvez maintenant voir votre calendrier dans Ical"
+    flash_notice_practitioner_thanks_signup : "Votre enregistrement est terminé! votre connexion est active"
+    #application
+    flash_error_session_not_selected_pro: "Vous n'avez pas séléctioné de professionel(le)"
+    #session
+    flash_notice_session_welcome: "Bienvenu(e) sur "
+    flash_error_session_invalid_login_password: "Votre môt de passe ou votre adresse email est invalide."
+    flash_notice_session_logout: "Vous êtes déconecté(e)"
+    #client
+    flash_error_client_invalid_client: "Client n'existe pas"
+    flash_notice_client_client_deleted: "Client a été supprimé"
+    flash_notice_client_info_change: "Vos données ont été modifié"  
+    flash_notice_client_client_info_change: "Les données de votre client ont été modifié"
+    flash_error_client_error_saving : "Erreur durant la sauvegarde des données"
+    flash_notice_cant_find_email: "Nous ne trouvons pas votre adresse email dans notre base de donnée, veuillez vous enregistrer"
+    flash_notice_client_email_sent: "Nous vous avons envoyé(e) un email"
+    flash_notice_client_enter_new_phone : "Veuillez entrer un nouveau numéro de téléphone"
+    flash_error_client_problem_reset_code : "Nous avons rencontré un problème lors de l'initialisation de votre code. Veuillez nous contacter à"
+    flash_error_client_enter_new_phone_upper : "Veuillez entrer un NOUVEAU numéro de téléphone"
+    flash_notice_client_phone_changed : "Votre numéro de téléphone a changé"
+    flash_error_client_errors_saving_phone : "Nous avons rencontré un problème lors de la sauvegarde de votre numéro de téléphone"
+    flash_error_client_phone_mismatch : "Les numéros de téléphone de sont pas identiques. Veuillez entrez les numéros à nouveau."
+    flash_notice_client_welcome_back : "Vous êtes de nouveau connécté(e)"
+    flash_notice_client_book_enter_phone: "Pour prendre votre premier rendez-vous, veuillez entrer votre numéro de téléphone"
+    flash_error_invalid_email: "Votre addresse email n'est pas valide: vérifiez qu'il ne manque pas un (.) ou le signe @ ?"
+    flash_notice_client_enter_4_digit : "Veuillez entrer les 4 derniers chiffres de votre numéro de téléphone"
+    flash_warning_client_phone_empty: "Nos données montrent que nous n'avons pas votre numéro de téléphone: Nous vous avons envoyé un email avec un lien pour pouvoir le renseigner."
+    flash_notice_client_can_book : "Vous pouvez maintenant prendre rendez-vous"
+    flash_error_client_try_again : "Les numéros de téléphone de sont pas identiques. Veuillez entrez les numéros à nouveau."
+    flash_error_client_email_not_empty : "L'adresse email ne peut pas être vide"
+    flash_error_client_some_emails_invalid : "Certaines adresses email sont invalides:"
+    flash_notice_client_clients_added : "Vos clients ont été ajouté"
+    flash_error_client_must_be_logged_in : "Vous devez préalablement vous connecter "
+    flash_notice_client_can_book_now : "Vous pouvez maintenant prendre rendez-vous"
+    flash_error_client_email_cant_register : "Cette adresse email ne peut pas être enregistrée"
+    #authentication
+    flash_error_authentication_enter_phone : "Veuillez entrer votre numéro de téléphone"
+    flash_error_authentication_enter_email : "Veuillez entrer votre adresse email"
+    flash_error_authentication_not_authent_client : "Vous n'êtes pas authentifié(e)"
+    flash_error_authentication_must_be_logged : "Vous devez être connecté(e) pour pouvoir afficher cette page"
+    #booking
+    flash_notice_booking_appointment_booked : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} a été enregistré"
+    flash_error_booking_invalid_appointment : "Ce rendez-vous n'est pas valide"
+    flash_notice_booking_appointment_cancelled : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} a été annulé"
+    flash_notice_booking_confirmed : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} est confirmé"
+    flash_error_booking_couldnot_find_practitioner : "Nous n'avons pas trouvé votre professionel(le)"
+    flash_error_booking_appointment_not_found : "Nous avons pas trouvé ce rendez-vous"
+    flash_notice_booking_appointment_changed : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} a été modifié"
+    flash_notice_booking_appointment_removed : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} a été effacé"
   # colibri app
   # main keyword
   # button
@@ -159,7 +210,7 @@ fr:
     client_lookupform_title: "Etape 1: Entrez votre adresse email"
     client_lookupform_email_address: "Adresse email"
    # select_practicioner
-    select_practicioner_title: "Choisissez un professionel"
+    select_practicioner_title: "Choisissez un(e) professionel(le)"
     select_practicioner_message: "Choissisez votre professionel:"
     #client login info
     login_info_logged_as: "Connecté(e) avec: "
@@ -171,7 +222,7 @@ fr:
     login_phone_change_link: "Modifier" 
     login_phone_number: "Votre numéro de téléphone:"
     login_phone_number_changed: "Votre numéro a changé!"
-    login_phone_book: "Prendre rendez vous"
+    login_phone_book: "Prendre rendez-vous"
     #session/new
     session_new_title: "Connection"
     session_new_remember: "J'ai oublié(e) mon mot de passe"
@@ -204,7 +255,7 @@ fr:
     practitioner_new_last_name: "Nom:"
     practitioner_new_email: "Votre addresse email: "
     practitioner_new_phone: "Votre numéro de téléphone:"
-    practitioner_new_nocancellation: "Période pendant laquelle un rendez vous ne peut plus être annulé en ligne:"
+    practitioner_new_nocancellation: "Période pendant laquelle un rendez-vous ne peut plus être annulé en ligne:"
     practitioner_new_worked_days: "Que jours travaillez vous?"
     practitioner_new_working_hours: "Entrez vos heures de travail hebdomadaires? (Utilisez un format de 0 à 24h. Par exemple, si vous travaillez de 8h à 12h, et 13h de à 18h, entrez: 8-12,13-18)"
     practitioner_new_hours: "heures"
@@ -217,7 +268,7 @@ fr:
     client_new_email: "Votre adresse email"
     client_new_change_link: "Modifier"
     client_new_phone: "Votre téléphone (de préférence un portable):"
-    client_new_book_button: "Prendre rendez vous"
+    client_new_book_button: "Prendre rendez-vous"
     #client/new_multiple
     client_new_multiple_title: "Ajouter des clients"
     client_new_multiple_message1: "Pour ajouter des clients, Entrez leurs adresses email ci-dessous:"
@@ -227,10 +278,11 @@ fr:
     client_new_multiple_message3: "Bonjour,"
     client_new_multiple_add_button: "Ajouter"
     client_default_email_signoff: "Cordialement,"
-    client_default_email: "Vous pouvez maintenant prendre rendez vous en ligne directement avec moi grace à l'application Colibri en cliquant sur le lien suivant\n"
+    client_default_email: "Vous pouvez maintenant prendre rendez-vous en ligne directement avec moi grace à l'application Colibri en cliquant sur le lien suivant\n"
     #client/index
     client_index_title: "Vos clients"
     client_index_message: "Vous n'avez pas de clients pour le moment. Vous pouvez"
     client_index_add_link: "ajouter des clients"
     client_index_message1: "à n'importe quel moment."
     client_index_add_more: "Ajouter"
+    
