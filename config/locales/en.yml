@@ -179,6 +179,7 @@
   #client login info
   login_info_logged_as: "You are logged in as: "
   login_info_edit_link: "Edit"
+  login_info_logout_link: "Logout"
   #login_phone
   login_phone_title: "Step 2: your phone number"
   login_phone_message: "Please enter the last 4 digits of your phone number"
@@ -249,5 +250,12 @@
   client_index_add_link: "add clients"
   client_index_message1: "at any time."
   client_index_add_more: "Add more"
+  #appointment popup calendar
+  appointment_start_time: "Start time: "
+  appointment_end_time: "End Time: "
+  appointment_client: "Client: "
+  appointment_your_name: "Your name: "
+  appointment_comment: "Comment: "
+  appointment_do_not_save_button: "don't save"
   
   

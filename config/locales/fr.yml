@@ -200,10 +200,10 @@ fr:
     colibri_intro_register_trial: Essayez Colibri gratuitement pendant 30 jours
    # header 
     colibri_header_register: Essayez Colibri gratuitement
-    login: Connexion
-    header_health_pro: Professionnels
-    home: Accueil
-    header_book_appointment: Prendre rendez-vous
+    login: "Connexion"
+    header_health_pro: "Professionnels"
+    home: "Accueil"
+    header_book_appointment: "Calendrier"
     home_calendar_tab: "Calendrier"
     home_clients_tab: "Clients"
    # client lookup form
@@ -215,6 +215,7 @@ fr:
     #client login info
     login_info_logged_as: "Connecté(e) avec: "
     login_info_edit_link: "Modifier vos infos perso"
+    login_info_logout_link: "Se déconnecter"
     #login_phone
     login_phone_title: "Etape 2: Votre numéro de téléphone"
     login_phone_message: "Entrez les quatres derniers chiffres de votre numéro de téléphone"
@@ -285,4 +286,9 @@ fr:
     client_index_add_link: "ajouter des clients"
     client_index_message1: "à n'importe quel moment."
     client_index_add_more: "Ajouter"
-    
+    #appointment popup calendar
+    appointment_start_time: "Début: "
+    appointment_end_time: "Fin: "
+    appointment_client: "Client: "
+    appointment_your_name: "Votre Nom: "
+    appointment_comment: "Commentaire: "
