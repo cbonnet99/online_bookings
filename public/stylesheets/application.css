@@ -47,6 +47,7 @@ input#select_pro_submit  {margin-left: 10px;}
 ul.event-fields li{list-style: none; padding: 5px;}
 ul.event-fields li select{float: right;}
 #flash_calendar{float: left; margin-left: 0px; font-size: 12px; font-weight: bold;}
+#help_calendar{float: left; margin-left: 0px; width:70%;}
 #flash_calendar #flash_notice, #flash_calendar #flash_error, #flash_calendar #flash_warning{margin: 0;} 
 #flash_calendar #flash_hide{margin: 3px 3px 3px 5px;text-decoration: underline; color: blue;cursor:pointer;}
 /******************************************/

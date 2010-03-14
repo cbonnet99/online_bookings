@@ -1,5 +1,9 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+
+  def client_needs_help
+    !@current_client.nil? && @current_client.bookings.size == 0
+  end
   
   def selected_tab_classes(tab, expected)
     if tab == expected

@@ -17,7 +17,7 @@ en:
   login: Login
   header_health_pro: Health professionals
   home: Home
-  header_book_appointment: Book an appointment
+  header_book_appointment: Book
   home_calendar_tab: "Calendar"
   home_clients_tab: "Clients"
   #client lookup form
@@ -29,7 +29,6 @@ en:
   #client login info
   login_info_logged_as: "You are logged in as: "
   login_info_edit_link: "Edit"
-  login_info_I_am_not: "I am not !"
   #login_phone
   login_phone_title: "Step 2: your phone number"
   login_phone_message: "Please enter the last 4 digits of your phone number"
@@ -55,7 +54,7 @@ en:
   #practitioner/selected_pro_info
   practitioner_selected_pro_info_message: "You are booking with: "
   practitioner_selected_pro_info_change_link: "Change"
-  practitioner_selected_pro_info_nobooking: "I don't want to book!"
+  practitioner_selected_pro_info_nobooking: "Reset"
   #clients/edit
   clients_edit_title: "Change your information"
   #Clients/_form

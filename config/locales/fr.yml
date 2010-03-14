@@ -152,7 +152,7 @@ fr:
     login: Connexion
     header_health_pro: Professionnels
     home: Accueil
-    header_book_appointment: Prendre un rendez-vous
+    header_book_appointment: Prendre rendez-vous
     home_calendar_tab: "Calendrier"
     home_clients_tab: "Clients"
    # client lookup form
@@ -164,7 +164,6 @@ fr:
     #client login info
     login_info_logged_as: "Connecté(e) avec: "
     login_info_edit_link: "Modifier vos infos perso"
-    login_info_I_am_not: Je ne suis pas !"
     #login_phone
     login_phone_title: "Etape 2: Votre numéro de téléphone"
     login_phone_message: "Entrez les quatres derniers chiffres de votre numéro de téléphone"
@@ -190,7 +189,7 @@ fr:
     #practitioner/selected_pro_info
     practitioner_selected_pro_info_message: "Votre professionel(le): "
     practitioner_selected_pro_info_change_link: "Changer"
-    practitioner_selected_pro_info_nobooking: "Je ne veux pas réserver maintenant"
+    practitioner_selected_pro_info_nobooking: "Oublier"
     #clients/edit
     clients_edit_title: "Modifier vos informations personelles" 
     #Clients/_form

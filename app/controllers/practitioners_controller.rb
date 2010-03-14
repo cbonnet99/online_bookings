@@ -7,6 +7,10 @@ class PractitionersController < ApplicationController
     
   end
 
+  def edit
+    @practitioner = Practitioner.find_by_permalink(params[:id])
+  end
+
   def reset_ical_sharing
     if current_pro.nil?
       flash[:error] = "Could not find this practitioner"
