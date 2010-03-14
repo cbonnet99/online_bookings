@@ -109,7 +109,7 @@
   #application
   flash_error_session_not_selected_pro: "No selected practitioner"
   #session
-  flash_notice_session_welcome: "Welcome to #{APP_CONFIG[:site_name]}"
+  flash_notice_session_welcome: "Welcome to "
   flash_error_session_invalid_login_password: "Invalid login or password."
   flash_notice_session_logout: "You have been logged out."
   #client
