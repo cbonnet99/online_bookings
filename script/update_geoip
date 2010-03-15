@@ -2,7 +2,9 @@
 rm /tmp/GeoLiteCity.dat.gz
 rm /tmp/GeoLiteCity.dat
 curl -g -s http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz > /tmp/GeoLiteCity.dat.gz
-gunzip -d /tmp/GeoLiteCity.dat.gz
+ls -al
+gunzip -d -v /tmp/GeoLiteCity.dat.gz
+ls -al
 if test -s "$1"
         mv /tmp/GeoLiteCity.dat /var/rails/$1/current/geoip/
 then
