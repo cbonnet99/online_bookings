@@ -75,13 +75,13 @@ class ApplicationController < ActionController::Base
     end
     if @current_selected_pro.nil?
       @current_country_code = get_country_code_from_subdomain
-      if @current_country_code.blank?
-        @current_country_code = locate_current_user
-      end
-      @current_country_code = $default_country_code if @current_country_code.blank?
     else
       @current_country_code = @current_selected_pro.country_code
     end
+    if @current_country_code.blank?
+      @current_country_code = locate_current_user
+    end
+    @current_country_code = $default_country_code if @current_country_code.blank?
   end
   
   def require_selected_practitioner
