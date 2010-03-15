@@ -219,6 +219,7 @@
   practitioner_new_last_name: "Your last name:"
   practitioner_new_email: "Your mail address:"
   practitioner_new_phone: "Your phone number:"
+  practitioner_country: "Country"
   practitioner_new_nocancellation: "No cancellation period:"
   practitioner_new_worked_days: "What days do you work?"
   practitioner_new_working_hours: "What are your working hours? (please use 24 hour times. For instance, if you work from 8am to 12pm, and then from 1pm to 6pm, enter below: 8-12,13-18)"

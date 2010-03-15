@@ -255,6 +255,7 @@ fr:
     practitioner_new_last_name: "Nom:"
     practitioner_new_email: "Votre addresse email: "
     practitioner_new_phone: "Votre numéro de téléphone:"
+    practitioner_country: "Pays"
     practitioner_new_nocancellation: "Période pendant laquelle un rendez-vous ne peut plus être annulé en ligne:"
     practitioner_new_worked_days: "Que jours travaillez vous?"
     practitioner_new_working_hours: "Entrez vos heures de travail hebdomadaires? (Utilisez un format de 0 à 24h. Par exemple, si vous travaillez de 8h à 12h, et 13h de à 18h, entrez: 8-12,13-18)"

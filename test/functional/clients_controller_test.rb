@@ -96,13 +96,16 @@ class ClientsControllerTest < ActionController::TestCase
     cyrille = clients(:cyrille)
     old_size = sav.clients.size
     
-    old_dj_size = Delayed::Job.all.size
+    old_mail_size = ActionMailer::Base.deliveries.size
     
     post :create, {:emails => "cbgt@test.com, #{cyrille.email}", :send_email => true, :email_text => "Hello,\n\nThis is my new booking site: ", :email_signoff => "Regards,"  }, {:pro_id => sav.id}
     assert_redirected_to practitioner_clients_url(sav.permalink)
     assert_equal old_size+1, sav.clients.size, "Only 1 client should be added, as Cyrille is already a client"
-    assert_equal old_dj_size+1, Delayed::Job.all.size
-    assert_equal "UserMailer.deliver_initial_client_email", Delayed::Job.all.last.name
+    assert_equal old_mail_size+1, ActionMailer::Base.deliveries.size
+    last_email = ActionMailer::Base.deliveries.last
+    assert_equal ["cbgt@test.com"], last_email.to
+    assert_equal [sav.email], last_email.from
+    assert_match %r{Hello,<br/><br/>}, last_email.body
   end
 
   def test_create_multiple_error

@@ -43,19 +43,23 @@ class PractitionerTest < ActiveSupport::TestCase
   end
 
   def test_add_client
-    old_dj_size = Delayed::Job.all.size
+    ActionMailer::Base.deliveries.clear
     pro = Factory(:practitioner)
+    client = Factory(:client)
     old_size = Client.all.size
     
     pro.add_clients("cbonnet@test.com", true, "This is a test", "Cheers")
     assert_equal old_size+1, Client.all.size
     
-    assert_equal old_dj_size+1, Delayed::Job.all.size
-    assert_equal "UserMailer.deliver_initial_client_email", Delayed::Job.all.last.name
+    assert_equal 1, ActionMailer::Base.deliveries.size
+    new_email = ActionMailer::Base.deliveries.first
+    assert_equal ["cbonnet@test.com"], new_email.to
+    assert_equal [pro.email], new_email.from
+    assert_match /Hello,/, new_email.body
   end
     
   def test_add_client_with_name
-    old_dj_size = Delayed::Job.all.size
+    ActionMailer::Base.deliveries.clear
     
     pro = Factory(:practitioner)
     client = Factory(:client)
@@ -65,13 +69,15 @@ class PractitionerTest < ActiveSupport::TestCase
     assert_equal old_size+1, Client.all.size
     new_client = Client.find_by_email("cbonnet@test.com")
     assert_equal "Cyrille Bonnet", new_client.name
-    assert_equal old_dj_size+1, Delayed::Job.all.size
-    assert_equal "UserMailer.deliver_initial_client_email", Delayed::Job.all.last.name
-    
+    assert_equal 1, ActionMailer::Base.deliveries.size
+    new_email = ActionMailer::Base.deliveries.first
+    assert_equal ["cbonnet@test.com"], new_email.to
+    assert_equal [pro.email], new_email.from
+    assert_match /Dear Cyrille,/, new_email.body
   end
     
   def test_add_existing_client_with_name
-    old_dj_size = Delayed::Job.all.size
+    ActionMailer::Base.deliveries.clear
     
     pro = Factory(:practitioner)
     client = Factory(:client)
@@ -82,8 +88,11 @@ class PractitionerTest < ActiveSupport::TestCase
     assert_equal old_size, Client.all.size
     assert_equal old_name, client.name, "Client name shouldn't have changed"
     
-    assert_equal old_dj_size+1, Delayed::Job.all.size
-    assert_equal "UserMailer.deliver_initial_client_email", Delayed::Job.all.last.name
+    assert_equal 1, ActionMailer::Base.deliveries.size
+    new_email = ActionMailer::Base.deliveries.first
+    assert_equal [client.email], new_email.to
+    assert_equal [pro.email], new_email.from
+    assert_match %r{Dear #{client.first_name},}, new_email.body    
   end
     
   def test_add_client_invalid_email

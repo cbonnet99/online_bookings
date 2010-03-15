@@ -11,6 +11,14 @@ class ApplicationController < ActionController::Base
 
   before_filter :get_selected_practitioner
   before_filter :set_locale
+
+  def default_country_code
+    if I18n.locale.to_s == "fr"
+      return "FR"
+    else
+      return "NZ"
+    end
+  end
   
   def set_locale
     I18n.locale = extract_locale_from_subdomain

@@ -21,6 +21,10 @@
     <%= f.text_field :phone %>
   </p>
   <p>
+    <%= f.label :country_code, t(:practitioner_country) %>:<br />
+	<%= localized_country_select(:practitioner, :country_code, []) %>
+  </p>
+  <p>
     <%= f.label :no_cancellation_period_in_hours, t(:practitioner_new_nocancellation) %><br />
     <%= f.text_field :no_cancellation_period_in_hours, :size => "2"  %> <%= t(:practitioner_new_hours) %>
   </p>
