@@ -6,7 +6,9 @@ ls -al /tmp
 gunzip -d -v /tmp/GeoLiteCity.dat.gz
 ls -al /tmp
 if test -s "$1"
-        mv /tmp/GeoLiteCity.dat /var/rails/$1/current/geoip/
+	echo 'STEP1'
+        mv /tmp/GeoLiteCity.dat $1
 then
-        mv /tmp/GeoLiteCity.dat /var/rails/colibri_production/current/geoip/
+	echo 'STEP2'
+        mv /tmp/GeoLiteCity.dat /var/rails/colibri_staging/current/geoip/
 fi
