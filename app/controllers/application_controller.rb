@@ -39,8 +39,10 @@ class ApplicationController < ActionController::Base
   
   def get_country_code_from_subdomain
     res = request.subdomains.first.try(:upcase)
+    logger.debug("========= res STEP 1: #{res}")
     if res.blank? || res == "WWW"
       res = locate_current_user
+      logger.debug("========= res STEP 2: #{res}")
     end
     res = $default_country_code if res.blank? || res == "WWW"
     res
@@ -80,8 +82,10 @@ class ApplicationController < ActionController::Base
     end
     if @current_selected_pro.nil?
       @current_country_code = get_country_code_from_subdomain
+      logger.debug("========= @current_country_code STEP 1: #{res}")
     else
       @current_country_code = @current_selected_pro.country_code
+      logger.debug("========= @current_country_code STEP 2: #{res}")
     end
   end
   
