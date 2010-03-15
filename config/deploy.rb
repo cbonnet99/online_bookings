@@ -18,6 +18,22 @@ ssh_options[:forward_agent] = true
 # these http://github.com/rails/irs_process_scripts
 
 namespace :deploy do
+  
+  desc "Symlink shared configs and folders on each release."
+  task :symlink_shared do
+    # sudo "chown -R #{apache_user} #{shared_path}/geopip"
+    run "ln -nfs #{shared_path}/geoip #{release_path}/geoip"
+  end  
+  
+  desc "Installs GeoIP"
+  task :install_geoip do
+    unless File.exists?("#{shared}/geoip/GeoLiteCity.dat")
+      run "cd #{release_path} && script/update_geoip"
+    end
+  end
+
+  after 'deploy:update_code', 'deploy:symlink_shared'
+  
   desc "Update the crontab file"
   task :update_crontab, :roles => :db do
     if rails_env == :production
@@ -62,6 +78,6 @@ namespace :delayed_job do
   end
 end
 
-after "deploy:start", "delayed_job:start" 
-after "deploy:stop", "delayed_job:stop" 
-after "deploy:restart", "delayed_job:restart"
+# after "deploy:start", "delayed_job:start" 
+# after "deploy:stop", "delayed_job:stop" 
+# after "deploy:restart", "delayed_job:restart"
