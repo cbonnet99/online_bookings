@@ -353,21 +353,21 @@ $(document).ready(function() {
 		<ul class="event-fields"> 
 			<% if own_calendar?(pro, current_pro)-%>
 			<li> 
-				<label for="start">Start time: </label><select name="start"><option value="">Select</option></select>
+				<label for="start"><%= t(:appointment_start_time)%></label><select name="start"><option value="">Select</option></select>
 			</li> 
 			<li> 
-				<label for="end">End Time: </label><select name="end"><option value="">Select End Time</option></select> 
+				<label for="end"><%= t(:appointment_end_time)%></label><select name="end"><option value="">Select End Time</option></select> 
 			</li> 
 			<% end-%>
 			<li> 
 				<% if own_calendar?(pro, current_pro)-%>
-				<label for="title">Client: </label><select name="client_id"><%= current_pro_client_options(current_pro)-%></select>
+				<label for="title"><%= t(:appointment_client)%></label><select name="client_id"><%= current_pro_client_options(current_pro)-%></select>
 				<%else-%>
-				<label for="title">Your name: </label><input type="text" name="title"></input>
+				<label for="title"><%= t(:appointment_your_name)%></label><input type="text" name="title"></input>
 				<%end-%>
 			</li> 
 			<li> 
-				<label for="body">Comment: </label><textarea name="body"></textarea> 
+				<label for="body"><%= t(:appointment_comment)%></label><textarea name="body"></textarea> 
 			</li> 
 		</ul> 
 	</form> 
