@@ -11,10 +11,7 @@ then
 fi
 if test -s "$1"
 then
-        echo 'STEP1'
-        echo $1
         cp /tmp/GeoLiteCity.dat $1
 else
-        echo 'STEP2'
         cp /tmp/GeoLiteCity.dat /var/rails/colibri_staging/current/geoip/
 fi
