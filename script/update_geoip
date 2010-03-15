@@ -1,7 +1,6 @@
 #!/bin/sh
-if test -ne "/tmp/GeoLiteCity.dat.gz"
+if [[ test -ne "/tmp/GeoLiteCity.dat.gz" && -ne "/tmp/GeoLiteCity.dat"]]
 	curl -g http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz > /tmp/GeoLiteCity.dat.gz
-	
 fi
 if test -ne "/tmp/GeoLiteCity.dat"
 	gunzip -d -v /tmp/GeoLiteCity.dat.gz
