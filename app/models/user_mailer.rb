@@ -3,8 +3,8 @@ require File.dirname(__FILE__) + '/../../lib/helpers'
 class UserMailer < ActionMailer::Base
 
   def setup_email(client)
-    default_url_options[:host] = APP_CONFIG[:site_host]
-    default_url_options[:protocol] = APP_CONFIG[:logged_site_protocol]
+    default_url_options[:host] = APP_CONFIG[:site_domain]
+    default_url_options[:protocol] = APP_CONFIG[:site_protocol]
     @recipients = "#{client.email}"
     @from = APP_CONFIG[:contact_email]
     @subject = "[#{APP_CONFIG[:site_name]}] "

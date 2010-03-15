@@ -23,6 +23,7 @@ Rails::Initializer.run do |config|
                :lib    => "factory_girl",
                :source => "http://gems.github.com"
   config.gem 'icalendar'
+  config.gem 'geoip'
   config.gem 'whenever', :lib => false, :source => 'http://gemcutter.org/'
   config.gem 'aasm', :source => "http://gemcutter.org"
   config.gem 'ambethia-smtp-tls', :lib => "smtp-tls", :source => "http://gems.github.com"
@@ -42,6 +43,8 @@ Rails::Initializer.run do |config|
   # Run "rake -D time" for a list of tasks for finding time zone names.
   config.time_zone = 'Wellington'
   #config.time_zone = 'Paris'
+
+  $default_country_code = "NZ"
 
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
    config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]

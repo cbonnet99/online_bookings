@@ -5,6 +5,7 @@ class ClientsControllerTest < ActionController::TestCase
   def test_homepage
     get :homepage
     assert_response :success
+    assert_equal "NZ", assigns(:current_user_country_code)
   end
   
   def test_index

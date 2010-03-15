@@ -1,0 +1,4 @@
+#!/bin/sh
+curl -g http://www.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz > /tmp/GeoLiteCity.dat.gz
+gunzip -d /tmp/GeoLiteCity.dat.gz
+mv /tmp/GeoLiteCity.dat /var/rails/colibri_production/current/geoip/

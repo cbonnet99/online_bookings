@@ -1,6 +1,7 @@
 class ClientsController < ApplicationController
   before_filter :login_required, :only => [:edit, :update, :name]
   before_filter :pro_login_required, :only => [:destroy, :index]
+  before_filter :locate_current_user, :only => [:homepage] 
   
   def destroy
     @client = current_pro.clients.find(params[:id])
@@ -27,7 +28,6 @@ class ClientsController < ApplicationController
 
   def homepage
     get_selected_practitioner
-    get_practitioners
     # session[:return_to] = request.referer
     render :layout => "home"    
   end

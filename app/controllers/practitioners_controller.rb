@@ -2,6 +2,7 @@ class PractitionersController < ApplicationController
   
   before_filter :require_selected_practitioner, :only => [:show] 
   before_filter :login_required, :only => [:show]
+  before_filter :locate_current_user, :only => [:edit_selected] 
 
   def forgotten_password
     
@@ -30,7 +31,7 @@ class PractitionersController < ApplicationController
   end
 
   def edit_selected
-    get_practitioners
+    get_practitioners(@current_country_code)
     # session[:return_to] = request.referer
     session[:return_to] = nil
   end

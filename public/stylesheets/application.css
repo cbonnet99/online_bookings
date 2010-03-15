@@ -1,3 +1,4 @@
+#country_select {float: right; color: #000;}
 button {background: url(../images/inputBg.png) repeat-x;font-weight:bold;height:30px;padding:0 10px;border-color:#CCCCCC #999999 #999999 #CCCCCC;border-style:double;color:#333333;cursor:pointer;font-size:11px;margin-right:2px;overflow:visible;width:auto;}
 button:hover {background:#090; }
 input.button {background: url(../images/inputBg.png) repeat-x;font-weight:bold;height:30px;padding:0 10px;border-color:#CCCCCC #999999 #999999 #CCCCCC;border-style:double;color:#333333;cursor:pointer;font-size:11px;margin-right:2px;overflow:visible;width:auto;}

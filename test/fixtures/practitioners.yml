@@ -10,7 +10,7 @@ megan:
     working_days: "4,5"
     phone: 021 34556666
     no_cancellation_period_in_hours: 24
-    
+    country_code: NZ
 sav:
     first_name: David
     last_name: Savage
@@ -24,3 +24,17 @@ sav:
     bookings_publish_code: 676c5653c5ef
     phone: 021 34556667
     no_cancellation_period_in_hours: 24
+    country_code: NZ
+rene:
+    first_name: René
+    last_name: Durand
+    permalink: rene-durand
+    email: rene@gmail.com
+    # password: "secret"
+    password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f
+    password_salt: bef65e058905c379436d80d1a32e7374b139e7b0
+    working_hours: "9-12,13-18"
+    working_days: "1,2,3,4,5"
+    phone: 06 87 66 67 57
+    no_cancellation_period_in_hours: 24
+    country_code: FR

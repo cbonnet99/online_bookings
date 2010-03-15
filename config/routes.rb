@@ -23,6 +23,7 @@ ActionController::Routing::Routes.draw do |map|
   map.forgotten_password 'forgotten_password', :controller => 'practitioners', :action => 'forgotten_password'
     
   #CLIENT
+  map.country_select 'country_select.:format', :controller => 'clients', :action => 'country_select'
   map.homepage 'homepage', :controller => 'clients', :action => 'homepage'
   map.edit_phone 'edit_phone', :controller => 'clients', :action => 'edit_phone'
   map.update_phone 'update_phone', :controller => 'clients', :action => 'update_phone'

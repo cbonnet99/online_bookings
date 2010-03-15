@@ -1,16 +1,17 @@
 development:
     site_name: Colibri(DEV)
-    site_host: localhost:3000
+    site_domain: localhost.com
+    site_protocol: 3000
     contact_email: cbonnet99@gmail.com
 test:
     site_name: Colibri(TEST)
-    site_host: localhost
+    site_domain: localhost
     contact_email: cbonnet99@gmail.com
 production:
     site_name: Colibri
-    site_host: www.colibriapp.com
+    site_domain: colibriapp.com
     contact_email: cbonnet99@gmail.com
 staging:
     site_name: Colibri (STAGING)
-    site_host: staging.colibriapp.com
+    site_domain: staging.colibriapp.com
     contact_email: cbonnet99@gmail.com

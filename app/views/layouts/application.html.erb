@@ -18,6 +18,7 @@
 	<%= javascript_include_tag 'jquery.corners.min.js' %>
 	<%= yield :calendar %>
 	<%= yield :js %>
+	<%= yield :js_country_select %>
 	<%= yield :css %>
     <%= yield(:head) %>
   </head>
@@ -56,6 +57,7 @@
 		</div>
 	</div>
 	<div class="cleaner"></div>
+	<div id="country_select"><%= yield :country_select %></div>
 	<div id="content">
 	  <div class="cleaner"></div>
 	  <div id="flash">

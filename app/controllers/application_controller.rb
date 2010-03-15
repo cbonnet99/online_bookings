@@ -1,6 +1,3 @@
-# Filters added to this controller apply to all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
-
 class ApplicationController < ActionController::Base
   include Authentication
   helper :all # include all helpers, all the time
@@ -12,11 +9,22 @@ class ApplicationController < ActionController::Base
   before_filter :get_selected_practitioner
   before_filter :set_locale
 
+  def locate_current_user
+    @client_ip = request.remote_ip
+    geo = GeoIP.new("#{RAILS_ROOT}/geoip/GeoLiteCity.dat")
+    g = geo.city(@client_ip)
+    if g.nil?
+      @current_user_country_code = $default_country_code
+    else
+      @current_user_country_code = g[2]
+    end
+  end
+  
   def default_country_code
     if I18n.locale.to_s == "fr"
       return "FR"
     else
-      return "NZ"
+      return $default_country_code
     end
   end
   
@@ -28,13 +36,19 @@ class ApplicationController < ActionController::Base
     parsed_locale = request.subdomains.first.try(:to_sym)
     (I18n.available_locales.include? parsed_locale) ? parsed_locale  : nil
   end
-      
+  
+  def get_country_code_from_subdomain
+    request.subdomains.first.try(:upcase)
+  end
+  
   def get_phone_prefixes
     @phone_prefixes = Client::PHONE_SUFFIXES    
   end
   
-  def get_practitioners
-    @practitioners = Practitioner.find(:all, :order => "first_name, last_name")
+  def get_practitioners(country_code)
+    country_code = @current_country_code if country_code.blank?    
+    country_code = $default_country_code if country_code.blank?
+    @practitioners = Practitioner.find(:all, :conditions => ["country_code = ?", country_code], :order => "first_name, last_name")
   end
   
   def get_selected_practitioner
@@ -47,7 +61,9 @@ class ApplicationController < ActionController::Base
     end
     if !params[:practitioner_id].nil?
       @current_selected_pro = Practitioner.find_by_permalink(params[:practitioner_id])      
-      cookies[:selected_practitioner_id] = @current_selected_pro.id unless @current_selected_pro.nil?
+      unless @current_selected_pro.nil?
+        cookies[:selected_practitioner_id] = @current_selected_pro.id
+      end
     end
     #fall back on the cookie
     if @current_selected_pro.nil? && !cookies[:selected_practitioner_id].blank?
@@ -56,6 +72,12 @@ class ApplicationController < ActionController::Base
       rescue ActiveRecord::RecordNotFound
         cookies.delete(:selected_practitioner_id)
       end
+    end
+    if @current_selected_pro.nil?
+      @current_country_code = get_country_code_from_subdomain
+      @current_country_code = $default_country_code if @current_country_code.blank?
+    else
+      @current_country_code = @current_selected_pro.country_code
     end
   end
   

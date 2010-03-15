@@ -16,4 +16,8 @@ end
 
 every 1.day, :at => "6 pm" do
   runner "TaskUtils.send_pro_reminders"
+end
+
+every :month do
+  command "/var/rails/colibri_production/current/script/update_geoip"
 end 
