@@ -1,16 +1,19 @@
 #!/bin/sh
 if [[ test -ne "/tmp/GeoLiteCity.dat.gz" && -ne "/tmp/GeoLiteCity.dat"]]
+then
 	curl -g http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz > /tmp/GeoLiteCity.dat.gz
 fi
-if test -ne "/tmp/GeoLiteCity.dat"
+if [test -ne "/tmp/GeoLiteCity.dat"]
+then
 	gunzip -d -v /tmp/GeoLiteCity.dat.gz
 fi
 ls -al /tmp
-if test -s "$1"
+if [test -s "$1"]
+then
 	echo 'STEP1'
 	echo $1
         mv /tmp/GeoLiteCity.dat $1
-then
+else
 	echo 'STEP2'
         mv /tmp/GeoLiteCity.dat /var/rails/colibri_staging/current/geoip/
 fi
