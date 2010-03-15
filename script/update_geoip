@@ -1,7 +1,7 @@
 #!/bin/sh
 rm /tmp/GeoLiteCity.dat.gz
 rm /tmp/GeoLiteCity.dat
-curl -g http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz -o /tmp/GeoLiteCity.dat.gz
+curl -g http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz > /tmp/GeoLiteCity.dat.gz
 gunzip -d /tmp/GeoLiteCity.dat.gz
 if test -s "$1"
         mv /tmp/GeoLiteCity.dat /var/rails/$1/current/geoip/
