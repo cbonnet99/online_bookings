@@ -1,12 +1,15 @@
 #!/bin/sh
-rm /tmp/GeoLiteCity.dat.gz
-rm /tmp/GeoLiteCity.dat
-curl -g -s http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz > /tmp/GeoLiteCity.dat.gz
-ls -al /tmp
-gunzip -d -v /tmp/GeoLiteCity.dat.gz
+if test -ne "/tmp/GeoLiteCity.dat.gz"
+	curl -g http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz > /tmp/GeoLiteCity.dat.gz
+	
+fi
+if test -ne "/tmp/GeoLiteCity.dat"
+	gunzip -d -v /tmp/GeoLiteCity.dat.gz
+fi
 ls -al /tmp
 if test -s "$1"
 	echo 'STEP1'
+	echo $1
         mv /tmp/GeoLiteCity.dat $1
 then
 	echo 'STEP2'
