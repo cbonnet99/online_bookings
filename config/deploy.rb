@@ -22,6 +22,9 @@ namespace :deploy do
   desc "Symlink shared configs and folders on each release."
   task :symlink_shared do
     # sudo "chown -R #{apache_user} #{shared_path}/geopip"
+    unless File.exists?("#{shared_path}/geoip")
+      run "mkdir #{shared_path}/geoip"
+    end
     run "ln -nfs #{shared_path}/geoip #{release_path}/geoip"
   end  
   
@@ -31,8 +34,6 @@ namespace :deploy do
       run "cd #{release_path} && script/update_geoip"
     end
   end
-
-  after 'deploy:update_code', 'deploy:symlink_shared'
   
   desc "Update the crontab file"
   task :update_crontab, :roles => :db do
@@ -52,6 +53,8 @@ namespace :deploy do
         update_code
         web.disable
         symlink
+        symlink_shared
+        install_geoip
         migrate
         update_crontab
       end
