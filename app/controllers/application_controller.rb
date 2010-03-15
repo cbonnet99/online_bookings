@@ -38,7 +38,12 @@ class ApplicationController < ActionController::Base
   end
   
   def get_country_code_from_subdomain
-    request.subdomains.first.try(:upcase)
+    res = request.subdomains.first.try(:upcase)
+    if res.blank? || res == "WWW"
+      res = locate_current_user
+    end
+    res = $default_country_code if res.blank? || res == "WWW"
+    res
   end
   
   def get_phone_prefixes
@@ -78,10 +83,6 @@ class ApplicationController < ActionController::Base
     else
       @current_country_code = @current_selected_pro.country_code
     end
-    if @current_country_code.blank?
-      @current_country_code = locate_current_user
-    end
-    @current_country_code = $default_country_code if @current_country_code.blank?
   end
   
   def require_selected_practitioner
