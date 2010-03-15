@@ -40,11 +40,11 @@ class ApplicationController < ActionController::Base
   def get_country_code_from_subdomain
     res = request.subdomains.first.try(:upcase)
     logger.debug("========= res STEP 1: #{res}")
-    if res.blank? || res == "WWW"
+    if res.blank? || !$available_country_codes.include?(res)
       res = locate_current_user
       logger.debug("========= res STEP 2: #{res}")
     end
-    res = $default_country_code if res.blank? || res == "WWW"
+    res = $default_country_code if !$available_country_codes.include?(res)
     res
   end
   
@@ -82,10 +82,10 @@ class ApplicationController < ActionController::Base
     end
     if @current_selected_pro.nil?
       @current_country_code = get_country_code_from_subdomain
-      logger.debug("========= @current_country_code STEP 1: #{res}")
+      logger.debug("========= @current_country_code STEP 1: #{@current_country_code}")
     else
       @current_country_code = @current_selected_pro.country_code
-      logger.debug("========= @current_country_code STEP 2: #{res}")
+      logger.debug("========= @current_country_code STEP 2: #{@current_country_code}")
     end
   end
   

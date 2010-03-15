@@ -45,6 +45,7 @@ Rails::Initializer.run do |config|
   #config.time_zone = 'Paris'
 
   $default_country_code = "NZ"
+  $available_country_codes = ["NZ", "FR"]
 
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
    config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
