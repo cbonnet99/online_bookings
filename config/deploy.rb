@@ -22,9 +22,6 @@ namespace :deploy do
   desc "Symlink shared configs and folders on each release."
   task :symlink_shared do
     # sudo "chown -R #{apache_user} #{shared_path}/geopip"
-    unless File.exists?("#{release_path}/geoip")
-      run "mkdir #{release_path}/geoip"
-    end
     run "ln -nfs #{shared_path}/geoip #{release_path}/geoip"
   end  
   
