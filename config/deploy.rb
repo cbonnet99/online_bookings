@@ -31,7 +31,7 @@ namespace :deploy do
   desc "Installs GeoIP"
   task :install_geoip do
     unless File.exists?("#{shared_path}/geoip/GeoLiteCity.dat")
-      run "cd #{release_path} && script/update_geoip #{release_path}/geoip/"
+      run "cd #{release_path} && script/update_geoip #{shared_path}/geoip/"
     end
   end
   
