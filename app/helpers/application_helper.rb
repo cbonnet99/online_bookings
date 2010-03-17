@@ -7,7 +7,7 @@ module ApplicationHelper
   
   def selected_tab_classes(tab, expected)
     if tab == expected
-      "link selected"
+      "link selected-tab"
     else
       "link"
     end
