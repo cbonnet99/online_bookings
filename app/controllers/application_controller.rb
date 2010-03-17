@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
   end
   
   def get_phone_prefixes
-    @phone_prefixes = Client::PHONE_SUFFIXES    
+    @phone_prefixes = Client::PHONE_PREFIXES    
   end
   
   def get_practitioners(country_code)

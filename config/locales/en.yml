@@ -208,10 +208,16 @@
   practitioner_selected_pro_info_nobooking: "Reset"
   #clients/edit
   clients_edit_title: "Change your information"
-  #Clients/_form
+  #clients/_form
   clients_form_email: "Your email address:"
   clients_form_phone: "Your phone number (preferably a mobile number):"
   clients_form_change_button: "Change"
+  #clients/reset_phone
+  clients_reset_title: "Reset your phone number"
+  clients_reset_button: "Reset"
+  #clients/update_reset_phone
+  flash_notice_client_update_reset_phone: "Your phone number has been updated"
+  flash_error_client_update_reset_phone: "There was an error while resetting your phone number"
   #Practitioner/new
   practitioner_new_title: "Register for a free trial"
   practitioner_new_message1: "Already have an account?"

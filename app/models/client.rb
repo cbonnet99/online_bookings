@@ -22,9 +22,9 @@ class Client < ActiveRecord::Base
   validates_confirmation_of :password
   validates_length_of :password, :minimum => 4, :allow_blank => true
 
-  MOBILE_SUFFIXES = ["021", "022", "027", "029"]
-  FIXED_SUFFIXES = ["03", "04", "06", "07", "09"]
-  PHONE_SUFFIXES = MOBILE_SUFFIXES + FIXED_SUFFIXES
+  MOBILE_PREFIXES = ["021", "022", "027", "029"]
+  FIXED_PREFIXES = ["03", "04", "06", "07", "09"]
+  PHONE_PREFIXES = MOBILE_PREFIXES + FIXED_PREFIXES
   
   def name=(new_name)
     unless new_name.nil?
@@ -83,7 +83,7 @@ class Client < ActiveRecord::Base
   end
 
   def no_phone_number?
-    self.phone == "-"
+    self.phone.blank? || self.phone == "-"
   end
 
   def check_phone_first_4digits(last4_digits)
@@ -104,7 +104,7 @@ class Client < ActiveRecord::Base
   end
   
   def has_mobile_phone?
-    MOBILE_SUFFIXES.include?(phone_prefix)
+    MOBILE_PREFIXES.include?(phone_prefix)
   end
   
   def self.authenticate(login, pass)

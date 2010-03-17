@@ -21,7 +21,7 @@ class ClientsController < ApplicationController
       redirect_to edit_client_url(@client)
     else
       flash[:error] = t(:flash_error_client_error_saving)
-      @phone_prefixes = Client::PHONE_SUFFIXES
+      @phone_prefixes = Client::PHONE_PREFIXES
       render :action => "edit" 
     end
   end
@@ -39,7 +39,7 @@ class ClientsController < ApplicationController
   
   def edit
     @client = current_client
-    @phone_prefixes = Client::PHONE_SUFFIXES
+    @phone_prefixes = Client::PHONE_PREFIXES
     session[:return_to] = request.referer
   end
   
@@ -59,7 +59,27 @@ class ClientsController < ApplicationController
     reset_code = params[:reset_code]
     @client = Client.find_by_email(params[:email])
     if reset_code == @client.reset_code
+      @phone_prefixes = Client::PHONE_PREFIXES    
       flash[:notice] = t(:flash_notice_client_enter_new_phone)
+    else
+      flash[:error] = t(:flash_error_client_problem_reset_code) + "#{APP_CONFIG[:contact_email]}"
+      redirect_to root_url
+    end
+  end
+
+  def update_reset_phone
+    reset_code = params[:reset_code]
+    @client = Client.find_by_email(params[:email])
+    if reset_code == @client.reset_code
+      @client.phone_prefix = params[:phone_prefix]
+      @client.phone_suffix = params[:phone_suffix]
+      if @client.save
+        flash[:notice] = t(:flash_notice_client_update_reset_phone)
+      else
+        flash[:notice] = t(:flash_error_client_update_reset_phone)
+        @phone_prefixes = Client::PHONE_PREFIXES    
+        render :action => :reset_phone
+      end
     else
       flash[:error] = t(:flash_error_client_problem_reset_code) + "#{APP_CONFIG[:contact_email]}"
       redirect_to root_url
@@ -71,7 +91,7 @@ class ClientsController < ApplicationController
       redirect_to edit_client_url(current_client)
     else
       @client = Client.find_by_email(params["login"])
-      @phone_prefixes = Client::PHONE_SUFFIXES
+      @phone_prefixes = Client::PHONE_PREFIXES
     end
   end
 
@@ -129,8 +149,13 @@ class ClientsController < ApplicationController
         redirect_to lookup_form_url(:email =>  params[:client]["email"])
       end
     else
-      flash[:notice]= t(:flash_notice_client_enter_4_digit)
-      redirect_to login_phone_url(:login => params[:client]["email"])
+      if @client.no_phone_number?
+        flash[:notice]= t(:flash_notice_client_book_enter_phone)
+        redirect_to signup_url(:email => params[:client]["email"])
+      else
+        flash[:notice]= t(:flash_notice_client_enter_4_digit)
+        redirect_to login_phone_url(:login => params[:client]["email"])
+      end
     end
   end
     
@@ -138,9 +163,8 @@ class ClientsController < ApplicationController
     @client = Client.find_by_email(params[:login])
     cookies[:email] = @client.email unless @client.nil?
     if @client.no_phone_number?
-      flash[:warning] = t(:flash_warning_client_phone_empty)
-      @client.send_reset_phone_link
-      redirect_to root_url
+      flash[:notice]= t(:flash_notice_client_book_enter_phone)
+      redirect_to signup_url(:email => params[:login])
     end
   end
   

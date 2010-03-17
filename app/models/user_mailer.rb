@@ -64,7 +64,7 @@ class UserMailer < ActionMailer::Base
     setup_email(client)
     setup_sender
     @subject << "You have requested to reset your phone number"
-    @body[:reset_link] = reset_phone_url(:reset_code => client.reset_code)
+    @body[:reset_link] = reset_phone_url(:reset_code => client.reset_code, :email  => client.email)
   end
 
   def parse_caller(at)

@@ -1,0 +1,11 @@
+<% title t(:clients_reset_title)%>
+
+<% form_tag update_reset_phone_url do -%>
+<%= hidden_field_tag :reset_code, params[:reset_code]%>
+<%= hidden_field_tag :email, params[:email]%>
+<p id="client-phone">
+   <%= label_tag :phone, t(:clients_form_phone) %><br />
+   <%= select_tag :phone_prefix, @phone_prefixes %><%= text_field_tag :phone_suffix, :size => 10, :maxlength => 10   %>
+ </p>
+<p><%= submit_tag t(:clients_form_change_button) %></p>
+<% end -%>	

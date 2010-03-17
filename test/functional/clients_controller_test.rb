@@ -2,6 +2,12 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ClientsControllerTest < ActionController::TestCase
 
+  def test_reset_phone
+    client = Factory(:client, :reset_code => "bla")
+    get :reset_phone, {:reset_code => "bla", :email => client.email}
+    assert_response :success
+  end
+
   def test_homepage
     get :homepage
     assert_response :success
@@ -61,6 +67,14 @@ class ClientsControllerTest < ActionController::TestCase
     cyrille = clients(:cyrille)
     post :lookup, {:client => {:email => cyrille.email} }
     assert_redirected_to login_phone_url(:login => cyrille.email)    
+  end
+
+  def test_lookup_client_exists_phone_nil
+    client = Factory(:client)
+    assert_nil client.phone_prefix
+    assert_nil client.phone_suffix
+    post :lookup, {:client => {:email => client.email} }
+    assert_redirected_to signup_url(:email => client.email)    
   end
 
   def test_lookup_client_doesnt_exist
@@ -162,16 +176,12 @@ class ClientsControllerTest < ActionController::TestCase
   end
   
   def test_login_phone_no_number
-    ActionMailer::Base.delivery_method = :test
-    ActionMailer::Base.perform_deliveries = true
-    ActionMailer::Base.deliveries = []
 		
     c = Factory(:client)
     get :login_phone, :login => c.email
-    assert_not_nil flash[:warning]
-    assert_redirected_to root_url
+    assert_not_nil flash[:notice], "Flash: #{flash.inspect}"
+    assert_redirected_to signup_url(:email => c.email )
     
-    assert_equal 1, ActionMailer::Base.deliveries.size, "One email should have been sent with a reset link"
   end
     
   def test_login_wrong_numbers
