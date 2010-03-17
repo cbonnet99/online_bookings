@@ -30,8 +30,10 @@ module ApplicationHelper
   end
 
   def use_country_select
-    content_for(:country_select) {  "Country:" + localized_country_select_tag(:current_country_code, @current_country_code, [:nz, :fr] )}
-    content_for(:js_country_select) {javascript_include_tag("/country_select.js")}
+    if APP_CONFIG[:show_countries]
+      content_for(:country_select) {  "Country:" + localized_country_select_tag(:current_country_code, @current_country_code, [:nz, :fr] )}
+      content_for(:js_country_select) {javascript_include_tag("/country_select.js")}
+    end
   end
 
 	def javascript(*files)
