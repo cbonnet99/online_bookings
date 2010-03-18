@@ -23,7 +23,6 @@ class NonWorkingBooking
     booking.created = Time.now
     booking.last_modified = Time.now
     booking.uid = booking.url = "#{@id}"
-    booking.add_comment("BLA")
     booking
   end
 end
@@ -187,7 +186,8 @@ class Booking < ActiveRecord::Base
     booking.last_modified = self.updated_at
     # booking.uid = booking.url = "#{edit_practitioner_booking_url(:practitioner_id => self.practitioner.permalink, :id => self.id)}"
     booking.uid = booking.url = "#{self.id}"
-    booking.add_comment("")
+    booking.attendee self.client.name
+    booking.attendee self.practitioner.name
     booking
   end
 
