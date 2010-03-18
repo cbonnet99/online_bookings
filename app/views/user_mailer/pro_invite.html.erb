@@ -2,4 +2,8 @@ Dear <%=@pro.first_name%>,<br/>
 <br/>
 <%= @client.name%> has booked an appointment with you on <%@booking.start_date.day_and_time%>.<br/>
 <br/>
+To change this appointment:<br/>
+<br/>
+<%= @booking_link%><br/>
+<br/>
 <%= render :partial => "signature" %><br/>

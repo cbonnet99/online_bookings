@@ -72,11 +72,11 @@ class Booking < ActiveRecord::Base
   end
   
   def send_invite
-    if !current_client.nil? && self.client == current_client      
+    if !current_client.nil? && self.client == current_client && self.practitioner.invite_on_client_book?      
       UserEmail.create(:to => self.practitioner.email, :from => APP_CONFIG[:from_email], :client => self.client, :practitioner => self.practitioner,  
        :subject => "#{self.client.name} has booked on #{self.start_date.day_and_time}", :email_type => UserEmail::PRO_INVITE, :delay_mins => INVITE_DELAY_MINS)
      end
-     if !current_pro.nil? && self.practitioner == current_pro      
+     if !current_pro.nil? && self.practitioner == current_pro  && self.practitioner.invite_on_pro_book?     
        UserEmail.create(:to => self.client.email, :from => APP_CONFIG[:from_email], :client => self.client, :practitioner => self.practitioner,
         :subject => "#{self.practitioner.name} has booked an appointment for you on #{self.start_date.day_and_time}", :email_type => UserEmail::CLIENT_INVITE, :delay_mins => INVITE_DELAY_MINS)
       end

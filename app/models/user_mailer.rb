@@ -72,6 +72,7 @@ class UserMailer < ActionMailer::Base
     @body[:client] = client
     @body[:pro] = pro
     @body[:booking] = booking
+    @body[:booking_link] = practitioner_url(pro.permalink, :email => client.email )
   end
 
   def pro_invite(to, from, subject, client, pro, booking)
@@ -80,6 +81,7 @@ class UserMailer < ActionMailer::Base
     @body[:client] = client
     @body[:pro] = pro
     @body[:booking] = booking
+    @body[:booking_link] = practitioner_url(pro.permalink)
   end
 
   def parse_caller(at)
