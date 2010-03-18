@@ -1,3 +1,12 @@
+Factory.define :user_email do |e|
+  e.association :client
+  e.association :practitioner
+  e.association :booking
+  e.sequence(:to) { |n| "foo#{n}@example.com" }
+  e.from "admin@colibriapp.com"
+  e.subject "A nice email from us"
+end
+
 Factory.define :client do |f|
   f.sequence(:first_name) {|n| "User#{n}"}
   f.last_name "Name"

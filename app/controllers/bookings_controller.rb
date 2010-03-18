@@ -64,8 +64,8 @@ class BookingsController < ApplicationController
       pro = current_pro
       @booking.name = @client.try(:default_name)
     end
-    @booking.current_client = client
-    @booking.current_pro = pro
+    @booking.current_client = current_client
+    @booking.current_pro = current_pro
     @booking.name = client.try(:default_name) if @booking.name.blank?
     @booking.client_id = client.try(:id)
     @booking.practitioner_id = pro.try(:id)

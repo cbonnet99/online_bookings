@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100314190118) do
+ActiveRecord::Schema.define(:version => 20100318024212) do
 
   create_table "bookings", :force => true do |t|
     t.datetime "starts_at"
@@ -24,14 +24,6 @@ ActiveRecord::Schema.define(:version => 20100314190118) do
     t.string   "confirmation_code"
     t.string   "state"
     t.datetime "pro_reminder_sent_at"
-  end
-
-  create_table "client_emails", :force => true do |t|
-    t.integer  "client_id"
-    t.string   "email_type"
-    t.datetime "sent_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "clients", :force => true do |t|
@@ -82,6 +74,8 @@ ActiveRecord::Schema.define(:version => 20100314190118) do
     t.boolean  "reminder_night_before"
     t.integer  "no_cancellation_period_in_hours"
     t.string   "country_code"
+    t.boolean  "invite_on_client_book",                         :default => true
+    t.boolean  "invite_on_pro_book",                            :default => true
   end
 
   create_table "relations", :force => true do |t|
@@ -89,6 +83,20 @@ ActiveRecord::Schema.define(:version => 20100314190118) do
     t.integer  "practitioner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "user_emails", :force => true do |t|
+    t.string   "from"
+    t.string   "to"
+    t.string   "subject"
+    t.string   "email_type"
+    t.integer  "delay_mins"
+    t.datetime "sent_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "practitioner_id"
+    t.integer  "client_id"
+    t.integer  "booking_id"
   end
 
 end

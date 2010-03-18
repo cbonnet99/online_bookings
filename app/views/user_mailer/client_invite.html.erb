@@ -1,0 +1,5 @@
+Dear <%=@client.first_name%>,<br/>
+<br/>
+<%= @pro.name%> has booked an appointment for you on <%@booking.start_date.day_and_time%>.<br/>
+<br/>
+<%= render :partial => "signature" %><br/>

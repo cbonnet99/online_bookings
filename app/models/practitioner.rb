@@ -17,6 +17,8 @@ class Practitioner < ActiveRecord::Base
   has_many :bookings
   has_many :relations
   has_many :clients, :through => :relations
+  has_many :user_emails
+  
 
   # new columns need to be added here to be writable through mass assignment
   attr_accessible :username, :email, :password, :password_confirmation, :working_hours, :working_days, :first_name,

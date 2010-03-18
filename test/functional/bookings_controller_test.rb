@@ -98,6 +98,7 @@ class BookingsControllerTest < ActionController::TestCase
   end
 
   def test_create
+    mail_size = UserEmail.all.size
     sav = practitioners(:sav)
     cyrille = clients(:cyrille)
     old_size = Booking.all.size
@@ -122,11 +123,16 @@ class BookingsControllerTest < ActionController::TestCase
     cyrille.reload
     assert_equal "Joe", cyrille.first_name
     assert_equal "Sullivan", cyrille.last_name
+    assert_equal mail_size+1, UserEmail.all.size
+    new_email = UserEmail.last
+    assert_equal sav.email, new_email.to
+    assert_match /#{cyrille.name}/, new_email.subject
   end
 
   def test_create_pro
     sav = practitioners(:sav)
     cyrille = clients(:cyrille)
+    mail_size = UserEmail.all.size
     old_size = Booking.all.size
     post :create, {:practitioner_id => sav.permalink, :format => "json",
       :booking => {:name => "undefined", :client_id => cyrille.id, :comment => "I'll be on time", :booking_type => 0.5, 
@@ -144,6 +150,10 @@ class BookingsControllerTest < ActionController::TestCase
     assert_not_nil new_booking.starts_at
     assert_not_nil new_booking.ends_at
     assert_not_nil new_booking.booking_type
+    assert_equal mail_size+1, UserEmail.all.size
+    new_email = UserEmail.last
+    assert_equal cyrille.email, new_email.to
+    assert_match /#{sav.name}/, new_email.subject
   end
 
   def test_index_cal

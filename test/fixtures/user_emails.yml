@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  from: MyString
+  to: MyString
+  subject: MyString
+  email_type: MyText
+  delay_mins: 1
+  sent_at: 2010-03-18 13:50:10
+
+two:
+  from: MyString
+  to: MyString
+  subject: MyString
+  email_type: MyText
+  delay_mins: 1
+  sent_at: 2010-03-18 13:50:10

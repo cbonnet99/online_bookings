@@ -1,9 +1,12 @@
 set :output, "/var/log/cron_colibri.log"
 
+every 5.minutes do
+  runner "UserEmail.send_unsent_emails"
+end
+
 every 1.hour do
   runner "TaskUtils.send_reminders"
 end
-
 
 every 1.day, :at => "3am"  do
   command "cp --preserve=timestamps /etc/apache2/sites-available/colibri_staging /home/cyrille/backups/apache-colibri_staging"
