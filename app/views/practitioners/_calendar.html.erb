@@ -122,7 +122,7 @@ $(document).ready(function() {
 					  <% if own_calendar?(pro, current_pro) -%>
 					  calEvent.client_id = clientField.val();
 					  <% end -%>
-					  $.post("<%=practitioner_bookings_url(pro)%>", {"format": "json", "booking[name]": calEvent.title<% if own_calendar?(pro, current_pro) -%>, "booking[client_id]": calEvent.client_id<%end -%>, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end}, function(data){
+					  $.post("<%=practitioner_bookings_url(pro)%>", {"format": "json", "booking[name]": calEvent.title<% if own_calendar?(pro, current_pro) -%>, "booking[client_id]": calEvent.client_id<%end -%>, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start.toString(), "booking[ends_at]": calEvent.end.toString()}, function(data){
 						if ((data.flash.error === undefined) || (data.flash.error === '')) {
 							calEvent.id = data.booking.id;
 							calEvent.title = data.booking.title;
@@ -153,7 +153,7 @@ $(document).ready(function() {
 		  }
       },
       eventDrop : function(calEvent, $event) {
-		  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json", "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end}, function(data){
+		  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json", "booking[starts_at]": calEvent.start.toString(), "booking[ends_at]": calEvent.end.toString()}, function(data){
 				displayFlash(data.flash);
 			}, "json");
 
@@ -194,7 +194,7 @@ $(document).ready(function() {
 				  <% if own_calendar?(pro, current_pro) -%>
 				  calEvent.client_id = clientField.val();
 				  <% end -%>
-				  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json"<% if own_calendar?(pro, current_pro) -%>, "booking[client_id]": calEvent.client_id<%end-%>, "booking[name]": calEvent.title, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start, "booking[ends_at]": calEvent.end}, function(data){
+				  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json"<% if own_calendar?(pro, current_pro) -%>, "booking[client_id]": calEvent.client_id<%end-%>, "booking[name]": calEvent.title, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start.toString(), "booking[ends_at]": calEvent.end.toString()}, function(data){
 					if ((data.flash.error === undefined) || (data.flash.error === '')) {
 						calEvent.id = data.booking.id;
 						calEvent.title = data.booking.title;
