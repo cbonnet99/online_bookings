@@ -12,4 +12,5 @@ $(document).ready(function(){
 	$("#send_email").click(function(){
 		setSendEmail();
 	});
+	$(':input').unbind('keydown');
 });
