@@ -20,8 +20,9 @@ class UserEmail < ActiveRecord::Base
       if email.created_at.advance(:minutes  => email.delay_mins).utc < Time.now.utc
         email_call = "deliver_#{email.email_type}".to_sym
         begin
-          UserMailer.send(email_call, email.to, email.from, email.subject, email.client, email.practitioner, email.booking)
-          email.sent_at = Time.now
+          UserMailer.send(email_call, email.to, email.from, email.subject, email.booking)
+          puts "Sent email #{email.email_type} to #{email.to}"
+          email.update_attribute(:sent_at, Time.now)
           sent += 1
         rescue NoMethodError
           puts "ERROR: Cannot send user email ID #{email.id}, email type #{email.email_type} does not correspond to any method in UserMailer"

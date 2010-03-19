@@ -113,7 +113,7 @@ class BookingsControllerTest < ActionController::TestCase
     assert_nil flash[:error]
     assert_not_nil flash[:notice]
     assert_match %r{#{assigns["booking"].practitioner.name}}, flash[:notice]
-    assert_equal old_size+1, Booking.all.size
+    assert_equal old_size+1, Booking.all.size    
     new_booking = Booking.all.last
     assert_equal "Joe Sullivan", new_booking.name
     assert_not_nil new_booking.starts_at

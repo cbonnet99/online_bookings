@@ -1,0 +1,9 @@
+Dear <%=@booking.practitioner.first_name%>,
+
+<%=@booking.client.name%> has booked an appointment with you on <%=@booking.start_date.day_and_time%>.
+
+To change this appointment:
+
+<%= @booking_link%>
+
+<%= render :partial => "signature" %>
