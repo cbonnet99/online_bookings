@@ -264,5 +264,10 @@
   appointment_your_name: "Your name: "
   appointment_comment: "Comment: "
   appointment_do_not_save_button: "don't save"
+  #appointment popup
+  lunch: "Not available"
+  non_working: "Not available"
+  appt_booked: "Booked"
+  
   
   

@@ -293,3 +293,6 @@ fr:
     appointment_client: "Client: "
     appointment_your_name: "Votre Nom: "
     appointment_comment: "Commentaire: "
+    lunch: "Non réservable"
+    non_working: "Non réservable"
+    appt_booked: "Rendez-vous indisponible"
