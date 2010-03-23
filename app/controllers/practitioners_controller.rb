@@ -28,6 +28,7 @@ class PractitionersController < ApplicationController
     @practitioner.no_cancellation_period_in_hours = 24
     @practitioner.country_code = default_country_code
     @days_in_week = Practitioner::WORKING_DAYS
+    
   end
 
   def edit_selected

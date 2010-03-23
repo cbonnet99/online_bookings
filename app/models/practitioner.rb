@@ -151,6 +151,34 @@ class Practitioner < ActiveRecord::Base
     # end    
   end
 
+  def calendar_dateformat()
+    
+      @dateformat=I18n.t(:calendar_dateformat)
+    
+  end
+  
+  def calendar_timeformat(current_pro)
+    case current_pro.country_code
+    when "NZ"
+      @timeformat="h:ia"
+    when "FR"
+      @timeformat="h:i"
+    when "EN"
+      @timeformat="h:ia"
+    end
+  end
+  
+  def calendar_use24hour(current_pro)
+    case current_pro.country_code
+    when "NZ"
+      @use24hour = false
+    when "FR"
+      @use24hour = true
+    when "EN"
+      @use24hour = false
+    end
+  end
+  
   def biz_hours_start
     TimeUtils.round_previous_hour(working_hours.split("-").first)
   end
