@@ -154,6 +154,8 @@
   flash_error_booking_appointment_not_found : "This appointment can not be found"
   flash_notice_booking_appointment_changed : "Your appointment with {{booking_partner}} on {{booking_date}} at {{booking_time}} has been changed"
   flash_notice_booking_appointment_removed : "Your appointment with {{booking_partner}} on {{booking_date}} at {{booking_time}} has been removed"
+  #language
+  sentencelink_and: "and"
   #button       
   select_button: "Select"
   enter_button: "Enter"
@@ -194,6 +196,8 @@
   session_new_email: "Your email address"
   session_new_login: "Log in"
   session_new_password: "Password"
+  #practicioner/show
+  practitioner_show_message: "To book an appointment, click on any white space below. Today is highlighted in yellow. To see next week, click on the button on the right with label"
   #practitioner/login_info
   practitioner_login_info_message: "You are logged in as: "
   practitioner_login_info_edit_link: "Edit"
@@ -257,6 +261,10 @@
   client_index_add_link: "add clients"
   client_index_message1: "at any time."
   client_index_add_more: "Add more"
+  #booking/edit
+  booking_edit_title: "Edit Booking"
+  booking_edit_show: "Show"
+  booking_edit_viewall: "View All"
   #appointment popup calendar
   appointment_start_time: "Start time: "
   appointment_end_time: "End Time: "
@@ -264,5 +272,10 @@
   appointment_your_name: "Your name: "
   appointment_comment: "Comment: "
   appointment_do_not_save_button: "don't save"
+  #appointment popup
+  lunch: "Not available"
+  non_working: "Not available"
+  appt_booked: "Booked"
+  calendar_dateformat: "M,jS Y"
   
   

@@ -190,6 +190,8 @@ fr:
     flash_notice_booking_appointment_removed : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} a été effacé"
   # colibri app
   # main keyword
+  #language
+    sentencelink_and: "et"
   # button
     select_button: "Choisir"
     enter_button: "Entrer"
@@ -230,6 +232,8 @@ fr:
     session_new_email: "Votre adresse email"
     session_new_login: "Se connecter"
     session_new_password: "Mot de passe"
+    #practicioner/show
+    practitioner_show_message: "Pour prendre un rendez-vous, clickez sur un des espaces libres du calendrier. La date du jour apparait en jaune. Pour changer de semaine, utilisez les boutons "
     #practitioner/login_info
     practitioner_login_info_message: "Connecté(e) avec: "
     practitioner_login_info_edit_link: "Modifier"
@@ -287,9 +291,17 @@ fr:
     client_index_add_link: "ajouter des clients"
     client_index_message1: "à n'importe quel moment."
     client_index_add_more: "Ajouter"
+    #booking/edit
+    booking_edit_title: "Modifiez un rendez-vous"
+    booking_edit_show: "voir"
+    booking_edit_viewall: "voir tous"
     #appointment popup calendar
     appointment_start_time: "Début: "
     appointment_end_time: "Fin: "
     appointment_client: "Client: "
     appointment_your_name: "Votre Nom: "
     appointment_comment: "Commentaire: "
+    lunch: "Non réservable"
+    non_working: "Non réservable"
+    appt_booked: "Rendez-vous indisponible"
+    calendar_dateformat: "j M Y"

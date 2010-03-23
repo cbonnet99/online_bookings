@@ -2,13 +2,15 @@
 $(document).ready(function() {
 
    var $calendar = $('#calendar');
-   var id = 10;
+   	var mylocal = '<%=  I18n.locale %>' ;
+	I18n.locale = mylocal;
+	var id = 10;
 
    var changeButtonColors = function() {
-       $("button:contains('save')").hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("color", "#090").css("background", "url('/images/green_tick.gif')").css("background-repeat", "no-repeat").css("padding-left", "20px").css("font-size", "14px");
-       $("button:contains('delete')").hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("background", "url('/images/red_x.gif')").css("background-repeat", "no-repeat").css("color", "#C00");
+       $("button:contains('save')").html(I18n.t("button_save")).hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("color", "#090").css("background", "url('/images/green_tick.gif')").css("background-repeat", "no-repeat").css("padding-left", "20px").css("font-size", "14px");
+       $("button:contains('delete')").html(I18n.t("button_delete")).hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("background", "url('/images/red_x.gif')").css("background-repeat", "no-repeat").css("color", "#C00");
        $("button:contains('delete')").css("background-color", "white").css("padding-left", "20px").css("font-size", "14px");
-       $("button:contains('cancel')").html("don't save").hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("background-color", "white").css("color", "black").css("font-size", "14px");
+       $("button:contains('cancel')").html(I18n.t("button_nosave")).hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("background-color", "white").css("color", "black").css("font-size", "14px");
 	
    }
 	
@@ -17,7 +19,7 @@ $(document).ready(function() {
    };
    var displayFlash = function(flash) {
 		if (flash.notice !== undefined && flash.notice !== '') {
-			$("div#flash_calendar").html("<div id='flash_notice'>"+flash.notice+"<span id='flash_hide'>Close</span></div>").fadeIn(2000, function(){$(this)});
+			$("div#flash_calendar").html("<div id='flash_notice'>"+flash.notice+"<span id='flash_hide'>" +I18n.t("close") + "</span></div>").fadeIn(2000, function(){$(this)});
 			$("#flash_hide").click(function(){hideFlash();});
 			
 		}
@@ -31,19 +33,24 @@ $(document).ready(function() {
       timeslotsPerHour : 2,
 	  defaultEventLength: 2,
 	  timeSeparator : "-",
-	  dateFormat: "j M Y",
-	  timeFormat : "h:ia",
+	  dateFormat: '<%=pro.calendar_dateformat()%>',
+	  use24Hour : <%=pro.calendar_use24hour(current_pro)%>,
+	  timeFormat : '<%=pro.calendar_timeformat(current_pro)%>',
       allowCalEventOverlap : false,
       overlapEventsSeparate: false,
       firstDayOfWeek : 1,
-	  newEventText: "New appointment",
+	  newEventText: I18n.t("new_appointment"),
       businessHours :{start: <%=pro.biz_hours_start%>, end: <%=pro.biz_hours_end%>, limitDisplay: true },
       daysToShow : 7,
 	  buttonText: {
-		today: "Today",
+		today: I18n.t("today"),
 		lastWeek: "<",
 		nextWeek: ">"
 	  },
+	shortMonths : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+         longMonths : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+         shortDays : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+          longDays : [I18n.t("Sunday"), I18n.t("Monday"), I18n.t("Tuesday"), I18n.t("Wednesday"), I18n.t("Thursday"), I18n.t("Friday"), I18n.t("Saturday")],
 	  
       height : function($calendar) {
          return $(window).height() - $("h1").outerHeight() - 1;
@@ -81,7 +88,7 @@ $(document).ready(function() {
       eventNew : function(calEvent, $event) {
          if (calEvent.end.getTime() < new Date().getTime()) {
 			$('#calendar').weekCalendar("removeUnsavedEvents"); 
-			alert("Sorry, you can not book an appointment in the past");
+			alert(I18n.t("sorry"));
 			return false;
 		 }
 		 else {
@@ -105,7 +112,7 @@ $(document).ready(function() {
 
 	         $dialogContent.dialog({
 	            modal: true,
-	            title: "New appointment",
+	            title: I18n.t("new_appointment"),
 	            close: function() {
 	               $dialogContent.dialog("destroy");
 	               $dialogContent.hide();

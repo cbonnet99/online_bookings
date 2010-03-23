@@ -151,6 +151,34 @@ class Practitioner < ActiveRecord::Base
     # end    
   end
 
+  def calendar_dateformat()
+    
+      @dateformat=I18n.t(:calendar_dateformat)
+    
+  end
+  
+  def calendar_timeformat(current_pro)
+    case current_pro.country_code
+    when "NZ"
+      @timeformat="h:ia"
+    when "FR"
+      @timeformat="h:i"
+    when "EN"
+      @timeformat="h:ia"
+    end
+  end
+  
+  def calendar_use24hour(current_pro)
+    case current_pro.country_code
+    when "NZ"
+      @use24hour = false
+    when "FR"
+      @use24hour = true
+    when "EN"
+      @use24hour = false
+    end
+  end
+  
   def biz_hours_start
     TimeUtils.round_previous_hour(working_hours.split("-").first)
   end
@@ -216,7 +244,7 @@ class Practitioner < ActiveRecord::Base
       #for us Sunday is 7, for Ruby it's 0
       week_day = "7" if week_day == "0"
       if !working_days.blank? && !working_days.include?(week_day)
-        res << NonWorkingBooking.new("#{self.id}-#{day}-#{month}-#{year}", TITLE_FOR_NON_WORKING, Time.parse("#{year}/#{month}/#{day} #{biz_hours_start}"), Time.parse("#{year}/#{month}/#{day} #{biz_hours_end}"), true)
+        res << NonWorkingBooking.new("#{self.id}-#{day}-#{month}-#{year}", I18n.t(:non_working), Time.parse("#{year}/#{month}/#{day} #{biz_hours_start}"), Time.parse("#{year}/#{month}/#{day} #{biz_hours_end}"), true)
       end
       current += 1.day
     end
@@ -245,7 +273,7 @@ class Practitioner < ActiveRecord::Base
             raise "There is a format error on working hours for practitioner #{self.name}: #{self.working_hours} [end time for #{split_hours[i+1]}]"
           end
           if slot_end_time > slot_start_time
-            res << NonWorkingBooking.new("#{self.id}-#{day}-#{month}-#{year}-#{slot_start_time}", TITLE_FOR_NON_WORKING, Time.parse("#{year}/#{month}/#{day} #{TimeUtils.fix_minutes(slot_start_time)}"), Time.parse("#{year}/#{month}/#{day} #{TimeUtils.fix_minutes(slot_end_time)}"), true)
+            res << NonWorkingBooking.new("#{self.id}-#{day}-#{month}-#{year}-#{slot_start_time}", I18n.t(:lunch), Time.parse("#{year}/#{month}/#{day} #{TimeUtils.fix_minutes(slot_start_time)}"), Time.parse("#{year}/#{month}/#{day} #{TimeUtils.fix_minutes(slot_end_time)}"), true)
           end
         end
       end

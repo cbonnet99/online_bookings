@@ -1,4 +1,4 @@
 <% javascript "calendar_flash"%>
 <% use_calendar %>
-<% if client_needs_help %><div id="help_calendar">To book an appointment, click on any white space below. Today is highlighted in yellow. To see next week, click on the button on the right with label &quot;&gt;&quot;</div><%end%>
+<% if client_needs_help %><div id="help_calendar"><%= t(:practitioner_show_message) %>  &quot;&lt;&quot; <%= t(:sentencelink_and) %> &quot;&gt;&quot;</div><%end%>
 <%= render :partial => "calendar", :locals => {:pro => @current_selected_pro || current_pro, :client => @current_selected_pro || current_client  }  %>

@@ -243,7 +243,7 @@ class Booking < ActiveRecord::Base
   
   def title
     if read_only?
-      "Booked"
+      I18n.t(:appt_booked)
     else
       name
     end
