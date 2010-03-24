@@ -45,7 +45,7 @@ class Practitioner < ActiveRecord::Base
   TITLE_FOR_NON_WORKING = "Booked"
   WORKING_DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
   #WORKING_DAYS = Date::DAY_NAMES
-  
+    
   def set_working_days
     if working_days.blank? && !WORKING_DAYS.map{|day| self.send("working_day_#{day}".to_sym)}.select{|value| value == true || value.to_s == "1"}.blank?
       res = []
@@ -150,31 +150,21 @@ class Practitioner < ActiveRecord::Base
     #   "Step 3: book your appointment with #{self.name}"
     # end    
   end
-
-  def calendar_dateformat()
-    
-      @dateformat=I18n.t(:calendar_dateformat)
-    
-  end
   
-  def calendar_timeformat(current_pro)
-    case current_pro.country_code
-    when "NZ"
-      @timeformat="h:ia"
+  def calendar_timeformat
+    case self.country_code
     when "FR"
       @timeformat="h:i"
-    when "EN"
+    else
       @timeformat="h:ia"
     end
   end
   
-  def calendar_use24hour(current_pro)
-    case current_pro.country_code
-    when "NZ"
-      @use24hour = false
+  def calendar_use24hour
+    case self.country_code
     when "FR"
       @use24hour = true
-    when "EN"
+    else
       @use24hour = false
     end
   end

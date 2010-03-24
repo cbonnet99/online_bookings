@@ -18,5 +18,4 @@ kartini_megan:
     ends_at: <%=Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14).to_s(:db)%>
     client: kartini
     practitioner: megan
-    state: confirmed
-    
+    state: confirmed    

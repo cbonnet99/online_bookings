@@ -58,7 +58,7 @@ module ApplicationHelper
   end
   
   def current_pro_client_options(current_pro)
-    res = ""
+    res = "<option value=''>Time for myself</option>"
     current_pro.clients_options.each do |name, id|
       res << "<option value='#{id}'>#{name}</option>"
     end

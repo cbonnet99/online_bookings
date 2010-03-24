@@ -187,6 +187,48 @@ class BookingsControllerTest < ActionController::TestCase
     assert_match /#{sav.name}/, new_email.subject
   end
 
+  def test_create_pro_own_time
+    sav = practitioners(:sav)
+    cyrille = clients(:cyrille)
+    mail_size = UserEmail.all.size
+    old_size = Booking.all.size
+    post :create, {:practitioner_id => sav.permalink, :format => "json",
+      :booking => {:client_id => "", :comment => "", :booking_type => 1, 
+      :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}",
+      :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
+      {:pro_id => sav.id }
+    # puts @response.body
+    assert_not_nil assigns(:booking)
+    assert assigns(:booking).errors.blank?, "There should be no errors, but got: #{assigns['booking'].errors.full_messages.to_sentence}"
+    assert_nil flash[:error]
+    assert_not_nil flash[:notice]
+    assert_equal old_size+1, Booking.all.size
+    assert_equal "Own time", assigns(:booking).name
+    assert_equal "confirmed", assigns(:booking).state, "Own time bookings are automatically confirmed"
+    assert_equal mail_size, UserEmail.all.size, "No email should be sent as this is own time booking"
+  end
+
+  def test_create_pro_own_time_with_comment
+    sav = practitioners(:sav)
+    cyrille = clients(:cyrille)
+    mail_size = UserEmail.all.size
+    old_size = Booking.all.size
+    post :create, {:practitioner_id => sav.permalink, :format => "json",
+      :booking => {:client_id => "", :comment => "Lunch", :booking_type => 1, 
+      :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}",
+      :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
+      {:pro_id => sav.id }
+    # puts @response.body
+    assert_not_nil assigns(:booking)
+    assert assigns(:booking).errors.blank?, "There should be no errors, but got: #{assigns['booking'].errors.full_messages.to_sentence}"
+    assert_nil flash[:error]
+    assert_not_nil flash[:notice]
+    assert_equal old_size+1, Booking.all.size
+    assert_equal "Lunch", assigns(:booking).name
+    assert_equal "confirmed", assigns(:booking).state, "Own time bookings are automatically confirmed"
+    assert_equal mail_size, UserEmail.all.size, "No email should be sent as this is own time booking"
+  end
+
   def test_create_pro_no_invite
     sav = practitioners(:sav)
     sav.update_attribute(:invite_on_pro_book, false)

@@ -34,7 +34,7 @@ class Booking < ActiveRecord::Base
   belongs_to :client
   has_many :user_emails
 
-  validates_presence_of :name, :client, :practitioner, :starts_at, :ends_at
+  validates_presence_of :practitioner, :starts_at, :ends_at
   
   attr_accessible :starts_at, :ends_at, :name, :comment, :booking_type, :client_id, :client, :practitioner, :practitioner_id
   attr_accessor :current_client, :current_pro
@@ -42,7 +42,7 @@ class Booking < ActiveRecord::Base
   after_create :save_client_name, :update_relations_after_create, :send_invite
   after_destroy :update_relations_after_destroy
   after_update :save_client_name
-  before_create :generate_confirmation_code
+  before_create :generate_confirmation_code, :set_defaults
 
   named_scope :need_pro_reminder, :conditions => ["pro_reminder_sent_at IS NULL AND starts_at BETWEEN ? AND ?", 1.day.from_now.beginning_of_day, 1.day.from_now.end_of_day]
 
@@ -70,15 +70,28 @@ class Booking < ActiveRecord::Base
     transitions :to => :reminder_sent, :from => [:unconfirmed]
   end
   
-  def send_invite
-    if !current_client.nil? && self.client == current_client && self.practitioner.invite_on_client_book?      
-      UserEmail.create(:to => self.practitioner.email, :from => APP_CONFIG[:from_email], :client => self.client, :practitioner => self.practitioner,  
-       :subject => "#{self.client.name} has booked on #{self.start_date.day_and_time}", :email_type => UserEmail::PRO_INVITE, :delay_mins => INVITE_DELAY_MINS)
-     end
-     if !current_pro.nil? && self.practitioner == current_pro  && self.practitioner.invite_on_pro_book?     
-       UserEmail.create(:to => self.client.email, :from => APP_CONFIG[:from_email], :client => self.client, :practitioner => self.practitioner,
-        :subject => "#{self.practitioner.name} has booked an appointment for you on #{self.start_date.day_and_time}", :email_type => UserEmail::CLIENT_INVITE, :delay_mins => INVITE_DELAY_MINS)
+  def set_defaults
+    if client.nil? && name.blank?
+      self.state = "confirmed"
+      if comment.blank?
+        self.name = practitioner.try(:own_time_label)
+      else
+        self.name = self.comment
       end
+    end
+  end
+  
+  def send_invite
+    unless self.client.nil?
+      if !current_client.nil? && self.client == current_client && self.practitioner.invite_on_client_book?      
+        UserEmail.create(:to => self.practitioner.email, :from => APP_CONFIG[:from_email], :client => self.client, :practitioner => self.practitioner,  
+         :subject => "#{self.client.name} has booked on #{self.start_date.day_and_time}", :email_type => UserEmail::PRO_INVITE, :delay_mins => INVITE_DELAY_MINS)
+      end
+      if !current_pro.nil? && self.practitioner == current_pro  && self.practitioner.invite_on_pro_book?     
+         UserEmail.create(:to => self.client.email, :from => APP_CONFIG[:from_email], :client => self.client, :practitioner => self.practitioner,
+          :subject => "#{self.practitioner.name} has booked an appointment for you on #{self.start_date.day_and_time}", :email_type => UserEmail::CLIENT_INVITE, :delay_mins => INVITE_DELAY_MINS)
+      end
+    end
   end
     
   def state_color
@@ -93,10 +106,12 @@ class Booking < ActiveRecord::Base
   end
 
   def update_relations_after_create
-    first_appointment_with_this_client = (self.client.bookings.find_all_by_practitioner_id(self.practitioner_id).size == 1)
-    if first_appointment_with_this_client
-      if self.client.relations.find_by_practitioner_id(self.practitioner_id).nil?
-        Relation.create(:practitioner_id => self.practitioner_id, :client_id => self.client_id )
+    unless self.client.nil?
+      first_appointment_with_this_client = (self.client.bookings.find_all_by_practitioner_id(self.practitioner_id).size == 1)
+      if first_appointment_with_this_client
+        if self.client.relations.find_by_practitioner_id(self.practitioner_id).nil?
+          Relation.create(:practitioner_id => self.practitioner_id, :client_id => self.client_id )
+        end
       end
     end
   end
@@ -145,7 +160,9 @@ class Booking < ActiveRecord::Base
   end
 
   def generate_confirmation_code
-    self.confirmation_code = Digest::SHA256.hexdigest(self.name+Time.now.to_s)
+    unless client.nil?
+      self.confirmation_code = Digest::SHA256.hexdigest(self.name+Time.now.to_s)
+    end
   end
 
   def self.need_reminders
@@ -221,7 +238,7 @@ class Booking < ActiveRecord::Base
   end
 
   def save_client_name
-    if !self.name.blank?
+    if !client.nil? && !self.name.blank?
       names = self.name.split(" ")
       client.first_name = names[0]
       client.last_name = names[1..names.size].join(" ")

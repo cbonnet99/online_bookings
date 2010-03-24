@@ -11,6 +11,7 @@ megan:
     phone: 021 34556666
     no_cancellation_period_in_hours: 24
     country_code: NZ
+    own_time_label: Own time
 sav:
     first_name: David
     last_name: Savage
@@ -25,6 +26,7 @@ sav:
     phone: 021 34556667
     no_cancellation_period_in_hours: 24
     country_code: NZ
+    own_time_label: Own time
 rene:
     first_name: René
     last_name: Durand
@@ -38,3 +40,4 @@ rene:
     phone: 06 87 66 67 57
     no_cancellation_period_in_hours: 24
     country_code: FR
+    own_time_label: Own time

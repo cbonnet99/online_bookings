@@ -25,6 +25,7 @@ class PractitionersController < ApplicationController
   def new
     @practitioner = Practitioner.new
     @practitioner.working_hours = "8-12,13-18"
+    @practitioner.own_time_label = "Own time"
     @practitioner.no_cancellation_period_in_hours = 24
     @practitioner.country_code = default_country_code
     @days_in_week = Practitioner::WORKING_DAYS
