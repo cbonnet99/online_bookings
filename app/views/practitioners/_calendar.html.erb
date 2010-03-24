@@ -34,8 +34,8 @@ $(document).ready(function() {
 	  defaultEventLength: 2,
 	  timeSeparator : "-",
 	  dateFormat: '<%=I18n.t(:calendar_dateformat)%>',
-	  use24Hour : <%=pro.calendar_use24hour%>,
-	  timeFormat : '<%=pro.calendar_timeformat%>',
+	  use24Hour : <%=I18n.t(:calendar_use24hour)%>,
+	  timeFormat : '<%=I18n.t(:calendar_timeformat)%>',
       allowCalEventOverlap : false,
       overlapEventsSeparate: false,
       firstDayOfWeek : 1,
@@ -47,11 +47,12 @@ $(document).ready(function() {
 		lastWeek: "<",
 		nextWeek: ">"
 	  },
-	shortMonths : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-         longMonths : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-         shortDays : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-          longDays : [I18n.t("Sunday"), I18n.t("Monday"), I18n.t("Tuesday"), I18n.t("Wednesday"), I18n.t("Thursday"), I18n.t("Friday"), I18n.t("Saturday")],
+	shortMonths : [I18n.t("Jan"), I18n.t("Feb"), I18n.t("Mar"), I18n.t("Apr"), I18n.t("May"), I18n.t("Jun"), I18n.t("Jul"), I18n.t("Aug"), I18n.t("Sep"), I18n.t("Oct"), I18n.t("Nov"), I18n.t("Dec")],
+         longMonths : [ I18n.t("January"), I18n.t( "February"),  I18n.t("March"),  I18n.t("April"),  I18n.t("May"),  I18n.t("June"),  I18n.t("July"),  I18n.t("August"),  I18n.t("September"),  I18n.t("October"),  I18n.t("November"),  I18n.t("December")],
+         shortDays : [I18n.t("Sun"), I18n.t("Mon"), I18n.t("Tue"), I18n.t("Wed"), I18n.t("Thu"), I18n.t("Fri"), I18n.t("Sat")],
+         longDays : [I18n.t("Sunday"), I18n.t("Monday"), I18n.t("Tuesday"), I18n.t("Wednesday"), I18n.t("Thursday"), I18n.t("Friday"), I18n.t("Saturday")],
 	  
+
       height : function($calendar) {
          return $(window).height() - $("h1").outerHeight() - 1;
       },

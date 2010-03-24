@@ -7,7 +7,7 @@ fr:
         long_ordinal: "%e %B %Y"
         only_day: "%e"
 
-      day_names: [dimanche, lundi, mardi, mercredi, jeudi, vendredi, samedi]
+      day_names: [ lundi, mardi, mercredi, jeudi, vendredi, samedi , dimanche]
       abbr_day_names: [dim, lun, mar, mer, jeu, ven, sam]
       month_names: [~, janvier, février, mars, avril, mai, juin, juillet, août, septembre, octobre, novembre, décembre]
       abbr_month_names: [~, jan., fév., mar., avr., mai, juin, juil., août, sept., oct., nov., déc.]
@@ -136,7 +136,15 @@ fr:
           odd: "doit être impair"
           even: "doit être pair"
           record_invalid: "La validation a échoué : {{errors}}"
-  #flash
+  #weekday
+    monday: "lundi"
+    tuesday: "mardi"
+    wednesday: "mercredi"
+    thursday: "jeudi"
+    friday: "vendredi"
+    saturday: "samedi"
+    sunday: "dimanche"
+    #flash
     #practicioner
     flash_error_practitioner_not_found : "Nous n'avons pas trouvé votre professionel(le)"
     flash_notice_practitioner_visualize_ical : "Vous pouvez maintenant voir votre calendrier dans Ical"
@@ -305,3 +313,5 @@ fr:
     non_working: "Non réservable"
     appt_booked: "Rendez-vous indisponible"
     calendar_dateformat: "j M Y"
+    calendar_timeformat: "h:i"
+    calendar_use24hour: true
