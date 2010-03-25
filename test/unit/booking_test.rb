@@ -2,6 +2,11 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class BookingTest < ActiveSupport::TestCase  
 
+  def test_duration_mins
+    booking = Factory(:booking)
+    assert_equal 60, booking.duration_mins
+  end
+
   def test_simple_time
     booking = Factory(:booking)
     booking.starts_at.simple_time    

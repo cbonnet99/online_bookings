@@ -37,13 +37,14 @@ class Booking < ActiveRecord::Base
 
   validates_presence_of :practitioner, :starts_at, :ends_at
   
-  attr_accessible :starts_at, :ends_at, :name, :comment, :booking_type, :client_id, :client, :practitioner, :practitioner_id
+  attr_accessible :starts_at, :ends_at, :name, :comment, :booking_type, :booking_type_id, :client_id, :client, :practitioner, :practitioner_id
   attr_accessor :current_client, :current_pro
   
   after_create :save_client_name, :update_relations_after_create, :send_invite
   after_destroy :update_relations_after_destroy
   after_update :save_client_name
-  before_create :generate_confirmation_code, :set_defaults
+  before_update :set_times
+  before_create :generate_confirmation_code, :set_name, :set_times
 
   named_scope :need_pro_reminder, :conditions => ["pro_reminder_sent_at IS NULL AND starts_at BETWEEN ? AND ?", 1.day.from_now.beginning_of_day, 1.day.from_now.end_of_day]
 
@@ -69,17 +70,6 @@ class Booking < ActiveRecord::Base
   
   aasm_event :send_reminder do
     transitions :to => :reminder_sent, :from => [:unconfirmed]
-  end
-  
-  def set_defaults
-    if client.nil? && name.blank?
-      self.state = "confirmed"
-      if comment.blank?
-        self.name = practitioner.try(:own_time_label)
-      else
-        self.name = self.comment
-      end
-    end
   end
   
   def send_invite
@@ -279,4 +269,34 @@ class Booking < ActiveRecord::Base
   def to_json(options={})
     super options.merge(:only => [:id, :client_id, :booking_type_id], :methods => [:title, :start, :end, :readOnly, :state, :errors])
   end
+  
+  def duration_mins
+    (ends_at - starts_at)/60
+  end
+  
+  private
+  
+  def set_times
+    if !self.booking_type.nil? && self.duration_mins != self.booking_type.duration_mins
+      self.ends_at = self.starts_at.advance(:minutes => self.booking_type.duration_mins )
+    end
+    if !self.practitioner.nil? && self.practitioner.prep_time_mins > 0
+      self.prep_before = self.practitioner.prep_before
+      self.prep_time_mins = self.practitioner.prep_time_mins
+    end
+  end
+  
+  def set_name
+    if client.nil? && name.blank?
+      self.state = "confirmed"
+      if comment.blank?
+        self.name = practitioner.try(:own_time_label)
+      else
+        self.name = self.comment
+      end
+    end
+  end
+  
+  
+  
 end

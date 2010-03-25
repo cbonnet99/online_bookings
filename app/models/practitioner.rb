@@ -164,6 +164,13 @@ class Practitioner < ActiveRecord::Base
     self.booking_types.size > 1
   end
   
+  def default_booking_length_in_timeslots
+    if self.booking_types.try(:first).nil?
+      2
+    else
+      self.booking_types.first.duration_mins/30
+    end
+  end
     
   def biz_hours_start
     TimeUtils.round_previous_hour(working_hours.split("-").first)

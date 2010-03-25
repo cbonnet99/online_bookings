@@ -275,10 +275,10 @@
   booking_edit_show: "Show"
   booking_edit_viewall: "View All"
   #appointment popup calendar
-  appointment_start_time: "Start time: "
-  appointment_end_time: "End Time: "
+  appointment_start_time: "Starts at: "
+  appointment_end_time: "Ends at: "
   appointment_client: "Client: "
-  appointment_booking_type: "Length: "
+  appointment_booking_type: "Type: "
   appointment_your_name: "Your name: "
   appointment_comment: "Comment: "
   appointment_do_not_save_button: "don't save"

@@ -68,7 +68,9 @@ module ApplicationHelper
   def current_pro_booking_type_options(current_pro)
     res = ""
     current_pro.booking_types.each do |bt|
-      res << "<option value='#{bt.id}'>#{bt.title}</option>"
+      res << "<option value='#{bt.id}'"
+      res << " selected='selected'" if bt.is_default?
+      res << ">#{bt.title}</option>"
     end
     return res
   end

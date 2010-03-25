@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100324081800) do
+ActiveRecord::Schema.define(:version => 20100325022541) do
 
   create_table "booking_types", :force => true do |t|
     t.string   "title"
@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(:version => 20100324081800) do
     t.integer  "practitioner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_default"
   end
 
   create_table "bookings", :force => true do |t|
@@ -32,6 +33,8 @@ ActiveRecord::Schema.define(:version => 20100324081800) do
     t.string   "state"
     t.datetime "pro_reminder_sent_at"
     t.integer  "booking_type_id"
+    t.boolean  "prep_before",          :default => false
+    t.integer  "prep_time_mins",       :default => 0
   end
 
   create_table "clients", :force => true do |t|
@@ -85,6 +88,8 @@ ActiveRecord::Schema.define(:version => 20100324081800) do
     t.boolean  "invite_on_client_book",                         :default => true
     t.boolean  "invite_on_pro_book",                            :default => true
     t.string   "own_time_label"
+    t.boolean  "prep_before",                                   :default => false
+    t.integer  "prep_time_mins",                                :default => 0
   end
 
   create_table "relations", :force => true do |t|

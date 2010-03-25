@@ -17,6 +17,17 @@ class PractitionerTest < ActiveSupport::TestCase
     Practitioner.delete_all
   end
 
+  def test_default_booking_length_in_timeslots
+    pro = Factory(:practitioner)
+    assert_equal 2, pro.default_booking_length_in_timeslots, "2 should be the default"    
+    booking_type1 = Factory(:booking_type, :practitioner => pro, :duration_mins => 120)
+    pro.reload
+    assert_equal 4, pro.default_booking_length_in_timeslots
+    booking_type2 = Factory(:booking_type, :practitioner => pro, :duration_mins => 90)
+    pro.reload
+    assert_equal 4, pro.default_booking_length_in_timeslots, "Only the default one count"    
+  end
+
   def test_set_working_days
     pro = Factory(:practitioner, :working_days => nil, :working_day_monday => "1", :working_day_tuesday => "1",
                   :working_day_wednesday => "1", :working_day_thursday => "1", :working_day_friday => "1",

@@ -1,3 +1,9 @@
+Factory.define :booking_type do |bt|
+  bt.association :practitioner
+  bt.duration_mins 60
+  bt.title "Session"
+  bt.is_default false
+end
 Factory.define :user_email do |e|
   e.association :client
   e.association :practitioner
