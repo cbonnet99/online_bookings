@@ -101,6 +101,15 @@
       odd: "must be odd"
       even: "must be even"
    
+   #weekday
+  monday: "monday"
+  tuesday: "tuesday"
+  wednesday: "wednesday"
+  thursday: "thursday"
+  friday: "friday"
+  saturday: "saturday"
+  sunday: "sunday"
+    
   #flash message
   #practicioner
   flash_error_practitioner_not_found: "Could not find this practitioner"
@@ -278,5 +287,7 @@
   non_working: "Not available"
   appt_booked: "Booked"
   calendar_dateformat: "M,jS Y"
+  calendar_timeformat: "h:ia"
+  calendar_use24hour: false
   
   

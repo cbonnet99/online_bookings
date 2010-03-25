@@ -44,9 +44,10 @@ class Practitioner < ActiveRecord::Base
   before_create :set_working_days
   
   TITLE_FOR_NON_WORKING = "Booked"
-  WORKING_DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+  WORKING_DAYS = [I18n.t(:monday),I18n.t(:tuesday) ,I18n.t(:wednesday) , I18n.t(:thursday), I18n.t(:friday),I18n.t(:saturday) ,I18n.t(:sunday) ]
   #WORKING_DAYS = Date::DAY_NAMES
-    
+  #WORKING_DAYS = I18n.t 'date.day_names' does not work with actul code sunday is first day of the week
+  
   def set_working_days
     if working_days.blank? && !WORKING_DAYS.map{|day| self.send("working_day_#{day}".to_sym)}.select{|value| value == true || value.to_s == "1"}.blank?
       res = []
@@ -163,24 +164,7 @@ class Practitioner < ActiveRecord::Base
     self.booking_types.size > 1
   end
   
-  def calendar_timeformat
-    case self.country_code
-    when "FR"
-      @timeformat="h:i"
-    else
-      @timeformat="h:ia"
-    end
-  end
-  
-  def calendar_use24hour
-    case self.country_code
-    when "FR"
-      @use24hour = true
-    else
-      @use24hour = false
-    end
-  end
-  
+    
   def biz_hours_start
     TimeUtils.round_previous_hour(working_hours.split("-").first)
   end
