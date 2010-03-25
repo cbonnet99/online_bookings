@@ -286,7 +286,7 @@
   lunch: "Not available"
   non_working: "Not available"
   appt_booked: "Booked"
-  calendar_dateformat: "M,jS Y"
+  calendar_dateformat: "j M Y"
   calendar_timeformat: "h:ia"
   calendar_use24hour: false
   
