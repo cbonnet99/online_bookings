@@ -24,7 +24,6 @@ $(document).ready(function() {
 			
 		}
 		if (flash.error !== undefined && flash.error !== '') {
-			console.log(" in NOTICE, flash.error: ", flash.error);
 			$("div#flash_calendar").html("<div id='flash_error'>"+flash.error+"</div>").fadeIn(2000, function(){$(this)});
 		}
 	  };
@@ -101,6 +100,9 @@ $(document).ready(function() {
 	         var bodyField = $dialogContent.find("textarea[name='body']");
 			 <% if own_calendar?(pro, current_pro) -%>
 	         var clientField = $dialogContent.find("select[name='client_id']");
+			 <%if pro.has_multiple_booking_types? -%>
+			 var bookingTypeField = $dialogContent.find("select[name='booking_type_id']");
+			 <%end -%>
 			 <%end -%>
 			
 			if ($dialogContent.find("input[name='title']").is(":visible")) {
@@ -128,8 +130,11 @@ $(document).ready(function() {
 	                  calEvent.body = bodyField.val();
 					  <% if own_calendar?(pro, current_pro) -%>
 					  calEvent.client_id = clientField.val();
+					  <%if pro.has_multiple_booking_types? -%>
+					  calEvent.booking_type_id = bookingTypeField.val();
 					  <% end -%>
-					  $.post("<%=practitioner_bookings_url(pro)%>", {"format": "json", "booking[name]": calEvent.title<% if own_calendar?(pro, current_pro) -%>, "booking[client_id]": calEvent.client_id<%end -%>, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start.toString(), "booking[ends_at]": calEvent.end.toString()}, function(data){
+					  <% end -%>
+					  $.post("<%=practitioner_bookings_url(pro)%>", {"format": "json", "booking[name]": calEvent.title<% if own_calendar?(pro, current_pro) -%>, "booking[client_id]": calEvent.client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": calEvent.booking_type_id<%end -%><%end -%>, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start.toString(), "booking[ends_at]": calEvent.end.toString()}, function(data){
 						if ((data.flash.error === undefined) || (data.flash.error === '')) {
 							calEvent.id = data.booking.id;
 							calEvent.title = data.booking.title;
@@ -180,7 +185,16 @@ $(document).ready(function() {
 		<% end -%>
          var titleField = $dialogContent.find("input[name='title']").val(calEvent.title);
          var bodyField = $dialogContent.find("textarea[name='body']");
-         var clientField = $dialogContent.find("select[name='client_id']").val(calEvent.client_id);
+         <% if own_calendar?(pro, current_pro) -%>
+         var my_client_id = "";
+         if (calEvent.client_id !== null){
+	       my_client_id = calEvent.client_id
+         }
+         var clientField = $dialogContent.find("select[name='client_id']").val(my_client_id);
+         <%if pro.has_multiple_booking_types? -%>
+         var bookingTypeField = $dialogContent.find("select[name='booking_type_id']").val(calEvent.booking_type_id);
+         <%end -%>
+         <%end -%>
          bodyField.val(calEvent.body);
          $dialogContent.dialog({
             modal: true,
@@ -200,8 +214,11 @@ $(document).ready(function() {
                   calEvent.body = bodyField.val();
 				  <% if own_calendar?(pro, current_pro) -%>
 				  calEvent.client_id = clientField.val();
+				  <%if pro.has_multiple_booking_types? -%>
+				  calEvent.booking_type_id = bookingTypeField.val();
 				  <% end -%>
-				  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json"<% if own_calendar?(pro, current_pro) -%>, "booking[client_id]": calEvent.client_id<%end-%>, "booking[name]": calEvent.title, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start.toString(), "booking[ends_at]": calEvent.end.toString()}, function(data){
+				  <% end -%>
+				  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json"<% if own_calendar?(pro, current_pro) -%>, "booking[client_id]": calEvent.client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": calEvent.booking_type_id<%end-%><%end-%>, "booking[name]": calEvent.title, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start.toString(), "booking[ends_at]": calEvent.end.toString()}, function(data){
 					if ((data.flash.error === undefined) || (data.flash.error === '')) {
 						calEvent.id = data.booking.id;
 						calEvent.title = data.booking.title;
@@ -279,8 +296,6 @@ $(document).ready(function() {
          var startTime = timeslotTimes[i].start;
          var endTime = timeslotTimes[i].end;
          var startSelected = "";
-// console.log("startTime.getTime(): ", startTime.getTime());
-// console.log(calEvent.title, ": ", calEvent.start, ", ", calEvent.start.getTime());
 	// if (startTime.getTime() === calEvent.start.getTime()) {
 	if (Math.round(startTime.getTime()/1000) === Math.round(calEvent.start.getTime()/1000)) {
 // console.log("========= CLOSE enough");
@@ -348,7 +363,7 @@ $(document).ready(function() {
 
 
 });
-</script><% title pro.calendar_title(current_pro)%>
+</script><% title pro.calendar_title%>
 <div id="calendar"></div>
 <div id="event_edit_container"> 
 	<form> 
@@ -368,6 +383,9 @@ $(document).ready(function() {
 			<% end-%>
 			<li> 
 				<% if own_calendar?(pro, current_pro)-%>
+				<% if pro.has_multiple_booking_types? -%>
+				<label for="booking_type_id"><%= t(:appointment_booking_type)%></label><select name="booking_type_id"><%= current_pro_booking_type_options(current_pro)-%></select>
+				<%end -%>
 				<label for="title"><%= t(:appointment_client)%></label><select name="client_id"><%= current_pro_client_options(current_pro)-%></select>
 				<%else-%>
 				<label for="title"><%= t(:appointment_your_name)%></label><input type="text" name="title"></input>

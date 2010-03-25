@@ -97,13 +97,58 @@ class BookingsControllerTest < ActionController::TestCase
     assert_equal kartini.id, cyrille_sav.client_id
   end
 
+  def test_update_as_pro_own_time
+    cyrille_sav = bookings(:cyrille_sav)
+    sav = practitioners(:sav)
+    cyrille = clients(:cyrille)
+    kartini = clients(:kartini)
+    post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
+                  :booking => {:client_id => "" } }, {:pro_id => sav.id }
+    assert_response :success
+    assert_nil flash[:error]
+    assert_not_nil flash[:notice]
+    cyrille_sav.reload
+    assert_equal sav.own_time_label, cyrille_sav.name
+    assert_nil cyrille_sav.client_id
+  end
+
+  def test_update_as_pro_own_time_null
+    cyrille_sav = bookings(:cyrille_sav)
+    sav = practitioners(:sav)
+    cyrille = clients(:cyrille)
+    kartini = clients(:kartini)
+    post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
+                  :booking => {:client_id => "null" } }, {:pro_id => sav.id }
+    assert_response :success
+    assert_nil flash[:error]
+    assert_not_nil flash[:notice]
+    cyrille_sav.reload
+    assert_equal sav.own_time_label, cyrille_sav.name
+    assert_nil cyrille_sav.client_id
+  end
+
+  def test_update_as_pro_own_time_comment
+    cyrille_sav = bookings(:cyrille_sav)
+    sav = practitioners(:sav)
+    cyrille = clients(:cyrille)
+    kartini = clients(:kartini)
+    post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
+                  :booking => {:client_id => "", :comment => "Hello" } }, {:pro_id => sav.id }
+    assert_response :success
+    assert_nil flash[:error]
+    assert_not_nil flash[:notice]
+    cyrille_sav.reload
+    assert_equal "Hello", cyrille_sav.name
+    assert_nil cyrille_sav.client_id
+  end
+
   def test_create
     mail_size = UserEmail.all.size
     sav = practitioners(:sav)
     cyrille = clients(:cyrille)
     old_size = Booking.all.size
     post :create, {:practitioner_id => sav.permalink, :format => "json",
-      :booking => {:name => "Joe Sullivan", :comment => "I'll be on time", :booking_type => 0.5, 
+      :booking => {:name => "Joe Sullivan", :comment => "I'll be on time", :booking_type => booking_types(:sav_one_hour), 
       :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}",
       :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
       {:client_id => cyrille.id }
@@ -112,9 +157,9 @@ class BookingsControllerTest < ActionController::TestCase
     assert assigns["booking"].errors.blank?, "There should be no errors, but got: #{assigns['booking'].errors.full_messages.to_sentence}"
     assert_nil flash[:error]
     assert_not_nil flash[:notice]
-    assert_match %r{#{assigns["booking"].practitioner.name}}, flash[:notice]
+    assert_match %r{#{assigns(:booking).practitioner.name}}, flash[:notice]
     assert_equal old_size+1, Booking.all.size    
-    new_booking = Booking.all.last
+    new_booking = assigns(:booking)
     assert_equal "Joe Sullivan", new_booking.name
     assert_not_nil new_booking.starts_at
     assert_not_nil new_booking.ends_at
@@ -137,7 +182,7 @@ class BookingsControllerTest < ActionController::TestCase
     cyrille = clients(:cyrille)
     old_size = Booking.all.size
     post :create, {:practitioner_id => sav.permalink, :format => "json",
-      :booking => {:name => "Joe Sullivan", :comment => "I'll be on time", :booking_type => 0.5, 
+      :booking => {:name => "Joe Sullivan", :comment => "I'll be on time", :booking_type => booking_types(:sav_one_hour), 
       :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}",
       :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
       {:client_id => cyrille.id }
@@ -146,9 +191,9 @@ class BookingsControllerTest < ActionController::TestCase
     assert assigns["booking"].errors.blank?, "There should be no errors, but got: #{assigns['booking'].errors.full_messages.to_sentence}"
     assert_nil flash[:error]
     assert_not_nil flash[:notice]
-    assert_match %r{#{assigns["booking"].practitioner.name}}, flash[:notice]
+    assert_match %r{#{assigns(:booking).practitioner.name}}, flash[:notice]
     assert_equal old_size+1, Booking.all.size
-    new_booking = Booking.all.last
+    new_booking = assigns(:booking)
     assert_equal "Joe Sullivan", new_booking.name
     assert_not_nil new_booking.starts_at
     assert_not_nil new_booking.ends_at
@@ -166,7 +211,7 @@ class BookingsControllerTest < ActionController::TestCase
     mail_size = UserEmail.all.size
     old_size = Booking.all.size
     post :create, {:practitioner_id => sav.permalink, :format => "json",
-      :booking => {:name => "undefined", :client_id => cyrille.id, :comment => "I'll be on time", :booking_type => 0.5, 
+      :booking => {:name => "undefined", :client_id => cyrille.id, :comment => "I'll be on time", :booking_type => booking_types(:sav_one_hour), 
       :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}",
       :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
       {:pro_id => sav.id }
@@ -176,7 +221,7 @@ class BookingsControllerTest < ActionController::TestCase
     assert_nil flash[:error]
     assert_not_nil flash[:notice]
     assert_equal old_size+1, Booking.all.size
-    new_booking = Booking.all.last
+    new_booking = assigns(:booking)
     assert_equal "Cyrille Bonnet", new_booking.name
     assert_not_nil new_booking.starts_at
     assert_not_nil new_booking.ends_at
@@ -193,7 +238,7 @@ class BookingsControllerTest < ActionController::TestCase
     mail_size = UserEmail.all.size
     old_size = Booking.all.size
     post :create, {:practitioner_id => sav.permalink, :format => "json",
-      :booking => {:client_id => "", :comment => "", :booking_type => 1, 
+      :booking => {:client_id => "", :comment => "", :booking_type => booking_types(:sav_one_hour), 
       :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}",
       :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
       {:pro_id => sav.id }
@@ -214,7 +259,7 @@ class BookingsControllerTest < ActionController::TestCase
     mail_size = UserEmail.all.size
     old_size = Booking.all.size
     post :create, {:practitioner_id => sav.permalink, :format => "json",
-      :booking => {:client_id => "", :comment => "Lunch", :booking_type => 1, 
+      :booking => {:client_id => "", :comment => "Lunch", :booking_type => booking_types(:sav_one_hour), 
       :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}",
       :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
       {:pro_id => sav.id }
@@ -237,7 +282,7 @@ class BookingsControllerTest < ActionController::TestCase
     mail_size = UserEmail.all.size
     old_size = Booking.all.size
     post :create, {:practitioner_id => sav.permalink, :format => "json",
-      :booking => {:name => "undefined", :client_id => cyrille.id, :comment => "I'll be on time", :booking_type => 0.5, 
+      :booking => {:name => "undefined", :client_id => cyrille.id, :comment => "I'll be on time", :booking_type => booking_types(:sav_one_hour), 
       :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}",
       :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
       {:pro_id => sav.id }

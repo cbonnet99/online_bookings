@@ -58,9 +58,17 @@ module ApplicationHelper
   end
   
   def current_pro_client_options(current_pro)
-    res = "<option value=''>Time for myself</option>"
+    res = "<option value=''>#{current_pro.own_time_label}</option>"
     current_pro.clients_options.each do |name, id|
       res << "<option value='#{id}'>#{name}</option>"
+    end
+    return res
+  end
+  
+  def current_pro_booking_type_options(current_pro)
+    res = ""
+    current_pro.booking_types.each do |bt|
+      res << "<option value='#{bt.id}'>#{bt.title}</option>"
     end
     return res
   end

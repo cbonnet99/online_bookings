@@ -269,6 +269,7 @@
   appointment_start_time: "Start time: "
   appointment_end_time: "End Time: "
   appointment_client: "Client: "
+  appointment_booking_type: "Length: "
   appointment_your_name: "Your name: "
   appointment_comment: "Comment: "
   appointment_do_not_save_button: "don't save"

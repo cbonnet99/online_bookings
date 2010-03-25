@@ -1,0 +1,14 @@
+sav_one_hour:
+    title: Coaching session
+    duration_mins: 60
+    practitioner: sav
+
+megan_one_hour:
+    title: Massage
+    duration_mins: 60
+    practitioner: megan
+    
+megan_two_hour:
+    title: Massage 2h
+    duration_mins: 120
+    practitioner: megan

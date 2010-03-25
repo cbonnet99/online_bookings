@@ -299,6 +299,7 @@ fr:
     appointment_start_time: "Début: "
     appointment_end_time: "Fin: "
     appointment_client: "Client: "
+    appointment_booking_type: "Durée: "
     appointment_your_name: "Votre Nom: "
     appointment_comment: "Commentaire: "
     lunch: "Non réservable"

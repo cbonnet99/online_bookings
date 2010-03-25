@@ -18,6 +18,7 @@ class Practitioner < ActiveRecord::Base
   has_many :relations
   has_many :clients, :through => :relations
   has_many :user_emails
+  has_many :booking_types
   
 
   # new columns need to be added here to be writable through mass assignment
@@ -114,7 +115,14 @@ class Practitioner < ActiveRecord::Base
   def update_booking(booking, hash_booking, current_pro)
     booking.practitioner_id = current_pro.id
     booking.current_pro = current_pro
-    unless hash_booking["client_id"].nil?
+    if hash_booking["client_id"].blank? || hash_booking["client_id"].to_i == 0
+      hash_booking["client_id"] = nil
+      if hash_booking["comment"].blank?
+        booking.name = current_pro.own_time_label
+      else
+        booking.name = hash_booking["comment"]
+      end
+    else
       client = Client.find(hash_booking["client_id"])
       booking.name = client.default_name
     end
@@ -138,17 +146,21 @@ class Practitioner < ActiveRecord::Base
   def clients_options
     res = []
     clients.map do |c|
-      res << [c.name, c.id]
+      if c.name.blank?
+        res << [c.email, c.id]
+      else
+        res << [c.name, c.id]
+      end
     end
     return res
   end
   
-  def calendar_title(current_pro)
-    # if (current_pro == self)
+  def calendar_title
       self.name
-    # else
-    #   "Step 3: book your appointment with #{self.name}"
-    # end    
+  end
+
+  def has_multiple_booking_types?
+    self.booking_types.size > 1
   end
   
   def calendar_timeformat

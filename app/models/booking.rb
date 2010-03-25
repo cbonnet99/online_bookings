@@ -33,6 +33,7 @@ class Booking < ActiveRecord::Base
   belongs_to :practitioner
   belongs_to :client
   has_many :user_emails
+  belongs_to :booking_type
 
   validates_presence_of :practitioner, :starts_at, :ends_at
   
@@ -276,6 +277,6 @@ class Booking < ActiveRecord::Base
   end
   
   def to_json(options={})
-    super options.merge(:only => [:id, :client_id], :methods => [:title, :start, :end, :readOnly, :state, :errors])
+    super options.merge(:only => [:id, :client_id, :booking_type_id], :methods => [:title, :start, :end, :readOnly, :state, :errors])
   end
 end
