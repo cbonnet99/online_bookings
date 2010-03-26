@@ -14,10 +14,10 @@ class PractitionersController < ApplicationController
 
   def reset_ical_sharing
     if current_pro.nil?
-      flash[:error] = t(:flash_error_practitioner_not_found)
+      flash[:error] = I18n.t(:flash_error_practitioner_not_found)
     else
       current_pro.toggle_bookings_publish_code
-      flash[:notice] = t(:flash_notice_practitioner_visualize_ical)
+      flash[:notice] = I18n.t(:flash_notice_practitioner_visualize_ical)
     end
     render :layout => false 
   end
@@ -55,7 +55,7 @@ class PractitionersController < ApplicationController
     @practitioner = Practitioner.new(params[:practitioner])
     if @practitioner.save
       session[:pro_id] = @practitioner.id
-      flash[:notice] = t(:flash_notice_practitioner_thanks_signup)
+      flash[:notice] = I18n.t(:flash_notice_practitioner_thanks_signup)
       redirect_to practitioner_url(@practitioner.permalink)
     else
       @days_in_week = Practitioner::WORKING_DAYS

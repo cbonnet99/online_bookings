@@ -181,7 +181,7 @@ class Practitioner < ActiveRecord::Base
   def biz_hours_end
     TimeUtils.round_next_hour(working_hours.split("-").last)
   end
-
+    
   def own_bookings(start_timestamp=nil, end_timestamp=nil)
     start_time = if start_timestamp.blank?
       Time.now.beginning_of_week
@@ -194,10 +194,21 @@ class Practitioner < ActiveRecord::Base
       Time.at(end_timestamp)
     end
     raw_own_bookings = Booking.find_all_by_practitioner_id(self.id, :conditions => ["state <> ? AND starts_at BETWEEN ? AND ?", "cancelled", start_time, end_time] )
+    prep_times = []
     raw_own_bookings.each do |b|
       b.current_pro = self
+      if b.prep_time_mins > 0 && !b.client.nil?
+        if b.prep_before?
+          start_time = b.starts_at.advance(:minutes => -b.prep_time_mins)
+          end_time = b.starts_at
+        else
+          start_time = b.ends_at
+          end_time = b.ends_at.advance(:minutes => b.prep_time_mins)
+        end
+        prep_times << NonWorkingBooking.new("#{b.id}-p", I18n.t(:prep_time), start_time, end_time, true)
+      end
     end
-    raw_own_bookings + bookings_for_non_working_days(start_time, end_time) + bookings_for_working_hours(start_time, end_time)
+    raw_own_bookings + bookings_for_non_working_days(start_time, end_time) + bookings_for_working_hours(start_time, end_time) + prep_times
   end
   
   def all_bookings(current_client=nil, start_timestamp=nil, end_timestamp=nil)
@@ -216,7 +227,21 @@ class Practitioner < ActiveRecord::Base
   
   def client_bookings(current_client, start_time, end_time)
     raw_bookings = Booking.find_all_by_practitioner_id(self.id, :conditions => ["state <> ? AND starts_at BETWEEN ? AND ?", "cancelled", start_time, end_time] )
-    raw_bookings.each {|rb| rb.current_client = current_client}
+    prep_times = []
+    raw_bookings.each do |b|
+      b.current_client = current_client
+      if b.prep_time_mins > 0 && !b.client.nil?
+        if b.prep_before?
+          start_time = b.starts_at.advance(:minutes => -b.prep_time_mins)
+          end_time = b.starts_at
+        else
+          start_time = b.ends_at
+          end_time = b.ends_at.advance(:minutes => b.prep_time_mins)
+        end
+        prep_times << NonWorkingBooking.new("#{b.id}-p", I18n.t(:appt_booked), start_time, end_time, true)
+      end      
+    end
+    raw_bookings + prep_times
   end
   
   def show_days

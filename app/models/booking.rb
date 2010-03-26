@@ -7,6 +7,10 @@ class NonWorkingBooking
     @end_time = end_time
     @read_only = read_only
   end
+
+  def duration_mins
+    (@end_time - @start_time)/60
+  end
   
   def to_json(options={})
     %({"id": "#{@id}", "title": "#{@title}", "start": "#{@start_time.iso8601}", "end": "#{@end_time.iso8601}", "readOnly": #{@read_only}})
@@ -25,6 +29,9 @@ class NonWorkingBooking
     booking.uid = booking.url = "#{@id}"
     booking
   end
+end
+
+class PrepTimeBooking < NonWorkingBooking
 end
 
 class Booking < ActiveRecord::Base

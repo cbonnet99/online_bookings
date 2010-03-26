@@ -17,6 +17,31 @@ class PractitionerTest < ActiveSupport::TestCase
     Practitioner.delete_all
   end
 
+  def test_own_bookings_with_prep_times
+    pro = Factory(:practitioner, :prep_before => false, :prep_time_mins => 30)
+    booking = Factory(:booking, :practitioner => pro, :prep_before => false, :prep_time_mins => 30, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now)
+    my_own_bookings = pro.own_bookings
+    assert my_own_bookings.include?(booking)
+    assert !my_own_bookings.select{|b| b.title == "Prep time"}.blank?
+  end
+
+  def test_own_bookings_with_own_time_no_prep_times
+    pro = Factory(:practitioner, :prep_before => false, :prep_time_mins => 30)
+    booking = Factory(:booking, :practitioner => pro, :client => nil, :prep_before => false, :prep_time_mins => 30, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now)
+    my_own_bookings = pro.own_bookings
+    assert my_own_bookings.include?(booking)
+    assert my_own_bookings.select{|b| b.title == "Prep time"}.blank?, "There should be no prep times for bookings with no client (own time)"
+  end
+
+  def test_client_bookings_with_prep_times
+    client = Factory(:client)
+    pro = Factory(:practitioner, :prep_before => false, :prep_time_mins => 30)
+    booking = Factory(:booking, :practitioner => pro, :client => client, :prep_before => false, :prep_time_mins => 30, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now)
+    my_bookings = pro.client_bookings(client, Time.now.beginning_of_week, Time.now.end_of_week)
+    assert my_bookings.include?(booking)
+    assert !my_bookings.select{|b| b.duration_mins == 30}.blank?    
+  end
+
   def test_default_booking_length_in_timeslots
     pro = Factory(:practitioner)
     assert_equal 2, pro.default_booking_length_in_timeslots, "2 should be the default"    

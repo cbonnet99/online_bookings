@@ -43,7 +43,7 @@ end
 Factory.define :booking do |b|
   b.association :client
   b.association :practitioner
-  b.name {|b| b.client.name}
+  b.name {|b| b.client.try(:name) || "Own time"}
   b.starts_at Time.now.tomorrow.beginning_of_day.advance(:hours=>9)
   b.ends_at Time.now.tomorrow.beginning_of_day.advance(:hours=>10)
 end

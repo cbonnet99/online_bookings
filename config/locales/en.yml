@@ -291,5 +291,5 @@
   calendar_use24hour: false
   #practitioner_controller
   practitioner_owntime: "Own time"
-  
-  
+  #practitioner model  
+  prep_time: "Prep time"

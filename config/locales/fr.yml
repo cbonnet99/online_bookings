@@ -318,3 +318,5 @@ fr:
     calendar_use24hour: true
     #practitioner_controller
     practitioner_owntime: "Temps perso."
+    #practitioner model
+    prep_time: "Préparation"
