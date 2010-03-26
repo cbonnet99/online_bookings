@@ -44,9 +44,11 @@ class Practitioner < ActiveRecord::Base
   before_create :set_working_days
   
   TITLE_FOR_NON_WORKING = "Booked"
-  WORKING_DAYS = [I18n.t(:monday),I18n.t(:tuesday) ,I18n.t(:wednesday) , I18n.t(:thursday), I18n.t(:friday),I18n.t(:saturday) ,I18n.t(:sunday) ]
+  #WORKING_DAYS = [I18n.t(:monday),I18n.t(:tuesday) ,I18n.t(:wednesday) , I18n.t(:thursday), I18n.t(:friday),I18n.t(:saturday) ,I18n.t(:sunday) ]
+  WORKING_DAYS = ["monday","tuesday" ,"wednesday" , "thursday", "friday","saturday" ,"sunday" ]
   #WORKING_DAYS = Date::DAY_NAMES
   #WORKING_DAYS = I18n.t 'date.day_names' does not work with actul code sunday is first day of the week
+  
   
   def set_working_days
     if working_days.blank? && !WORKING_DAYS.map{|day| self.send("working_day_#{day}".to_sym)}.select{|value| value == true || value.to_s == "1"}.blank?

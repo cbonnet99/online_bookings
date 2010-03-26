@@ -1,6 +1,6 @@
 <% title t(:practitioner_new_title) %>
 
-<p><%= t(:practitioner_new_message1)%> <%= link_to t(:practitioner_new_login_link), login_path %>.</p>
+<p><%= t(:practitioner_new_message1)%> <%= link_to t(:practitioner_new_login_link), login_path %></p>
 
 <% form_for @practitioner do |f| %>
   <%= f.error_messages %>
@@ -32,7 +32,8 @@
     <%= f.label :working_days, t(:practitioner_new_worked_days) %><br />
 	<ul id="working_days_list">
 	<% @days_in_week.each_with_index do |day, index| -%>
-    	<li><%= f.check_box "working_day_#{day}".to_sym, :checked => (index<5) %><label for="practitioner_working_day_<%=day%>"><%=day.capitalize%></label></li>
+	    <% @day_translated_label = I18n.t(day) %>
+    	<li><%= f.check_box "working_day_#{day}".to_sym, :checked => (index<5) %><label for="practitioner_working_day_<%=day%>"><%=@day_translated_label.capitalize%></label></li>
 	<%end -%>
 	</ul>
   </p>

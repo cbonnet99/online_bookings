@@ -316,3 +316,5 @@ fr:
     calendar_dateformat: "j M Y"
     calendar_timeformat: "h:i"
     calendar_use24hour: true
+    #practitioner_controller
+    practitioner_owntime: "Temps perso."
