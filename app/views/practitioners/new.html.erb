@@ -32,8 +32,8 @@
     <%= f.label :working_days, t(:practitioner_new_worked_days) %><br />
 	<ul id="working_days_list">
 	<% @days_in_week.each_with_index do |day, index| -%>
-	    <% @day_translated_label = I18n.t(day) %>
-    	<li><%= f.check_box "working_day_#{day}".to_sym, :checked => (index<5) %><label for="practitioner_working_day_<%=day%>"><%=@day_translated_label.capitalize%></label></li>
+	    
+    	<li><%= f.check_box "working_day_#{day}".to_sym, :checked => (index<5) %><label for="practitioner_working_day_<%=day%>"><%=day.capitalize%></label></li>
 	<%end -%>
 	</ul>
   </p>

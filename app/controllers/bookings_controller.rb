@@ -7,10 +7,10 @@ class BookingsController < ApplicationController
     @booking = Booking.find_by_confirmation_code_and_id(params[:confirmation_code], params[:id])
     if @booking.nil?
       logger.error("Invalid attempt to cancel an with ID: #{params[:id]} and confirmation_code: #{params[:confirmation_code]}")
-      flash[:error] = t(:flash_error_booking_invalid_appointment)
+      flash[:error] = I18n.t(:flash_error_booking_invalid_appointment)
     else
       @booking.cancel!
-      flash[:notice] = t(:flash_notice_booking_appointment_cancelled , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
+      flash[:notice] = I18n.t(:flash_notice_booking_appointment_cancelled , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
     end    
   end
   
@@ -18,10 +18,10 @@ class BookingsController < ApplicationController
     @booking = Booking.find_by_confirmation_code_and_id(params[:confirmation_code], params[:id])
     if @booking.nil?
       logger.error("Invalid attempt to confirm an with ID: #{params[:id]} and confirmation_code: #{params[:confirmation_code]}")
-      flash[:error] = t(:flash_error_booking_invalid_appointment)
+      flash[:error] = I18n.t(:flash_error_booking_invalid_appointment)
     else
       @booking.confirm!
-      flash[:notice] = t(:flash_notice_booking_confirmed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
+      flash[:notice] = I18n.t(:flash_notice_booking_confirmed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
     end
   end
   
@@ -36,7 +36,7 @@ class BookingsController < ApplicationController
   def index_cal
     @practitioner = Practitioner.find_by_bookings_publish_code(params["pub_code"])
     if @practitioner.nil?
-      flash[:error] = t(:flash_error_booking_couldnot_find_practitioner)
+      flash[:error] = I18n.t(:flash_error_booking_couldnot_find_practitioner)
       render :action => "flash"
     else
       @bookings = @practitioner.own_bookings(Time.now.advance(:month => -1).beginning_of_month, Time.now.advance(:months => 1).end_of_month)
@@ -70,9 +70,9 @@ class BookingsController < ApplicationController
     @booking.client_id = client.try(:id)
     @booking.practitioner_id = pro.try(:id)
     if @booking.save
-      flash.now[:notice] = t(:flash_notice_booking_appointment_booked , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
-      #flash.now[:notice] = t(:flash_notice_booking_appointment_booked , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date =>  l(Time.now, :format => :booking))
-       #flash.now[:notice] = t(:flash_notice_booking_appointment_booked , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date =>  Time.now)
+      flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_booked , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
+      #flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_booked , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date =>  l(Time.now, :format => :booking))
+       #flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_booked , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date =>  Time.now)
      
      
     end
@@ -85,10 +85,10 @@ class BookingsController < ApplicationController
   def update
     @booking, hash_booking = Booking.prepare_update(current_pro, current_client, @current_selected_pro, params[:booking], params[:id])
     if @booking.nil?
-      flash.now[:error] = t(:flash_error_booking_appointment_not_found)
+      flash.now[:error] = I18n.t(:flash_error_booking_appointment_not_found)
     else
       if @booking.update_attributes(hash_booking)
-        flash.now[:notice] = t(:flash_notice_booking_appointment_changed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
+        flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_changed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
       end
     end
   end
@@ -97,10 +97,10 @@ class BookingsController < ApplicationController
     @booking = Booking.prepare_delete(current_pro, current_client, params[:id])
     str = "with #{@booking.partner_name(current_client, current_pro)} #{@booking.start_date_and_time_str}"
     if @booking.nil?
-      flash.now[:error] = t(:flash_error_booking_appointment_not_found)
+      flash.now[:error] = I18n.t(:flash_error_booking_appointment_not_found)
     else
       @booking.destroy
-      flash.now[:notice] = t(:flash_notice_booking_appointment_removed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
+      flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_removed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
     end
   end
 end
