@@ -197,16 +197,8 @@ class Practitioner < ActiveRecord::Base
     prep_times = []
     raw_own_bookings.each do |b|
       b.current_pro = self
-      if b.prep_time_mins > 0 && !b.client.nil?
-        if b.prep_before?
-          start_time = b.starts_at.advance(:minutes => -b.prep_time_mins)
-          end_time = b.starts_at
-        else
-          start_time = b.ends_at
-          end_time = b.ends_at.advance(:minutes => b.prep_time_mins)
-        end
-        prep_times << NonWorkingBooking.new("#{b.id}-p", I18n.t(:prep_time), start_time, end_time, true)
-      end
+      my_prep = b.prep
+      prep_times << my_prep unless my_prep.nil?
     end
     raw_own_bookings + bookings_for_non_working_days(start_time, end_time) + bookings_for_working_hours(start_time, end_time) + prep_times
   end
@@ -230,16 +222,8 @@ class Practitioner < ActiveRecord::Base
     prep_times = []
     raw_bookings.each do |b|
       b.current_client = current_client
-      if b.prep_time_mins > 0 && !b.client.nil?
-        if b.prep_before?
-          start_time = b.starts_at.advance(:minutes => -b.prep_time_mins)
-          end_time = b.starts_at
-        else
-          start_time = b.ends_at
-          end_time = b.ends_at.advance(:minutes => b.prep_time_mins)
-        end
-        prep_times << NonWorkingBooking.new("#{b.id}-p", I18n.t(:appt_booked), start_time, end_time, true)
-      end      
+      my_prep = b.prep
+      prep_times << my_prep unless my_prep.nil?
     end
     raw_bookings + prep_times
   end

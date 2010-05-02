@@ -70,6 +70,7 @@ class BookingsController < ApplicationController
     @booking.client_id = client.try(:id)
     @booking.practitioner_id = pro.try(:id)
     if @booking.save
+      @prep = @booking.prep
       flash.now[:notice] = t(:flash_notice_booking_appointment_booked , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
       #flash.now[:notice] = t(:flash_notice_booking_appointment_booked , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date =>  l(Time.now, :format => :booking))
        #flash.now[:notice] = t(:flash_notice_booking_appointment_booked , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date =>  Time.now)
@@ -88,6 +89,7 @@ class BookingsController < ApplicationController
       flash.now[:error] = t(:flash_error_booking_appointment_not_found)
     else
       if @booking.update_attributes(hash_booking)
+        @prep = @booking.prep
         flash.now[:notice] = t(:flash_notice_booking_appointment_changed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
       end
     end
@@ -99,6 +101,8 @@ class BookingsController < ApplicationController
     if @booking.nil?
       flash.now[:error] = t(:flash_error_booking_appointment_not_found)
     else
+      @booking_id = @booking.id
+      @prep_id = "#{Booking::PREP_LABEL}#{@booking_id}" if @booking.prep_time_mins > 0
       @booking.destroy
       flash.now[:notice] = t(:flash_notice_booking_appointment_removed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
     end

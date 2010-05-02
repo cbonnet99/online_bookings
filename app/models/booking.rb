@@ -31,9 +31,6 @@ class NonWorkingBooking
   end
 end
 
-class PrepTimeBooking < NonWorkingBooking
-end
-
 class Booking < ActiveRecord::Base
   include AASM
   
@@ -57,6 +54,7 @@ class Booking < ActiveRecord::Base
 
 
   INVITE_DELAY_MINS = 15
+  PREP_LABEL = "prep-"
   
   aasm_column :state
 
@@ -77,6 +75,21 @@ class Booking < ActiveRecord::Base
   
   aasm_event :send_reminder do
     transitions :to => :reminder_sent, :from => [:unconfirmed]
+  end
+  
+  def prep
+    if self.prep_time_mins > 0 && !self.client.nil?
+      if self.prep_before?
+        start_time = self.starts_at.advance(:minutes => -self.prep_time_mins)
+        end_time = self.starts_at
+      else
+        start_time = self.ends_at
+        end_time = self.ends_at.advance(:minutes => self.prep_time_mins)
+      end
+      return NonWorkingBooking.new("#{Booking::PREP_LABEL}#{self.id}", !self.current_pro.nil? || self.current_pro == self.practitioner ? I18n.t(:prep_time) : I18n.t(:appt_booked), start_time, end_time, true)
+    else
+      return nil
+    end    
   end
   
   def send_invite

@@ -76,11 +76,7 @@ $(document).ready(function() {
          }
       },
       draggable : function(calEvent, $event) {
-		 <% if @current_pro.nil?-%>
          return false;
-		<%else -%>
-         return ((calEvent.readOnly !== true) && (calEvent.state != "confirmed"));
-		<% end -%>
       },
       resizable : function(calEvent, $event) {
          // return calEvent.readOnly != true;
@@ -140,7 +136,13 @@ $(document).ready(function() {
 						if ((data.flash.error === undefined) || (data.flash.error === '')) {
 							calEvent.id = data.booking.id;
 							calEvent.title = data.booking.title;
+							calEvent.start = data.booking.start;
+							calEvent.end = data.booking.end;
 		                  	$calendar.weekCalendar("updateEvent", calEvent);
+		                    if (data.prep) {
+                                var prepEvent = data.prep;
+			                  $calendar.weekCalendar("updateEvent", prepEvent);
+		                    }
 		                 }
 		                 $calendar.weekCalendar("removeUnsavedEvents");
 		                 $dialogContent.dialog("close");
@@ -224,8 +226,14 @@ $(document).ready(function() {
 					if ((data.flash.error === undefined) || (data.flash.error === '')) {
 						calEvent.id = data.booking.id;
 						calEvent.title = data.booking.title;
+						calEvent.start = data.booking.start;
+						calEvent.end = data.booking.end;
 		                $calendar.weekCalendar("updateEvent", calEvent);
 		             }
+                    if (data.prep) {
+                        var prepEvent = data.prep;
+	                  $calendar.weekCalendar("updateEvent", prepEvent);
+                    }
 		             $dialogContent.dialog("close");
 					 displayFlash(data.flash);
 					}, "json");
@@ -237,6 +245,9 @@ $(document).ready(function() {
 				  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "DELETE", "format": "json"}, function(data){
 					if ((data.flash.error === undefined) || (data.flash.error === '')) {
 	                  $calendar.weekCalendar("removeEvent", calEvent.id);
+                      if (data.prep_id) {
+	                    $calendar.weekCalendar("removeEvent", data.prep_id);
+                      }
 	                }
 	                $dialogContent.dialog("close");
 					displayFlash(data.flash);

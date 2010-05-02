@@ -186,8 +186,8 @@ class PractitionerTest < ActiveSupport::TestCase
 
   def test_all_bookings
     megan = Factory(:practitioner, :working_days => "4,5")
-    cyrille = Factory(:client)
-    k = Factory(:client)
+    cyrille = Factory(:client, :first_name => "Cyrille", :last_name => "Bonnet")
+    k = Factory(:client, :first_name => "Ms", :last_name => "K")
     booking1 = Factory(:booking, :client => cyrille, :practitioner => megan )
     booking2 = Factory(:booking, :client => k, :practitioner => megan )
     booking_cancelled = Factory(:booking, :state => "cancelled",  :client => k, :practitioner => megan )
@@ -195,7 +195,7 @@ class PractitionerTest < ActiveSupport::TestCase
     assert megan_bookings.is_a?(Enumerable)
     assert_equal 7, megan_bookings.size
     cyrille_booking = megan_bookings.select{|b| b.is_a?(Booking) && b.client_id == cyrille.id}.first
-    assert !cyrille_booking.read_only?
+    assert !cyrille_booking.read_only?, "Booking was: #{cyrille_booking.inspect}"
     k_booking = megan_bookings.select{|b| b.is_a?(Booking) && b.client_id == k.id}.first
     assert k_booking.read_only?
   end

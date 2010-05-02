@@ -349,6 +349,9 @@ class BookingsControllerTest < ActionController::TestCase
       :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}",
       :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
       {:pro_id => sav.id }
+    assert_response :success
+    # puts @response.body
+    assert_valid_json(@response.body)
     assert_not_nil assigns(:booking)
     assert assigns(:booking).errors.blank?, "There should be no errors, but got: #{assigns['booking'].errors.full_messages.to_sentence}"
     assert_nil flash[:error]

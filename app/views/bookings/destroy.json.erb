@@ -1,1 +1,1 @@
-{"flash": <%= flash.to_json%>}
+{"flash": <%= flash.to_json%>, "booking_id": "<%= @booking_id%>"<% unless @prep_id.nil?%>, "prep_id": "<%= @prep_id%><%end%>"}
