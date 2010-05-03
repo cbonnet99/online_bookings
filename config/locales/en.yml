@@ -19,7 +19,7 @@
       short: "%d %b %H:%M"
       long: "%B %d, %Y %H:%M"
       only_second: "%S"
-      custo_date: "%A %B,%d %Y"
+      custo_date: "%A %d %B %Y"
       timeampm: "%H:%M %p"
       
       datetime:
