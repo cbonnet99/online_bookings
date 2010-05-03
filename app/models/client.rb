@@ -78,7 +78,7 @@ class Client < ActiveRecord::Base
   end
 
   def send_reset_phone_link
-    self.reset_code = Digest::SHA1.hexdigest("#{email}#{Time.now}#{id}")
+    self.reset_code = Digest::SHA1.hexdigest("#{email}#{Time.zone.now}#{id}")
     self.save!
     UserMailer.deliver_reset_phone(self)
   end
@@ -121,7 +121,7 @@ class Client < ActiveRecord::Base
   
   def prepare_password
     unless password.blank?
-      self.password_salt = Digest::SHA1.hexdigest([Time.now, rand].join)
+      self.password_salt = Digest::SHA1.hexdigest([Time.zone.now, rand].join)
       self.password_hash = encrypt_password(password)
     end
   end

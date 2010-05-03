@@ -39,7 +39,7 @@ class BookingsController < ApplicationController
       flash[:error] = t(:flash_error_booking_couldnot_find_practitioner)
       render :action => "flash"
     else
-      @bookings = @practitioner.own_bookings(Time.now.advance(:month => -1).beginning_of_month, Time.now.advance(:months => 1).end_of_month)
+      @bookings = @practitioner.own_bookings(Time.zone.now.advance(:month => -1).beginning_of_month, Time.zone.now.advance(:months => 1).end_of_month)
       calendar = Icalendar::Calendar.new
       @bookings.each do |b|
         calendar.add_event(b.to_ics)
@@ -55,7 +55,7 @@ class BookingsController < ApplicationController
   end
   
   def create
-    @booking = Booking.new(JsonUtils.scrub_undefined(params[:booking]))
+    @booking = Booking.new(JsonUtils.scrub_undefined(JsonUtils.remove_timezone(params[:booking])))
     if @booking.client_id.nil?
       client = current_client
       pro = @current_selected_pro
@@ -64,11 +64,7 @@ class BookingsController < ApplicationController
       pro = current_pro
       @booking.name = @client.try(:default_name)
     end
-    @booking.current_client = current_client
-    @booking.current_pro = current_pro
-    @booking.name = client.try(:default_name) if @booking.name.blank?
-    @booking.client_id = client.try(:id)
-    @booking.practitioner_id = pro.try(:id)
+    @booking.set_defaults(current_client, current_pro, client, pro)
     if @booking.save
       @prep = @booking.prep
       flash.now[:notice] = t(:flash_notice_booking_appointment_booked , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))

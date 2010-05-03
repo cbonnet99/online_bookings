@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100325022541) do
+ActiveRecord::Schema.define(:version => 20100502112341) do
 
   create_table "booking_types", :force => true do |t|
     t.string   "title"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(:version => 20100325022541) do
     t.string   "own_time_label"
     t.boolean  "prep_before",                                   :default => false
     t.integer  "prep_time_mins",                                :default => 0
+    t.string   "timezone",                                      :default => "Wellington"
   end
 
   create_table "relations", :force => true do |t|

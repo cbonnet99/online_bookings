@@ -64,18 +64,21 @@ class ApplicationController < ActionController::Base
       @current_selected_pro = Practitioner.find_by_permalink(params[:id])
       unless @current_selected_pro.nil?
         cookies[:selected_practitioner_id] = @current_selected_pro.id 
+        Time.zone = @current_selected_pro.timezone
       end
     end
     if !params[:practitioner_id].nil?
       @current_selected_pro = Practitioner.find_by_permalink(params[:practitioner_id])      
       unless @current_selected_pro.nil?
         cookies[:selected_practitioner_id] = @current_selected_pro.id
+        Time.zone = @current_selected_pro.timezone
       end
     end
     #fall back on the cookie
     if @current_selected_pro.nil? && !cookies[:selected_practitioner_id].blank?
       begin
         @current_selected_pro = Practitioner.find(cookies[:selected_practitioner_id])
+        Time.zone = @current_selected_pro.timezone
       rescue ActiveRecord::RecordNotFound
         cookies.delete(:selected_practitioner_id)
       end

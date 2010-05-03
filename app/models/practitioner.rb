@@ -143,7 +143,7 @@ class Practitioner < ActiveRecord::Base
   end
 
   def generate_bookings_publish_code
-    self.update_attribute(:bookings_publish_code, Digest::SHA256.hexdigest(self.email+Time.now.to_s)[0..11])
+    self.update_attribute(:bookings_publish_code, Digest::SHA256.hexdigest(self.email+Time.zone.now.to_s)[0..11])
   end
 
   def clients_options
@@ -184,14 +184,22 @@ class Practitioner < ActiveRecord::Base
     
   def own_bookings(start_timestamp=nil, end_timestamp=nil)
     start_time = if start_timestamp.blank?
-      Time.now.beginning_of_week
+      Time.zone.now.beginning_of_week
     else
-      Time.at(start_timestamp)
+      if start_timestamp.is_a?(Float)
+        Time.at(start_timestamp)
+      else
+        start_timestamp.utc
+      end
     end
     end_time = if end_timestamp.blank?
-      Time.now.end_of_week
+      Time.zone.now.end_of_week
     else
-      Time.at(end_timestamp)
+      if end_timestamp.is_a?(Float)
+        Time.at(end_timestamp)
+      else
+        end_timestamp.utc
+      end
     end
     raw_own_bookings = Booking.find_all_by_practitioner_id(self.id, :conditions => ["state <> ? AND starts_at BETWEEN ? AND ?", "cancelled", start_time, end_time] )
     prep_times = []

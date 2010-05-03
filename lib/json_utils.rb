@@ -1,5 +1,16 @@
 class JsonUtils
   
+  def self.remove_timezone(hash)
+    hash.each do |k,v|
+      if v.is_a?(String)
+        md = v.match(/.+(\d\d:\d\d:\d\d)/)
+        if md
+          hash[k] = md[0]
+        end
+      end
+    end
+  end
+  
   def self.scrub_undefined(hash)
     hash.each do |k,v|
       hash.delete(k) if v.nil? || v == "" || v == "undefined"

@@ -24,8 +24,8 @@ class NonWorkingBooking
     booking.description = ""
     booking.location = ''
     booking.klass = "PUBLIC"
-    booking.created = Time.now
-    booking.last_modified = Time.now
+    booking.created = Time.zone.now
+    booking.last_modified = Time.zone.now
     booking.uid = booking.url = "#{@id}"
     booking
   end
@@ -75,6 +75,14 @@ class Booking < ActiveRecord::Base
   
   aasm_event :send_reminder do
     transitions :to => :reminder_sent, :from => [:unconfirmed]
+  end
+
+  def set_defaults(current_client, current_pro, client, pro)
+    self.current_client = current_client
+    self.current_pro = current_pro
+    self.name = client.try(:default_name) if self.name.blank?
+    self.client_id = client.try(:id)
+    self.practitioner_id = pro.try(:id)
   end
   
   def prep
@@ -135,7 +143,7 @@ class Booking < ActiveRecord::Base
   end
 
   def mark_as_pro_reminder_sent!
-    update_attribute(:pro_reminder_sent_at, Time.now)
+    update_attribute(:pro_reminder_sent_at, Time.zone.now)
   end
 
   def partner_name(current_client, current_pro)
@@ -172,7 +180,7 @@ class Booking < ActiveRecord::Base
 
   def generate_confirmation_code
     unless client.nil?
-      self.confirmation_code = Digest::SHA256.hexdigest(self.name+Time.now.to_s)
+      self.confirmation_code = Digest::SHA256.hexdigest(self.name+Time.zone.now.to_s)
     end
   end
 
@@ -278,7 +286,7 @@ class Booking < ActiveRecord::Base
   end
   
   def start
-    #  "2009-05-03T12:15:00.000+10:00"
+    #  "2009-05-03T12:15:00.000+1000"
     starts_at.strftime("%Y-%m-%dT%H:%M:%S.000%z")
   end
   

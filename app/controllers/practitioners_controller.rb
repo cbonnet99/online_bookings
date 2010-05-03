@@ -42,6 +42,7 @@ class PractitionersController < ApplicationController
     @practitioner = Practitioner.find(params[:practitioner_id]) unless params[:practitioner_id].nil?
     unless @practitioner.nil?
       cookies[:selected_practitioner_id] = @practitioner.id
+      Time.zone = @practitioner.timezone
     end
     redirect_to session[:return_to].nil? ? @practitioner : session[:return_to]
   end
@@ -55,6 +56,7 @@ class PractitionersController < ApplicationController
     @practitioner = Practitioner.new(params[:practitioner])
     if @practitioner.save
       session[:pro_id] = @practitioner.id
+      Time.zone = @practitioner.timezone
       flash[:notice] = I18n.t(:flash_notice_practitioner_thanks_signup)
       redirect_to practitioner_url(@practitioner.permalink)
     else

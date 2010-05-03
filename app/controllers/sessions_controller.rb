@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
     pro = Practitioner.authenticate(params[:email], params[:password])
     if pro
       session[:pro_id] = pro.id
+      Time.zone = pro.timezone
       flash[:notice] = t(:flash_notice_session_welcome) + "#{APP_CONFIG[:site_name]}"
       redirect_to practitioner_url(pro)
       # redirect_to_target_or_default(pro)

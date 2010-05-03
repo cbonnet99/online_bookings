@@ -9,7 +9,7 @@ class UserMailer < ActionMailer::Base
     from =  APP_CONFIG[:contact_email] if from.nil?
     @from = from
     @subject = "[#{APP_CONFIG[:site_name]}] "
-    @sent_on = Time.now
+    @sent_on = Time.zone.now
     @content_type = 'text/html'
   end
   

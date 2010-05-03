@@ -33,6 +33,7 @@ Factory.define :practitioner do |f|
   f.no_cancellation_period_in_hours 24
   f.password_confirmation { |u| u.password }
   f.sequence(:email) { |n| "foo#{n}@example.com" }
+  f.timezone "Wellington"
 end
 
 Factory.define :relation do |b|
@@ -44,6 +45,6 @@ Factory.define :booking do |b|
   b.association :client
   b.association :practitioner
   b.name {|b| b.client.try(:name) || "Own time"}
-  b.starts_at Time.now.tomorrow.beginning_of_day.advance(:hours=>9)
-  b.ends_at Time.now.tomorrow.beginning_of_day.advance(:hours=>10)
+  b.starts_at Time.now.beginning_of_day.advance(:hours=>9)
+  b.ends_at Time.now.beginning_of_day.advance(:hours=>10)
 end

@@ -12,6 +12,7 @@ megan:
     no_cancellation_period_in_hours: 24
     country_code: NZ
     own_time_label: Own time
+    timezone: Wellington
 sav:
     first_name: David
     last_name: Savage
@@ -27,6 +28,7 @@ sav:
     no_cancellation_period_in_hours: 24
     country_code: NZ
     own_time_label: Own time
+    timezone: Wellington
 rene:
     first_name: René
     last_name: Durand
@@ -41,3 +43,4 @@ rene:
     no_cancellation_period_in_hours: 24
     country_code: FR
     own_time_label: Own time
+    timezone: Paris    

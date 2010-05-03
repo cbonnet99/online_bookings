@@ -22,7 +22,7 @@ class UserEmail < ActiveRecord::Base
         begin
           UserMailer.send(email_call, email.to, email.from, email.subject, email.booking)
           puts "Sent email #{email.email_type} to #{email.to}"
-          email.update_attribute(:sent_at, Time.now)
+          email.update_attribute(:sent_at, Time.zone.now)
           sent += 1
         rescue NoMethodError
           puts "ERROR: Cannot send user email ID #{email.id}, email type #{email.email_type} does not correspond to any method in UserMailer"
