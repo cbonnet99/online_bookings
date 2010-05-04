@@ -4,11 +4,11 @@ class SessionsController < ApplicationController
     if pro
       session[:pro_id] = pro.id
       Time.zone = pro.timezone
-      flash[:notice] = t(:flash_notice_session_welcome) + "#{APP_CONFIG[:site_name]}"
+      flash[:notice] = I18n.t(:flash_notice_session_welcome) + "#{APP_CONFIG[:site_name]}"
       redirect_to practitioner_url(pro)
       # redirect_to_target_or_default(pro)
     else
-      flash.now[:error] = t(:flash_error_session_invalid_login_password)
+      flash.now[:error] = I18n.t(:flash_error_session_invalid_login_password)
       render :action => 'new'
     end
   end
@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
     session[:pro_id] = nil
     cookies[:email] = nil
     cookies[:selected_practitioner_id] = nil
-    flash[:notice] = t(:flash_notice_session_logout)
+    flash[:notice] = I18n.t(:flash_notice_session_logout)
     redirect_to root_url
   end
 end

@@ -6,10 +6,10 @@ class ClientsController < ApplicationController
   def destroy
     @client = current_pro.clients.find(params[:id])
     if @client.nil?
-      flash[:error] = t(:flash_error_client_invalid_client) 
+      flash[:error] = I18n.t(:flash_error_client_invalid_client) 
     else
       current_pro.clients.delete(@client)
-      flash[:notice] = t(:flash_notice_client_client_deleted)
+      flash[:notice] = I18n.t(:flash_notice_client_client_deleted)
     end
     redirect_to practitioner_clients_url(current_pro.permalink)
   end
@@ -17,10 +17,10 @@ class ClientsController < ApplicationController
   def update
     @client = current_pro.nil? ? current_client : current_pro.clients.find(params[:id])
     if @client.update_attributes(params[:client])
-      flash[:notice] = current_pro.nil? ? t(:flash_notice_client_info_change) : t(:flash_notice_client_client_info_change)
+      flash[:notice] = current_pro.nil? ? I18n.t(:flash_notice_client_info_change) : I18n.t(:flash_notice_client_client_info_change)
       redirect_to edit_client_url(@client)
     else
-      flash[:error] = t(:flash_error_client_error_saving)
+      flash[:error] = I18n.t(:flash_error_client_error_saving)
       @phone_prefixes = Client::PHONE_PREFIXES
       render :action => "edit" 
     end
@@ -46,12 +46,12 @@ class ClientsController < ApplicationController
   def request_reset_phone
     @client = Client.find_by_email(params[:email])
     if @client.nil?
-     #flash[:notice] = t(:flash_notice_client_cant_find_email_in_db)
-       flash[:notice] = t(:flash_notice_cant_find_email)
+     #flash[:notice] = I18n.t(:flash_notice_client_cant_find_email_in_db)
+       flash[:notice] = I18n.t(:flash_notice_cant_find_email)
       redirect_to signup_url(:email => params[:email] )
     else
       @client.send_reset_phone_link
-      flash[:notice] = t(:flash_notice_client_email_sent)
+      flash[:notice] = I18n.t(:flash_notice_client_email_sent)
     end
   end
 
@@ -60,9 +60,9 @@ class ClientsController < ApplicationController
     @client = Client.find_by_email(params[:email])
     if reset_code == @client.reset_code
       @phone_prefixes = Client::PHONE_PREFIXES    
-      flash[:notice] = t(:flash_notice_client_enter_new_phone)
+      flash[:notice] = I18n.t(:flash_notice_client_enter_new_phone)
     else
-      flash[:error] = t(:flash_error_client_problem_reset_code) + "#{APP_CONFIG[:contact_email]}"
+      flash[:error] = I18n.t(:flash_error_client_problem_reset_code) + "#{APP_CONFIG[:contact_email]}"
       redirect_to root_url
     end
   end
@@ -74,14 +74,14 @@ class ClientsController < ApplicationController
       @client.phone_prefix = params[:phone_prefix]
       @client.phone_suffix = params[:phone_suffix]
       if @client.save
-        flash[:notice] = t(:flash_notice_client_update_reset_phone)
+        flash[:notice] = I18n.t(:flash_notice_client_update_reset_phone)
       else
-        flash[:notice] = t(:flash_error_client_update_reset_phone)
+        flash[:notice] = I18n.t(:flash_error_client_update_reset_phone)
         @phone_prefixes = Client::PHONE_PREFIXES    
         render :action => :reset_phone
       end
     else
-      flash[:error] = t(:flash_error_client_problem_reset_code) + "#{APP_CONFIG[:contact_email]}"
+      flash[:error] = I18n.t(:flash_error_client_problem_reset_code) + "#{APP_CONFIG[:contact_email]}"
       redirect_to root_url
     end
   end
@@ -97,7 +97,7 @@ class ClientsController < ApplicationController
 
   def update_phone
     if params[:phone_suffix].blank?
-      flash[:error] = t(:flash_error_client_enter_new_phone_upper)
+      flash[:error] = I18n.t(:flash_error_client_enter_new_phone_upper)
       redirect_to edit_phone_url(:login => params["login"] )
     else
       @client = Client.find_by_email(params["login"])
@@ -106,14 +106,14 @@ class ClientsController < ApplicationController
         @client.phone_suffix = params[:phone_suffix]
         if @client.save
           session[:client_id] = @client.id
-          flash[:notice] = t(:flash_notice_client_phone_changed)
+          flash[:notice] = I18n.t(:flash_notice_client_phone_changed)
           redirect_to @client
         else
-          flash[:error] = t(:flash_error_client_errors_saving_phone) + "#{@client.errors.full_messages.to_sentence}"
+          flash[:error] = I18n.t(:flash_error_client_errors_saving_phone) + "#{@client.errors.full_messages.to_sentence}"
           redirect_to edit_phone_url(:login => params["login"] )
         end
       else
-        flash[:error] = t(:flash_error_client_phone_mismatch)
+        flash[:error] = I18n.t(:flash_error_client_phone_mismatch)
         redirect_to edit_phone_url(:login => params["login"] )
       end
     end
@@ -131,7 +131,7 @@ class ClientsController < ApplicationController
   
   def lookup_form
     if client_logged_in?
-      flash[:notice] = t(:flash_notice_client_welcome_back)
+      flash[:notice] = I18n.t(:flash_notice_client_welcome_back)
       redirect_to root_url
     else
       @client = Client.new(:email => params["email"])
@@ -142,18 +142,18 @@ class ClientsController < ApplicationController
     @client = Client.find_by_email(params[:client]["email"])
     if @client.nil?
       if Client.valid_email?(params[:client]["email"])
-        flash[:notice]= t(:flash_notice_client_book_enter_phone)
+        flash[:notice]= I18n.t(:flash_notice_client_book_enter_phone)
         redirect_to signup_url(:email => params[:client]["email"])
       else
-        flash[:error] = t(:flash_error_invalid_email)
+        flash[:error] = I18n.t(:flash_error_invalid_email)
         redirect_to lookup_form_url(:email =>  params[:client]["email"])
       end
     else
       if @client.no_phone_number?
-        flash[:notice]= t(:flash_notice_client_book_enter_phone)
+        flash[:notice]= I18n.t(:flash_notice_client_book_enter_phone)
         redirect_to signup_url(:email => params[:client]["email"])
       else
-        flash[:notice]= t(:flash_notice_client_enter_4_digit)
+        flash[:notice]= I18n.t(:flash_notice_client_enter_4_digit)
         redirect_to login_phone_url(:login => params[:client]["email"])
       end
     end
@@ -163,7 +163,7 @@ class ClientsController < ApplicationController
     @client = Client.find_by_email(params[:login])
     cookies[:email] = @client.email unless @client.nil?
     if @client.no_phone_number?
-      flash[:notice]= t(:flash_notice_client_book_enter_phone)
+      flash[:notice]= I18n.t(:flash_notice_client_book_enter_phone)
       redirect_to signup_url(:email => params[:login])
     end
   end
@@ -172,10 +172,10 @@ class ClientsController < ApplicationController
     @client = Client.find_by_email(params[:login])
     if @client.check_phone_first_4digits(params[:phone_last4digits])
       session[:client_id] = @client.id
-      flash[:notice] = t(:flash_notice_client_can_book)
+      flash[:notice] = I18n.t(:flash_notice_client_can_book)
       redirect_to session[:return_to] || root_url
     else
-      flash[:error] = t(:flash_error_client_try_again)
+      flash[:error] = I18n.t(:flash_error_client_try_again)
       redirect_to login_phone_url(:login => params["login"] )
     end
   end
@@ -186,11 +186,11 @@ class ClientsController < ApplicationController
         begin
           current_pro.add_clients(params[:emails], params[:send_email], params[:email_text], params[:email_signoff])
         rescue BlankEmailsException
-          flash[:error] = t(:flash_error_client_email_not_empty)
+          flash[:error] = I18n.t(:flash_error_client_email_not_empty)
         rescue InvalidEmailsException => e
-          flash[:error] = t(:flash_error_client_some_emails_invalid) + "#{e.message}"
+          flash[:error] = I18n.t(:flash_error_client_some_emails_invalid) + "#{e.message}"
         else
-          flash[:notice] = t(:flash_notice_client_clients_added)
+          flash[:notice] = I18n.t(:flash_notice_client_clients_added)
         end
         if flash[:error].blank?
           redirect_to practitioner_clients_url(current_pro.permalink)
@@ -199,18 +199,18 @@ class ClientsController < ApplicationController
           redirect_to new_practitioner_client_url(current_pro.permalink, :emails => params[:emails], :send_email => params[:send_email], :email_text => params[:email_text], :email_signoff => params[:email_signoff])
         end
       else
-        flash[:error] = t(:flash_error_client_must_be_logged_in)
+        flash[:error] = I18n.t(:flash_error_client_must_be_logged_in)
         redirect_to login_url
       end
     else
       @client = Client.new(params[:client])
       if @client.save
         session[:client_id] = @client.id
-        flash[:notice] = t(:flash_notice_client_can_book_now)
+        flash[:notice] = I18n.t(:flash_notice_client_can_book_now)
         redirect_to session[:return_to] || @client
       else
         get_phone_prefixes
-        flash[:error] = t(:flash_error_client_email_cant_register)
+        flash[:error] = I18n.t(:flash_error_client_email_cant_register)
         render :action => 'new'
       end
     end
