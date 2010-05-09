@@ -6,7 +6,7 @@
   <p>
     <%= text_area_tag :emails, params[:emails], :cols => "80", :rows => "5"   %>
   </p>
-  <p><%= check_box_tag :send_email, 'yes', params[:send_email].nil? ? true : params[:send_email] %><%= t(:client_new_multiple_send_email)%></p>
+  <p><%= check_box_tag :send_email, 'yes', params[:send_email].nil? ? true : params[:send_email] %><label for="send_email"><%= t(:client_new_multiple_send_email)%></label></p>
   <fieldset id="email_all">
 	  <p><%= t(:client_new_multiple_message2) %></p>
 	  <p><%= t(:client_new_multiple_message3) %></p>
