@@ -26,8 +26,29 @@ class BookingTest < ActiveSupport::TestCase
   end
 
   def test_need_reminders
-    remind_me = Factory(:booking, :starts_at => 1.day.from_now.advance(:minutes => -30))
-    assert Booking.need_reminders.include?(remind_me)
+    remind_me = Factory(:booking, :starts_at => 1.day.from_now.advance(:minutes => -30), :name  => "In 1 day MINUS 30 mins")
+    dont_remind_me = Factory(:booking, :starts_at => 1.day.from_now.advance(:hours => 2), :name  => "In 1 day PLUS 2 hours")
+    my_reminders = Booking.need_reminders
+    assert my_reminders.include?(remind_me)
+    assert !my_reminders.include?(dont_remind_me)
+  end
+
+  def test_need_reminders_extended_cancellation
+    pro = Factory(:practitioner, :no_cancellation_period_in_hours  => 48)
+    remind_me = Factory(:booking, :starts_at => 2.days.from_now.advance(:minutes => -30), :practitioner => pro)
+    dont_remind_me = Factory(:booking, :starts_at => 2.days.from_now.advance(:hours => 2), :practitioner => pro)
+    my_reminders = Booking.need_reminders
+    assert my_reminders.include?(remind_me)
+    assert !my_reminders.include?(dont_remind_me)
+  end
+
+  def test_need_reminders_different_timezones
+    pro = Factory(:practitioner, :timezone  => "Paris")
+    remind_me = Factory(:booking, :starts_at => Time.zone.now.advance(:hours => 23), :practitioner => pro)
+    dont_remind_me = Factory(:booking, :starts_at => Time.zone.now.advance(:hours => 26), :practitioner => pro)
+    my_reminders = Booking.need_reminders
+    assert my_reminders.include?(remind_me)
+    assert !my_reminders.include?(dont_remind_me)
   end
 
   def test_to_ics

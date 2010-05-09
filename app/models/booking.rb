@@ -185,7 +185,11 @@ class Booking < ActiveRecord::Base
   end
 
   def self.need_reminders
-    Booking.find(:all, :conditions => ["state = ? AND starts_at < ?", "unconfirmed", 1.day.from_now])
+    res = []
+    Practitioner.all.each do |p|
+      res += p.bookings_need_reminders
+    end
+    return res
   end
   
   def start_date_and_time_str
@@ -194,7 +198,7 @@ class Booking < ActiveRecord::Base
     
   end
   def start_date
-            self.starts_at
+    self.starts_at
   end
   def start_date_str
     "#{self.starts_at.strftime('%A %d %B %Y')}"
