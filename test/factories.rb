@@ -48,3 +48,8 @@ Factory.define :booking do |b|
   b.starts_at Time.now.beginning_of_day.advance(:hours=>9)
   b.ends_at Time.now.beginning_of_day.advance(:hours=>10)
 end
+
+Factory.define :extra_working_day do |b|
+  b.association :practitioner
+  b.day_date 2.days.from_now
+end

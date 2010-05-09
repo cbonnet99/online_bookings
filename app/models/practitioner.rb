@@ -19,7 +19,7 @@ class Practitioner < ActiveRecord::Base
   has_many :clients, :through => :relations
   has_many :user_emails
   has_many :booking_types
-  
+  has_many :extra_working_days  
 
   # new columns need to be added here to be writable through mass assignment
   attr_accessible :username, :email, :password, :password_confirmation, :working_hours, :working_days, :first_name,
@@ -207,7 +207,7 @@ class Practitioner < ActiveRecord::Base
         end_timestamp.utc
       end
     end
-    raw_own_bookings = Booking.find_all_by_practitioner_id(self.id, :conditions => ["state <> ? AND starts_at BETWEEN ? AND ?", "cancelled", start_time, end_time] )
+    raw_own_bookings = Booking.find_all_by_practitioner_id(self.id, :conditions => ["state <> ? AND starts_at BETWEEN ? AND ?", "cancelled", start_time.utc, end_time.utc] )
     prep_times = []
     raw_own_bookings.each do |b|
       b.current_pro = self
@@ -232,7 +232,7 @@ class Practitioner < ActiveRecord::Base
   end
   
   def client_bookings(current_client, start_time, end_time)
-    raw_bookings = Booking.find_all_by_practitioner_id(self.id, :conditions => ["state <> ? AND starts_at BETWEEN ? AND ?", "cancelled", start_time, end_time] )
+    raw_bookings = Booking.find_all_by_practitioner_id(self.id, :conditions => ["state <> ? AND starts_at BETWEEN ? AND ?", "cancelled", start_time.utc, end_time.utc] )
     prep_times = []
     raw_bookings.each do |b|
       b.current_client = current_client

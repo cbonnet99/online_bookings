@@ -188,7 +188,7 @@ class PractitionerTest < ActiveSupport::TestCase
     megan = Factory(:practitioner, :working_days => "4,5")
     cyrille = Factory(:client, :first_name => "Cyrille", :last_name => "Bonnet")
     k = Factory(:client, :first_name => "Ms", :last_name => "K")
-    booking1 = Factory(:booking, :client => cyrille, :practitioner => megan )
+    booking1 = Factory(:booking, :client => cyrille, :practitioner => megan)
     booking2 = Factory(:booking, :client => k, :practitioner => megan )
     booking_cancelled = Factory(:booking, :state => "cancelled",  :client => k, :practitioner => megan )
     megan_bookings = megan.all_bookings(cyrille, Time.now.beginning_of_week.to_f, Time.now.end_of_week.to_f)

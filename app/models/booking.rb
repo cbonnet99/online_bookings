@@ -50,7 +50,7 @@ class Booking < ActiveRecord::Base
   before_update :set_times
   before_create :generate_confirmation_code, :set_name, :set_times
 
-  named_scope :need_pro_reminder, :conditions => ["pro_reminder_sent_at IS NULL AND starts_at BETWEEN ? AND ?", 1.day.from_now.beginning_of_day, 1.day.from_now.end_of_day]
+  named_scope :need_pro_reminder, :conditions => ["pro_reminder_sent_at IS NULL AND starts_at BETWEEN ? AND ?", 1.day.from_now.beginning_of_day.utc, 1.day.from_now.end_of_day.utc]
 
 
   INVITE_DELAY_MINS = 15

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100502112341) do
+ActiveRecord::Schema.define(:version => 20100509114342) do
 
   create_table "booking_types", :force => true do |t|
     t.string   "title"
@@ -67,6 +67,15 @@ ActiveRecord::Schema.define(:version => 20100502112341) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "extra_working_days", :force => true do |t|
+    t.date     "day_date"
+    t.integer  "practitioner_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "extra_working_days", ["practitioner_id"], :name => "index_extra_working_days_on_practitioner_id"
 
   create_table "practitioners", :force => true do |t|
     t.string   "username"
