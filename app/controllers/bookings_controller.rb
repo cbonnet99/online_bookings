@@ -83,12 +83,8 @@ class BookingsController < ApplicationController
       flash.now[:error] = I18n.t(:flash_error_booking_appointment_not_found)
     else
       if @booking.update_attributes(hash_booking)
-<<<<<<< HEAD
         @prep = @booking.prep
-        flash.now[:notice] = t(:flash_notice_booking_appointment_changed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
-=======
         flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_changed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
->>>>>>> e74d51dfa298f78162341ccd2eeea7c7f7d0dd2c
       end
     end
   end
