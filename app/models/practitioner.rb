@@ -255,18 +255,47 @@ class Practitioner < ActiveRecord::Base
   end
   
   def bookings_for_non_working_days(start_time, end_time)
+    res = []
+    non_working_days_in_timeframe(start_time, end_time).each do |date|
+      day, month, year = date.strftime("%d %m %Y").split(" ")
+      res << NonWorkingBooking.new("#{self.id}-#{day}-#{month}-#{year}", I18n.t(:non_working), Time.parse("#{year}/#{month}/#{day} #{biz_hours_start}"), Time.parse("#{year}/#{month}/#{day} #{biz_hours_end}"), true)      
+    end
+    res
+  end
+  
+  def non_working_days_in_timeframe(start_time, end_time)
     current = start_time
     res = []
     while current < end_time
-      day, month, year, week_day = current.strftime("%d %m %Y %w").split(" ")
+      week_day = current.strftime("%w")
       #for us Sunday is 7, for Ruby it's 0
       week_day = "7" if week_day == "0"
       if !working_days.blank? && !working_days.include?(week_day)
-        res << NonWorkingBooking.new("#{self.id}-#{day}-#{month}-#{year}", I18n.t(:non_working), Time.parse("#{year}/#{month}/#{day} #{biz_hours_start}"), Time.parse("#{year}/#{month}/#{day} #{biz_hours_end}"), true)
+        res << current.to_date
       end
       current += 1.day
     end
     res
+  end
+  
+  def working_days_in_timeframe(start_time, end_time)
+    current = start_time
+    res = []
+    extras = extra_working_days_in_timeframe(start_time, end_time)
+    while current < end_time
+      week_day = current.strftime("%w")
+      #for us Sunday is 7, for Ruby it's 0
+      week_day = "7" if week_day == "0"
+      if (!working_days.blank? && working_days.include?(week_day)) || extras.include?(current.to_date)
+        res << current.to_date
+      end
+      current += 1.day
+    end
+    res
+  end
+  
+  def extra_working_days_in_timeframe(start_time, end_time)
+    self.extra_working_days.find(:all, :conditions => ["day_date BETWEEN ? AND ?", start_time.to_date, end_time.to_date] )
   end
   
   def bookings_for_working_hours(start_time, end_time)

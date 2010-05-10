@@ -2,6 +2,11 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PractitionerTest < ActiveSupport::TestCase
   fixtures :all
+
+  def test_working_days_in_timeframe
+    pro = Factory(:practitioner)
+    assert_equal 2, pro.working_days_in_timeframe(Time.now.beginning_of_week, Time.now.end_of_week).size
+  end
   
   def new_practitioner(attributes = {})
     attributes[:username] ||= 'foo'
