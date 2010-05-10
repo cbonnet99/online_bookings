@@ -53,3 +53,8 @@ Factory.define :extra_working_day do |b|
   b.association :practitioner
   b.day_date 2.days.from_now
 end
+
+Factory.define :extra_non_working_day do |b|
+  b.association :practitioner
+  b.day_date 3.days.from_now
+end

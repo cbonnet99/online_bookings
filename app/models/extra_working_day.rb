@@ -6,10 +6,6 @@ class ExtraWorkingDay < ActiveRecord::Base
   attr_accessible :day_date
   
     
-  def has_bookings?
-    !practitioner.client_bookings(nil, day_date.beginning_of_day, day_date.end_of_day).blank?
-  end  
-    
   def validate
     if !day_date.nil? && !practitioner.nil?
       if practitioner.working_days_in_timeframe(day_date-1.day, day_date+1.day).include?(day_date)

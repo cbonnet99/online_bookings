@@ -20,6 +20,7 @@ class Practitioner < ActiveRecord::Base
   has_many :user_emails
   has_many :booking_types
   has_many :extra_working_days  
+  has_many :extra_non_working_days  
 
   # new columns need to be added here to be writable through mass assignment
   attr_accessible :username, :email, :password, :password_confirmation, :working_hours, :working_days, :first_name,
@@ -266,11 +267,13 @@ class Practitioner < ActiveRecord::Base
   def non_working_days_in_timeframe(start_time, end_time)
     current = start_time
     res = []
+    extras = extra_working_days_in_timeframe(start_time, end_time)
+    extra_nons = extra_non_working_days_in_timeframe(start_time, end_time)
     while current < end_time
       week_day = current.strftime("%w")
       #for us Sunday is 7, for Ruby it's 0
       week_day = "7" if week_day == "0"
-      if !working_days.blank? && !working_days.include?(week_day)
+      if (!working_days.blank? && !extras.include?(current.to_date) && !working_days.include?(week_day)) || extras.include?(current.to_date)
         res << current.to_date
       end
       current += 1.day
@@ -282,11 +285,12 @@ class Practitioner < ActiveRecord::Base
     current = start_time
     res = []
     extras = extra_working_days_in_timeframe(start_time, end_time)
+    extra_nons = extra_non_working_days_in_timeframe(start_time, end_time)
     while current < end_time
       week_day = current.strftime("%w")
       #for us Sunday is 7, for Ruby it's 0
       week_day = "7" if week_day == "0"
-      if (!working_days.blank? && working_days.include?(week_day)) || extras.include?(current.to_date)
+      if (!working_days.blank? && !extra_nons.include?(current.to_date) && working_days.include?(week_day)) || extras.include?(current.to_date)
         res << current.to_date
       end
       current += 1.day
@@ -296,6 +300,22 @@ class Practitioner < ActiveRecord::Base
   
   def extra_working_days_in_timeframe(start_time, end_time)
     self.extra_working_days.find(:all, :conditions => ["day_date BETWEEN ? AND ?", start_time.to_date, end_time.to_date] )
+  end
+  
+  def extra_non_working_days_in_timeframe(start_time, end_time)
+    self.extra_non_working_days.find(:all, :conditions => ["day_date BETWEEN ? AND ?", start_time.to_date, end_time.to_date] )
+  end
+  
+  def extra_non_working_day(day_date)
+    self.extra_non_working_days_in_timeframe(day_date-1.day, day_date+1.day).try(:first)
+  end
+    
+  def extra_working_day(day_date)
+    self.extra_working_days_in_timeframe(day_date-1.day, day_date+1.day).try(:first)
+  end
+  
+  def has_bookings_on?(day_date)
+    !self.client_bookings(nil, day_date.beginning_of_day, day_date.end_of_day).blank?
   end
   
   def bookings_for_working_hours(start_time, end_time)

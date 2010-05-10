@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  day_date: 2010-05-11
+  practitioner_id: 1
+
+two:
+  day_date: 2010-05-11
+  practitioner_id: 1
