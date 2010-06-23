@@ -312,7 +312,7 @@ class Booking < ActiveRecord::Base
     if !self.booking_type.nil? && self.duration_mins != self.booking_type.duration_mins
       self.ends_at = self.starts_at.advance(:minutes => self.booking_type.duration_mins )
     end
-    if !self.practitioner.nil? && self.practitioner.prep_time_mins > 0
+    if !self.practitioner.nil? && !self.practitioner.prep_time_mins.nil? && self.practitioner.prep_time_mins > 0
       self.prep_before = self.practitioner.prep_before
       self.prep_time_mins = self.practitioner.prep_time_mins
     end
