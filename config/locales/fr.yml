@@ -235,7 +235,7 @@ fr:
     login_phone_number_changed: "Votre numéro a changé!"
     login_phone_book: "Prendre rendez-vous"
     #session/new
-    session_new_title: "Connection"
+    session_new_title: "Bienvenue sur Colibri"
     session_new_remember: "J'ai oublié(e) mon mot de passe"
     session_new_email: "Votre adresse email"
     session_new_login: "Se connecter"

@@ -200,7 +200,7 @@
   login_phone_number_changed: "My phone number has changed!"
   login_phone_book: "Book an appointment" 
   #session/new
-  session_new_title: "Login"
+  session_new_title: "Welcome on Colibri"
   session_new_remember: "I can't remember my password"
   session_new_email: "Your email address"
   session_new_login: "Log in"
