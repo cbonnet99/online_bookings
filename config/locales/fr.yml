@@ -314,8 +314,10 @@ fr:
     non_working: "Non réservable"
     appt_booked: "Rendez-vous indisponible"
     calendar_dateformat: "j M Y"
-    calendar_timeformat: "h:i"
+    calendar_timeformat: "H|hi"
+    calendar_removableHourSeparator: false
     calendar_use24hour: true
+    calendar_timeSeparator: à
     #practitioner_controller
     practitioner_owntime: "Temps perso."
     #practitioner model

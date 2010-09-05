@@ -323,10 +323,14 @@ class BookingsControllerTest < ActionController::TestCase
     cyrille = clients(:cyrille)
     mail_size = UserEmail.all.size
     old_size = Booking.all.size
+    start_date = Time.now.beginning_of_week.advance(:days=>7)
+    starts = start_date.advance(:hours=>13)
+    end_date = Time.now.beginning_of_week.advance(:days=>7)
+    ends = end_date.advance(:hours=>14)
     post :create, {:practitioner_id => megan.permalink, :format => "json",
       :booking => {:name => "undefined", :client_id => cyrille.id, :comment => "I'll be on time", :booking_type => booking_types(:megan_two_hour), 
-      :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}",
-      :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
+      :starts_at => "#{starts}",
+      :ends_at => "#{ends}"}},
       {:pro_id => megan.id }
     # puts @response.body
     assert_not_nil assigns["booking"]
@@ -338,9 +342,11 @@ class BookingsControllerTest < ActionController::TestCase
     assert_equal "Cyrille Bonnet", new_booking.name
     assert_not_nil new_booking.starts_at
     assert_not_nil new_booking.ends_at
-    Time.zone = megan.timezone
-    assert_equal Time.zone.now.beginning_of_week.advance(:days=>7).advance(:hours=>13), new_booking.starts_at
-    assert_equal Time.zone.now.beginning_of_week.advance(:days=>7).advance(:hours=>15), new_booking.ends_at, "Sould last 2 hours, according to booking type"
+    
+    #the booking should be made on the practitioner's timezone (in this case at 1pm, Megan's time)
+    assert_equal start_date.in_time_zone(megan.timezone).beginning_of_day.advance(:hours=>13), new_booking.starts_at
+    assert_equal end_date.in_time_zone(megan.timezone).beginning_of_day.advance(:hours => 15), new_booking.ends_at, "Sould last 2 hours, according to booking type"
+    
     assert_not_nil new_booking.booking_type
     assert_equal mail_size+1, UserEmail.all.size
     new_email = UserEmail.last

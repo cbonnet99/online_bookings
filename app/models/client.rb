@@ -11,7 +11,7 @@ class Client < ActiveRecord::Base
   has_many :user_emails
   
   # new columns need to be added here to be writable through mass assignment
-  attr_accessible :email, :password, :password_confirmation, :phone_prefix, :phone_suffix, :name
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :phone_prefix, :phone_suffix, :name
   
   attr_accessor :password
   before_save :prepare_password, :cleanup_phone

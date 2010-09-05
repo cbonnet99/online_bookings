@@ -288,7 +288,9 @@
   appt_booked: "Booked"
   calendar_dateformat: "j M Y"
   calendar_timeformat: "h:ia"
+  calendar_removableHourSeparator: true
   calendar_use24hour: false
+  calendar_timeSeparator: to
   #practitioner_controller
   practitioner_owntime: "Own time"
   #practitioner model  

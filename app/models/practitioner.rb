@@ -25,7 +25,7 @@ class Practitioner < ActiveRecord::Base
   # new columns need to be added here to be writable through mass assignment
   attr_accessible :username, :email, :password, :password_confirmation, :working_hours, :working_days, :first_name,
    :last_name, :phone, :no_cancellation_period_in_hours, :working_day_monday, :working_day_tuesday, :working_day_wednesday,
-    :working_day_thursday, :working_day_friday, :working_day_saturday, :working_day_sunday
+    :working_day_thursday, :working_day_friday, :working_day_saturday, :working_day_sunday, :timezone
   
   attr_accessor :password, :working_day_monday, :working_day_tuesday, :working_day_wednesday, :working_day_thursday,
    :working_day_friday, :working_day_saturday, :working_day_sunday
@@ -208,7 +208,7 @@ class Practitioner < ActiveRecord::Base
         end_timestamp.utc
       end
     end
-    raw_own_bookings = Booking.find_all_by_practitioner_id(self.id, :conditions => ["state <> ? AND starts_at BETWEEN ? AND ?", "cancelled", start_time.utc, end_time.utc] )
+    raw_own_bookings = Booking.find_all_by_practitioner_id(self.id, :conditions => ["state <> ? AND starts_at BETWEEN ? AND ?", "cancelled", start_time, end_time] )
     prep_times = []
     raw_own_bookings.each do |b|
       b.current_pro = self
