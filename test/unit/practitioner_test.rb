@@ -1,7 +1,34 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class PractitionerTest < ActiveSupport::TestCase
+  
+  include ColibriExceptions
+  
   fixtures :all
+  
+
+  def test_create_sample_data_for_non_test_user
+    pro = Factory(:practitioner, :test_user => false)
+    assert_raise(CantCreateSampleDataOnNonTestProException){
+      pro.create_sample_data!
+    }
+    
+  end
+
+  def test_create_sample_data
+    pro = Factory(:practitioner, :test_user  => true)
+    pro.create_sample_data!
+    pro.reload
+    assert_equal 30, pro.clients.size
+    assert_equal 300, pro.bookings.size
+  end
+
+  def test_working_days_as_numbers
+    pro = Factory(:practitioner, :working_days => "1,2,3,4,5")
+    assert_equal [1,2,3,4,5], pro.working_days_as_numbers
+    pro = Factory(:practitioner, :working_days => "6,7")
+    assert_equal [6,0], pro.working_days_as_numbers
+  end
 
   def test_working_days_in_timeframe
     pro = Factory(:practitioner)

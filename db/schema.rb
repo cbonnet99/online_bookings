@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100510122059) do
+ActiveRecord::Schema.define(:version => 20100906185024) do
 
   create_table "booking_types", :force => true do |t|
     t.string   "title"
@@ -107,6 +107,8 @@ ActiveRecord::Schema.define(:version => 20100510122059) do
     t.boolean  "prep_before",                                   :default => false
     t.integer  "prep_time_mins",                                :default => 0
     t.string   "timezone",                                      :default => "Wellington"
+    t.boolean  "test_user",                                     :default => false
+    t.boolean  "trial",                                         :default => true
   end
 
   create_table "relations", :force => true do |t|

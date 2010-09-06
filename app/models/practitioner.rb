@@ -13,6 +13,7 @@ end
 
 class Practitioner < ActiveRecord::Base
   include Permalinkable
+  include ColibriExceptions
   
   has_many :bookings
   has_many :relations
@@ -50,6 +51,83 @@ class Practitioner < ActiveRecord::Base
   WORKING_DAYS = ["monday","tuesday" ,"wednesday" , "thursday", "friday","saturday" ,"sunday" ]
   #WORKING_DAYS = Date::DAY_NAMES
   #WORKING_DAYS = I18n.t 'date.day_names' does not work with actul code sunday is first day of the week
+
+  FIRST_NAMES = ["Roger", "Oliver", "Susan", "Jeff", "Isabel", "Beth", "Lorelei", "Tadeo"]
+  LAST_NAMES = ["Yi", "Aloha", "Jones", "Salvador", "Lanta", "Spaniel", "Humbri", "Lavaur", "Pujol"]
+  DOMAINS = ["gmail.com", "test.com", "info.org"]
+  BOOKING_STATES = ["unconfirmed", "confirmed" ,"cancelled"]
+
+
+  def create_sample_data!
+    if self.test_user?
+      #30 clients
+      clients = []
+      30.times do
+        first_name = FIRST_NAMES[rand(FIRST_NAMES.size)]
+        last_name = LAST_NAMES[rand(LAST_NAMES.size)]
+        all_client_names = clients.map(&:name)
+        while (all_client_names.include?("#{first_name} #{last_name}"))
+          puts "#{first_name} #{last_name} is taken, trying again"
+          first_name = FIRST_NAMES[rand(FIRST_NAMES.size)]
+          last_name = LAST_NAMES[rand(LAST_NAMES.size)]
+        end
+        email = "#{first_name}.#{last_name}@#{DOMAINS[rand(DOMAINS.size)]}"
+        client = Client.find_by_email(email)
+        if client.nil?
+          puts "+++++ Creating client #{first_name} #{last_name}"
+          client = Client.new(:first_name => first_name, :last_name => last_name, :phone_prefix  => "06",
+              :phone_suffix => "#{rand(99)} #{rand(99)} #{rand(99)} #{rand(99)}", 
+              :email => email, :password => first_name[0,4], :password_confirmation => first_name[0,4]  )
+          client.save!
+        else
+          puts "===== Using existing client #{first_name} #{last_name}"        
+        end
+        clients << client
+      end
+    
+      wd_as_numbers = self.working_days_as_numbers
+      #150 appointments in the past
+      150.times do
+        days_ago = rand(200)
+        date = Time.now.advance(:days => -days_ago).to_date
+        while (!wd_as_numbers.include?(date.wday)) do
+          #try again if it's not a working day
+          days_ago = rand(200)
+          date = Time.now.advance(:days => -days_ago).to_date        
+        end
+        start_hour = rand(10)+8
+        starts_at = DateTime.strptime("#{date.strftime('%d/%m/%Y')} #{start_hour}:00 CEST", "%d/%m/%Y %H:%M %Z")
+        client = clients[rand(clients.size)]
+        booking = Booking.new(:client => client, :practitioner => self, :name => client.name, 
+            :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => BOOKING_STATES[rand(BOOKING_STATES.size)])
+        booking.save!
+        puts "+++++ Creating past booking at #{starts_at} for client #{client.name}"
+      end
+    
+      #150 appointments in the future
+      150.times do
+        days = rand(200)
+        date = Time.now.advance(:days => days).to_date
+        while (!wd_as_numbers.include?(date.wday)) do
+          #try again if it's not a working day
+          days_ago = rand(200)
+          date = Time.now.advance(:days => days_ago).to_date        
+        end
+        starts_at = DateTime.strptime("#{date.strftime('%d/%m/%Y')} #{rand(10)+8}:00 CEST", "%d/%m/%Y %H:%M %Z")
+        client = clients[rand(clients.size)]
+        booking = Booking.new(:client => client, :practitioner => self, :name => client.name, 
+            :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => BOOKING_STATES[rand(BOOKING_STATES.size)])
+        booking.save!
+        puts "+++++ Creating future booking at #{starts_at} for client #{client.name}"
+      end
+    else
+      raise CantCreateSampleDataOnNonTestProException
+    end    
+  end
+  
+  def working_days_as_numbers
+    working_days.split(",").map(&:to_i).map{|i| i==7? 0 : i}
+  end
   
   def bookings_need_reminders
     Time.zone = self.timezone

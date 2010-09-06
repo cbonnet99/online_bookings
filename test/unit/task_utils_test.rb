@@ -8,8 +8,7 @@ class TaskUtilsTest < ActiveSupport::TestCase
     client_size = Client.all.size
     TaskUtils.create_sample_data
     assert_equal pro_size+2, Practitioner.all.size, "2 pros should have been created"
-    assert_equal client_size+30, Client.all.size, "30 clients should have been created"
-    assert_equal bookings_size+300, Booking.all.size, "300 appointments should have been created"
+    assert_equal bookings_size+600, Booking.all.size, "300 appointments should have been created"
   end
   
   def test_send_reminders
