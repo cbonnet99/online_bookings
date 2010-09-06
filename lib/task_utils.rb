@@ -12,10 +12,12 @@ class TaskUtils
     #2 pros
     PRO_ARRAYS.each do |pro_array|
       pro = Practitioner.new(:first_name => pro_array[0], :last_name => pro_array[1], :timezone => "Paris",
-          :country_code => "FR", 
+          :country_code => "FR",  
           :email => pro_array[2], :password => pro_array[0][0,4], :password_confirmation => pro_array[0][0,4],
           :working_hours => "8-18", :working_days => "1,2,3,4,5", :no_cancellation_period_in_hours => Practitioner::DEFAULT_CANCELLATION_PERIOD,
           :phone => pro_array[3])
+      pro.test_user = true
+      pro.trial = false
       pro.save!
       pro.create_sample_data!
     end    
