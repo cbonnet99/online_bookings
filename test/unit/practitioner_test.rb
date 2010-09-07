@@ -57,13 +57,13 @@ class PractitionerTest < ActiveSupport::TestCase
     assert !my_own_bookings.select{|b| b.title == "Prep time"}.blank?
   end
 
-  def test_own_bookings_with_own_time_no_prep_times
-    pro = Factory(:practitioner, :prep_before => false, :prep_time_mins => 30)
-    booking = Factory(:booking, :practitioner => pro, :client => nil, :prep_before => false, :prep_time_mins => 30, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now)
-    my_own_bookings = pro.own_bookings
-    assert my_own_bookings.include?(booking)
-    assert my_own_bookings.select{|b| b.title == "Prep time"}.blank?, "There should be no prep times for bookings with no client (own time)"
-  end
+  # def test_own_bookings_with_own_time_no_prep_times
+  #   pro = Factory(:practitioner, :prep_before => false, :prep_time_mins => 30)
+  #   booking = Factory(:booking, :practitioner => pro, :client => nil, :prep_before => false, :prep_time_mins => 30, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now)
+  #   my_own_bookings = pro.own_bookings
+  #   assert my_own_bookings.include?(booking)
+  #   assert my_own_bookings.select{|b| b.title == "Prep time"}.blank?, "There should be no prep times for bookings with no client (own time)"
+  # end
 
   def test_client_bookings_with_prep_times
     client = Factory(:client)

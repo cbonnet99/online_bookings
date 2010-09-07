@@ -299,6 +299,8 @@ fr:
     client_index_add_link: "ajouter des clients"
     client_index_message1: "à n'importe quel moment."
     client_index_add_more: "Ajouter"
+    #booking/create
+    booking_not_saved: "Votre RV n'a pas été sauvegardé car: [error]"  
     #booking/edit
     booking_edit_title: "Modifiez un rendez-vous"
     booking_edit_show: "voir"

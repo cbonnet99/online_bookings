@@ -23,7 +23,8 @@ $(document).ready(function() {
 			
 		}
 		if (flash.error !== undefined && flash.error !== '') {
-			$("div#flash_calendar").html("<div id='flash_error'>"+flash.error+"</div>").fadeIn(2000, function(){$(this)});
+			$("div#flash_calendar").html("<div id='flash_error'>"+flash.error+"<span id='flash_hide'>" +I18n.t("close") + "</span></div>").fadeIn(2000, function(){$(this)});
+			$("#flash_hide").click(function(){hideFlash();});
 		}
 	  };
 
@@ -134,7 +135,7 @@ $(document).ready(function() {
 					  <% end -%>
 					  <% end -%>
 					  $.post("<%=practitioner_bookings_url(pro)%>", {"format": "json", "booking[name]": calEvent.title<% if own_calendar?(pro, current_pro) -%>, "booking[client_id]": calEvent.client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": calEvent.booking_type_id<%end -%><%end -%>, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start.toString(), "booking[ends_at]": calEvent.end.toString()}, function(data){
-						if ((data.flash.error === undefined) || (data.flash.error === '')) {
+						if ((data.error === undefined) || (data.error === '')) {
 							calEvent.id = data.booking.id;
 							calEvent.title = data.booking.title;
 							calEvent.start = data.booking.start;
@@ -147,7 +148,7 @@ $(document).ready(function() {
 		                 }
 		                 $calendar.weekCalendar("removeUnsavedEvents");
 		                 $dialogContent.dialog("close");
-		                 displayFlash(data.flash);
+		                 displayFlash(data);
 						}, "json");
 
 	               },
@@ -156,7 +157,6 @@ $(document).ready(function() {
 	               }
 	            }
 	         }).show();
-			$('input#client_name').unbind('keydown');
 			$("input#client_name").autocomplete({source: clients_data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}});
 			$("input#client_name").focus();
 			
@@ -175,7 +175,7 @@ $(document).ready(function() {
       },
       eventDrop : function(calEvent, $event) {
 		  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json", "booking[starts_at]": calEvent.start.toString(), "booking[ends_at]": calEvent.end.toString()}, function(data){
-				displayFlash(data.flash);
+				displayFlash(data);
 			}, "json");
 
       },
@@ -231,7 +231,7 @@ $(document).ready(function() {
 				  <% end -%>
 				  <% end -%>
 				  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json"<% if own_calendar?(pro, current_pro) -%>, "booking[client_id]": calEvent.client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": calEvent.booking_type_id<%end-%><%end-%>, "booking[name]": calEvent.title, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start.toString(), "booking[ends_at]": calEvent.end.toString()}, function(data){
-					if ((data.flash.error === undefined) || (data.flash.error === '')) {
+					if ((data.error === undefined) || (data.error === '')) {
 						calEvent.id = data.booking.id;
 						calEvent.title = data.booking.title;
 						calEvent.start = data.booking.start;
@@ -243,27 +243,28 @@ $(document).ready(function() {
 	                  $calendar.weekCalendar("updateEvent", prepEvent);
                     }
 		             $dialogContent.dialog("close");
-					 displayFlash(data.flash);
+					 displayFlash(data);
 					}, "json");
                },
                cancel : function() {
                   $dialogContent.dialog("close");
                },
                "delete" : function() {
+	
 				  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "DELETE", "format": "json"}, function(data){
-					if ((data.flash.error === undefined) || (data.flash.error === '')) {
-	                  $calendar.weekCalendar("removeEvent", calEvent.id);
-                      if (data.prep_id) {
-	                    $calendar.weekCalendar("removeEvent", data.prep_id);
-                      }
-	                }
-	                $dialogContent.dialog("close");
-					displayFlash(data.flash);
+					  debugger;
+					  if ((data.error === undefined) || (data.error === '')) {
+	                    $calendar.weekCalendar("removeEvent", calEvent.id);
+                        if (data.prep_id) {
+	                      $calendar.weekCalendar("removeEvent", data.prep_id);
+                        }
+	                  }
+	                  $dialogContent.dialog("close");
+					  displayFlash(data);
 					}, "json");
                }
             }
          }).show();
-         $('input#client_name').unbind('keydown');
 		 $("input#client_name").autocomplete({source: clients_data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}});
          $("input#client_name").focus();
 		

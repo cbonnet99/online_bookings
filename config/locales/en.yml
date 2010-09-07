@@ -270,6 +270,8 @@
   client_index_add_link: "add clients"
   client_index_message1: "at any time."
   client_index_add_more: "Add more"
+  #booking/create
+  booking_not_saved: "Appointment was not saved because: [error]"  
   #booking/edit
   booking_edit_title: "Edit Booking"
   booking_edit_show: "Show"

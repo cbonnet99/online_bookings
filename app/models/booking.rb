@@ -39,7 +39,7 @@ class Booking < ActiveRecord::Base
   has_many :user_emails
   belongs_to :booking_type
 
-  validates_presence_of :practitioner, :starts_at, :ends_at
+  validates_presence_of :practitioner, :starts_at, :ends_at, :client
   
   attr_accessible :starts_at, :ends_at, :name, :comment, :booking_type, :booking_type_id, :client_id, :client, :practitioner, :practitioner_id
   attr_accessor :current_client, :current_pro
@@ -136,9 +136,11 @@ class Booking < ActiveRecord::Base
   end
 
   def update_relations_after_destroy
-    last_appointment_with_this_client = (self.client.bookings.find_all_by_practitioner_id(self.practitioner_id).size == 0)
-    if last_appointment_with_this_client
-      self.client.relations.find_by_practitioner_id(self.practitioner_id).try(:destroy)
+    unless self.client.nil?
+      last_appointment_with_this_client = (self.client.bookings.find_all_by_practitioner_id(self.practitioner_id).size == 0)
+      if last_appointment_with_this_client
+        self.client.relations.find_by_practitioner_id(self.practitioner_id).try(:destroy)
+      end
     end
   end
 
@@ -291,11 +293,12 @@ class Booking < ActiveRecord::Base
   
   def start
     #  "2009-05-03T12:15:00.000+1000"
-    starts_at.strftime("%Y-%m-%dT%H:%M:%S.000%z")
+    
+    starts_at.nil? ? nil : starts_at.strftime("%Y-%m-%dT%H:%M:%S.000%z")
   end
   
   def end
-    ends_at.strftime("%Y-%m-%dT%H:%M:%S.000%z")
+    ends_at.nil? ? nil : ends_at.strftime("%Y-%m-%dT%H:%M:%S.000%z")
   end
 
   def client_name

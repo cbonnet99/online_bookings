@@ -56,20 +56,23 @@ class BookingsController < ApplicationController
   
   def create
     @booking = Booking.new(JsonUtils.scrub_undefined(JsonUtils.remove_timezone(params[:booking])))
-    if @booking.client_id.nil?
-      client = current_client
+    if client_logged_in?
+      client = current_client  
       pro = @current_selected_pro
     else
-      client = current_pro.clients.find(@booking.client_id)
       pro = current_pro
-      @booking.name = @client.try(:default_name)
+    end
+    unless @booking.client_id.nil?
+      client = current_pro.clients.find(@booking.client_id)
+      @booking.name = client.try(:default_name)
     end
     @booking.set_defaults(current_client, current_pro, client, pro)
     if @booking.save
       @prep = @booking.prep
       flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_booked , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
-      #flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_booked , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date =>  l(Time.now, :format => :booking))
-       #flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_booked , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date =>  Time.now)          
+    else
+      flash[:error] = I18n.t(:booking_not_saved, :error => @booking.errors.full_messages.to_sentence)
+      redirect_to flash_url(:format => "json")
     end
   end
   
