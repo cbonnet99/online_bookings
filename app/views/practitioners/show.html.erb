@@ -1,4 +1,5 @@
 <% javascript "calendar_flash"%>
+<% javascript practitioner_clients_url(:practitioner_id => @current_selected_pro.try(:id) || current_pro.try(:id), :format => "js" )%>
 <% use_calendar %>
 <% if client_needs_help %><div id="help_calendar"><%= t(:practitioner_show_message) %>  &quot;&lt;&quot; <%= t(:sentencelink_and) %> &quot;&gt;&quot;</div><%end%>
 <%= render :partial => "calendar", :locals => {:pro => @current_selected_pro || current_pro, :client => @current_selected_pro || current_client  }  %>

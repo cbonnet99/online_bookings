@@ -7,10 +7,9 @@ $(document).ready(function() {
 	var id = 10;
 
    var changeButtonColors = function() {
-       $("button:contains('save')").html(I18n.t("button_save")).hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("color", "#090").css("background", "url('/images/green_tick.gif')").css("background-repeat", "no-repeat").css("padding-left", "20px").css("font-size", "14px");
-       $("button:contains('delete')").html(I18n.t("button_delete")).hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("background", "url('/images/red_x.gif')").css("background-repeat", "no-repeat").css("color", "#C00");
-       $("button:contains('delete')").css("background-color", "white").css("padding-left", "20px").css("font-size", "14px");
-       $("button:contains('cancel')").html(I18n.t("button_nosave")).hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("background-color", "white").css("color", "black").css("font-size", "14px");
+       $("button:contains('save')").html(I18n.t("button_save")).hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("color", "#090").css("background", "url('/images/green_tick.gif')").css("background-repeat", "no-repeat").css("padding", "5px 5px 5px 30px").css("font-size", "14px");
+       $("button:contains('delete')").html(I18n.t("button_delete")).hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("background", "url('/images/red_x.gif')").css("background-repeat", "no-repeat").css("color", "#C00").css("padding", "5px 5px 5px 30px").css("font-size", "14px");
+       $("button:contains('cancel')").html(I18n.t("button_nosave")).hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("background-color", "white").css("color", "black").css("padding", "5px 5px 5px 5px").css("font-size", "14px");
 	
    }
 	
@@ -67,7 +66,7 @@ $(document).ready(function() {
             $event.css("backgroundColor", "#bf0000");			
 		}
 		<%end -%>
-         if ((calEvent.end.getTime() < new Date().getTime()) || calEvent.readOnly) {
+         if ((calEvent.end.getTime() < (new Date().getTime())) || calEvent.readOnly) {
 			$event.css("cursor", "default");
             $event.css("backgroundColor", "#aaa");
             $event.find(".wc-time").css({
@@ -98,7 +97,8 @@ $(document).ready(function() {
 	         var titleField = $dialogContent.find("input[name='title']").val('<%=current_client.try(:name)%>');
 	         var bodyField = $dialogContent.find("textarea[name='body']");
 			 <% if own_calendar?(pro, current_pro) -%>
-	         var clientField = $dialogContent.find("select[name='client_id']");
+	         var clientField = $dialogContent.find("input[name='client_id']");
+	         var clientFieldName = $dialogContent.find("input[name='client_name']");
 			 <%if pro.has_multiple_booking_types? -%>
 			 var bookingTypeField = $dialogContent.find("select[name='booking_type_id']");
 			 <%end -%>
@@ -156,6 +156,10 @@ $(document).ready(function() {
 	               }
 	            }
 	         }).show();
+			$('input#client_name').unbind('keydown');
+			$("input#client_name").autocomplete({source: clients_data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}});
+			$("input#client_name").focus();
+			
 
 			<% if own_calendar?(pro, current_pro)-%>
 	         $dialogContent.find("#date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
@@ -191,11 +195,13 @@ $(document).ready(function() {
          var titleField = $dialogContent.find("input[name='title']").val(calEvent.title);
          var bodyField = $dialogContent.find("textarea[name='body']");
          <% if own_calendar?(pro, current_pro) -%>
+		 var my_client_name = calEvent.title
          var my_client_id = "";
          if (calEvent.client_id !== null){
 	       my_client_id = calEvent.client_id
          }
-         var clientField = $dialogContent.find("select[name='client_id']").val(my_client_id);
+         var clientFieldName = $dialogContent.find("input[name='client_name']").val(my_client_name);
+         var clientField = $dialogContent.find("input[name='client_id']").val(my_client_id);
          <%if pro.has_multiple_booking_types? -%>
          var bookingTypeField = $dialogContent.find("select[name='booking_type_id']").val(calEvent.booking_type_id);
          <%end -%>
@@ -219,6 +225,7 @@ $(document).ready(function() {
                   calEvent.body = bodyField.val();
 				  <% if own_calendar?(pro, current_pro) -%>
 				  calEvent.client_id = clientField.val();
+				  calEvent.client_name = clientFieldName.val();
 				  <%if pro.has_multiple_booking_types? -%>
 				  calEvent.booking_type_id = bookingTypeField.val();
 				  <% end -%>
@@ -256,6 +263,10 @@ $(document).ready(function() {
                }
             }
          }).show();
+         $('input#client_name').unbind('keydown');
+		 $("input#client_name").autocomplete({source: clients_data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}});
+         $("input#client_name").focus();
+		
          if ((calEvent.state == "unconfirmed") && (calEvent.start.getTime() > new Date().getTime()) && (calEvent.start.getTime() < new Date(<%=pro.no_cancellation_period_in_hours.hours.from_now.js_args%>).getTime())){
 	       $("#no-cancellation").css("display", "block");
            $("button:contains('delete')").css("display", "none");
@@ -278,6 +289,8 @@ $(document).ready(function() {
       },
       eventMouseout : function(calEvent, $event) {
       },
+	  calendarAfterLoad : function(calendar) {
+	  },
       noEvents : function() {
 
       },
@@ -311,7 +324,7 @@ $(document).ready(function() {
          var endTime = timeslotTimes[i].end;
          var startSelected = "";
 	// if (startTime.getTime() === calEvent.start.getTime()) {
-	if (Math.round(startTime.getTime()/1000) === Math.round(calEvent.start.getTime()/1000)) {
+		 if (Math.round(startTime.getTime()/1000) === Math.round(calEvent.start.getTime()/1000)) {
 // console.log("========= CLOSE enough");
             startSelected = "selected=\"selected\"";
          }
@@ -402,7 +415,7 @@ $(document).ready(function() {
 			</li> 
 			<li> 
 				<%end -%>
-				<label for="title"><%= t(:appointment_client)%></label><select name="client_id"><%= current_pro_client_options(current_pro)-%></select>
+				<label for="title"><%= t(:appointment_client)%></label><input id="client_id" type="hidden" name="client_id"></input><input id="client_name" type="text" name="client_name"></input>
 				<%else-%>
 				<label for="title"><%= t(:appointment_your_name)%></label><input type="text" name="title"></input>
 				<%end-%>

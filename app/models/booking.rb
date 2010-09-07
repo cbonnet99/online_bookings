@@ -297,9 +297,13 @@ class Booking < ActiveRecord::Base
   def end
     ends_at.strftime("%Y-%m-%dT%H:%M:%S.000%z")
   end
+
+  def client_name
+    client.try(:name)
+  end
   
   def to_json(options={})
-    super options.merge(:only => [:id, :client_id, :booking_type_id], :methods => [:title, :start, :end, :readOnly, :state, :errors])
+    super options.merge(:only => [:id, :client_id, :client_name, :booking_type_id], :methods => [:title, :start, :end, :readOnly, :state, :errors])
   end
   
   def duration_mins

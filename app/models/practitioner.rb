@@ -24,7 +24,7 @@ class Practitioner < ActiveRecord::Base
   has_many :extra_non_working_days  
 
   # new columns need to be added here to be writable through mass assignment
-  attr_accessible :username, :email, :password, :password_confirmation, :working_hours, :working_days, :first_name,
+  attr_accessible :trial, :test_user, :username, :email, :password, :password_confirmation, :working_hours, :working_days, :first_name,
    :last_name, :phone, :no_cancellation_period_in_hours, :working_day_monday, :working_day_tuesday, :working_day_wednesday,
     :working_day_thursday, :working_day_friday, :working_day_saturday, :working_day_sunday, :timezone
   
@@ -56,7 +56,6 @@ class Practitioner < ActiveRecord::Base
   LAST_NAMES = ["Yi", "Aloha", "Jones", "Salvador", "Lanta", "Spaniel", "Humbri", "Lavaur", "Pujol"]
   DOMAINS = ["gmail.com", "test.com", "info.org"]
   BOOKING_STATES = ["unconfirmed", "confirmed" ,"cancelled"]
-
 
   def create_sample_data!
     if self.test_user?
@@ -240,7 +239,7 @@ class Practitioner < ActiveRecord::Base
         res << [c.name, c.id]
       end
     end
-    return res
+    return res.sort
   end
   
   def calendar_title

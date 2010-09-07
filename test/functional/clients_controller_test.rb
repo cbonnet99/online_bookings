@@ -20,6 +20,12 @@ class ClientsControllerTest < ActionController::TestCase
     assert_response :success
   end
   
+  def test_index_js
+    pro = Factory(:practitioner)
+    get :index, {:format => "js"}, {:pro_id => pro.id}
+    assert_response :success
+  end
+  
   def test_index_not_logged_in
     get :index
     assert_redirected_to login_url
