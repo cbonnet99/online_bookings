@@ -2,9 +2,11 @@ class TaskUtils
   PRO_ARRAYS = [["Cyrille", "Bonnet", "cb@gmail.com", "04 34 55 45 23"], ["Kartini", "Thomas", "kt@gmail.com", "04 34 55 45 11"]]
   
   def self.wipe_data
-    Booking.delete_all
-    Client.delete_all
-    Practitioner.delete_all
+    unless Rails.env.production?
+      Booking.delete_all
+      Client.delete_all
+      Practitioner.delete_all
+    end
   end
   
   def self.create_sample_data
@@ -16,8 +18,6 @@ class TaskUtils
           :email => pro_array[2], :password => pro_array[0][0,4], :password_confirmation => pro_array[0][0,4],
           :working_hours => "8-18", :working_days => "1,2,3,4,5", :no_cancellation_period_in_hours => Practitioner::DEFAULT_CANCELLATION_PERIOD,
           :phone => pro_array[3])
-      pro.test_user = true
-      pro.trial = false
       pro.save!
       pro.create_sample_data!
     end    

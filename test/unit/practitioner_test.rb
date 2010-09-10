@@ -5,10 +5,28 @@ class PractitionerTest < ActiveSupport::TestCase
   include ColibriExceptions
   
   fixtures :all
+
+  def test_delete_sample_data
+    pro = Factory(:practitioner, :state => "test_user")
+    pro.create_sample_data!
+    pro.delete_sample_data!
+  end
+  
+  def test_delete_sample_data_for_non_test_user
+    pro = Factory(:practitioner, :state => "active")
+    client = Factory(:client)
+    booking = Factory(:booking, :practitioner => pro, :client => client)
+    assert_raise(CantDeleteSampleDataOnNonTestProException) do
+      pro.delete_sample_data!
+    end
+    pro.reload
+    assert_equal 1, pro.clients.size
+    assert_equal 1, pro.bookings.size
+  end
   
 
   def test_create_sample_data_for_non_test_user
-    pro = Factory(:practitioner, :test_user => false)
+    pro = Factory(:practitioner, :state => "active")
     assert_raise(CantCreateSampleDataOnNonTestProException){
       pro.create_sample_data!
     }
@@ -16,7 +34,7 @@ class PractitionerTest < ActiveSupport::TestCase
   end
 
   def test_create_sample_data
-    pro = Factory(:practitioner, :test_user  => true)
+    pro = Factory(:practitioner, :state => "test_user")
     pro.create_sample_data!
     pro.reload
     assert_equal 30, pro.clients.size
@@ -39,6 +57,8 @@ class PractitionerTest < ActiveSupport::TestCase
     attributes[:username] ||= 'foo'
     attributes[:email] ||= 'foo@example.com'
     attributes[:password] ||= 'abc123'
+    attributes[:working_days] = "1,2,3,4,5"
+    attributes[:state] = "active"
     attributes[:password_confirmation] ||= attributes[:password]
     practitioner = Practitioner.new(attributes)
     practitioner.valid? # run validations

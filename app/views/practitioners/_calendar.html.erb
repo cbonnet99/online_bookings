@@ -252,7 +252,6 @@ $(document).ready(function() {
                "delete" : function() {
 	
 				  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "DELETE", "format": "json"}, function(data){
-					  debugger;
 					  if ((data.error === undefined) || (data.error === '')) {
 	                    $calendar.weekCalendar("removeEvent", calEvent.id);
                         if (data.prep_id) {

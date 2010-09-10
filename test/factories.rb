@@ -34,8 +34,7 @@ Factory.define :practitioner do |f|
   f.password_confirmation { |u| u.password }
   f.sequence(:email) { |n| "foo#{n}@example.com" }
   f.timezone "Wellington"
-  f.test_user false
-  f.trial false
+  f.state "active"
 end
 
 Factory.define :relation do |b|

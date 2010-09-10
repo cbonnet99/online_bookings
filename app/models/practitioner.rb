@@ -14,6 +14,7 @@ end
 class Practitioner < ActiveRecord::Base
   include Permalinkable
   include ColibriExceptions
+  include AASM
   
   has_many :bookings
   has_many :relations
@@ -24,7 +25,7 @@ class Practitioner < ActiveRecord::Base
   has_many :extra_non_working_days  
 
   # new columns need to be added here to be writable through mass assignment
-  attr_accessible :trial, :test_user, :username, :email, :password, :password_confirmation, :working_hours, :working_days, :first_name,
+  attr_accessible :username, :email, :password, :password_confirmation, :working_hours, :working_days, :first_name,
    :last_name, :phone, :no_cancellation_period_in_hours, :working_day_monday, :working_day_tuesday, :working_day_wednesday,
     :working_day_thursday, :working_day_friday, :working_day_saturday, :working_day_sunday, :timezone
   
@@ -37,14 +38,24 @@ class Practitioner < ActiveRecord::Base
   validates_format_of :username, :with => /^[-\w\._@]+$/i, :allow_blank => true, :message => "should only contain letters, numbers, or .-_@"
   validates_format_of :email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
   validates_presence_of :password, :on => :create
+  validates_presence_of :working_days
   validates_confirmation_of :password
   validates_length_of :password, :minimum => 4, :allow_blank => true
   validates_uniqueness_of :email
   
   named_scope :want_reminder_night_before, :conditions => "reminder_night_before IS true"
   
-  before_create :set_working_days
+  before_validation :set_working_days
   
+  aasm_column :state
+  
+  aasm_initial_state :test_user
+  
+  aasm_state :test_user, :exit => "delete_sample_data!"  
+  aasm_state :trial
+  aasm_state :active
+  aasm_state :cancelled
+    
   DEFAULT_CANCELLATION_PERIOD = 24
   TITLE_FOR_NON_WORKING = "Booked"
   #WORKING_DAYS = [I18n.t(:monday),I18n.t(:tuesday) ,I18n.t(:wednesday) , I18n.t(:thursday), I18n.t(:friday),I18n.t(:saturday) ,I18n.t(:sunday) ]
@@ -57,6 +68,20 @@ class Practitioner < ActiveRecord::Base
   DOMAINS = ["gmail.com", "test.com", "info.org"]
   BOOKING_STATES = ["unconfirmed", "confirmed" ,"cancelled"]
 
+  def delete_sample_data!
+    if self.test_user?
+      self.bookings.destroy_all
+      self.relations.destroy_all
+      self.clients.each do |client|
+        if client.relations.blank?
+          client.destroy
+        end
+      end
+    else
+      raise CantDeleteSampleDataOnNonTestProException
+    end
+  end
+  
   def create_sample_data!
     if self.test_user?
       #30 clients
@@ -66,20 +91,20 @@ class Practitioner < ActiveRecord::Base
         last_name = LAST_NAMES[rand(LAST_NAMES.size)]
         all_client_names = clients.map(&:name)
         while (all_client_names.include?("#{first_name} #{last_name}"))
-          puts "#{first_name} #{last_name} is taken, trying again"
+          #puts "#{first_name} #{last_name} is taken, trying again"
           first_name = FIRST_NAMES[rand(FIRST_NAMES.size)]
           last_name = LAST_NAMES[rand(LAST_NAMES.size)]
         end
         email = "#{first_name}.#{last_name}@#{DOMAINS[rand(DOMAINS.size)]}"
         client = Client.find_by_email(email)
         if client.nil?
-          puts "+++++ Creating client #{first_name} #{last_name}"
+          #puts "+++++ Creating client #{first_name} #{last_name}"
           client = Client.new(:first_name => first_name, :last_name => last_name, :phone_prefix  => "06",
               :phone_suffix => "#{rand(99)} #{rand(99)} #{rand(99)} #{rand(99)}", 
               :email => email, :password => first_name[0,4], :password_confirmation => first_name[0,4]  )
           client.save!
         else
-          puts "===== Using existing client #{first_name} #{last_name}"        
+          #puts "===== Using existing client #{first_name} #{last_name}"        
         end
         clients << client
       end
@@ -100,7 +125,7 @@ class Practitioner < ActiveRecord::Base
         booking = Booking.new(:client => client, :practitioner => self, :name => client.name, 
             :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => BOOKING_STATES[rand(BOOKING_STATES.size)])
         booking.save!
-        puts "+++++ Creating past booking at #{starts_at} for client #{client.name}"
+        #puts "+++++ Creating past booking at #{starts_at} for client #{client.name}"
       end
     
       #150 appointments in the future
@@ -117,7 +142,7 @@ class Practitioner < ActiveRecord::Base
         booking = Booking.new(:client => client, :practitioner => self, :name => client.name, 
             :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => BOOKING_STATES[rand(BOOKING_STATES.size)])
         booking.save!
-        puts "+++++ Creating future booking at #{starts_at} for client #{client.name}"
+        #puts "+++++ Creating future booking at #{starts_at} for client #{client.name}"
       end
     else
       raise CantCreateSampleDataOnNonTestProException
@@ -125,7 +150,11 @@ class Practitioner < ActiveRecord::Base
   end
   
   def working_days_as_numbers
-    working_days.split(",").map(&:to_i).map{|i| i==7? 0 : i}
+    if working_days.blank?
+      []
+    else
+      working_days.split(",").map(&:to_i).map{|i| i==7? 0 : i}
+    end
   end
   
   def bookings_need_reminders
