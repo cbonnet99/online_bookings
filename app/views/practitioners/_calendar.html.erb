@@ -209,7 +209,7 @@ $(document).ready(function() {
          bodyField.val(calEvent.body);
          $dialogContent.dialog({
             modal: true,
-            title: "Edit - " + calEvent.title,
+            title: "<%=I18n.t(:edit_appointement)%> - " + calEvent.title,
             close: function() {
                $dialogContent.dialog("destroy");
                $dialogContent.hide();

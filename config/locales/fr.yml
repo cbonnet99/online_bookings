@@ -306,6 +306,7 @@ fr:
     booking_edit_show: "voir"
     booking_edit_viewall: "voir tous"
     #appointment popup calendar
+    edit_appointement: "Modifier"
     appointment_start_time: "Début: "
     appointment_end_time: "Fin: "
     appointment_client: "Client: "
