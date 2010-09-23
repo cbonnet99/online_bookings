@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100909125511) do
+ActiveRecord::Schema.define(:version => 20100923153755) do
 
   create_table "booking_types", :force => true do |t|
     t.string   "title"
@@ -115,6 +115,14 @@ ActiveRecord::Schema.define(:version => 20100909125511) do
     t.integer  "practitioner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "reminders", :force => true do |t|
+    t.integer  "booking_id"
+    t.datetime "sent_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "sending_at"
   end
 
   create_table "user_emails", :force => true do |t|

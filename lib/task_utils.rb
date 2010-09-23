@@ -22,11 +22,11 @@ class TaskUtils
       pro.create_sample_data!
     end    
   end
-  
+    
   def self.send_reminders
-    Booking.need_reminders.each do |booking|
-      puts "Sending reminder to: #{booking.client.name} for appointment at #{booking.starts_at}"
-      booking.send_reminder!
+    Reminder.need_sending.each do |r|
+      puts "Sending reminder to: #{r.booking.client.name} for appointment at #{r.booking.starts_at}"
+      r.send_by_email!
     end
   end
   

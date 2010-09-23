@@ -38,45 +38,48 @@ class Booking < ActiveRecord::Base
   belongs_to :client
   has_many :user_emails
   belongs_to :booking_type
+  has_many :reminders
 
   validates_presence_of :practitioner, :starts_at, :ends_at, :client
   
   attr_accessible :starts_at, :ends_at, :name, :comment, :booking_type, :booking_type_id, :client_id, :client, :practitioner, :practitioner_id
   attr_accessor :current_client, :current_pro
   
-  after_create :save_client_name, :update_relations_after_create, :send_invite
-  after_destroy :update_relations_after_destroy
+  after_create :save_client_name, :update_relations_after_create, :send_invite, :create_reminder
+  after_destroy :update_relations_after_destroy, :remove_reminders
   after_update :save_client_name
   before_update :set_times
   before_create :generate_confirmation_code, :set_name, :set_times
 
-  named_scope :need_pro_reminder, :conditions => ["pro_reminder_sent_at IS NULL AND starts_at BETWEEN ? AND ?", 1.day.from_now.beginning_of_day.utc, 1.day.from_now.end_of_day.utc]
-
+  named_scope :need_pro_reminder, lambda { {:conditions => ["pro_reminder_sent_at IS NULL AND starts_at BETWEEN ? AND ?", 1.day.from_now.beginning_of_day.utc, 1.day.from_now.end_of_day.utc]} }
 
   INVITE_DELAY_MINS = 15
   PREP_LABEL = "prep-"
   
   aasm_column :state
 
-  aasm_initial_state :unconfirmed
+  aasm_initial_state :new_booking
 
-  aasm_state :unconfirmed
-  aasm_state :reminder_sent, :enter => :send_reminder_email
-  aasm_state :confirmed
-  aasm_state :cancelled
-
+  aasm_state :new_booking
+  aasm_state :confirmed, :enter => :remove_reminders
+  aasm_state :cancelled, :enter => :remove_reminders 
+    
   aasm_event :confirm do
-    transitions :to => :confirmed, :from => [:unconfirmed, :reminder_sent]
+    transitions :from => :new_booking, :to => :confirmed
   end
 
   aasm_event :cancel do
-    transitions :to => :cancelled, :from => [:unconfirmed, :reminder_sent]
+    transitions :from => :new_booking, :to => :cancelled
   end
   
-  aasm_event :send_reminder do
-    transitions :to => :reminder_sent, :from => [:unconfirmed]
+  def remove_reminders
+    self.reminders.destroy_all
   end
-
+  
+  def create_reminder
+    Reminder.create(:booking => self, :sending_at => starts_at.advance(:days => -1))
+  end
+  
   def set_defaults(current_client, current_pro, client, pro)
     self.current_client = current_client
     self.current_pro = current_pro
@@ -176,7 +179,7 @@ class Booking < ActiveRecord::Base
     return booking, hash_booking
   end
   
-  def send_reminder_email
+  def send_reminder_email!
     UserMailer.deliver_booking_reminder(self)
   end
 

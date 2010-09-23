@@ -4,7 +4,7 @@ class BookingsControllerTest < ActionController::TestCase
 
   def test_confirm
     booking = Factory(:booking)
-    assert booking.unconfirmed?
+    assert booking.new_booking?
     assert_not_nil booking.confirmation_code
     post :confirm, {:id => booking.id, :confirmation_code => booking.confirmation_code}
     assert_response :success
@@ -16,7 +16,7 @@ class BookingsControllerTest < ActionController::TestCase
 
   def test_cancel
     booking = Factory(:booking)
-    assert booking.unconfirmed?
+    assert booking.new_booking?
     assert_not_nil booking.confirmation_code
     post :cancel, {:id => booking.id, :confirmation_code => booking.confirmation_code}
     assert_response :success
@@ -305,6 +305,7 @@ class BookingsControllerTest < ActionController::TestCase
     cyrille = clients(:cyrille)
     mail_size = UserEmail.all.size
     old_size = Booking.all.size
+    reminders_size = Reminder.all.size
     post :create, {:practitioner_id => sav.permalink, :format => "json",
       :booking => {:name => "undefined", :client_id => cyrille.id, :comment => "I'll be on time", :booking_type => booking_types(:sav_one_hour), 
       :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}",
@@ -321,6 +322,7 @@ class BookingsControllerTest < ActionController::TestCase
     assert_not_nil new_booking.starts_at
     assert_not_nil new_booking.ends_at
     assert_not_nil new_booking.booking_type
+    assert_equal reminders_size+1, Reminder.all.size
     assert_equal mail_size+1, UserEmail.all.size
     new_email = UserEmail.last
     assert_equal cyrille.email, new_email.to

@@ -5,6 +5,7 @@ class Client < ActiveRecord::Base
   DEFAULT_EMAIL_SIGNOFF = "Regards,"
   
   has_many :bookings
+  has_many :reminders, :through => :bookings 
   has_many :client_emails
   has_many :relations
   has_many :practitioners, :through => :relations

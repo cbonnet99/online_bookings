@@ -17,6 +17,7 @@ class Practitioner < ActiveRecord::Base
   include AASM
   
   has_many :bookings
+  has_many :reminders, :through => :bookings 
   has_many :relations
   has_many :clients, :through => :relations
   has_many :user_emails
@@ -155,12 +156,6 @@ class Practitioner < ActiveRecord::Base
     else
       working_days.split(",").map(&:to_i).map{|i| i==7? 0 : i}
     end
-  end
-  
-  def bookings_need_reminders
-    Time.zone = self.timezone
-    # bookings.find(:all, :conditions => ["state = 'unconfirmed' AND starts_at < ?", 1.day.from_now])
-    bookings.find(:all, :conditions => ["state = 'unconfirmed' AND starts_at < ?", Time.zone.now.advance(:hours => (self.no_cancellation_period_in_hours || DEFAULT_CANCELLATION_PERIOD)+1)])
   end
   
   def set_working_days

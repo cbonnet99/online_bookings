@@ -325,3 +325,5 @@ fr:
     practitioner_owntime: "Temps perso."
     #practitioner model
     prep_time: "Préparation"
+    #UserMailer
+    you_have_booking: "Rappel: vous avez un rendez-vous demain avec [pro_name]"

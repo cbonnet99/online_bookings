@@ -44,7 +44,7 @@ class UserMailer < ActionMailer::Base
   def booking_reminder(booking)
     setup_email(booking.client.email)
     setup_sender(booking.practitioner)
-    @subject << "You have an appointment tomorrow with #{booking.practitioner.name}"
+    @subject << I18n.t(:you_have_booking, :pro_name => booking.practitioner.name)
     @body[:booking] = booking
     @body[:client] = booking.client
   end

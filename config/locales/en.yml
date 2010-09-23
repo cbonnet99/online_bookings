@@ -298,3 +298,5 @@
   practitioner_owntime: "Own time"
   #practitioner model  
   prep_time: "Prep time"
+  #UserMailer
+  you_have_booking: "Reminder: you have an appointment tomorrow with [pro_name]"  
