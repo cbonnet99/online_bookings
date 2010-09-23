@@ -83,11 +83,10 @@ class Practitioner < ActiveRecord::Base
     end
   end
   
-  def create_sample_data!
+  def create_sample_data!(number_clients=30, number_bookings=150)
     if self.test_user?
-      #30 clients
       clients = []
-      30.times do
+      number_clients.times do
         first_name = FIRST_NAMES[rand(FIRST_NAMES.size)]
         last_name = LAST_NAMES[rand(LAST_NAMES.size)]
         all_client_names = clients.map(&:name)
@@ -111,8 +110,9 @@ class Practitioner < ActiveRecord::Base
       end
     
       wd_as_numbers = self.working_days_as_numbers
-      #150 appointments in the past
-      150.times do
+      
+      #appointments in the past
+      number_bookings.times do
         days_ago = rand(200)
         date = Time.now.advance(:days => -days_ago).to_date
         while (!wd_as_numbers.include?(date.wday)) do
@@ -129,8 +129,8 @@ class Practitioner < ActiveRecord::Base
         #puts "+++++ Creating past booking at #{starts_at} for client #{client.name}"
       end
     
-      #150 appointments in the future
-      150.times do
+      #appointments in the future
+      number_bookings.times do
         days = rand(200)
         date = Time.now.advance(:days => days).to_date
         while (!wd_as_numbers.include?(date.wday)) do

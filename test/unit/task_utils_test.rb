@@ -6,9 +6,16 @@ class TaskUtilsTest < ActiveSupport::TestCase
     bookings_size = Booking.all.size
     pro_size = Practitioner.all.size
     client_size = Client.all.size
-    TaskUtils.create_sample_data
-    assert_equal pro_size+2, Practitioner.all.size, "2 pros should have been created"
-    assert_equal bookings_size+600, Booking.all.size, "300 appointments should have been created"
+    number_pros = 2
+    number_clients = 3
+    number_bookings = 10
+    TaskUtils.create_sample_data(number_clients, number_bookings)
+    assert_equal pro_size+number_pros, Practitioner.all.size, "2 pros should have been created"
+    
+    #bookings are in the past AND in the future
+    total_number_bookings_per_pro = number_bookings * 2
+    
+    assert_equal bookings_size+(total_number_bookings_per_pro*number_pros), Booking.all.size, "300 appointments should have been created"
   end
   
   def test_send_reminders

@@ -9,18 +9,30 @@ class TaskUtils
     end
   end
   
-  def self.create_sample_data
+  def self.create_sample_data(number_clients=30, number_bookings=150)
+    #French pro
     Time.zone = "Paris"
-    #2 pros
-    PRO_ARRAYS.each do |pro_array|
-      pro = Practitioner.new(:first_name => pro_array[0], :last_name => pro_array[1], :timezone => "Paris",
-          :country_code => "FR",  
-          :email => pro_array[2], :password => pro_array[0][0,4], :password_confirmation => pro_array[0][0,4],
-          :working_hours => "8-18", :working_days => "1,2,3,4,5", :no_cancellation_period_in_hours => Practitioner::DEFAULT_CANCELLATION_PERIOD,
-          :phone => pro_array[3])
-      pro.save!
-      pro.create_sample_data!
-    end    
+    pro_array = PRO_ARRAYS.first
+    pro = Practitioner.new(:first_name => pro_array[0], :last_name => pro_array[1], :timezone => "Paris",
+        :country_code => "FR",  
+        :email => pro_array[2], :password => pro_array[0][0,4], :password_confirmation => pro_array[0][0,4],
+        :working_hours => "8-18", :working_days => "1,2,3,4,5", :no_cancellation_period_in_hours => Practitioner::DEFAULT_CANCELLATION_PERIOD,
+        :phone => pro_array[3])
+    pro.save!
+    pro.create_sample_data!(number_clients, number_bookings)
+    
+    #NZ pro
+    Time.zone = "Wellington"
+    pro_array = PRO_ARRAYS.second
+    pro = Practitioner.new(:first_name => pro_array[0], :last_name => pro_array[1], :timezone => "Wellington",
+        :country_code => "NZ",  
+        :email => pro_array[2], :password => pro_array[0][0,4], :password_confirmation => pro_array[0][0,4],
+        :working_hours => "8-18", :working_days => "1,2,3,4,5", :no_cancellation_period_in_hours => Practitioner::DEFAULT_CANCELLATION_PERIOD,
+        :phone => pro_array[3])
+    pro.save!
+    pro.create_sample_data!(number_clients, number_bookings)
+    
+    
   end
     
   def self.send_reminders
