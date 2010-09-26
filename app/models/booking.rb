@@ -74,6 +74,7 @@ class Booking < ActiveRecord::Base
   
   def in_grace_period?
     new_booking?
+  end
   
   def remove_reminders
     self.reminders.destroy_all
