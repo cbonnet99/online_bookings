@@ -289,6 +289,10 @@ class Practitioner < ActiveRecord::Base
   def biz_hours_end
     TimeUtils.round_next_hour(working_hours.split("-").last)
   end
+
+  def raw_own_bookings(start_time, end_time)
+    Booking.find_all_by_practitioner_id(self.id, :conditions => ["state <> ? AND starts_at BETWEEN ? AND ?", "cancelled", start_time, end_time] )
+  end
     
   def own_bookings(start_timestamp=nil, end_timestamp=nil)
     start_time = if start_timestamp.blank?
@@ -309,7 +313,7 @@ class Practitioner < ActiveRecord::Base
         end_timestamp.utc
       end
     end
-    raw_own_bookings = Booking.find_all_by_practitioner_id(self.id, :conditions => ["state <> ? AND starts_at BETWEEN ? AND ?", "cancelled", start_time, end_time] )
+    raw_own_bookings = raw_own_bookings(start_time, end_time)
     prep_times = []
     raw_own_bookings.each do |b|
       b.current_pro = self

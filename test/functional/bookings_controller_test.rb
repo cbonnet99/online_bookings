@@ -448,6 +448,12 @@ class BookingsControllerTest < ActionController::TestCase
   end
 
   def test_index
+    pro = Factory(:practitioner)
+    get :index, {}, {:pro_id => pro.id }
+    assert_response :success
+  end
+
+  def test_index_json
     get :index, {:practitioner_id => practitioners(:sav).permalink, :format => "json", :start => Time.now.beginning_of_week, :end => Time.now.end_of_week}, {:client_id => clients(:cyrille).id }
     # puts @response.body
     assert_valid_json(@response.body)

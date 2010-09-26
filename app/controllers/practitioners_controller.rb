@@ -3,11 +3,7 @@ class PractitionersController < ApplicationController
   before_filter :require_selected_practitioner, :only => [:show] 
   before_filter :login_required, :only => [:show]
   before_filter :locate_current_user, :only => [:edit_selected] 
-
-  def forgotten_password
-    
-  end
-
+  
   def edit
     @practitioner = Practitioner.find_by_permalink(params[:id])
   end

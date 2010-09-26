@@ -72,6 +72,9 @@ class Booking < ActiveRecord::Base
     transitions :from => :new_booking, :to => :cancelled
   end
   
+  def in_grace_period?
+    new_booking?
+  
   def remove_reminders
     self.reminders.destroy_all
   end

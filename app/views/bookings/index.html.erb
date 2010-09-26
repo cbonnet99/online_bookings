@@ -1,0 +1,5 @@
+<ul>
+<% @bookings.each do |b| -%>
+	<li><%=I18n.t(:from)%> <%= simpler_time(b.starts_at.to_time) %> <%=I18n.t(:to)%> <%= simpler_time(b.ends_at.to_time)%>: <%= b.client.name%></li>
+<% end -%>
+</ul>

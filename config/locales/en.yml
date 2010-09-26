@@ -28,6 +28,8 @@
           
     am: 'am'
     pm: 'pm'
+    hours_separator: ':'
+    hours_marker: ''
       
   datetime:
     distance_in_words:
@@ -179,6 +181,7 @@
   header_health_pro: "Health professionals"
   home: "Home"
   header_book_appointment: "Book"
+  schedule_tab: "Schedule"
   home_calendar_tab: "Calendar"
   home_clients_tab: "Clients"
   #client lookup form
@@ -205,6 +208,9 @@
   session_new_email: "Your email address"
   session_new_login: "Log in"
   session_new_password: "Password"
+  #practicioner/index
+  from: "from"
+  to: "to"
   #practicioner/show
   practitioner_show_message: "To book an appointment, click on any white space below. Today is highlighted in yellow. To see next week, click on the button on the right with label"
   #practitioner/login_info

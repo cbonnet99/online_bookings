@@ -26,10 +26,19 @@ class BookingsController < ApplicationController
   end
   
   def index
-    if pro_logged_in?
-      @bookings = current_pro.own_bookings(params[:start].try(:to_f), params[:end].try(:to_f))
-    else
-      @bookings = @current_selected_pro.all_bookings(current_client, params[:start].try(:to_f), params[:end].try(:to_f))
+    respond_to do |format|
+      format.html do
+        starts_at = params[:start].nil? ? Time.now.beginning_of_day : params[:start].try(:to_f)
+        ends_at = params[:end].nil? ? Time.now.end_of_day : params[:end].try(:to_f)
+        @bookings = current_pro.raw_own_bookings(starts_at, ends_at)
+      end
+      format.json do
+        if pro_logged_in?
+          @bookings = current_pro.own_bookings(params[:start].try(:to_f), params[:end].try(:to_f))
+        else
+          @bookings = @current_selected_pro.all_bookings(current_client, params[:start].try(:to_f), params[:end].try(:to_f))
+        end
+      end
     end
   end
 

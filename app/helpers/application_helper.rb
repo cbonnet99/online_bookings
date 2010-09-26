@@ -1,6 +1,27 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+  def simpler_time(time)
+    minutes = time.strftime("%M")
+    hours = time.strftime("%l")
+    am_pm = time.strftime("%p")
+    hours_separator = I18n.t(:hours_separator, :scope=>[:time])
+    hours_marker = I18n.t(:hours_marker, :scope=>[:time])
+    if minutes == "00"
+      if hours_marker.blank?
+        "#{hours}#{am_pm.downcase}"
+      else
+        "#{hours}#{hours_marker}"
+      end
+    else
+      if hours_marker.blank?
+        "#{hours}#{hours_separator}#{minutes}#{am_pm.downcase}"
+      else
+        "#{hours}#{hours_marker}#{minutes}"
+      end
+    end
+  end
+
   def client_needs_help
     !@current_client.nil? && @current_client.bookings.size == 0
   end

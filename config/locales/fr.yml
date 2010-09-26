@@ -15,17 +15,19 @@ fr:
 
     time:
       formats:
-        default: "%d %B %Y %H:%M"
-        time: "%H:%M"
-        short: "%d %b %H:%M"
+        default: "%d %B %Y %Hh%M"
+        time: "%Hh%M"
+        short: "%d %b %Hh%M"
         long: "%A %d %B %Y %H:%M:%S %Z"
         long_ordinal: "%A %d %B %Y %H:%M:%S %Z"
         only_second: "%S"
         custo_date: "%A %d %B %Y"
-        timeampm: "%H:%M %p"
+        timeampm: "%Hh%M %p"
         
       am: ''
       pm: ''
+      hours_separator: ''
+      hours_marker: 'h'
 
     datetime:
       distance_in_words:
@@ -214,6 +216,7 @@ fr:
     header_health_pro: "Professionnels"
     home: "Accueil"
     header_book_appointment: "Calendrier"
+    schedule_tab: "Programme"
     home_calendar_tab: "Calendrier"
     home_clients_tab: "Clients"
    # client lookup form
@@ -240,6 +243,9 @@ fr:
     session_new_email: "Votre adresse email"
     session_new_login: "Se connecter"
     session_new_password: "Mot de passe"
+    #practicioner/index
+    from: "De"
+    to: "à"
     #practicioner/show
     practitioner_show_message: "Pour prendre un rendez-vous, clickez sur un des espaces libres du calendrier. La date du jour apparait en jaune. Pour changer de semaine, utilisez les boutons "
     #practitioner/login_info
