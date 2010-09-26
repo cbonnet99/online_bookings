@@ -4,10 +4,14 @@ class BookingsController < ApplicationController
   before_filter :login_required, :except => [:flash, :index_cal, :confirm, :cancel]
 
   def cancel
-    @booking = Booking.find_by_confirmation_code_and_id(params[:confirmation_code], params[:id])
+    if pro_logged_in?
+      @booking = current_pro.bookings.find(params[:id])
+    else
+      @booking = Booking.find_by_confirmation_code_and_id(params[:confirmation_code], params[:id])
+    end
     if @booking.nil?
       logger.error("Invalid attempt to cancel an with ID: #{params[:id]} and confirmation_code: #{params[:confirmation_code]}")
-      flash[:error] = I18n.t(:flash_error_booking_invalid_appointment)
+      flash[:error] = I18n.t(:flash_error_booking_cannot_be_cancelled)
     else
       @booking.cancel!
       flash[:notice] = I18n.t(:flash_notice_booking_appointment_cancelled , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))

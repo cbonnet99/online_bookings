@@ -72,7 +72,8 @@ class PractitionerTest < ActiveSupport::TestCase
   def test_own_bookings_with_prep_times
     pro = Factory(:practitioner, :prep_before => false, :prep_time_mins => 30)
     booking = Factory(:booking, :practitioner => pro, :prep_before => false, :prep_time_mins => 30, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now)
-    my_own_bookings = pro.own_bookings
+    #just in case we run these tests on a Sunday after 10PM, I'll take the end of next week...
+    my_own_bookings = pro.own_bookings(Time.now.beginning_of_week, Time.now.next_week.end_of_week)
     assert my_own_bookings.include?(booking)
     assert !my_own_bookings.select{|b| b.title == "Prep time"}.blank?
   end
@@ -89,7 +90,8 @@ class PractitionerTest < ActiveSupport::TestCase
     client = Factory(:client)
     pro = Factory(:practitioner, :prep_before => false, :prep_time_mins => 30)
     booking = Factory(:booking, :practitioner => pro, :client => client, :prep_before => false, :prep_time_mins => 30, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now)
-    my_bookings = pro.client_bookings(client, Time.now.beginning_of_week, Time.now.end_of_week)
+    #just in case we run these tests on a Sunday after 10PM, I'll take the end of next week...
+    my_bookings = pro.client_bookings(client, Time.now.beginning_of_week, Time.now.next_week.end_of_week)
     assert my_bookings.include?(booking)
     assert !my_bookings.select{|b| b.duration_mins == 30}.blank?    
   end

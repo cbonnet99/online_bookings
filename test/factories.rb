@@ -48,6 +48,7 @@ Factory.define :booking do |b|
   b.name {|b| b.client.try(:name) || "Own time"}
   b.starts_at Time.now.beginning_of_day.advance(:hours=>9)
   b.ends_at Time.now.beginning_of_day.advance(:hours=>10)
+  b.state "new_booking"
 end
 
 Factory.define :extra_working_day do |b|

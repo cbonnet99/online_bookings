@@ -28,6 +28,7 @@ fr:
       pm: ''
       hours_separator: ''
       hours_marker: 'h'
+      date_and_time: "le {{date}} à {{time}}"
 
     datetime:
       distance_in_words:
@@ -192,6 +193,7 @@ fr:
     #booking
     flash_notice_booking_appointment_booked : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} a été enregistré"
     flash_error_booking_invalid_appointment : "Ce rendez-vous n'est pas valide"
+    flash_error_booking_cannot_be_cancelled : "Ce rendez-vous ne peut pas être annulé"
     flash_notice_booking_appointment_cancelled : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} a été annulé"
     flash_notice_booking_confirmed : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} est confirmé"
     flash_error_booking_couldnot_find_practitioner : "Nous n'avons pas trouvé votre professionel(le)"
@@ -306,7 +308,9 @@ fr:
     client_index_message1: "à n'importe quel moment."
     client_index_add_more: "Ajouter"
     #booking/create
-    booking_not_saved: "Votre RV n'a pas été sauvegardé car: [error]"  
+    booking_not_saved: "Votre RV n'a pas été sauvegardé car: [error]"
+    #booking/destroy
+    booking_not_in_grace_period: "Ce RV ne peut pas être effacé, il ne peut qu'être annulé"
     #booking/edit
     booking_edit_title: "Modifiez un rendez-vous"
     booking_edit_show: "voir"
@@ -333,3 +337,6 @@ fr:
     prep_time: "Préparation"
     #UserMailer
     you_have_booking: "Rappel: vous avez un rendez-vous demain avec [pro_name]"
+    your_booking_was_cancelled: "Annulation: votre RV avec [pro_name] a été annulé"
+    #UserEmail
+    client_booking: "{{client_name}} a pris rendez-vous le {{booking_date}}"

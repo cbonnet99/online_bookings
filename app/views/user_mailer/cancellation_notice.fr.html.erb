@@ -1,0 +1,7 @@
+Bonjour,<br/>
+<br/>
+Votre rendez-vous avec <%= @booking.practitioner.name%> <%=@booking.start_date_and_time_str%> a été annulé.<br/>
+<br/>
+Si vous avez des questions, vous pouvez contacter <%= @booking.practitioner.name%> au: <%= @booking.practitioner.phone%>.<br/>
+<br/>
+<%= render :partial => "signature" %>

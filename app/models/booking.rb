@@ -45,6 +45,7 @@ class Booking < ActiveRecord::Base
   attr_accessible :starts_at, :ends_at, :name, :comment, :booking_type, :booking_type_id, :client_id, :client, :practitioner, :practitioner_id
   attr_accessor :current_client, :current_pro
   
+  before_destroy :check_in_grace_period
   after_create :save_client_name, :update_relations_after_create, :send_invite, :create_reminder
   after_destroy :update_relations_after_destroy, :remove_reminders
   after_update :save_client_name
@@ -53,8 +54,8 @@ class Booking < ActiveRecord::Base
 
   named_scope :need_pro_reminder, lambda { {:conditions => ["pro_reminder_sent_at IS NULL AND starts_at BETWEEN ? AND ?", 1.day.from_now.beginning_of_day.utc, 1.day.from_now.end_of_day.utc]} }
 
-  INVITE_DELAY_MINS = 15
   PREP_LABEL = "prep-"
+  GRACE_PERIOD_IN_HOURS = 1
   
   aasm_column :state
 
@@ -62,18 +63,29 @@ class Booking < ActiveRecord::Base
 
   aasm_state :new_booking
   aasm_state :confirmed, :enter => :remove_reminders
-  aasm_state :cancelled, :enter => :remove_reminders 
+  aasm_state :cancelled, :enter => [:remove_reminders, :send_cancellation_notice]
     
   aasm_event :confirm do
     transitions :from => :new_booking, :to => :confirmed
   end
 
   aasm_event :cancel do
-    transitions :from => :new_booking, :to => :cancelled
+    transitions :from => [:new_booking, :confirmed], :to => :cancelled
+  end
+  
+  def send_cancellation_notice
+    unless self.in_grace_period?
+      UserEmail.create(:to => self.client.email, :from => APP_CONFIG[:from_email], :client => self.client, :practitioner => self.practitioner,
+       :subject => I18n.t(:your_booking_was_cancelled, :pro_name => self.practitioner.name), :email_type => UserEmail::CANCELLATION_NOTICE, :delay_mins => 0)
+    end
+  end
+  
+  def check_in_grace_period
+    raise ActiveRecord::RecordNotSaved unless self.in_grace_period?
   end
   
   def in_grace_period?
-    new_booking?
+    new_booking? && created_at > GRACE_PERIOD_IN_HOURS.hours.ago
   end
   
   def remove_reminders
@@ -111,11 +123,11 @@ class Booking < ActiveRecord::Base
     unless self.client.nil?
       if !current_client.nil? && self.client == current_client && self.practitioner.invite_on_client_book?      
         UserEmail.create(:to => self.practitioner.email, :from => APP_CONFIG[:from_email], :client => self.client, :practitioner => self.practitioner,  
-         :subject => "#{self.client.name} has booked on #{self.start_date.day_and_time}", :email_type => UserEmail::PRO_INVITE, :delay_mins => INVITE_DELAY_MINS)
+         :subject => I18n.t(:client_booking, :client_name => self.client.name, :booking_date => self.start_date.day_and_time), :email_type => UserEmail::PRO_INVITE, :delay_mins => GRACE_PERIOD_IN_HOURS*60)
       end
       if !current_pro.nil? && self.practitioner == current_pro  && self.practitioner.invite_on_pro_book?     
          UserEmail.create(:to => self.client.email, :from => APP_CONFIG[:from_email], :client => self.client, :practitioner => self.practitioner,
-          :subject => "#{self.practitioner.name} has booked an appointment for you on #{self.start_date.day_and_time}", :email_type => UserEmail::CLIENT_INVITE, :delay_mins => INVITE_DELAY_MINS)
+          :subject => I18n.t(:pro_booking, :pro_name => self.practitioner.name, :booking_date => self.start_date.day_and_time), :email_type => UserEmail::CLIENT_INVITE, :delay_mins => GRACE_PERIOD_IN_HOURS*60)
       end
     end
   end
@@ -124,7 +136,7 @@ class Booking < ActiveRecord::Base
     case state
     when "confirmed":
       "#0C6"
-    when "unconfirmed":
+    when "new_booking":
       "#bf0000"
     else
       "grey"
@@ -202,8 +214,9 @@ class Booking < ActiveRecord::Base
   end
   
   def start_date_and_time_str
-    "on #{self.start_date_str} at #{self.start_time_str}"
-    #t(:date_and_time, :start_date => "#{self.start_date_str}" , :start_time => "#{self.start_time_str}")
+    # "on #{self.start_date_str} at #{self.start_time_str}"
+    
+    I18n.t(:date_and_time, :scope=>[:time], :date => "#{self.start_date_str}" , :time => "#{self.start_time_str}")
     
   end
   def start_date

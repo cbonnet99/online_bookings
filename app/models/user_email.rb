@@ -6,6 +6,7 @@ class UserEmail < ActiveRecord::Base
   
   PRO_INVITE = "pro_invite"
   CLIENT_INVITE = "client_invite"
+  CANCELLATION_NOTICE = "cancellation_notice"
   
   BATCH = 15
   

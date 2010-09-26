@@ -1,0 +1,9 @@
+<% if @content_type == "text/html"-%>
+<p>Cordialement,</p>
+<br/>
+<% else -%>
+Cordialement,
+
+<%end -%>
+<%= @sender.nil? ? "L'équipe #{APP_CONFIG[:site_name]}" : @sender.name%>
+

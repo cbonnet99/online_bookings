@@ -41,6 +41,13 @@ class UserMailer < ActionMailer::Base
     @body[:client] = client
   end
 
+  def cancellation_notice(booking)
+    setup_email(booking.client.email)
+    setup_sender(booking.practitioner)
+    @subject << I18n.t(:your_booking_was_cancelled, :pro_name => booking.practitioner.name)
+    @body[:booking] = booking
+  end
+
   def booking_reminder(booking)
     setup_email(booking.client.email)
     setup_sender(booking.practitioner)

@@ -2,6 +2,18 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class BookingTest < ActiveSupport::TestCase  
 
+  def test_in_grace_period
+    booking = Factory(:booking, :created_at => 20.minutes.ago, :state => "new_booking")
+    assert booking.in_grace_period?
+
+    booking = Factory(:booking, :created_at => 2.hours.ago)
+    assert !booking.in_grace_period?
+    
+    booking = Factory(:booking, :created_at => 20.minutes.ago, :state => "confirmed")
+    assert !booking.in_grace_period?
+    
+  end
+
   def test_destroy
     booking = Factory(:booking)
     assert_equal 1, booking.reminders.size

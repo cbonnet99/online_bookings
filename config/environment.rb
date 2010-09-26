@@ -73,13 +73,23 @@ module ActiveSupport
      end
      
      def simple_time
-       hour = strftime('%I').to_i
-       min = strftime('%M')
-       ampm = strftime('%p').downcase
-       if min.to_i == 0
-         "#{hour}#{ampm}"
+       minutes = self.strftime("%M")
+       hours = self.strftime("%l")
+       am_pm = self.strftime("%p")
+       hours_separator = I18n.t(:hours_separator, :scope=>[:time])
+       hours_marker = I18n.t(:hours_marker, :scope=>[:time])
+       if minutes == "00"
+         if hours_marker.blank?
+           "#{hours}#{am_pm.downcase}"
+         else
+           "#{hours}#{hours_marker}"
+         end
        else
-         "#{hour}:#{min}#{ampm}"
+         if hours_marker.blank?
+           "#{hours}#{hours_separator}#{minutes}#{am_pm.downcase}"
+         else
+           "#{hours}#{hours_marker}#{minutes}"
+         end
        end
      end
      

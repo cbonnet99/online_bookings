@@ -15,6 +15,7 @@ class BookingsControllerTest < ActionController::TestCase
   end
 
   def test_cancel
+    mail_size = UserEmail.all.size
     booking = Factory(:booking)
     assert booking.new_booking?
     assert_not_nil booking.confirmation_code
@@ -22,32 +23,68 @@ class BookingsControllerTest < ActionController::TestCase
     assert_response :success
     booking.reload
     assert booking.cancelled?
+    assert_equal mail_size, UserEmail.all.size, "No email should have been sent, as this booking is still in its grace period"
   end
 
-  def test_destroy_client
-    cyrille_sav = bookings(:cyrille_sav)
-    sav = practitioners(:sav)
-    cyrille = clients(:cyrille)
+  def test_cancel_pro_in_grace_period
+    mail_size = UserEmail.all.size
+    booking = Factory(:booking, :state => "new_booking", :created_at => 20.minutes.ago)
+    assert booking.in_grace_period?
+    pro = booking.practitioner
+    post :cancel, {:id => booking.id}, {:pro_id => pro.id}
+    assert_response :success
+    booking.reload
+    assert booking.cancelled?
+    assert_equal mail_size, UserEmail.all.size, "No email should have been sent, as this booking is still in its grace period"
+  end
+
+  def test_cancel_pro_out_of_grace_period
+    mail_size = UserEmail.all.size
+    booking = Factory(:booking, :state => "new_booking", :created_at => 2.hours.ago)
+    assert !booking.in_grace_period?
+    pro = booking.practitioner
+    post :cancel, {:id => booking.id}, {:pro_id => pro.id}
+    assert_response :success
+    booking.reload
+    assert booking.cancelled?
+    assert_equal mail_size+1, UserEmail.all.size, "An email to the client should have been sent"
+  end
+
+  #Cyrille (26 September 2010: for the moment, clients cannot destroy bookings)
+  # def test_destroy_client
+  #   cyrille_sav = bookings(:cyrille_sav)
+  #   sav = practitioners(:sav)
+  #   cyrille = clients(:cyrille)
+  #   old_size = Booking.all.size
+  #   post :destroy, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id},
+  #    {:client_id => cyrille.id }
+  #   assert_response :success
+  #   assert_nil flash[:error]
+  #   assert_not_nil flash[:notice]
+  #   assert_equal old_size-1, Booking.all.size
+  # end
+
+  def test_destroy_in_grace_period
+    new_booking = Factory(:booking, :state => "new_booking")
+    pro = new_booking.practitioner
     old_size = Booking.all.size
-    post :destroy, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id},
-     {:client_id => cyrille.id }
+    post :destroy, {:practitioner_id => pro.permalink, :format => "json", :id => new_booking.id},
+     {:pro_id => pro.id }
     assert_response :success
     assert_nil flash[:error]
     assert_not_nil flash[:notice]
     assert_equal old_size-1, Booking.all.size
   end
 
-  def test_destroy_pro
-    cyrille_sav = bookings(:cyrille_sav)
-    sav = practitioners(:sav)
-    cyrille = clients(:cyrille)
+  def test_destroy_confirmed
+    new_booking = Factory(:booking, :state => "confirmed")
+    pro = new_booking.practitioner
     old_size = Booking.all.size
-    post :destroy, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id},
-     {:pro_id => sav.id }
-    assert_response :success
-    assert_nil flash[:error]
-    assert_not_nil flash[:notice]
-    assert_equal old_size-1, Booking.all.size
+    assert_raise ActiveRecord::RecordNotSaved do
+      post :destroy, {:practitioner_id => pro.permalink, :format => "json", :id => new_booking.id},
+        {:pro_id => pro.id }
+    end
+    assert_equal old_size, Booking.all.size
   end
 
   def test_create_empty
