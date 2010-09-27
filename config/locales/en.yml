@@ -283,6 +283,9 @@
   booking_edit_title: "Edit Booking"
   booking_edit_show: "Show"
   booking_edit_viewall: "View All"
+  #booking/update
+  error_while_saving_booking: "Our apologies: there was an error while saving your appointment. PLease try again."
+  error_saving_booking_outside_of_grace_period: "This appointment cannot be modified anymore. Please cancel it and create a new one."
   #appointment popup calendar
   edit_appointement: "Edit"
   appointment_start_time: "Starts at: "

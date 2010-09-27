@@ -312,6 +312,9 @@ fr:
     booking_edit_title: "Modifiez un rendez-vous"
     booking_edit_show: "voir"
     booking_edit_viewall: "voir tous"
+    #booking/update
+    error_while_saving_booking: "Veuillez accepter nos excuses, mais votre rendez-vous n'a pas pu être sauvegardé. Merci de bien vouloir réessayer."
+    error_saving_booking_outside_of_grace_period: "Ce rendez-vous ne peut plus être modifié. Merci de bien vouloir l'annuler et en créer un nouveau à sa place."
     #appointment popup calendar
     edit_appointement: "Modifier"
     appointment_start_time: "Début: "

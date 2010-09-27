@@ -98,9 +98,15 @@ class BookingsController < ApplicationController
     if @booking.nil?
       flash.now[:error] = I18n.t(:flash_error_booking_appointment_not_found)
     else
-      if @booking.update_attributes(hash_booking)
-        @prep = @booking.prep
-        flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_changed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
+      if @booking.in_grace_period?
+        if @booking.update_attributes(hash_booking)
+          @prep = @booking.prep
+          flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_changed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
+        else
+          flash[:error] = I18n.t(:error_while_saving_booking)
+        end
+      else
+        flash[:error] = I18n.t(:error_saving_booking_outside_of_grace_period)
       end
     end
   end

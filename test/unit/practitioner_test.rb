@@ -75,7 +75,7 @@ class PractitionerTest < ActiveSupport::TestCase
     #just in case we run these tests on a Sunday after 10PM, I'll take the end of next week...
     my_own_bookings = pro.own_bookings(Time.now.beginning_of_week, Time.now.next_week.end_of_week)
     assert my_own_bookings.include?(booking)
-    assert !my_own_bookings.select{|b| b.title == "Prep time"}.blank?
+    assert !my_own_bookings.select{|b| b.title == "Prep time"}.blank? || !my_own_bookings.select{|b| b.title == "Préparation"}.blank?
   end
 
   # def test_own_bookings_with_own_time_no_prep_times
@@ -203,7 +203,7 @@ class PractitionerTest < ActiveSupport::TestCase
     begin
       pro.add_clients("cbonnet,eeee", false, "", "")
     rescue InvalidEmailsException => e
-      assert_equal 2, e.message.gsub(/and/, ",").split(",").size, "There should 2 invalid emails, but message was: #{e.message}"       
+      assert_equal 2, e.message.gsub(/ et /, ",").split(",").size, "There should 2 invalid emails, but message was: #{e.message}"
     end
   end
   

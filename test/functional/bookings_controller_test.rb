@@ -110,10 +110,10 @@ class BookingsControllerTest < ActionController::TestCase
     assert_not_nil flash[:error]
   end
   
-  def test_update_as_client
-    cyrille_sav = bookings(:cyrille_sav)
+  def test_update_as_client    
     sav = practitioners(:sav)
     cyrille = clients(:cyrille)
+    cyrille_sav = Factory(:booking, :client => cyrille, :practitioner => sav, :created_at => 10.minutes.ago, :state => "new_booking")
     kartini = clients(:kartini)
     post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
                   :booking => {:name => "John Denver", :client_id  => kartini.id} }, {:client_id => cyrille.id }
@@ -128,10 +128,10 @@ class BookingsControllerTest < ActionController::TestCase
   end
 
   def test_update_as_pro
-    cyrille_sav = bookings(:cyrille_sav)
     sav = practitioners(:sav)
     cyrille = clients(:cyrille)
     kartini = clients(:kartini)
+    cyrille_sav = Factory(:booking, :client => cyrille, :practitioner => sav, :created_at => 10.minutes.ago, :state => "new_booking")
     post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
                   :booking => {:client_id => kartini.id } }, {:pro_id => sav.id }
     assert_response :success
@@ -141,6 +141,38 @@ class BookingsControllerTest < ActionController::TestCase
     assert_equal kartini.default_name, cyrille_sav.name
     assert_equal kartini.id, cyrille_sav.client_id
   end
+
+  def test_update_in_grace_period
+    mail_size = UserEmail.all.size    
+    booking = Factory(:booking, :state => "new_booking", :created_at => 20.minutes.ago)
+    pro = booking.practitioner
+    new_client = Factory(:client)
+    post :update, {:practitioner_id => pro.permalink, :format => "json", :id => booking.id, 
+                  :booking => {:client_id => new_client.id } }, {:pro_id => pro.id }
+    assert_response :success
+    assert_nil flash[:error]
+    assert_not_nil flash[:notice]
+    booking.reload
+    assert_equal new_client.default_name, booking.name
+    assert_equal new_client.id, booking.client_id
+    assert_equal mail_size, UserEmail.all.size, "No email should have been sent as the booking is in grace period"
+  end
+
+  def test_update_outside_of_grace_period
+    booking = Factory(:booking, :state => "new_booking", :created_at => 2.hours.ago)
+    pro = booking.practitioner
+    old_client = booking.client
+    new_client = Factory(:client)
+    post :update, {:practitioner_id => pro.permalink, :format => "json", :id => booking.id, 
+                  :booking => {:client_id => new_client.id } }, {:pro_id => pro.id }
+    assert_response :success
+    assert_not_nil flash[:error], "An error should have been created, because the booking cannot be modified outside of its grace period"
+    assert_nil flash[:notice]
+    booking.reload
+    assert_equal old_client.default_name, booking.name
+    assert_equal old_client.id, booking.client_id
+  end
+
 
   #Cyrille (7 Sep 2010: no own time option for the moment)
   # def test_update_as_pro_own_time

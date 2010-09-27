@@ -89,7 +89,7 @@ class BookingTest < ActiveSupport::TestCase
     assert_match %r{"id":}, json
     assert_match %r{"start":}, json
     assert_match %r{"end":}, json
-    assert_match %r{"title":"Booked"}, json
+    assert_match %r{"title":".*"}, json
     assert_match %r{"readOnly":}, json
     assert_no_match %r{"name":}, json
     assert_no_match %r{"booking":}, json
