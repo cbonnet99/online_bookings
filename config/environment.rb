@@ -44,11 +44,11 @@ Rails::Initializer.run do |config|
   config.time_zone = 'Paris'
 
   $default_country_code = "FR"
-  $available_country_codes = ["NZ", "FR"]
-
+  $available_country_codes = ["FR","NZ"]
+  $translated_country_codes_to_locales = {:nz => :en}
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
    config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
-   config.i18n.default_locale = :en
+   config.i18n.default_locale = :fr
 
   config.action_mailer.smtp_settings = {
       :enable_starttls_auto => true,

@@ -172,13 +172,8 @@
   #button       
   select_button: "Select"
   enter_button: "Enter"
- #intro
-  colibri_intro: "With Colibri, book an appointment with your health practitioner at anytime, from anywhere. And you get an automatic reminder via email!"
-  colibri_intro_book_appointment_button: "Book an appointment"
-  colibri_intro_health_professional: "Health professional?"
-  colibri_intro_register_trial: "Register for a free 30 day trial"
  #header 
-  colibri_header_register: "Register for a free trial"
+  colibri_header_register: "Sign up for a free trial!"
   login: "Login"
   header_health_pro: "Health professionals"
   home: "Home"
@@ -186,6 +181,8 @@
   schedule_tab: "Schedule"
   home_calendar_tab: "Calendar"
   home_clients_tab: "Clients"
+  #intro
+  countries_label: "Country:"
   #client lookup form
   client_lookupform_title: "Step 1: Your email address"
   client_lookupform_email_address: "Your email address"

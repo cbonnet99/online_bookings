@@ -90,7 +90,7 @@ class BookingsControllerTest < ActionController::TestCase
   def test_create_empty
     post :create, :format => "json" 
     assert_redirected_to flash_url
-    assert_equal "No selected practitioner", flash[:error]
+    assert_not_nil flash[:error]
   end
 
   def test_create_no_client

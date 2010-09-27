@@ -14,9 +14,9 @@ class ApplicationController < ActionController::Base
     geo = GeoIP.new("#{RAILS_ROOT}/geoip/GeoLiteCity.dat")
     g = geo.city(@client_ip)
     if g.nil?
-      @current_user_country_code = $default_country_code
+      nil
     else
-      @current_user_country_code = g[2]
+      g[2]
     end
   end
   
@@ -29,11 +29,26 @@ class ApplicationController < ActionController::Base
   end
   
   def set_locale
-    I18n.locale = extract_locale_from_subdomain
+    selected_locale = extract_locale_from_subdomain
+    if selected_locale.nil?
+      country_code = locate_current_user
+      selected_locale = translate_country_code_to_locale(country_code)
+    end
+    I18n.locale = selected_locale unless selected_locale.nil?
+  end
+  
+  def translate_country_code_to_locale(country_code)
+    country_code = country_code.try(:downcase).try(:to_sym) if country_code.is_a?(String)
+    if $translated_country_codes_to_locales.include?(country_code)
+      $translated_country_codes_to_locales[country_code]
+    else
+      country_code
+    end
   end
   
   def extract_locale_from_subdomain
-    parsed_locale = request.subdomains.first.try(:to_sym)
+    country_code = request.subdomains.first.try(:downcase).try(:to_sym)
+    parsed_locale = translate_country_code_to_locale(country_code)
     (I18n.available_locales.include? parsed_locale) ? parsed_locale  : nil
   end
   

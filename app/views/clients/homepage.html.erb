@@ -1,6 +1,9 @@
 <% javascript "home"%>
 <% use_country_select %>
-<p><%=t(:colibri_intro)%></p>
-<div id="book-appointment" class="rounded"><%= link_to t(:colibri_intro_book_appointment_button), edit_selected_practitioner_url%></div>
+<p>Colibri manages your appointments and automatically reminds your clients of their appointments.</p>
+<p>Less cancellations, less hassle.</p>
+<div id="homepage-demo" class="rounded home-rounded">See a demo</div>
+<div id="homepage-pricing" class="rounded home-rounded">How much does it cost?</div>
+<div id="homepage-signup" class="rounded home-rounded"><%= link_to "Sign up now", new_practitioner_url%></div>
 <div class="cleaner"></div>
-<p> <%=t(:colibri_intro_health_professional)%> <%= link_to t(:colibri_intro_register_trial), new_practitioner_url%></p>
+

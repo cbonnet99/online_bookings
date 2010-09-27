@@ -149,11 +149,11 @@ fr:
     sunday: "dimanche"
     #flash
     #practicioner
-    flash_error_practitioner_not_found : "Nous n'avons pas trouvé votre professionel(le)"
+    flash_error_practitioner_not_found : "Nous n'avons pas trouvé le praticien que vous recherchez"
     flash_notice_practitioner_visualize_ical : "Vous pouvez maintenant voir votre calendrier dans Ical"
     flash_notice_practitioner_thanks_signup : "Votre enregistrement est terminé! votre connexion est active"
     #application
-    flash_error_session_not_selected_pro: "Vous n'avez pas séléctioné de professionel(le)"
+    flash_error_session_not_selected_pro: "Vous n'avez pas sélectionné de praticien"
     #session
     flash_notice_session_welcome: "Bienvenu(e) sur "
     flash_error_session_invalid_login_password: "Votre môt de passe ou votre adresse email est invalide."
@@ -196,7 +196,7 @@ fr:
     flash_error_booking_cannot_be_cancelled : "Ce rendez-vous ne peut pas être annulé"
     flash_notice_booking_appointment_cancelled : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} a été annulé"
     flash_notice_booking_confirmed : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} est confirmé"
-    flash_error_booking_couldnot_find_practitioner : "Nous n'avons pas trouvé votre professionel(le)"
+    flash_error_booking_couldnot_find_practitioner : "Nous n'avons pas trouvé le praticien que vous recherchez"
     flash_error_booking_appointment_not_found : "Nous avons pas trouvé ce rendez-vous"
     flash_notice_booking_appointment_changed : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} a été modifié"
     flash_notice_booking_appointment_removed : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} a été effacé"
@@ -207,26 +207,23 @@ fr:
   # button
     select_button: "Choisir"
     enter_button: "Entrer"
-  # intro
-    colibri_intro: "Avec Colibri, prenez rendez-vous quand vous voulez, d'où vous voulez. Un rappel vous sera envoyé automatiquement par email!"
-    colibri_intro_book_appointment_button: Prendre rendez-vous
-    colibri_intro_health_professional: Vous êtes un(e) professionnel(le)?
-    colibri_intro_register_trial: Essayez Colibri gratuitement pendant 30 jours
    # header 
-    colibri_header_register: Essayez Colibri gratuitement
+    colibri_header_register: "Essayez Colibri gratuitement"
     login: "Connexion"
-    header_health_pro: "Professionnels"
+    header_health_pro: "Praticiens"
     home: "Accueil"
     header_book_appointment: "Calendrier"
     schedule_tab: "Programme"
     home_calendar_tab: "Calendrier"
     home_clients_tab: "Clients"
+    #intro
+    countries_label: "Pays:"
    # client lookup form
     client_lookupform_title: "Etape 1: Entrez votre adresse email"
     client_lookupform_email_address: "Adresse email"
    # select_practicioner
-    select_practicioner_title: "Choisissez un(e) professionel(le)"
-    select_practicioner_message: "Choissisez votre professionel:"
+    select_practicioner_title: "Veuillez choisir un praticien"
+    select_practicioner_message: "Veuillez choisir le praticien de votre choix:"
     #client login info
     login_info_logged_as: "Connecté(e) avec: "
     login_info_edit_link: "Modifier vos infos perso"
@@ -259,7 +256,7 @@ fr:
     practitioner_share_ical_stop : "Désactiver le flux Ical"
     practitioner_share_ical_start : "Activer le flux Ical"
     #practitioner/selected_pro_info
-    practitioner_selected_pro_info_message: "Votre professionel(le): "
+    practitioner_selected_pro_info_message: "Votre praticien: "
     practitioner_selected_pro_info_change_link: "Changer"
     practitioner_selected_pro_info_nobooking: "Oublier"
     #clients/edit
@@ -340,3 +337,4 @@ fr:
     your_booking_was_cancelled: "Annulation: votre RV avec [pro_name] a été annulé"
     #UserEmail
     client_booking: "{{client_name}} a pris rendez-vous le {{booking_date}}"
+    pro_booking: "Vous avez rendez-vous avec {{pro_name}} le {{booking_date}}"    

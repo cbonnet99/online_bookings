@@ -52,7 +52,17 @@ module ApplicationHelper
 
   def use_country_select
     if APP_CONFIG[:show_countries]
-      content_for(:country_select) {  "Country:" + localized_country_select_tag(:current_country_code, @current_country_code, [:nz, :fr] )}
+      content_for(:country_select) do
+        res = "#{I18n.t(:countries_label)}<select id='current_country_code' name='current_country_code'><option value='FR'"
+        if @current_country_code == 'FR'
+          res << " selected='selected'"
+        end
+        res << ">#{I18n.t('FR', :scope => 'countries')}</option><option value='NZ'"
+        if @current_country_code == 'NZ'
+          res << " selected='selected'"
+        end
+        res << ">#{I18n.t('NZ', :scope => 'countries')}</option></select>"
+      end
       content_for(:js_country_select) {javascript_include_tag("/country_select.js")}
     end
   end
