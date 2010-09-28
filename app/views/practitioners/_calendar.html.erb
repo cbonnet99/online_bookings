@@ -5,6 +5,12 @@ $(document).ready(function() {
    	var mylocal = '<%=  I18n.locale %>' ;
 	I18n.locale = mylocal;
 	var id = 10;
+	
+	//colors
+	var eventTimeNormalColor = "#2B72D0";
+	var pastEventColor = "#999";
+	var eventTitleNormalColor = "#68A1E5";
+	var eventTitleHoverColor = "#2B72D0";
 
    var changeButtonColors = function() {
        $("button:contains('save')").html(I18n.t("button_save")).hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("color", "#090").css("background", "url('/images/green_tick.gif')").css("background-repeat", "no-repeat").css("padding", "5px 5px 5px 30px").css("font-size", "14px");
@@ -59,22 +65,21 @@ $(document).ready(function() {
       },
       eventRender : function(calEvent, $event) {
 		<% if own_calendar?(pro, current_pro) -%>
-		 if (calEvent.state == "confirmed") {
+		if (calEvent.state == "confirmed") {
             $event.css("backgroundColor", "#0C6")
 		}
-	
-		 if ((calEvent.state == "unconfirmed") && (calEvent.start.getTime() > new Date().getTime()) && (calEvent.start.getTime() < new Date(<%=18.hours.from_now.js_args%>).getTime())) {
+		if ((calEvent.state == "new_booking") && (calEvent.start.getTime() > new Date().getTime()) && (calEvent.start.getTime() < new Date(<%=current_pro.no_cancellation_period_in_hours.hours.from_now.js_args%>).getTime())) {
             $event.css("backgroundColor", "#bf0000");			
 		}
 		<%end -%>
-         if ((calEvent.end.getTime() < (new Date().getTime())) || calEvent.readOnly) {
+        if ((calEvent.end.getTime() < (new Date().getTime())) || calEvent.readOnly) {
 			$event.css("cursor", "default");
             $event.css("backgroundColor", "#aaa");
             $event.find(".wc-time").css({
-               "backgroundColor" : "#999",
+               "backgroundColor" : pastEventColor,
                "border" : "1px solid #888"
             });
-         }
+        }
       },
       draggable : function(calEvent, $event) {
          return false;
@@ -267,7 +272,7 @@ $(document).ready(function() {
 		 $("input#client_name").autocomplete({source: clients_data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}});
          $("input#client_name").focus();
 		
-         if ((calEvent.state == "unconfirmed") && (calEvent.start.getTime() > new Date().getTime()) && (calEvent.start.getTime() < new Date(<%=pro.no_cancellation_period_in_hours.hours.from_now.js_args%>).getTime())){
+         if ((calEvent.state == "new_booking") && (calEvent.start.getTime() > new Date().getTime()) && (calEvent.start.getTime() < new Date(<%=pro.no_cancellation_period_in_hours.hours.from_now.js_args%>).getTime())){
 	       $("#no-cancellation").css("display", "block");
            $("button:contains('delete')").css("display", "none");
          } else {
@@ -290,6 +295,26 @@ $(document).ready(function() {
       eventMouseout : function(calEvent, $event) {
       },
 	  calendarAfterLoad : function(calendar) {
+		$(".wc-cal-event").hover(function(event){
+			var calEvent = $(event.target).data("calEvent");
+			if (calEvent === null){
+				var calEvent = $(event.target).parent().data("calEvent");
+			}
+			if ((calEvent !== null) && (calEvent.end.getTime() > (new Date().getTime())) && !calEvent.readOnly) {
+			   $(this).css("background-color", eventTitleHoverColor);
+			}
+		},
+		function(event){
+			var $target = $(event.target);
+			var calEvent = $target.data("calEvent");
+			if (calEvent === null){
+				var calEvent = $(event.target).parent().data("calEvent");
+			}
+			if ((calEvent !== null) && (calEvent.end.getTime() > (new Date().getTime())) && !calEvent.readOnly) {
+			   $(this).css("background-color", eventTitleNormalColor);
+			}			
+		}
+		);
 	  },
       noEvents : function() {
 
@@ -323,9 +348,7 @@ $(document).ready(function() {
          var startTime = timeslotTimes[i].start;
          var endTime = timeslotTimes[i].end;
          var startSelected = "";
-	// if (startTime.getTime() === calEvent.start.getTime()) {
 		 if (Math.round(startTime.getTime()/1000) === Math.round(calEvent.start.getTime()/1000)) {
-// console.log("========= CLOSE enough");
             startSelected = "selected=\"selected\"";
          }
          var endSelected = "";

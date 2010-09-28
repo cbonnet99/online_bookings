@@ -34,8 +34,6 @@
 				<% if !client_logged_in?-%>
 					<%= link_to t(:home), root_url, :class => "link"%> |
 				<% end %>
-				<%= link_to t(:header_book_appointment), current_step, :class => "link"%>
-				<% if client_logged_in?-%> |&nbsp;<% end -%> 
 			<% end -%>
 			</div>	
 			<% if client_logged_in?-%>

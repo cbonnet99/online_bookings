@@ -30,9 +30,8 @@
 				<%= link_to t(:home_clients_tab), practitioner_clients_url(current_pro.permalink, :tab => "clients"), :class => selected_tab_classes(@selected_tab, "clients")%>
 			<% else -%>
 				<% if !client_logged_in?-%>
-					<%= link_to t(:home), root_url, :class => "link"%> |
+					<%= link_to t(:home), root_url, :class => "link"%>
 				<% end %>
-				<%= link_to t(:header_book_appointment), current_step, :class => "link"%>
 				<% if client_logged_in?-%> |&nbsp;<% end -%> 
 			<% end -%>
 			</div>	

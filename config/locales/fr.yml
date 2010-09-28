@@ -156,7 +156,7 @@ fr:
     flash_error_session_not_selected_pro: "Vous n'avez pas sélectionné de praticien"
     #session
     flash_notice_session_welcome: "Bienvenu(e) sur "
-    flash_error_session_invalid_login_password: "Votre môt de passe ou votre adresse email est invalide."
+    flash_error_session_invalid_login_password: "Votre mot de passe ou votre adresse email est invalide."
     flash_notice_session_logout: "Vous êtes déconecté(e)"
     #client
     flash_error_client_invalid_client: "Client n'existe pas"
