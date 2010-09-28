@@ -305,9 +305,9 @@ fr:
     client_index_message1: "à n'importe quel moment."
     client_index_add_more: "Ajouter"
     #booking/create
-    booking_not_saved: "Votre RV n'a pas été sauvegardé car: [error]"
+    booking_not_saved: "Votre rendez-vous n'a pu être sauvegardé car: {{error}}"
     #booking/destroy
-    booking_not_in_grace_period: "Ce RV ne peut pas être effacé, il ne peut qu'être annulé"
+    booking_not_in_grace_period: "Ce rendez-vous ne peut pas être effacé, il ne peut qu'être annulé"
     #booking/edit
     booking_edit_title: "Modifiez un rendez-vous"
     booking_edit_show: "voir"
@@ -336,8 +336,8 @@ fr:
     #practitioner model
     prep_time: "Préparation"
     #UserMailer
-    you_have_booking: "Rappel: vous avez un rendez-vous demain avec [pro_name]"
-    your_booking_was_cancelled: "Annulation: votre RV avec [pro_name] a été annulé"
+    you_have_booking: "Rappel: vous avez un rendez-vous demain avec {{pro_name}}"
+    your_booking_was_cancelled: "Annulation: votre rendez-vous avec {{pro_name}} a été annulé"
     #UserEmail
     client_booking: "{{client_name}} a pris rendez-vous le {{booking_date}}"
     pro_booking: "Vous avez rendez-vous avec {{pro_name}} le {{booking_date}}"    

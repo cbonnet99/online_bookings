@@ -85,8 +85,8 @@ class BookingsController < ApplicationController
       flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_booked , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
     else
       flash[:error] = I18n.t(:booking_not_saved, :error => @booking.errors.full_messages.to_sentence)
-      redirect_to flash_url(:format => "json")
     end
+    redirect_to flash_url(:format => "json")
   end
   
   def edit
@@ -109,6 +109,7 @@ class BookingsController < ApplicationController
         flash[:error] = I18n.t(:error_saving_booking_outside_of_grace_period)
       end
     end
+    redirect_to flash_url(:format => "json")
   end
   
   def destroy

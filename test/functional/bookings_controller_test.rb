@@ -117,7 +117,7 @@ class BookingsControllerTest < ActionController::TestCase
     kartini = clients(:kartini)
     post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
                   :booking => {:name => "John Denver", :client_id  => kartini.id} }, {:client_id => cyrille.id }
-    assert_response :success
+    assert_redirected_to flash_url(:format => "json")
     assert_nil flash[:error]
     assert_not_nil flash[:notice]
     cyrille_sav.reload
@@ -134,7 +134,7 @@ class BookingsControllerTest < ActionController::TestCase
     cyrille_sav = Factory(:booking, :client => cyrille, :practitioner => sav, :created_at => 10.minutes.ago, :state => "new_booking")
     post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
                   :booking => {:client_id => kartini.id } }, {:pro_id => sav.id }
-    assert_response :success
+    assert_redirected_to flash_url(:format => "json")
     assert_nil flash[:error]
     assert_not_nil flash[:notice]
     cyrille_sav.reload
@@ -149,7 +149,7 @@ class BookingsControllerTest < ActionController::TestCase
     new_client = Factory(:client)
     post :update, {:practitioner_id => pro.permalink, :format => "json", :id => booking.id, 
                   :booking => {:client_id => new_client.id } }, {:pro_id => pro.id }
-    assert_response :success
+    assert_redirected_to flash_url(:format => "json")
     assert_nil flash[:error]
     assert_not_nil flash[:notice]
     booking.reload
@@ -165,7 +165,7 @@ class BookingsControllerTest < ActionController::TestCase
     new_client = Factory(:client)
     post :update, {:practitioner_id => pro.permalink, :format => "json", :id => booking.id, 
                   :booking => {:client_id => new_client.id } }, {:pro_id => pro.id }
-    assert_response :success
+    assert_redirected_to flash_url(:format => "json")
     assert_not_nil flash[:error], "An error should have been created, because the booking cannot be modified outside of its grace period"
     assert_nil flash[:notice]
     booking.reload
@@ -491,7 +491,7 @@ class BookingsControllerTest < ActionController::TestCase
       :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}",
       :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
       {:pro_id => sav.id }
-    assert_response :success
+    assert_redirected_to flash_url(:format => "json")
     # puts @response.body
     assert_valid_json(@response.body)
     assert_not_nil assigns(:booking)

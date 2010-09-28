@@ -13,20 +13,19 @@ $(document).ready(function() {
 	var eventTitleHoverColor = "#2B72D0";
 
    var changeButtonColors = function() {
-       $("button:contains('save')").html(I18n.t("button_save")).hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("color", "#090").css("background", "url('/images/green_tick.gif')").css("background-repeat", "no-repeat").css("padding", "5px 5px 5px 30px").css("font-size", "14px");
-       $("button:contains('delete')").html(I18n.t("button_delete")).hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("background", "url('/images/red_x.gif')").css("background-repeat", "no-repeat").css("color", "#C00").css("padding", "5px 5px 5px 30px").css("font-size", "14px");
-       $("button:contains('cancel')").html(I18n.t("button_nosave")).hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("background-color", "white").css("color", "black").css("padding", "5px 5px 5px 5px").css("font-size", "14px");
+       $("button:contains('save')").html(I18n.t("button_save")).hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("color", "#090").css("background", "url('/images/green_tick.gif')").css("background-repeat", "no-repeat").css("padding", "5px 5px 5px 30px").css("font-size", "12px");
+       $("button:contains('delete')").html(I18n.t("button_delete")).hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("background", "url('/images/red_x.gif')").css("background-repeat", "no-repeat").css("color", "#C00").css("padding", "5px 5px 5px 30px").css("font-size", "12px");
+       $("button:contains('cancel')").html(I18n.t("button_nosave")).hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("background-color", "white").css("color", "black").css("padding", "5px 5px 5px 5px").css("font-size", "12px");
 	
    }
 	
    var hideFlash = function() {
-	$("div#flash_calendar").fadeOut(2000, function(){$(this)});
+       $("div#flash_calendar").fadeOut(2000, function(){$(this)});
    };
    var displayFlash = function(flash) {
-		if (flash.notice !== undefined && flash.notice !== '') {
-			$("div#flash_calendar").html("<div id='flash_notice'>"+flash.notice+"<span id='flash_hide'>" +I18n.t("close") + "</span></div>").fadeIn(2000, function(){$(this)});
-			$("#flash_hide").click(function(){hideFlash();});
-			
+       if (flash.notice !== undefined && flash.notice !== '') {
+           $("div#flash_calendar").html("<div id='flash_notice'>"+flash.notice+"<span id='flash_hide'>" +I18n.t("close") + "</span></div>").fadeIn(2000, function(){$(this)});
+           $("#flash_hide").click(function(){hideFlash();});	
 		}
 		if (flash.error !== undefined && flash.error !== '') {
 			$("div#flash_calendar").html("<div id='flash_error'>"+flash.error+"<span id='flash_hide'>" +I18n.t("close") + "</span></div>").fadeIn(2000, function(){$(this)});
