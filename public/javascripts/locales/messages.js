@@ -33,7 +33,7 @@ I18n.translations = {
 		today: "Aujourd'hui",
 		sorry: "Impossible de prendre un rendez-vous dans le passé",
 		button_nosave: "Fermer la fenêtre",
-		button_save: "Confirmer",
+		button_save: "Enregistrer",
 		button_delete: "Annuler",
 		tr_use24Hour : true,
 		/*close flash */
