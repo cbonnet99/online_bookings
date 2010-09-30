@@ -62,7 +62,7 @@ class Booking < ActiveRecord::Base
   aasm_initial_state :new_booking
 
   aasm_state :new_booking
-  aasm_state :confirmed, :enter => :remove_reminders
+  aasm_state :confirmed, :enter => [:remove_reminders, :set_confirmed_at]
   aasm_state :cancelled, :enter => [:remove_reminders, :send_cancellation_notice]
     
   aasm_event :confirm do
@@ -71,6 +71,10 @@ class Booking < ActiveRecord::Base
 
   aasm_event :cancel do
     transitions :from => [:new_booking, :confirmed], :to => :cancelled
+  end
+  
+  def set_confirmed_at
+    self.update_attribute(:confirmed_at, Time.now)
   end
   
   def send_cancellation_notice

@@ -12,6 +12,7 @@ class BookingsControllerTest < ActionController::TestCase
     assert_match %r{#{booking.practitioner.name}}, flash[:notice]
     booking.reload
     assert booking.confirmed?
+    assert_not_nil booking.confirmed_at
   end
 
   def test_cancel
