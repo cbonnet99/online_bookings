@@ -6,10 +6,10 @@ namespace :colibri do
       TaskUtils.create_sample_data
     end
   end
-  desc "Wipes all bookings, clients and practitioners (does nothing in production...)"
-  task :wipe_data => :environment do
+  desc "Deletes all bookings, clients and practitioners for test users (does nothing in production...)"
+  task :delete_sample_data => :environment do
     unless ENV["RAILS_ENV"] == "production"
-      TaskUtils.wipe_data
+      TaskUtils.delete_sample_data
     end
   end
 end

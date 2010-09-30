@@ -1,11 +1,11 @@
 class TaskUtils
   PRO_ARRAYS = [["Cyrille", "Bonnet", "cb@gmail.com", "04 34 55 45 23"], ["Kartini", "Thomas", "kt@gmail.com", "04 34 55 45 11"]]
   
-  def self.wipe_data
+  def self.delete_sample_data
     unless Rails.env.production?
-      Booking.delete_all
-      Client.delete_all
-      Practitioner.delete_all
+      Practitioner.test_user.each do |p|
+        p.delete_sample_data!
+      end
     end
   end
   
