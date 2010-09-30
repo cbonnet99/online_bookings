@@ -528,6 +528,7 @@ class BookingsControllerTest < ActionController::TestCase
     # puts @response.body
     assert_valid_json(@response.body)
     assert_equal 17, assigns(:bookings).size, "Sav should have 0 booking, 6 slots on 2 working days (for 12 bookings) and 5 non-working days, but bookings are: #{assigns(:bookings).to_json}"
+    assert_match(/state/, @response.body)
   end
 
   def test_index_sav_self

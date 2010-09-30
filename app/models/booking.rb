@@ -13,7 +13,7 @@ class NonWorkingBooking
   end
   
   def to_json(options={})
-    %({"id": "#{@id}", "title": "#{@title}", "start": "#{@start_time.iso8601}", "end": "#{@end_time.iso8601}", "readOnly": #{@read_only}})
+    %({"id": "#{@id}", "title": "#{@title}", "start": "#{@start_time.iso8601}", "end": "#{@end_time.iso8601}", "readOnly": #{@read_only}, "state": ""})
   end
   
   def to_ics
@@ -330,7 +330,15 @@ class Booking < ActiveRecord::Base
   end
   
   def to_json(options={})
-    super options.merge(:only => [:id, :client_id, :client_name, :booking_type_id], :methods => [:title, :start, :end, :readOnly, :state, :errors])
+    super options.merge(:only => [:id, :client_id, :client_name, :booking_type_id], :methods => [:title, :start, :end, :readOnly, :state, :needs_warning, :errors])
+  end
+
+  def needs_warning
+    needs_warning?
+  end
+
+  def needs_warning?
+     new_booking? && starts_at > Time.now.in_time_zone(practitioner.timezone) && starts_at < Time.now.in_time_zone(practitioner.timezone).advance(:hours => practitioner.no_cancellation_period_in_hours)
   end
   
   def duration_mins

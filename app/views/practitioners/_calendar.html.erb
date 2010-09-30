@@ -64,10 +64,10 @@ $(document).ready(function() {
       },
       eventRender : function(calEvent, $event) {
 		<% if own_calendar?(pro, current_pro) -%>
-		if (calEvent.state == "confirmed") {
+		if (calEvent.state === "confirmed") {
             $event.css("backgroundColor", "#0C6")
 		}
-		if ((calEvent.state == "new_booking") && (calEvent.start.getTime() > new Date().getTime()) && (calEvent.start.getTime() < new Date(<%=current_pro.no_cancellation_period_in_hours.hours.from_now.js_args%>).getTime())) {
+		if (calEvent.needs_warning === true) {
             $event.css("backgroundColor", "#bf0000");			
 		}
 		<%end -%>
@@ -271,7 +271,7 @@ $(document).ready(function() {
 		 $("input#client_name").autocomplete({source: clients_data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}});
          $("input#client_name").focus();
 		
-         if ((calEvent.state == "new_booking") && (calEvent.start.getTime() > new Date().getTime()) && (calEvent.start.getTime() < new Date(<%=pro.no_cancellation_period_in_hours.hours.from_now.js_args%>).getTime())){
+         if (calEvent.needs_warning === true){
 	       $("#no-cancellation").css("display", "block");
            $("button:contains('delete')").css("display", "none");
          } else {

@@ -2,6 +2,21 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class BookingTest < ActiveSupport::TestCase  
 
+  def test_needs_warning
+    booking = Factory(:booking, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now, :state => "new_booking")
+    assert booking.needs_warning?
+
+    booking = Factory(:booking, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now, :state => "confirmed")
+    assert !booking.needs_warning?
+    
+    booking = Factory(:booking, :starts_at => 30.hours.from_now, :ends_at => 31.hours.from_now, :state => "new_booking")
+    assert !booking.needs_warning?
+
+    booking = Factory(:booking, :starts_at => 7.hours.ago, :ends_at => 3.hours.ago, :state => "new_booking")
+    assert !booking.needs_warning?
+    
+  end
+
   def test_in_grace_period
     booking = Factory(:booking, :created_at => 20.minutes.ago, :state => "new_booking")
     assert booking.in_grace_period?
@@ -90,6 +105,8 @@ class BookingTest < ActiveSupport::TestCase
     assert_match %r{"start":}, json
     assert_match %r{"end":}, json
     assert_match %r{"title":".*"}, json
+    assert_match %r{"state":}, json
+    assert_match %r{"needs_warning":}, json
     assert_match %r{"readOnly":}, json
     assert_no_match %r{"name":}, json
     assert_no_match %r{"booking":}, json
