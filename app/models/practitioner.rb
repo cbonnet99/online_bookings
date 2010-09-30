@@ -126,6 +126,9 @@ class Practitioner < ActiveRecord::Base
         booking = Booking.new(:client => client, :practitioner => self, :name => client.name, 
             :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => BOOKING_STATES[rand(BOOKING_STATES.size)])
         booking.save!
+        if rand(100) < 50
+          booking.confirm!
+        end
         #puts "+++++ Creating past booking at #{starts_at} for client #{client.name}"
       end
     
@@ -143,6 +146,9 @@ class Practitioner < ActiveRecord::Base
         booking = Booking.new(:client => client, :practitioner => self, :name => client.name, 
             :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => BOOKING_STATES[rand(BOOKING_STATES.size)])
         booking.save!
+        if rand(100) < 30
+          booking.confirm!
+        end
         #puts "+++++ Creating future booking at #{starts_at} for client #{client.name}"
       end
     else
