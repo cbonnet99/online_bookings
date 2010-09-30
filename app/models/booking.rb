@@ -36,9 +36,9 @@ class Booking < ActiveRecord::Base
   
   belongs_to :practitioner
   belongs_to :client
-  has_many :user_emails
+  has_many :user_emails, :dependent => :delete_all
   belongs_to :booking_type
-  has_many :reminders
+  has_many :reminders, :dependent => :delete_all
 
   validates_presence_of :practitioner, :starts_at, :ends_at, :client
   

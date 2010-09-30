@@ -16,8 +16,8 @@ class Practitioner < ActiveRecord::Base
   include ColibriExceptions
   include AASM
   
-  has_many :bookings
-  has_many :reminders, :through => :bookings 
+  has_many :bookings, :dependent => :delete_all 
+  has_many :reminders, :through => :bookings
   has_many :relations
   has_many :clients, :through => :relations
   has_many :user_emails
@@ -71,13 +71,12 @@ class Practitioner < ActiveRecord::Base
 
   def delete_sample_data!
     if self.test_user?
-      self.bookings.destroy_all
-      self.relations.destroy_all
       self.clients.each do |client|
         if client.relations.blank?
-          client.destroy
+          client.delete
         end
       end
+      self.destroy
     else
       raise CantDeleteSampleDataOnNonTestProException
     end
