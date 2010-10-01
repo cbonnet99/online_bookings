@@ -3,6 +3,7 @@ I18n.translations = {
 	
 	
 	en:{
+	    client_is_mandatory: "Please select a client",
 		new_appointment: "New appointment",
 		today: "Today",
 		sorry: "Sorry, you can not book an appointment in the past",
@@ -29,6 +30,7 @@ I18n.translations = {
 	       Sun: "Sun",Mon: "Mon",Tue: "Tue",Wed: "Wed",Thu: "Thu",Fri: "Fri",Sat: "Sat"},
 		
 	fr:{
+	    client_is_mandatory: "Vous devez choisir un client",
 		new_appointment: "Nouveau rendez-vous",
 		today: "Aujourd'hui",
 		sorry: "Impossible de prendre un rendez-vous dans le passé",

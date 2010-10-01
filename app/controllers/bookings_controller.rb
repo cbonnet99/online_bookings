@@ -86,7 +86,7 @@ class BookingsController < ApplicationController
     else
       flash[:error] = I18n.t(:booking_not_saved, :error => @booking.errors.full_messages.to_sentence)
     end
-    redirect_to flash_url(:format => "json")
+    render :view => "flash", :format => "json"
   end
   
   def edit
@@ -109,7 +109,7 @@ class BookingsController < ApplicationController
         flash[:error] = I18n.t(:error_saving_booking_outside_of_grace_period)
       end
     end
-    redirect_to flash_url(:format => "json")
+    render :view => "flash", :format => "json"
   end
   
   def destroy

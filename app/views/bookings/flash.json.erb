@@ -1,1 +1,1 @@
-<%= flash.to_json%>
+{"flash": <%= flash.try(:to_json) ||  'null'%>, "booking": <%= @booking.try(:to_json) || 'null'%>}

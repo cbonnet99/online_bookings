@@ -50,6 +50,11 @@ module ApplicationHelper
     end
   end
 
+  def phone_prefix_select
+    mobile_phone_prefixes = $mobile_phone_prefixes[current_pro.country]
+    mobile_phone_prefixes = $mobile_phone_prefixes.values.first if mobile_phone_prefixes.blank?
+  end
+
   def use_country_select
     if APP_CONFIG[:show_countries]
       content_for(:country_select) do

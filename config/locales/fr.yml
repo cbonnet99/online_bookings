@@ -306,6 +306,7 @@ fr:
     client_index_add_more: "Ajouter"
     #booking/create
     booking_not_saved: "Votre rendez-vous n'a pu être sauvegardé car: {{error}}"
+    phone: "Téléphone (de préférence mobile)"
     #booking/destroy
     booking_not_in_grace_period: "Ce rendez-vous ne peut pas être effacé, il ne peut qu'être annulé"
     #booking/edit
@@ -317,8 +318,8 @@ fr:
     error_saving_booking_outside_of_grace_period: "Ce rendez-vous ne peut plus être modifié. Merci de bien vouloir l'annuler et en créer un nouveau à sa place."
     #appointment popup calendar
     edit_appointement: "Modifier"
-    appointment_start_time: "Début: "
-    appointment_end_time: "Fin: "
+    appointment_start_time: "De: "
+    appointment_end_time: "à: "
     appointment_client: "Client: "
     appointment_booking_type: "Type: "
     appointment_your_name: "Votre Nom: "

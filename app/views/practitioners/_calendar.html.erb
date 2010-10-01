@@ -126,50 +126,47 @@ $(document).ready(function() {
 	            },
 	            buttons: {
 	               save : function() {
-					  <% if own_calendar?(pro, current_pro) -%>
-	                  calEvent.start = new Date(startField.val());
-	                  calEvent.end = new Date(endField.val());
-					  <% end -%>
-	                  calEvent.title = titleField.val();
-	                  calEvent.body = bodyField.val();
-					  <% if own_calendar?(pro, current_pro) -%>
-					  calEvent.client_id = clientField.val();
-					  <%if pro.has_multiple_booking_types? -%>
-					  calEvent.booking_type_id = bookingTypeField.val();
-					  <% end -%>
-					  <% end -%>
-					  $.post("<%=practitioner_bookings_url(pro)%>", {"format": "json", "booking[name]": calEvent.title<% if own_calendar?(pro, current_pro) -%>, "booking[client_id]": calEvent.client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": calEvent.booking_type_id<%end -%><%end -%>, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start.toString(), "booking[ends_at]": calEvent.end.toString()}, function(data){
-						if ((data.error === undefined) || (data.error === '')) {
-							calEvent.id = data.booking.id;
-							calEvent.title = data.booking.title;
-							calEvent.start = data.booking.start;
-							calEvent.end = data.booking.end;
-		                  	$calendar.weekCalendar("updateEvent", calEvent);
-		                    if (data.prep) {
-                                var prepEvent = data.prep;
-			                  $calendar.weekCalendar("updateEvent", prepEvent);
-		                    }
-		                 }
-		                 $calendar.weekCalendar("removeUnsavedEvents");
-		                 $dialogContent.dialog("close");
-		                 displayFlash(data);
-						}, "json");
-
+                      if ($("#event_edit_form").valid()) {
+						  <% if own_calendar?(pro, current_pro) -%>
+		                  new_start = new Date(startField.val());
+		                  new_end = new Date(endField.val());
+						  <% end -%>
+		                  new_title = titleField.val();
+		                  new_body = bodyField.val();
+						  <% if own_calendar?(pro, current_pro) -%>
+						  new_client_id = clientField.val();
+						  <%if pro.has_multiple_booking_types? -%>
+						  new_booking_type_id = bookingTypeField.val();
+						  <% end -%>
+						  <% end -%>
+						  $.post("<%=practitioner_bookings_url(pro)%>", {"format": "json", "booking[name]": new_title<% if own_calendar?(pro, current_pro) -%>, "booking[client_id]": new_client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": new_booking_type_id<%end -%><%end -%>, "booking[comment]": new_body, "booking[starts_at]": new_start.toString(), "booking[ends_at]": new_end.toString()}, function(data){
+							if ((data.flash.error === undefined) || (data.flash.error === '')) {
+								calEvent.id = data.booking.id;
+								calEvent.title = data.booking.title;
+								calEvent.start = data.booking.start;
+								calEvent.end = data.booking.end;
+			                  	$calendar.weekCalendar("updateEvent", calEvent);
+			                    if (data.prep) {
+	                                var prepEvent = data.prep;
+				                  $calendar.weekCalendar("updateEvent", prepEvent);
+			                    }
+			                 }
+			                 $calendar.weekCalendar("removeUnsavedEvents");
+			                 $dialogContent.dialog("close");
+			                 displayFlash(data.flash);
+							}, "json");
+                      }
 	               },
 	               cancel : function() {
 	                  $dialogContent.dialog("close");
 	               }
 	            }
 	         }).show();
+            $("#event_edit_form").validate({rules: {"client_name": {required: true}}});
 			$("input#client_name").autocomplete({source: clients_data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}});
 			$("input#client_name").focus();
 			
 
-			<% if own_calendar?(pro, current_pro)-%>
-	         $dialogContent.find("#date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
-			<% else -%>
-			$dialogContent.find("#date_holder").text($calendar.weekCalendar("formatDate", calEvent.start)+": "+$calendar.weekCalendar("formatTime", calEvent.start)+"-"+$calendar.weekCalendar("formatTime", calEvent.end));
-			<% end -%>
 			<% if own_calendar?(pro, current_pro)-%>
 	         setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
 			<% end -%>
@@ -179,7 +176,7 @@ $(document).ready(function() {
       },
       eventDrop : function(calEvent, $event) {
 		  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json", "booking[starts_at]": calEvent.start.toString(), "booking[ends_at]": calEvent.end.toString()}, function(data){
-				displayFlash(data);
+				displayFlash(data.flash);
 			}, "json");
 
       },
@@ -199,7 +196,7 @@ $(document).ready(function() {
          var titleField = $dialogContent.find("input[name='title']").val(calEvent.title);
          var bodyField = $dialogContent.find("textarea[name='body']");
          <% if own_calendar?(pro, current_pro) -%>
-		 var my_client_name = calEvent.title
+		 var my_client_name = calEvent.title;
          var my_client_id = "";
          if (calEvent.client_id !== null){
 	       my_client_id = calEvent.client_id
@@ -213,7 +210,7 @@ $(document).ready(function() {
          bodyField.val(calEvent.body);
          $dialogContent.dialog({
             modal: true,
-            title: "<%=I18n.t(:edit_appointement)%> - " + calEvent.title,
+            title: $calendar.weekCalendar("formatDate", calEvent.start),
             close: function() {
                $dialogContent.dialog("destroy");
                $dialogContent.hide();
@@ -221,34 +218,37 @@ $(document).ready(function() {
             },
             buttons: {
                save : function() {
-				  <% if own_calendar?(pro, current_pro) -%>
-                  calEvent.start = new Date(startField.val());
-                  calEvent.end = new Date(endField.val());
-				  <% end -%>
-                  if (titleField) {calEvent.title = titleField.val()} else {calEvent.title = ""}
-                  calEvent.body = bodyField.val();
-				  <% if own_calendar?(pro, current_pro) -%>
-				  calEvent.client_id = clientField.val();
-				  calEvent.client_name = clientFieldName.val();
-				  <%if pro.has_multiple_booking_types? -%>
-				  calEvent.booking_type_id = bookingTypeField.val();
-				  <% end -%>
-				  <% end -%>
-				  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json"<% if own_calendar?(pro, current_pro) -%>, "booking[client_id]": calEvent.client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": calEvent.booking_type_id<%end-%><%end-%>, "booking[name]": calEvent.title, "booking[comment]": calEvent.body, "booking[starts_at]": calEvent.start.toString(), "booking[ends_at]": calEvent.end.toString()}, function(data){
-					if ((data.error === undefined) || (data.error === '')) {
-						calEvent.id = data.booking.id;
-						calEvent.title = data.booking.title;
-						calEvent.start = data.booking.start;
-						calEvent.end = data.booking.end;
-		                $calendar.weekCalendar("updateEvent", calEvent);
-		             }
-                    if (data.prep) {
-                        var prepEvent = data.prep;
-	                  $calendar.weekCalendar("updateEvent", prepEvent);
-                    }
-		             $dialogContent.dialog("close");
-					 displayFlash(data);
-					}, "json");
+                  if ($("#event_edit_form").valid()) {
+					  <% if own_calendar?(pro, current_pro) -%>
+	                  new_start = new Date(startField.val());
+	                  new_end = new Date(endField.val());
+					  <% end -%>
+	                  if (titleField) {new_title = titleField.val()} else {new_title = ""}
+	                  new_body = bodyField.val();
+					  <% if own_calendar?(pro, current_pro) -%>
+					  new_client_id = clientField.val();
+					  new_client_name = clientFieldName.val();
+					  <%if pro.has_multiple_booking_types? -%>
+					  new_booking_type_id = bookingTypeField.val();
+					  <% end -%>
+					  <% end -%>
+					  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json"<% if own_calendar?(pro, current_pro) -%>, "booking[client_id]": new_client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": new_booking_type_id<%end-%><%end-%>, "booking[name]": new_title, "booking[comment]": new_body, "booking[starts_at]": new_start.toString(), "booking[ends_at]": new_end.toString()}, function(data){
+						if ((data.flash.error === undefined) || (data.flash.error === '')) {
+							calEvent.id = data.booking.id;
+							calEvent.title = data.booking.title;
+							calEvent.start = data.booking.start;
+							calEvent.end = data.booking.end;
+			                $calendar.weekCalendar("updateEvent", calEvent);
+			             }
+	                    if (data.prep) {
+	                        var prepEvent = data.prep;
+		                  $calendar.weekCalendar("updateEvent", prepEvent);
+	                    }
+			            $dialogContent.dialog("close");
+	                    $dialogContent.hide();
+						displayFlash(data.flash);
+						}, "json");
+					}
                },
                cancel : function() {
                   $dialogContent.dialog("close");
@@ -256,18 +256,19 @@ $(document).ready(function() {
                "delete" : function() {
 	
 				  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "DELETE", "format": "json"}, function(data){
-					  if ((data.error === undefined) || (data.error === '')) {
+					  if ((data.flash.error === undefined) || (data.flash.error === '')) {
 	                    $calendar.weekCalendar("removeEvent", calEvent.id);
                         if (data.prep_id) {
 	                      $calendar.weekCalendar("removeEvent", data.prep_id);
                         }
 	                  }
 	                  $dialogContent.dialog("close");
-					  displayFlash(data);
+					  displayFlash(data.flash);
 					}, "json");
                }
             }
          }).show();
+         $("#event_edit_form").validate({debug: true, rules: {client_name: {required: true}}, messages:{client_name: I18n.t("client_is_mandatory")}});
 		 $("input#client_name").autocomplete({source: clients_data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}});
          $("input#client_name").focus();
 		
@@ -280,11 +281,6 @@ $(document).ready(function() {
 
          var startField2 = $dialogContent.find("select[name='start']").val(calEvent.start);
          var endField2 = $dialogContent.find("select[name='end']").val(calEvent.end);
-			<% if own_calendar?(pro, current_pro)-%>
-	         $dialogContent.find("#date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
-			<% else -%>
-			$dialogContent.find("#date_holder").text($calendar.weekCalendar("formatDate", calEvent.start)+": "+$calendar.weekCalendar("formatTime", calEvent.start)+"-"+$calendar.weekCalendar("formatTime", calEvent.end));
-			<% end -%>
          setupStartAndEndTimeFields(startField2, endField2, calEvent, 	$calendar.weekCalendar("getTimeslotTimes", calEvent.start));
          $(window).resize().resize(); //fixes a bug in modal overlay size ??
          changeButtonColors();
@@ -332,9 +328,10 @@ $(document).ready(function() {
    });
 
    function resetForm($dialogContent) {
-      $dialogContent.find("input").val("");
-      $dialogContent.find("select").val("");
-      $dialogContent.find("textarea").val("");
+      $dialogContent.find("input").val("").removeClass("error");
+      $dialogContent.find("select").val("").removeClass("error");
+      $dialogContent.find("textarea").val("").removeClass("error");
+      $dialogContent.find("label.error").remove();
    }
 
    /*
@@ -415,9 +412,7 @@ $(document).ready(function() {
 </script><% title pro.calendar_title%>
 <div id="calendar"></div>
 <div id="event_edit_container"> 
-	<form> 
-		<input type="hidden" /> 
-		<p id="date_holder"></p>
+	<form id="event_edit_form"> 
 		<% if !own_calendar?(pro, current_pro)-%>
 		<p id="no-cancellation"><span class="warning">Warning!</span> This appointment will happen in the next <%= pro.no_cancellation_period_in_hours%> hours: it can not be changed. If you need to cancel, please call <%=pro.first_name%> on <span class="phone"><%=pro.phone%></span></p>
 		<% end -%>
@@ -425,8 +420,6 @@ $(document).ready(function() {
 			<% if own_calendar?(pro, current_pro)-%>
 			<li> 
 				<label for="start"><%= t(:appointment_start_time)%></label><select name="start"><option value="">Select</option></select>
-			</li> 
-			<li> 
 				<label for="end"><%= t(:appointment_end_time)%></label><select name="end"><option value="">Select End Time</option></select> 
 			</li> 
 			<% end-%>
@@ -443,7 +436,11 @@ $(document).ready(function() {
 				<%end-%>
 			</li> 
 			<li> 
-				<label for="body"><%= t(:appointment_comment)%></label><textarea name="body"></textarea> 
+				<label for="phone" style="display: none"><%= t(:phone)%>:</label><select name="phone_prefix"><%= current_pro_booking_type_options(current_pro)-%></select><input id="phone_suffix" type="text" name="phone_suffix" style="display: none"></input> 
+			</li> 
+
+			<li> 
+				<label for="body" style="display: none"><%= t(:appointment_comment)%></label><textarea name="body" style="display: none"></textarea> 
 			</li> 
 		</ul> 
 	</form> 

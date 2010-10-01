@@ -1,3 +1,5 @@
+label.error{font-size: small; font-weight: bold; color: #c00;}
+input.error{background-color: #fcc;}
 #country_select {float: right; color: #000;}
 button {background: url(../images/inputBg.png) repeat-x;font-weight:bold;height:30px;padding:0 10px;border-color:#CCCCCC #999999 #999999 #CCCCCC;border-style:double;color:#333333;cursor:pointer;font-size:11px;margin-right:2px;overflow:visible;width:auto;}
 button:hover {background:#090; }
@@ -47,8 +49,8 @@ input#select_pro_submit  {margin-left: 10px;}
 
 /************** client SHOW ******************/
 #event_edit_container{display: none;}
+ul.event-fields{list-style-type: none;padding: 0px;margin: 0px;}
 ul.event-fields li{list-style: none; padding: 5px;}
-ul.event-fields li select{float: right;}
 #flash_calendar{float: left; margin-left: 0px; font-size: 12px; font-weight: bold;}
 #help_calendar{float: left; margin-left: 0px; width:70%;}
 #flash_calendar #flash_notice, #flash_calendar #flash_error, #flash_calendar #flash_warning{margin: 0;} 

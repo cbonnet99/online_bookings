@@ -324,13 +324,21 @@ class Booking < ActiveRecord::Base
   def end
     ends_at.nil? ? nil : ends_at.strftime("%Y-%m-%dT%H:%M:%S.000%z")
   end
-
+  
+  def locked
+    locked?
+  end
+  
+  def locked?
+    !in_grace_period?
+  end
+  
   def client_name
     client.try(:name)
   end
   
   def to_json(options={})
-    super options.merge(:only => [:id, :client_id, :client_name, :booking_type_id], :methods => [:title, :start, :end, :readOnly, :state, :needs_warning, :errors])
+    super options.merge(:only => [:id, :client_id, :client_name, :booking_type_id], :methods => [:locked, :title, :start, :end, :readOnly, :state, :needs_warning, :errors])
   end
 
   def needs_warning
