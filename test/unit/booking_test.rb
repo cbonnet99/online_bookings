@@ -108,7 +108,11 @@ class BookingTest < ActiveSupport::TestCase
     assert_match %r{"state":}, json
     assert_match %r{"needs_warning":}, json
     assert_match %r{"locked":}, json
+    assert_match %r{"phone_prefix":}, json
+    assert_match %r{"phone_suffix":}, json
+    assert_match %r{"email":}, json
     assert_match %r{"readOnly":}, json
+    assert_match %r{"client_name":}, json
     assert_no_match %r{"name":}, json
     assert_no_match %r{"booking":}, json
   end

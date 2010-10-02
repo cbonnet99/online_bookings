@@ -1,4 +1,4 @@
 var clients_data = new Array(<%=@clients.size%>);
 <% @clients.each_with_index do |client, i| -%>
-clients_data[<%=i%>] = {"label": "<%=client.name%>", "value": <%=client.id%>};
+clients_data[<%=i%>] = {"label": "<%=client.name%>", "value": <%=client.id%>, "phone_prefix": "<%=client.phone_prefix%>", "phone_suffix": "<%=client.phone_suffix%>", "email": "<%=client.email%>"};
 <% end -%>

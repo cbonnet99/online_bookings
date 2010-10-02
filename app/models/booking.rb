@@ -42,13 +42,13 @@ class Booking < ActiveRecord::Base
 
   validates_presence_of :practitioner, :starts_at, :ends_at, :client
   
-  attr_accessible :starts_at, :ends_at, :name, :comment, :booking_type, :booking_type_id, :client_id, :client, :practitioner, :practitioner_id
-  attr_accessor :current_client, :current_pro
+  attr_accessible :starts_at, :ends_at, :name, :client_phone_prefix, :client_phone_suffix, :client_email, :comment, :booking_type, :booking_type_id, :client_id, :client, :practitioner, :practitioner_id
+  attr_accessor :current_client, :current_pro, :client_phone_prefix, :client_phone_suffix, :client_email
   
   before_destroy :check_in_grace_period
-  after_create :save_client_name, :update_relations_after_create, :send_invite, :create_reminder
+  after_create :save_client_attributes, :update_relations_after_create, :send_invite, :create_reminder
   after_destroy :update_relations_after_destroy, :remove_reminders
-  after_update :save_client_name
+  after_update :save_client_attributes
   before_update :set_times
   before_create :generate_confirmation_code, :set_name, :set_times
 
@@ -89,7 +89,7 @@ class Booking < ActiveRecord::Base
   end
   
   def in_grace_period?
-    new_booking? && created_at > GRACE_PERIOD_IN_HOURS.hours.ago
+    new_booking? && (created_at.nil? || created_at > GRACE_PERIOD_IN_HOURS.hours.ago)
   end
   
   def remove_reminders
@@ -286,14 +286,24 @@ class Booking < ActiveRecord::Base
     booking
   end
 
-  def save_client_name
-    if !client.nil? && !self.name.blank?
-      names = self.name.split(" ")
-      client.first_name = names[0]
-      client.last_name = names[1..names.size].join(" ")
+  def save_client_attributes
+    if !client.nil?
+      if !self.name.blank?
+        names = self.name.split(" ")
+        client.first_name = names[0].strip
+        client.last_name = names[1..names.size].join(" ").strip
+      end
+      if !self.client_phone_prefix.blank? && !self.client_phone_suffix.blank?
+        client.phone_prefix = self.client_phone_prefix
+        client.phone_suffix = self.client_phone_suffix
+      end
+      if !self.client_email.blank?
+        client.email = self.client_email
+      end
       client.save!
     end
   end
+
   
   def include_root_in_json
     false
@@ -329,6 +339,18 @@ class Booking < ActiveRecord::Base
     locked?
   end
   
+  def phone_suffix
+    client.try(:phone_suffix)
+  end
+  
+  def phone_prefix
+    client.try(:phone_prefix)
+  end
+  
+  def email
+    client.try(:email)
+  end
+  
   def locked?
     !in_grace_period?
   end
@@ -338,7 +360,7 @@ class Booking < ActiveRecord::Base
   end
   
   def to_json(options={})
-    super options.merge(:only => [:id, :client_id, :client_name, :booking_type_id], :methods => [:locked, :title, :start, :end, :readOnly, :state, :needs_warning, :errors])
+    super options.merge(:only => [:id, :client_id, :booking_type_id], :methods => [:client_name, :phone_prefix, :phone_suffix, :email, :locked, :title, :start, :end, :readOnly, :state, :needs_warning, :errors])
   end
 
   def needs_warning

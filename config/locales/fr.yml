@@ -304,9 +304,13 @@ fr:
     client_index_add_link: "ajouter des clients"
     client_index_message1: "à n'importe quel moment."
     client_index_add_more: "Ajouter"
+    mobile_prefixes_label: "Mobiles"
+    landline_prefixes_label: "Fixes"
     #booking/create
     booking_not_saved: "Votre rendez-vous n'a pu être sauvegardé car: {{error}}"
-    phone: "Téléphone (de préférence mobile)"
+    phone_number_too_long: "Le numéro de téléphone est trop long ({{max}} maximum)"
+    phone_number_too_short: "Le numéro de téléphone est trop court ({{min}} minimum)"
+    invalid_phone_number: "Numéro de téléphone incorrect"
     #booking/destroy
     booking_not_in_grace_period: "Ce rendez-vous ne peut pas être effacé, il ne peut qu'être annulé"
     #booking/edit
@@ -323,6 +327,8 @@ fr:
     appointment_client: "Client: "
     appointment_booking_type: "Type: "
     appointment_your_name: "Votre Nom: "
+    appointment_phone: "Téléphone (mobile de préférence)"
+    appointment_email: "Adresse email"
     appointment_comment: "Commentaire: "
     lunch: "Non réservable"
     non_working: "Non réservable"

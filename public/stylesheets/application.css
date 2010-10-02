@@ -1,3 +1,4 @@
+option.mobile{font-weight:bold;}
 label.error{font-size: small; font-weight: bold; color: #c00;}
 input.error{background-color: #fcc;}
 #country_select {float: right; color: #000;}

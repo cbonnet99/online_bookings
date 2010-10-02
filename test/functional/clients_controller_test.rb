@@ -49,13 +49,13 @@ class ClientsControllerTest < ActionController::TestCase
 
   def test_update
     client = Factory(:client)
-    post :update, {:client => {:phone_prefix => "027", :phone_suffix => "123456", :email => "newaddress@test.com"} }, {:client_id => client.id }
+    post :update, {:client => {:phone_prefix => "027", :phone_suffix => "12345678", :email => "newaddress@test.com"} }, {:client_id => client.id }
     assert_redirected_to edit_client_url(client)
     assert_nil flash[:error]
     assert_not_nil flash[:notice]
     client.reload
     assert_equal "newaddress@test.com", client.email
-    assert_equal "027-123456", client.phone
+    assert_equal "027-12345678", client.phone
   end
 
   def test_update_error

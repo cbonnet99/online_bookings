@@ -128,19 +128,24 @@ class BookingsControllerTest < ActionController::TestCase
     assert_equal "John Denver", cyrille.name
   end
 
-  def test_update_as_pro
+  def test_update_client_as_pro
     sav = practitioners(:sav)
     cyrille = clients(:cyrille)
     kartini = clients(:kartini)
     cyrille_sav = Factory(:booking, :client => cyrille, :practitioner => sav, :created_at => 10.minutes.ago, :state => "new_booking")
     post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
-                  :booking => {:client_id => kartini.id } }, {:pro_id => sav.id }
+                  :booking => {:client_id => kartini.id, :client_phone_prefix => "029",  :client_phone_suffix => "2873129731", :client_email  => "kthom@test.com" } }, {:pro_id => sav.id }
     assert_response :success
+    assert_valid_json(@response.body)
     assert_nil flash[:error]
     assert_not_nil flash[:notice]
     cyrille_sav.reload
+    kartini.reload
     assert_equal kartini.default_name, cyrille_sav.name
     assert_equal kartini.id, cyrille_sav.client_id
+    assert_equal "029", kartini.phone_prefix
+    assert_equal "2873129731", kartini.phone_suffix
+    assert_equal "kthom@test.com", kartini.email
   end
 
   def test_update_in_grace_period

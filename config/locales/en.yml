@@ -275,9 +275,13 @@
   client_index_add_link: "add clients"
   client_index_message1: "at any time."
   client_index_add_more: "Add more"
+  mobile_prefixes_label: "Mobiles"
+  landline_prefixes_label: "Landlines"
   #booking/create
   booking_not_saved: "Appointment was not saved because: [error]"  
-  phone: "Phone (preferably mobile)"
+  phone_number_too_long: "The phone number is too long ({{max}} maximum)"
+  phone_number_too_short: "The phone number is too short({{min}} minimum)"
+  invalid_phone_number: "Invalid phone number"
   #booking/destroy
   booking_not_in_grace_period: "This appointment cannot be deleted: it can only be cancelled"
   #booking/edit
@@ -294,6 +298,8 @@
   appointment_client: "Client: "
   appointment_booking_type: "Type: "
   appointment_your_name: "Your name: "
+  appointment_phone: "Phone (preferably mobile)"
+  appointment_email: "Email"
   appointment_comment: "Comment: "
   appointment_do_not_save_button: "don't save"
   #appointment popup

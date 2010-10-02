@@ -48,6 +48,7 @@ class ApplicationController < ActionController::Base
   
   def extract_locale_from_subdomain
     country_code = request.subdomains.first.try(:downcase).try(:to_sym)
+    cookies[:country_code] = country_code
     parsed_locale = translate_country_code_to_locale(country_code)
     (I18n.available_locales.include? parsed_locale) ? parsed_locale  : nil
   end
@@ -64,7 +65,9 @@ class ApplicationController < ActionController::Base
   end
   
   def get_phone_prefixes
-    @phone_prefixes = Client::PHONE_PREFIXES    
+    @mobile_prefixes = $mobile_phone_prefixes[cookies[:country_code].try(:upcase)] || $mobile_phone_prefixes[$default_country_code.upcase()]
+    @landline_prefixes = $landline_phone_prefixes[cookies[:country_code].try(:upcase)] || $landline_phone_prefixes[$default_country_code.upcase()]
+    @phone_prefixes = @mobile_prefixes + @landline_prefixes
   end
   
   def get_practitioners(country_code)

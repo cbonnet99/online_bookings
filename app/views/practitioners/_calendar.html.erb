@@ -101,12 +101,13 @@ $(document).ready(function() {
 	         var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
 	         var titleField = $dialogContent.find("input[name='title']").val('<%=current_client.try(:name)%>');
 	         var bodyField = $dialogContent.find("textarea[name='body']");
-			 <% if own_calendar?(pro, current_pro) -%>
 	         var clientField = $dialogContent.find("input[name='client_id']");
 	         var clientFieldName = $dialogContent.find("input[name='client_name']");
+	         var phonePrefix = $dialogContent.find("select[name='client_phone_prefix']");
+	         var phoneSuffix = $dialogContent.find("input[name='client_phone_suffix']");
+	         var clientEmail = $dialogContent.find("input[name='client_email']");
 			 <%if pro.has_multiple_booking_types? -%>
 			 var bookingTypeField = $dialogContent.find("select[name='booking_type_id']");
-			 <%end -%>
 			 <%end -%>
 			
 			if ($dialogContent.find("input[name='title']").is(":visible")) {
@@ -127,24 +128,28 @@ $(document).ready(function() {
 	            buttons: {
 	               save : function() {
                       if ($("#event_edit_form").valid()) {
-						  <% if own_calendar?(pro, current_pro) -%>
 		                  new_start = new Date(startField.val());
 		                  new_end = new Date(endField.val());
-						  <% end -%>
 		                  new_title = titleField.val();
 		                  new_body = bodyField.val();
-						  <% if own_calendar?(pro, current_pro) -%>
 						  new_client_id = clientField.val();
+                          new_phone_prefix = phonePrefix.val();
+                          new_phone_suffix = phoneSuffix.val();
+                          new_client_email = clientEmail.val();
 						  <%if pro.has_multiple_booking_types? -%>
 						  new_booking_type_id = bookingTypeField.val();
 						  <% end -%>
-						  <% end -%>
-						  $.post("<%=practitioner_bookings_url(pro)%>", {"format": "json", "booking[name]": new_title<% if own_calendar?(pro, current_pro) -%>, "booking[client_id]": new_client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": new_booking_type_id<%end -%><%end -%>, "booking[comment]": new_body, "booking[starts_at]": new_start.toString(), "booking[ends_at]": new_end.toString()}, function(data){
+						  $.post("<%=practitioner_bookings_url(pro)%>", {"format": "json", "booking[name]": new_title, "booking[client_id]": new_client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": new_booking_type_id<%end -%>, "booking[comment]": new_body, "booking[client_phone_prefix]": new_phone_prefix, "booking[client_phone_suffix]": new_phone_suffix, "booking[client_email]": new_client_email, "booking[starts_at]": new_start.toString(), "booking[ends_at]": new_end.toString()}, function(data){
 							if ((data.flash.error === undefined) || (data.flash.error === '')) {
 								calEvent.id = data.booking.id;
 								calEvent.title = data.booking.title;
 								calEvent.start = data.booking.start;
 								calEvent.end = data.booking.end;
+								calEvent.client_id = data.booking.client_id;
+								calEvent.client_name = data.booking.client_name;
+								calEvent.phone_prefix = data.booking.phone_prefix;
+								calEvent.phone_suffix = data.booking.phone_suffix;
+								calEvent.email = data.booking.email;
 			                  	$calendar.weekCalendar("updateEvent", calEvent);
 			                    if (data.prep) {
 	                                var prepEvent = data.prep;
@@ -163,7 +168,7 @@ $(document).ready(function() {
 	            }
 	         }).show();
             $("#event_edit_form").validate({rules: {"client_name": {required: true}}});
-			$("input#client_name").autocomplete({source: clients_data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}});
+			$("input#client_name").autocomplete({source: clients_data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}});
 			$("input#client_name").focus();
 			
 
@@ -189,14 +194,14 @@ $(document).ready(function() {
 
          var $dialogContent = $("#event_edit_container");
          resetForm($dialogContent);
-		  <% if own_calendar?(pro, current_pro) -%>
          var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
          var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
-		<% end -%>
          var titleField = $dialogContent.find("input[name='title']").val(calEvent.title);
          var bodyField = $dialogContent.find("textarea[name='body']");
-         <% if own_calendar?(pro, current_pro) -%>
-		 var my_client_name = calEvent.title;
+         var phonePrefix = $dialogContent.find("select[name='client_phone_prefix']").val(calEvent.phone_prefix);
+         var phoneSuffix = $dialogContent.find("input[name='client_phone_suffix']").val(calEvent.phone_suffix);
+         var clientEmail = $dialogContent.find("input[name='client_email']").val(calEvent.email);
+		 var my_client_name = calEvent.client_name;
          var my_client_id = "";
          if (calEvent.client_id !== null){
 	       my_client_id = calEvent.client_id
@@ -205,7 +210,6 @@ $(document).ready(function() {
          var clientField = $dialogContent.find("input[name='client_id']").val(my_client_id);
          <%if pro.has_multiple_booking_types? -%>
          var bookingTypeField = $dialogContent.find("select[name='booking_type_id']").val(calEvent.booking_type_id);
-         <%end -%>
          <%end -%>
          bodyField.val(calEvent.body);
          $dialogContent.dialog({
@@ -219,25 +223,29 @@ $(document).ready(function() {
             buttons: {
                save : function() {
                   if ($("#event_edit_form").valid()) {
-					  <% if own_calendar?(pro, current_pro) -%>
 	                  new_start = new Date(startField.val());
 	                  new_end = new Date(endField.val());
-					  <% end -%>
 	                  if (titleField) {new_title = titleField.val()} else {new_title = ""}
 	                  new_body = bodyField.val();
-					  <% if own_calendar?(pro, current_pro) -%>
 					  new_client_id = clientField.val();
 					  new_client_name = clientFieldName.val();
+                      new_phone_prefix = phonePrefix.val();
+                      new_phone_suffix = phoneSuffix.val();
+                      new_client_email = clientEmail.val();
 					  <%if pro.has_multiple_booking_types? -%>
 					  new_booking_type_id = bookingTypeField.val();
 					  <% end -%>
-					  <% end -%>
-					  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json"<% if own_calendar?(pro, current_pro) -%>, "booking[client_id]": new_client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": new_booking_type_id<%end-%><%end-%>, "booking[name]": new_title, "booking[comment]": new_body, "booking[starts_at]": new_start.toString(), "booking[ends_at]": new_end.toString()}, function(data){
+					  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json", "booking[client_id]": new_client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": new_booking_type_id<%end-%>, "booking[name]": new_title, "booking[client_phone_prefix]": new_phone_prefix, "booking[client_phone_suffix]": new_phone_suffix, "booking[client_email]": new_client_email, "booking[comment]": new_body, "booking[starts_at]": new_start.toString(), "booking[ends_at]": new_end.toString()}, function(data){
 						if ((data.flash.error === undefined) || (data.flash.error === '')) {
 							calEvent.id = data.booking.id;
 							calEvent.title = data.booking.title;
 							calEvent.start = data.booking.start;
 							calEvent.end = data.booking.end;
+							calEvent.client_id = data.booking.client_id;
+							calEvent.client_name = data.booking.client_name;
+							calEvent.email = data.booking.email;
+							calEvent.phone_prefix = data.booking.phone_prefix;
+							calEvent.phone_suffix = data.booking.phone_suffix;
 			                $calendar.weekCalendar("updateEvent", calEvent);
 			             }
 	                    if (data.prep) {
@@ -269,7 +277,7 @@ $(document).ready(function() {
             }
          }).show();
          $("#event_edit_form").validate({debug: true, rules: {client_name: {required: true}}, messages:{client_name: I18n.t("client_is_mandatory")}});
-		 $("input#client_name").autocomplete({source: clients_data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}});
+			$("input#client_name").autocomplete({source: clients_data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}});
          $("input#client_name").focus();
 		
          if (calEvent.needs_warning === true){
@@ -411,34 +419,27 @@ $(document).ready(function() {
 });
 </script><% title pro.calendar_title%>
 <div id="calendar"></div>
-<div id="event_edit_container"> 
+<div id="event_edit_container">	
 	<form id="event_edit_form"> 
-		<% if !own_calendar?(pro, current_pro)-%>
-		<p id="no-cancellation"><span class="warning">Warning!</span> This appointment will happen in the next <%= pro.no_cancellation_period_in_hours%> hours: it can not be changed. If you need to cancel, please call <%=pro.first_name%> on <span class="phone"><%=pro.phone%></span></p>
-		<% end -%>
 		<ul class="event-fields"> 
-			<% if own_calendar?(pro, current_pro)-%>
 			<li> 
 				<label for="start"><%= t(:appointment_start_time)%></label><select name="start"><option value="">Select</option></select>
 				<label for="end"><%= t(:appointment_end_time)%></label><select name="end"><option value="">Select End Time</option></select> 
 			</li> 
-			<% end-%>
 			<li> 
-				<% if own_calendar?(pro, current_pro)-%>
 				<% if pro.has_multiple_booking_types? -%>
 				<label for="booking_type_id"><%= t(:appointment_booking_type)%></label><select name="booking_type_id"><%= current_pro_booking_type_options(current_pro)-%></select>
 			</li> 
 			<li> 
 				<%end -%>
 				<label for="title"><%= t(:appointment_client)%></label><input id="client_id" type="hidden" name="client_id"></input><input id="client_name" type="text" name="client_name"></input>
-				<%else-%>
-				<label for="title"><%= t(:appointment_your_name)%></label><input type="text" name="title"></input>
-				<%end-%>
 			</li> 
 			<li> 
-				<label for="phone" style="display: none"><%= t(:phone)%>:</label><select name="phone_prefix"><%= current_pro_booking_type_options(current_pro)-%></select><input id="phone_suffix" type="text" name="phone_suffix" style="display: none"></input> 
+				<label for="phone"><%= t(:appointment_phone)%>:</label><select id="client_phone_prefix" name="client_phone_prefix"><%= current_pro_phone_prefixes_options(pro)-%></select><input id="client_phone_suffix" type="text" name="client_phone_suffix" size="12"></input>
 			</li> 
-
+			<li> 
+				<label for="email"><%= t(:appointment_email)%>:</label><input id="client_email" type="text" name="client_email" size="20"></input>
+			</li>
 			<li> 
 				<label for="body" style="display: none"><%= t(:appointment_comment)%></label><textarea name="body" style="display: none"></textarea> 
 			</li> 

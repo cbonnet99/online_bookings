@@ -15,18 +15,36 @@ class Client < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :phone_prefix, :phone_suffix, :name
   
   attr_accessor :password
-  before_save :prepare_password, :cleanup_phone
+  before_save :prepare_password
+  before_validation :cleanup_phone
   
   validates_presence_of :email
   validates_uniqueness_of :email, :allow_blank => true
   validates_format_of :email, :with => RE_EMAIL
+  validates_length_of :phone_prefix, :within => 2..3, :allow_nil => true 
   # validates_presence_of :password, :on => :create
   validates_confirmation_of :password
   validates_length_of :password, :minimum => 4, :allow_blank => true
-
-  MOBILE_PREFIXES = ["021", "022", "027", "029"]
-  FIXED_PREFIXES = ["03", "04", "06", "07", "09"]
-  PHONE_PREFIXES = MOBILE_PREFIXES + FIXED_PREFIXES
+  
+  PHONE_SUFFIX_MIN = 7
+  PHONE_SUFFIX_MAX = 12
+  
+  def validate
+    if phone_suffix.blank? && !phone_prefix.blank?
+      errors.add(:phone_suffix, I18n.t(:invalid_phone_number))
+    end
+    if !phone_suffix.blank? && phone_prefix.blank?
+      errors.add(:phone_prefix, I18n.t(:invalid_phone_number))
+    end
+    unless phone_suffix.blank?
+      if phone_suffix.size > PHONE_SUFFIX_MAX
+        errors.add(:phone_suffix, I18n.t(:phone_number_too_long, :max => PHONE_SUFFIX_MAX))
+      end
+      if phone_suffix.size < PHONE_SUFFIX_MIN
+        errors.add(:phone_suffix, I18n.t(:phone_number_too_short, :min => PHONE_SUFFIX_MIN))
+      end
+    end
+  end
   
   def name=(new_name)
     unless new_name.nil?
@@ -67,7 +85,7 @@ class Client < ActiveRecord::Base
   end
 
   def name
-    "#{first_name} #{last_name}"
+    "#{first_name} #{last_name}".strip
   end
 
   def name_and_email
@@ -105,8 +123,20 @@ class Client < ActiveRecord::Base
     "#{phone_prefix}-#{phone_suffix}"
   end
   
+  def mobile_phone_prefixes
+    $mobile_phone_prefixes[country_code.try(:upcase)] || $mobile_phone_prefixes[$default_country_code.upcase()]
+  end
+  
+  def landline_phone_prefixes
+    $landline_phone_prefixes[country_code.try(:upcase)] || $landline_phone_prefixes[$default_country_code.upcase()]
+  end  
+  
+  def phone_prefixes
+    mobile_phone_prefixes + landline_phone_prefixes
+  end
+  
   def has_mobile_phone?
-    MOBILE_PREFIXES.include?(phone_prefix)
+    mobile_phone_prefixes.include?(phone_prefix)
   end
   
   def self.authenticate(login, pass)

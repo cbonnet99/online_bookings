@@ -19,6 +19,7 @@ Factory.define :client do |f|
   f.password "foobar"
   f.password_confirmation { |u| u.password }
   f.sequence(:email) { |n| "foo#{n}@example.com" }
+  f.country_code "NZ"
 end
 
 Factory.define :practitioner do |f|
@@ -35,6 +36,7 @@ Factory.define :practitioner do |f|
   f.sequence(:email) { |n| "foo#{n}@example.com" }
   f.timezone "Wellington"
   f.state "active"
+  f.country_code "NZ"
 end
 
 Factory.define :relation do |b|

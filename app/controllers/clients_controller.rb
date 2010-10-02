@@ -20,7 +20,7 @@ class ClientsController < ApplicationController
       redirect_to edit_client_url(@client)
     else
       flash[:error] = I18n.t(:flash_error_client_error_saving)
-      @phone_prefixes = Client::PHONE_PREFIXES
+      @phone_prefixes = @client.phone_prefixes
       render :action => "edit" 
     end
   end
@@ -38,7 +38,7 @@ class ClientsController < ApplicationController
   
   def edit
     @client = current_client
-    @phone_prefixes = Client::PHONE_PREFIXES
+    @phone_prefixes = @client.phone_prefixes
     session[:return_to] = request.referer
   end
   
@@ -58,7 +58,7 @@ class ClientsController < ApplicationController
     reset_code = params[:reset_code]
     @client = Client.find_by_email(params[:email])
     if reset_code == @client.reset_code
-      @phone_prefixes = Client::PHONE_PREFIXES    
+      @phone_prefixes = @client.phone_prefixes
       flash[:notice] = I18n.t(:flash_notice_client_enter_new_phone)
     else
       flash[:error] = I18n.t(:flash_error_client_problem_reset_code) + "#{APP_CONFIG[:contact_email]}"
@@ -76,7 +76,7 @@ class ClientsController < ApplicationController
         flash[:notice] = I18n.t(:flash_notice_client_update_reset_phone)
       else
         flash[:notice] = I18n.t(:flash_error_client_update_reset_phone)
-        @phone_prefixes = Client::PHONE_PREFIXES    
+        @phone_prefixes = @client.phone_prefixes
         render :action => :reset_phone
       end
     else
@@ -90,7 +90,7 @@ class ClientsController < ApplicationController
       redirect_to edit_client_url(current_client)
     else
       @client = Client.find_by_email(params["login"])
-      @phone_prefixes = Client::PHONE_PREFIXES
+      @phone_prefixes = @client.phone_prefixes
     end
   end
 

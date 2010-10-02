@@ -28,7 +28,7 @@ class Practitioner < ActiveRecord::Base
   # new columns need to be added here to be writable through mass assignment
   attr_accessible :username, :email, :password, :password_confirmation, :working_hours, :working_days, :first_name,
    :last_name, :phone, :no_cancellation_period_in_hours, :working_day_monday, :working_day_tuesday, :working_day_wednesday,
-    :working_day_thursday, :working_day_friday, :working_day_saturday, :working_day_sunday, :timezone
+    :working_day_thursday, :working_day_friday, :working_day_saturday, :working_day_sunday, :timezone, :country_code
   
   attr_accessor :password, :working_day_monday, :working_day_tuesday, :working_day_wednesday, :working_day_thursday,
    :working_day_friday, :working_day_saturday, :working_day_sunday
@@ -68,7 +68,15 @@ class Practitioner < ActiveRecord::Base
   LAST_NAMES = ["Yi", "Aloha", "Jones", "Salvador", "Lanta", "Spaniel", "Humbri", "Lavaur", "Pujol"]
   DOMAINS = ["gmail.com", "test.com", "info.org"]
   BOOKING_STATES = ["unconfirmed", "confirmed" ,"cancelled"]
-
+  
+  def mobile_phone_prefixes
+    $mobile_phone_prefixes[country_code.try(:upcase)] || $mobile_phone_prefixes[$default_country_code.upcase()]
+  end
+  
+  def landline_phone_prefixes
+    $landline_phone_prefixes[country_code.try(:upcase)] || $landline_phone_prefixes[$default_country_code.upcase()]
+  end
+  
   def delete_sample_data!
     if self.test_user?
       self.clients.each do |client|
@@ -85,6 +93,7 @@ class Practitioner < ActiveRecord::Base
   def create_sample_data!(number_clients=30, number_bookings=150)
     if self.test_user?
       clients = []
+      possible_mobile_prefixes = $mobile_phone_prefixes[self.country_code]
       number_clients.times do
         first_name = FIRST_NAMES[rand(FIRST_NAMES.size)]
         last_name = LAST_NAMES[rand(LAST_NAMES.size)]
@@ -98,8 +107,8 @@ class Practitioner < ActiveRecord::Base
         client = Client.find_by_email(email)
         if client.nil?
           #puts "+++++ Creating client #{first_name} #{last_name}"
-          client = Client.new(:first_name => first_name, :last_name => last_name, :phone_prefix  => "06",
-              :phone_suffix => "#{rand(99)} #{rand(99)} #{rand(99)} #{rand(99)}", 
+          client = Client.new(:first_name => first_name, :last_name => last_name, :phone_prefix  => possible_mobile_prefixes[rand(possible_mobile_prefixes.size)],
+              :phone_suffix => "#{rand(9)}#{rand(9)} #{rand(9)}#{rand(9)} #{rand(9)}#{rand(9)} #{rand(9)}#{rand(9)}", 
               :email => email, :password => first_name[0,4], :password_confirmation => first_name[0,4]  )
           client.save!
         else

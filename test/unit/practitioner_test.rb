@@ -6,6 +6,22 @@ class PractitionerTest < ActiveSupport::TestCase
   
   fixtures :all
 
+  def test_phone_prefixes
+    pro = Factory(:practitioner, :country_code => "FR")
+    assert_equal ["06"], pro.mobile_phone_prefixes
+    assert_equal ["01", "02", "03", "04", "05", "07", "08", "09"], pro.landline_phone_prefixes
+
+    pro = Factory(:practitioner, :country_code => "NZ")
+    assert_equal ["021", "022", "027", "029"], pro.mobile_phone_prefixes
+    assert_equal ["03", "04", "06", "07", "09"], pro.landline_phone_prefixes
+
+
+    pro = Factory(:practitioner, :country_code => "")
+    assert_equal ["06"], pro.mobile_phone_prefixes
+    assert_equal ["01", "02", "03", "04", "05", "07", "08", "09"], pro.landline_phone_prefixes
+
+  end
+
   def test_delete_sample_data
     pro = Factory(:practitioner, :state => "test_user")
     pro.create_sample_data!

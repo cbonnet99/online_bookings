@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100930032852) do
+ActiveRecord::Schema.define(:version => 20101001123414) do
 
   create_table "booking_types", :force => true do |t|
     t.string   "title"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20100930032852) do
     t.string   "reset_code",    :limit => 40
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "country_code",  :limit => 2
   end
 
   create_table "delayed_jobs", :force => true do |t|
@@ -101,7 +102,6 @@ ActiveRecord::Schema.define(:version => 20100930032852) do
     t.string   "phone"
     t.boolean  "reminder_night_before"
     t.integer  "no_cancellation_period_in_hours"
-    t.string   "country_code"
     t.boolean  "invite_on_client_book",                         :default => true
     t.boolean  "invite_on_pro_book",                            :default => true
     t.string   "own_time_label"
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(:version => 20100930032852) do
     t.integer  "prep_time_mins",                                :default => 0
     t.string   "timezone",                                      :default => "Wellington"
     t.string   "state"
+    t.string   "country_code",                    :limit => 2
   end
 
   create_table "relations", :force => true do |t|
