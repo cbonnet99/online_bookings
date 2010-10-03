@@ -259,6 +259,7 @@
   client_new_change_link: "change"
   client_new_phone: "Your phone number (preferably a mobile number):"
   client_new_book_button: "Book an appointment"
+  client_email_or_phone_must_not_be_blank: "An email address or a phone number is mandatory"
   #client/new_multiple
   client_new_multiple_title: "Add clients"
   client_new_multiple_message1: "To add clients, simply enter their email addresses below:"
@@ -282,6 +283,7 @@
   phone_number_too_long: "The phone number is too long ({{max}} maximum)"
   phone_number_too_short: "The phone number is too short({{min}} minimum)"
   invalid_phone_number: "Invalid phone number"
+  booking_name_cannot_be_blank: "The name cannot be blank"
   #booking/destroy
   booking_not_in_grace_period: "This appointment cannot be deleted: it can only be cancelled"
   #booking/edit

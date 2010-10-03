@@ -50,6 +50,7 @@ Factory.define :booking do |b|
   b.name {|b| b.client.try(:name) || "Own time"}
   b.starts_at Time.now.beginning_of_day.advance(:hours=>9)
   b.ends_at Time.now.beginning_of_day.advance(:hours=>10)
+  b.sequence(:client_email) { |n| "foo#{n}@test.com" }  
   b.state "new_booking"
 end
 

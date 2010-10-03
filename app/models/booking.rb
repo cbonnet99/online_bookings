@@ -286,6 +286,22 @@ class Booking < ActiveRecord::Base
     booking
   end
 
+  def validate
+    if !client.nil?
+      if name.blank?
+        errors.add(:name, I18n.t(:booking_name_cannot_be_blank))
+      end
+      client.phone_prefix = client_phone_prefix
+      client.phone_suffix = client_phone_suffix
+      client.email = client_email
+      unless client.valid?
+        errors.add(:client_phone_prefix, client.errors[:phone_prefix])
+        errors.add(:client_phone_suffix, client.errors[:phone_suffix])
+        errors.add(:client_email, client.errors[:email])
+      end
+    end
+  end
+
   def save_client_attributes
     if !client.nil?
       if !self.name.blank?

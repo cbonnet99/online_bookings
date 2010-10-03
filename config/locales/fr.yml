@@ -288,6 +288,7 @@ fr:
     client_new_change_link: "Modifier"
     client_new_phone: "Votre téléphone (de préférence un portable):"
     client_new_book_button: "Prendre rendez-vous"
+    client_email_or_phone_must_not_be_blank: "Une adresse email ou un numéro de téléphone est nécessaire"
     #client/new_multiple
     client_new_multiple_title: "Ajouter des clients"
     client_new_multiple_message1: "Pour ajouter des clients, Entrez leurs adresses email ci-dessous:"
@@ -311,6 +312,7 @@ fr:
     phone_number_too_long: "Le numéro de téléphone est trop long ({{max}} maximum)"
     phone_number_too_short: "Le numéro de téléphone est trop court ({{min}} minimum)"
     invalid_phone_number: "Numéro de téléphone incorrect"
+    booking_name_cannot_be_blank: "Le nom ne peut pas être vide"
     #booking/destroy
     booking_not_in_grace_period: "Ce rendez-vous ne peut pas être effacé, il ne peut qu'être annulé"
     #booking/edit

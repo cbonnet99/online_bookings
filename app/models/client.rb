@@ -18,7 +18,6 @@ class Client < ActiveRecord::Base
   before_save :prepare_password
   before_validation :cleanup_phone
   
-  validates_presence_of :email
   validates_uniqueness_of :email, :allow_blank => true
   validates_format_of :email, :with => RE_EMAIL
   validates_length_of :phone_prefix, :within => 2..3, :allow_nil => true 
@@ -30,6 +29,9 @@ class Client < ActiveRecord::Base
   PHONE_SUFFIX_MAX = 12
   
   def validate
+    if email.blank? && phone_prefix.blank? && phone_suffix.blank?
+      errors.add(:email, I18n.t(:client_email_or_phone_must_not_be_blank))
+    end
     if phone_suffix.blank? && !phone_prefix.blank?
       errors.add(:phone_suffix, I18n.t(:invalid_phone_number))
     end
