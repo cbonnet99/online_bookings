@@ -1,4 +1,17 @@
 <script type="text/javascript">
+
+jQuery.validator.addMethod(
+  "selectPhonePrefix",
+  function(value, element) {
+    if (element.value == "none")
+    {
+      return false;
+    }
+    else return true;
+  },
+  "Please select a phone prefix."
+);
+
 $(document).ready(function() {
 
    var $calendar = $('#calendar');
@@ -11,6 +24,30 @@ $(document).ready(function() {
 	var pastEventColor = "#999";
 	var eventTitleNormalColor = "#68A1E5";
 	var eventTitleHoverColor = "#2B72D0";
+
+   var addClientValidation = function() {
+       $("#event_edit_form").validate(
+           {rules:
+              {
+                 client_name: {required: true},
+                 client_phone_prefix: {required: function(){ return ($("input#client_phone_suffix").val() !='')}},
+                 client_phone_suffix: {required: function() {return (($("input#client_email").val() =='') && ($("input#client_phone_suffix").val() ==''))}, rangelength: [7,12]},
+                 client_email: {required: function() {return (($("input#client_email").val() =='') && ($("input#client_phone_suffix").val() ==''))}, email: true}
+               },
+            messages:
+               {
+                 client_name: I18n.t("client_is_mandatory"),
+                 client_phone_prefix: I18n.t("client_phone_prefix_mandatory"),
+                 client_phone_suffix: I18n.t("client_phone_suffix_mandatory"),
+                 client_email:
+                   {
+                     required: I18n.t("client_email_mandatory"),
+                     email: I18n.t("client_email_invalid")
+                   }
+                }
+             }
+         );
+   };
 
    var changeButtonColors = function() {
        $("button:contains('save')").html(I18n.t("button_save")).hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("color", "#090").css("background", "url('/images/green_tick.gif')").css("background-repeat", "no-repeat").css("padding", "5px 5px 5px 30px").css("font-size", "12px");
@@ -167,8 +204,8 @@ $(document).ready(function() {
 	               }
 	            }
 	         }).show();
-            $("#event_edit_form").validate({rules: {"client_name": {required: true}}});
-			$("input#client_name").autocomplete({source: clients_data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}});
+             addClientValidation();
+             $("input#client_name").autocomplete({source: clients_data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}});
 			$("input#client_name").focus();
 			
 
@@ -276,8 +313,15 @@ $(document).ready(function() {
                }
             }
          }).show();
-         $("#event_edit_form").validate({debug: true, rules: {client_name: {required: true}}, messages:{client_name: I18n.t("client_is_mandatory")}});
-			$("input#client_name").autocomplete({source: clients_data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}});
+         addClientValidation();
+         $("input#client_name").autocomplete({source: clients_data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value);
+         $("input#client_name").val(ui.item.label);
+         $("input#client_phone_suffix").val(ui.item.phone_suffix);
+         $("select#client_phone_prefix").val(ui.item.phone_prefix);
+         $("input#client_email").val(ui.item.email); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label);
+         $("input#client_phone_suffix").val(ui.item.phone_suffix);
+         $("select#client_phone_prefix").val(ui.item.phone_prefix);
+         $("input#client_email").val(ui.item.email); return false;}});
          $("input#client_name").focus();
 		
          if (calEvent.needs_warning === true){
