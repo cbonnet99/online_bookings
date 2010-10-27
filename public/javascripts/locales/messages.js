@@ -3,6 +3,7 @@ I18n.translations = {
 	
 	
 	en:{
+	    time_at: "at",
 	    event_confirmed: "Confirmed",
 	    client_email_invalid: "This email address is not valid",
 	    client_email_mandatory: "Please enter the client email address",
@@ -35,6 +36,7 @@ I18n.translations = {
 	       Sun: "Sun",Mon: "Mon",Tue: "Tue",Wed: "Wed",Thu: "Thu",Fri: "Fri",Sat: "Sat"},
 		
 	fr:{
+	    time_at: "à",
 	    event_confirmed: "Confirmé",
 	    client_email_invalid: "Cette adresse email n'est pas valide",
 	    client_email_mandatory: "Veuillez entrer l'adresse email du client",

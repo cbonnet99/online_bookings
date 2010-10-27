@@ -161,6 +161,7 @@ $(document).ready(function() {
 
 	         $dialogContent.dialog({
 	            modal: true,
+				width: '350px',
 	            title: I18n.t("new_appointment"),
 	            close: function() {
 	               $dialogContent.dialog("destroy");
@@ -256,6 +257,7 @@ $(document).ready(function() {
          bodyField.val(calEvent.body);
          $dialogContent.dialog({
             modal: true,
+			width: '350px',
             title: $calendar.weekCalendar("formatDate", calEvent.start),
             close: function() {
                $dialogContent.dialog("destroy");
@@ -334,7 +336,10 @@ $(document).ready(function() {
          }
          else{
            $("#event_confirmed").show();
-           $("#event_confirmed_at").html(calEvent.confirmed_at);
+           var confirmed_date = new Date(calEvent.confirmed_at);
+           var confirmed_date_str = $calendar.weekCalendar("formatDate", confirmed_date);
+           var confirmed_time_str = $calendar.weekCalendar("formatTime", confirmed_date);
+           $("#event_confirmed_at").html(confirmed_date_str + " " + I18n.t("time_at") + " " + confirmed_time_str);
          };
          if (calEvent.needs_warning === true){
            $("#event_unconfirmed_warning").show();
@@ -483,7 +488,7 @@ $(document).ready(function() {
 <div id="event_edit_container">	
 	<form id="event_edit_form"> 
 		<ul class="event-icons">
-			<li id="event_confirmed"><%= t(:confirmed, :scope => [:event_window])%> <span id="event_confirmed_at">bla</span></li>
+			<li id="event_confirmed"><%= t(:confirmed, :scope => [:event_window])%> <span id="event_confirmed_at"></span></li>
 			<li id="event_unconfirmed_warning"><%= t(:unconfirmed_warning, :scope => [:event_window])%></li>
 			<li id="event_locked"><%= t(:locked, :scope => [:event_window])%></li>			
 		</ul>
@@ -494,20 +499,20 @@ $(document).ready(function() {
 			</li> 
 			<li> 
 				<% if pro.has_multiple_booking_types? -%>
-				<label for="booking_type_id"><%= t(:appointment_booking_type)%></label><select name="booking_type_id"><%= current_pro_booking_type_options(current_pro)-%></select>
+				<label for="booking_type_id"><%= t(:appointment_booking_type)%></label><br/><select name="booking_type_id"><%= current_pro_booking_type_options(current_pro)-%></select>
 			</li> 
 			<li> 
 				<%end -%>
-				<label for="title"><%= t(:appointment_client)%></label><input id="client_id" type="hidden" name="client_id"></input><input id="client_name" type="text" name="client_name"></input>
+				<label for="title"><%= t(:appointment_client)%></label><br/><input id="client_id" type="hidden" name="client_id"></input><input id="client_name" type="text" name="client_name"></input>
 			</li> 
 			<li> 
-				<label for="phone"><%= t(:appointment_phone)%>:</label><select id="client_phone_prefix" name="client_phone_prefix"><%= current_pro_phone_prefixes_options(pro)-%></select><input id="client_phone_suffix" type="text" name="client_phone_suffix" size="12"></input>
+				<label for="phone"><%= t(:appointment_phone)%>:</label><br/><select id="client_phone_prefix" name="client_phone_prefix"><%= current_pro_phone_prefixes_options(pro)-%></select><input id="client_phone_suffix" type="text" name="client_phone_suffix" size="12"></input>
 			</li> 
 			<li> 
-				<label for="email"><%= t(:appointment_email)%>:</label><input id="client_email" type="text" name="client_email" size="20"></input>
+				<label for="email"><%= t(:appointment_email)%>:</label><br/><input id="client_email" type="text" name="client_email" size="20"></input>
 			</li>
 			<li> 
-				<label for="body" style="display: none"><%= t(:appointment_comment)%></label><textarea name="body" style="display: none"></textarea> 
+				<label for="body" style="display: none"><%= t(:appointment_comment)%><br/></label><textarea name="body" style="display: none"></textarea> 
 			</li> 
 		</ul> 
 	</form> 
