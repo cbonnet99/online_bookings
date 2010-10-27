@@ -2,6 +2,39 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class BookingTest < ActiveSupport::TestCase  
 
+  def test_reminder_will_be_sent_at
+    pro = Factory(:practitioner)
+    Time.zone = pro.timezone
+    booking = Factory(:booking, :practitioner => pro, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now, :state => "new_booking")
+    assert_not_nil booking.reminder_will_be_sent_at, "A new booking in the future: a reminder should be sent"
+
+    booking = Factory(:booking, :practitioner => pro, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now, :state => "confirmed")
+    assert_nil booking.reminder_will_be_sent_at, "An already confirmed booking in the future: a reminder should NOT be sent"
+
+    booking = Factory(:booking, :practitioner => pro, :starts_at => 2.hours.ago, :ends_at => 3.hours.ago, :state => "new_booking")
+    booking.reminders.last.update_attribute(:sent_at, Time.zone.now)
+    assert_nil booking.reminder_will_be_sent_at, "A new booking in the past: a reminder should already have been sent"
+  end
+
+  def test_reminder_was_sent_at
+    pro = Factory(:practitioner)
+    Time.zone = pro.timezone
+    booking = Factory(:booking, :practitioner => pro, :starts_at => 2.hours.ago, :ends_at => 3.hours.ago, :state => "confirmed")
+    reminder = booking.last_reminder
+    reminder.update_attribute(:sent_at, Time.now)
+    reminder.reload
+    assert_not_nil booking.reminder_was_sent_at, "A confirmed booking in the past, with a reminder that was sent (sent at is not null): it should have a was sent at date"
+
+    booking = Factory(:booking, :practitioner => pro, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now, :state => "new_booking")
+    assert_nil booking.reminder_was_sent_at
+  end
+
+  def test_reminders
+    booking = Factory(:booking, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now, :state => "new_booking")
+    reminders = booking.reminders
+    assert_equal 1, reminders.size
+  end
+
   def test_needs_warning
     booking = Factory(:booking, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now, :state => "new_booking")
     assert booking.needs_warning?
@@ -98,7 +131,15 @@ class BookingTest < ActiveSupport::TestCase
     ics = bookings(:cyrille_sav).to_ics
     # puts "======= ics: #{ics}"
   end
-  def test_to_json
+  
+  def test_to_json_confirmed
+    booking = Factory(:booking, :confirmed_at  => 2.hours.ago)
+    json = booking.to_json
+    assert_match %r{"confirmed_at":"(.*)"}, json
+    
+  end
+  
+  def test_to_json_unconfirmed
     json = bookings(:cyrille_sav).to_json
     # puts "===== json: #{json}"
     assert_match %r{"id":}, json
@@ -113,7 +154,9 @@ class BookingTest < ActiveSupport::TestCase
     assert_match %r{"email":}, json
     assert_match %r{"readOnly":}, json
     assert_match %r{"client_name":}, json
+    
     assert_no_match %r{"name":}, json
     assert_no_match %r{"booking":}, json
+    assert_no_match %r{"confirmed_at":"(.*)"}, json
   end
 end

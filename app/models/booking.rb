@@ -12,6 +12,10 @@ class NonWorkingBooking
     (@end_time - @start_time)/60
   end
   
+  def to_s
+    "Not working on #{start_time.strftime("%a %d %b %Y")} from #{start_time.strftime("%H:%M")} to #{end_time.strftime("%H:%M")}"
+  end  
+  
   def to_json(options={})
     %({"id": "#{@id}", "title": "#{@title}", "start": "#{@start_time.iso8601}", "end": "#{@end_time.iso8601}", "readOnly": #{@read_only}, "state": ""})
   end
@@ -38,7 +42,7 @@ class Booking < ActiveRecord::Base
   belongs_to :client
   has_many :user_emails, :dependent => :delete_all
   belongs_to :booking_type
-  has_many :reminders, :dependent => :delete_all
+  has_many :reminders, :order => "sending_at", :dependent => :delete_all
 
   validates_presence_of :practitioner, :starts_at, :ends_at, :client
   
@@ -71,6 +75,18 @@ class Booking < ActiveRecord::Base
 
   aasm_event :cancel do
     transitions :from => [:new_booking, :confirmed], :to => :cancelled
+  end
+  
+  def to_s
+    "#{client.name} at #{practitioner.name} on #{starts_at}"
+  end
+  
+  def last_reminder
+    reminders.try(:last)
+  end
+  
+  def last_reminder_sending_at
+    last_reminder.try(:sending_at)
   end
   
   def set_confirmed_at
@@ -291,9 +307,9 @@ class Booking < ActiveRecord::Base
       if name.blank?
         errors.add(:name, I18n.t(:booking_name_cannot_be_blank))
       end
-      client.phone_prefix = client_phone_prefix
-      client.phone_suffix = client_phone_suffix
-      client.email = client_email
+      client.phone_prefix = client_phone_prefix unless client_phone_prefix.blank?
+      client.phone_suffix = client_phone_suffix unless client_phone_suffix.blank?
+      client.email = client_email unless client_email.blank?
       unless client.valid?
         errors.add(:client_phone_prefix, client.errors[:phone_prefix])
         errors.add(:client_phone_suffix, client.errors[:phone_suffix])
@@ -375,8 +391,34 @@ class Booking < ActiveRecord::Base
     client.try(:name)
   end
   
+  def needs_reminder_sent?
+    Time.zone = self.practitioner.timezone
+    return self.new_booking? && !last_reminder.nil? && last_reminder.sent_at.nil?
+  end
+  
+  def reminder_will_be_sent_at
+    if needs_reminder_sent?
+      return last_reminder_sending_at
+    else
+      nil
+    end
+  end
+  
+  def reminder_was_sent_at
+    unless last_reminder.nil?
+      if self.confirmed? && !last_reminder.sent_at.nil?
+        Time.zone = self.practitioner.timezone
+        if !last_reminder.sent_at.nil?
+          return last_reminder.sent_at
+        else
+          nil
+        end
+      end
+    end
+  end
+  
   def to_json(options={})
-    super options.merge(:only => [:id, :client_id, :booking_type_id], :methods => [:client_name, :phone_prefix, :phone_suffix, :email, :locked, :title, :start, :end, :readOnly, :state, :needs_warning, :errors])
+    super options.merge(:only => [:id, :client_id, :booking_type_id, :confirmed_at], :methods => [:client_name, :phone_prefix, :phone_suffix, :email, :locked, :title, :start, :end, :readOnly, :state, :needs_warning, :errors, :reminder_was_sent_at, :reminder_will_be_sent_at])
   end
 
   def needs_warning

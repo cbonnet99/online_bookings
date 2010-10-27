@@ -104,6 +104,10 @@
       odd: "must be odd"
       even: "must be even"
    
+  event_window:
+      confirmed: Confirmed
+      unconfirmed_warning: This appointment has not been confirmed
+      locked: This appointment cannot be modified
    #weekday
   monday: "monday"
   tuesday: "tuesday"

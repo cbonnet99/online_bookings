@@ -256,12 +256,13 @@ class PractitionerTest < ActiveSupport::TestCase
 
   def test_all_bookings
     megan = Factory(:practitioner, :working_days => "4,5")
+    Time.zone = megan.timezone
     cyrille = Factory(:client, :first_name => "Cyrille", :last_name => "Bonnet")
     k = Factory(:client, :first_name => "Ms", :last_name => "K")
     booking1 = Factory(:booking, :client => cyrille, :practitioner => megan)
     booking2 = Factory(:booking, :client => k, :practitioner => megan )
     booking_cancelled = Factory(:booking, :state => "cancelled",  :client => k, :practitioner => megan )
-    megan_bookings = megan.all_bookings(cyrille, Time.now.beginning_of_week.to_f, Time.now.end_of_week.to_f)
+    megan_bookings = megan.all_bookings(cyrille, Time.zone.now.beginning_of_week.to_f, Time.zone.now.end_of_week.to_f)
     assert megan_bookings.is_a?(Enumerable)
     assert_equal 7, megan_bookings.size, "Megan bookings seen by Cyrille are: #{megan_bookings.inspect}"
     cyrille_booking = megan_bookings.select{|b| b.is_a?(Booking) && b.client_id == cyrille.id}.first

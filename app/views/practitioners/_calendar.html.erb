@@ -15,15 +15,15 @@ jQuery.validator.addMethod(
 $(document).ready(function() {
 
    var $calendar = $('#calendar');
-   	var mylocal = '<%=  I18n.locale %>' ;
-	I18n.locale = mylocal;
-	var id = 10;
+   var mylocal = '<%=  I18n.locale %>' ;
+   I18n.locale = mylocal;
+   var id = 10;
 	
-	//colors
-	var eventTimeNormalColor = "#2B72D0";
-	var pastEventColor = "#999";
-	var eventTitleNormalColor = "#68A1E5";
-	var eventTitleHoverColor = "#2B72D0";
+   //colors
+   var eventTimeNormalColor = "#2B72D0";
+   var pastEventColor = "#999";
+   var eventTitleNormalColor = "#68A1E5";
+   var eventTitleHoverColor = "#2B72D0";
 
    var addClientValidation = function() {
        $("#event_edit_form").validate(
@@ -99,15 +99,20 @@ $(document).ready(function() {
       height : function($calendar) {
          return $(window).height() - $("h1").outerHeight() - 1;
       },
+      eventAfterRender : function(calEvent, $event) {
+        if ((calEvent.end.getTime() < (new Date().getTime())) || calEvent.readOnly) {
+           /* don't do anything for past events*/
+        }
+        else {
+		  if (calEvent.state === "confirmed") {
+			$event.find(".wc-time").append(" <img src='/images/confirmed-small.jpg'/>");
+		  };
+		  if (calEvent.needs_warning === true) {
+			$event.find(".wc-time").append(" <img src='/images/unconfirmed_warning.png'/>");
+		  }
+        }
+      },
       eventRender : function(calEvent, $event) {
-		<% if own_calendar?(pro, current_pro) -%>
-		if (calEvent.state === "confirmed") {
-            $event.css("backgroundColor", "#0C6")
-		}
-		if (calEvent.needs_warning === true) {
-            $event.css("backgroundColor", "#bf0000");			
-		}
-		<%end -%>
         if ((calEvent.end.getTime() < (new Date().getTime())) || calEvent.readOnly) {
 			$event.css("cursor", "default");
             $event.css("backgroundColor", "#aaa");
@@ -323,13 +328,25 @@ $(document).ready(function() {
          $("select#client_phone_prefix").val(ui.item.phone_prefix);
          $("input#client_email").val(ui.item.email); return false;}});
          $("input#client_name").focus();
-		
-         if (calEvent.needs_warning === true){
-	       $("#no-cancellation").css("display", "block");
-           $("button:contains('delete')").css("display", "none");
-         } else {
-	         $("#no-cancellation").css("display", "none");	      
+
+         if ((calEvent.confirmed_at === null) || (calEvent.confirmed_at === '')){
+           $("#event_confirmed").hide();
+         }
+         else{
+           $("#event_confirmed").show();
+           $("#event_confirmed_at").html(calEvent.confirmed_at);
          };
+         if (calEvent.needs_warning === true){
+           $("#event_unconfirmed_warning").show();
+         } else {
+           $("#event_unconfirmed_warning").hide();	
+         };
+         if (calEvent.locked === true){
+           $("#event_locked").show();
+         }
+         else{
+           $("#event_locked").hide();
+         }
 
          var startField2 = $dialogContent.find("select[name='start']").val(calEvent.start);
          var endField2 = $dialogContent.find("select[name='end']").val(calEvent.end);
@@ -465,6 +482,11 @@ $(document).ready(function() {
 <div id="calendar"></div>
 <div id="event_edit_container">	
 	<form id="event_edit_form"> 
+		<ul class="event-icons">
+			<li id="event_confirmed"><%= t(:confirmed, :scope => [:event_window])%> <span id="event_confirmed_at">bla</span></li>
+			<li id="event_unconfirmed_warning"><%= t(:unconfirmed_warning, :scope => [:event_window])%></li>
+			<li id="event_locked"><%= t(:locked, :scope => [:event_window])%></li>			
+		</ul>
 		<ul class="event-fields"> 
 			<li> 
 				<label for="start"><%= t(:appointment_start_time)%></label><select name="start"><option value="">Select</option></select>

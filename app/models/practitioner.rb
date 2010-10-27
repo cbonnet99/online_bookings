@@ -106,19 +106,18 @@ class Practitioner < ActiveRecord::Base
         email = "#{first_name}.#{last_name}@#{DOMAINS[rand(DOMAINS.size)]}"
         client = Client.find_by_email(email)
         if client.nil?
-          #puts "+++++ Creating client #{first_name} #{last_name}"
-          client = Client.new(:first_name => first_name, :last_name => last_name, :phone_prefix  => possible_mobile_prefixes[rand(possible_mobile_prefixes.size)],
-              :phone_suffix => "#{rand(9)}#{rand(9)} #{rand(9)}#{rand(9)} #{rand(9)}#{rand(9)} #{rand(9)}#{rand(9)}", 
+          rand_phone_prefix = possible_mobile_prefixes[rand(possible_mobile_prefixes.size)]
+          rand_phone_suffix = "#{rand(9)}#{rand(9)} #{rand(9)}#{rand(9)} #{rand(9)}#{rand(9)} #{rand(9)}#{rand(9)}"
+          # puts "+++++ Creating client #{first_name} #{last_name} with email: #{email} and phone: (#{rand_phone_prefix}) #{rand_phone_suffix}"
+          client = Client.new(:first_name => first_name, :last_name => last_name, :phone_prefix  => rand_phone_prefix,
+              :phone_suffix => rand_phone_suffix, 
               :email => email, :password => first_name[0,4], :password_confirmation => first_name[0,4]  )
           client.save!
-        else
-          #puts "===== Using existing client #{first_name} #{last_name}"        
         end
         clients << client
       end
     
       wd_as_numbers = self.working_days_as_numbers
-      
       #appointments in the past
       number_bookings.times do
         days_ago = rand(200)
@@ -131,13 +130,13 @@ class Practitioner < ActiveRecord::Base
         start_hour = rand(10)+8
         starts_at = DateTime.strptime("#{date.strftime('%d/%m/%Y')} #{start_hour}:00 CEST", "%d/%m/%Y %H:%M %Z")
         client = clients[rand(clients.size)]
-        booking = Booking.new(:client => client, :practitioner => self, :name => client.name, 
-            :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => BOOKING_STATES[rand(BOOKING_STATES.size)])
+        # puts "+++++ Creating past booking at #{starts_at} for client #{client.name}, email: #{client.email}, phone: (#{client.phone_prefix}) #{client.phone_suffix}"
+        booking = Booking.new(:client => client, :practitioner => self, :name => client.name, :client_phone_prefix => client.phone_prefix, 
+            :client_phone_suffix => client.phone_suffix, :client_email => client.email, :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => BOOKING_STATES[rand(BOOKING_STATES.size)])
         booking.save!
         if rand(100) < 50
           booking.confirm!
         end
-        #puts "+++++ Creating past booking at #{starts_at} for client #{client.name}"
       end
     
       #appointments in the future
@@ -157,7 +156,7 @@ class Practitioner < ActiveRecord::Base
         if rand(100) < 30
           booking.confirm!
         end
-        #puts "+++++ Creating future booking at #{starts_at} for client #{client.name}"
+        # puts "+++++ Creating future booking at #{starts_at} for client #{client.name}"
       end
     else
       raise CantCreateSampleDataOnNonTestProException

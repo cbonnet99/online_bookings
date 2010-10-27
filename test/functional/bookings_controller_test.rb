@@ -501,6 +501,7 @@ class BookingsControllerTest < ActionController::TestCase
 
   def test_create_pro_no_invite
     sav = practitioners(:sav)
+    Time.zone = sav.timezone
     sav.update_attribute(:invite_on_pro_book, false)
     sav.reload
     cyrille = clients(:cyrille)
@@ -509,8 +510,8 @@ class BookingsControllerTest < ActionController::TestCase
     sav_one_hour = booking_types(:sav_one_hour)
     post :create, {:practitioner_id => sav.permalink, :format => "json",
       :booking => {:name => "undefined", :client_id => cyrille.id, :comment => "I'll be on time", :booking_type => sav_one_hour, 
-      :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}",
-      :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
+      :starts_at => "#{Time.zone.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}",
+      :ends_at => "#{Time.zone.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
       {:pro_id => sav.id }
     assert_response :success
     # puts @response.body
@@ -544,22 +545,28 @@ class BookingsControllerTest < ActionController::TestCase
   end
 
   def test_index_json
-    get :index, {:practitioner_id => practitioners(:sav).permalink, :format => "json", :start => Time.now.beginning_of_week, :end => Time.now.end_of_week}, {:client_id => clients(:cyrille).id }
+    pro = practitioners(:sav)
+    Time.zone = pro.timezone
+    get :index, {:practitioner_id => pro.permalink, :format => "json", :start => Time.zone.now.beginning_of_week, :end => Time.zone.now.end_of_week}, {:client_id => clients(:cyrille).id }
     # puts @response.body
     assert_valid_json(@response.body)
-    assert_equal 17, assigns(:bookings).size, "Sav should have 0 booking, 6 slots on 2 working days (for 12 bookings) and 5 non-working days, but bookings are: #{assigns(:bookings).to_json}"
+    assert_equal 17, assigns(:bookings).size, "Sav should have 0 booking, 6 slots on 2 working days (for 12 bookings) and 5 non-working days, but bookings are: #{assigns(:bookings).to_sentence}"
     assert_match(/state/, @response.body)
   end
 
   def test_index_sav_self
-    get :index, {:practitioner_id => practitioners(:sav).permalink, :format => "json", :start => Time.now.beginning_of_week, :end => Time.now.end_of_week}, {:pro_id => practitioners(:sav).id }
+    pro = practitioners(:sav)
+    Time.zone = pro.timezone
+    get :index, {:practitioner_id => pro.permalink, :format => "json", :start => Time.zone.now.beginning_of_week, :end => Time.zone.now.end_of_week}, {:pro_id => practitioners(:sav).id }
     # puts @response.body
     assert_valid_json(@response.body)
     assert_equal 17, assigns(:bookings).size, "Sav should have 0 booking, 6 slots on 2 working days (for 12 bookings) and 5 non-working days, but bookings are: #{assigns(:bookings).to_json}"
   end
 
   def test_index_megan_next_week
-    get :index, {:practitioner_id => practitioners(:megan).permalink, :format => "json", :start => Time.now.end_of_week, :end => Time.now.end_of_week.advance(:days => 7 )}, {:client_id => clients(:cyrille).id }
+    pro = practitioners(:megan)
+    Time.zone = pro.timezone
+    get :index, {:practitioner_id => pro.permalink, :format => "json", :start => Time.zone.now.end_of_week, :end => Time.zone.now.end_of_week.advance(:days => 7 )}, {:client_id => clients(:cyrille).id }
     # puts @response.body
     assert_valid_json(@response.body)
     assert_equal 7, assigns(:bookings).size, "Megan should have 2 bookings and 5 non-working days, but bookings are: #{assigns(:bookings).to_json}"
@@ -568,14 +575,18 @@ class BookingsControllerTest < ActionController::TestCase
   end
 
   def test_index_next_week
-    get :index, {:practitioner_id => practitioners(:sav).permalink, :format => "json", :start => Time.now.end_of_week, :end => Time.now.end_of_week.advance(:days => 7 )}, {:client_id => clients(:cyrille).id }
+    pro = practitioners(:sav)
+    Time.zone = pro.timezone
+    get :index, {:practitioner_id => pro.permalink, :format => "json", :start => Time.zone.now.end_of_week, :end => Time.zone.now.end_of_week.advance(:days => 7 )}, {:client_id => clients(:cyrille).id }
     # puts @response.body
     assert_valid_json(@response.body)
     assert_equal 18, assigns(:bookings).size, "Sav should have 1 booking, 6 slots on 2 working days (for 12 bookings) and 5 non-working day, but bookings are: #{assigns(:bookings).to_json}"
   end  
 
   def test_index_sav_own_next_week
-    get :index, {:practitioner_id => practitioners(:sav).permalink, :format => "json", :start => Time.now.end_of_week, :end => Time.now.end_of_week.advance(:days => 7 )}, {:pro_id => practitioners(:sav).id }
+    pro = practitioners(:sav)
+    Time.zone = pro.timezone
+    get :index, {:practitioner_id => pro.permalink, :format => "json", :start => Time.zone.now.end_of_week, :end => Time.zone.now.end_of_week.advance(:days => 7 )}, {:pro_id => practitioners(:sav).id }
     # puts @response.body
     assert_valid_json(@response.body)
     assert_equal 18, assigns(:bookings).size, "Sav should have 1 booking, 6 slots on 2 working days (for 12 bookings) and 5 non-working day, but bookings are: #{assigns(:bookings).to_json}"

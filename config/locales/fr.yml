@@ -113,6 +113,12 @@ fr:
 
     activerecord:
       errors:
+        models:
+          booking:
+            attributes:
+              client_email: "L'adresse email de votre client"
+              client_phone_prefix: "Le préfixe du numéro de téléphone de votre client"
+              client_phone_suffix: "Le suffixe du numéro de téléphone de votre client"
         template:
           header: 
             one: "Impossible d'enregistrer {{model}}: 1 erreur"
@@ -139,6 +145,11 @@ fr:
           odd: "doit être impair"
           even: "doit être pair"
           record_invalid: "La validation a échoué : {{errors}}"
+          
+    event_window:
+        confirmed: Confirmé
+        unconfirmed_warning: Ce RV n'a pas été confirmé
+        locked: Ce RV ne peut pas être modifié
   #weekday
     monday: "lundi"
     tuesday: "mardi"

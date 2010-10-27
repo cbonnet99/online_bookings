@@ -1,3 +1,8 @@
+ul.event-icons {padding: 0;}
+ul.event-icons li {list-style: none;}
+ul.event-icons li#event_unconfirmed_warning {background: url('../images/confirmed-small.jpg') no-repeat; padding-left: 20px;}
+ul.event-icons li#event_unconfirmed_warning {background: url('../images/unconfirmed_warning.jpg') no-repeat; padding-left: 20px;}
+ul.event-icons li#event_locked {background: url('../images/lock-small.png') no-repeat; padding-left: 20px;}
 option.mobile{font-weight:bold;}
 label.error{font-size: small; font-weight: bold; color: #c00;}
 input.error{background-color: #fcc;}

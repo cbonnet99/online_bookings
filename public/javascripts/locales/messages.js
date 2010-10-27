@@ -3,6 +3,7 @@ I18n.translations = {
 	
 	
 	en:{
+	    event_confirmed: "Confirmed",
 	    client_email_invalid: "This email address is not valid",
 	    client_email_mandatory: "Please enter the client email address",
 	    client_phone_suffix_mandatory: "Please select a full phone number",    
@@ -34,6 +35,7 @@ I18n.translations = {
 	       Sun: "Sun",Mon: "Mon",Tue: "Tue",Wed: "Wed",Thu: "Thu",Fri: "Fri",Sat: "Sat"},
 		
 	fr:{
+	    event_confirmed: "Confirmé",
 	    client_email_invalid: "Cette adresse email n'est pas valide",
 	    client_email_mandatory: "Veuillez entrer l'adresse email du client",
 	    client_phone_suffix_mandatory: "Veuillez choisir un numéro de téléphone complet",
