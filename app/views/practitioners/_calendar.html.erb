@@ -330,8 +330,7 @@ $(document).ready(function() {
          $("select#client_phone_prefix").val(ui.item.phone_prefix);
          $("input#client_email").val(ui.item.email); return false;}});
          $("input#client_name").focus();
-
-         if ((calEvent.confirmed_at === null) || (calEvent.confirmed_at === '')){
+         if ((calEvent.confirmed_at === null) || (calEvent.confirmed_at === '') || (calEvent.confirmed_at === undefined)){
            $("#event_confirmed").hide();
          }
          else{
@@ -503,13 +502,13 @@ $(document).ready(function() {
 			</li> 
 			<li> 
 				<%end -%>
-				<label for="title"><%= t(:appointment_client)%></label><br/><input id="client_id" type="hidden" name="client_id"></input><input id="client_name" type="text" name="client_name"></input>
+				<label for="title"><%= t(:appointment_client)%></label><br/><input id="client_id" type="hidden" name="client_id"></input><input id="client_name" type="text" name="client_name" size="30"></input>
 			</li> 
 			<li> 
 				<label for="phone"><%= t(:appointment_phone)%>:</label><br/><select id="client_phone_prefix" name="client_phone_prefix"><%= current_pro_phone_prefixes_options(pro)-%></select><input id="client_phone_suffix" type="text" name="client_phone_suffix" size="12"></input>
 			</li> 
 			<li> 
-				<label for="email"><%= t(:appointment_email)%>:</label><br/><input id="client_email" type="text" name="client_email" size="20"></input>
+				<label for="email"><%= t(:appointment_email)%>:</label><br/><input id="client_email" type="text" name="client_email" size="30"></input>
 			</li>
 			<li> 
 				<label for="body" style="display: none"><%= t(:appointment_comment)%><br/></label><textarea name="body" style="display: none"></textarea> 
