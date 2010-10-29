@@ -3,6 +3,7 @@ I18n.translations = {
 	
 	
 	en:{
+	    sorry_server: "Our apologies but we cannot contact the server: maybe your Internet connection is not working or your browser is set to work offline?",
 	    time_at: "at",
 	    event_confirmed: "Confirmed",
 	    client_email_invalid: "This email address is not valid",
@@ -36,6 +37,7 @@ I18n.translations = {
 	       Sun: "Sun",Mon: "Mon",Tue: "Tue",Wed: "Wed",Thu: "Thu",Fri: "Fri",Sat: "Sat"},
 		
 	fr:{
+	    sorry_server: "Nous vous présentons nos excuses, mais nous ne pouvons pas contacter le serveur: peut-être que votre connection Internet ne fonctionne pas ou votre navigateur est en mode hors-ligne?",
 	    time_at: "à",
 	    event_confirmed: "Confirmé",
 	    client_email_invalid: "Cette adresse email n'est pas valide",
