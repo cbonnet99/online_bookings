@@ -202,6 +202,8 @@ fr:
     flash_error_authentication_not_authent_client : "Vous n'êtes pas authentifié(e)"
     flash_error_authentication_must_be_logged : "Vous devez être connecté(e) pour pouvoir afficher cette page"
     #booking
+    cancellation_text: "Bonjour,<br/><br/>Votre rendez-vous avec {{pro_name}} {{start_date_and_time_str}} a été annulé.<br/><br/>Si vous avez des questions, vous pouvez contacter {{pro_name}} au: {{pro_phone}}.<br/><br/>{{signature}},<br/>{{pro_name}}"
+    signature: "Cordialement"
     flash_notice_booking_appointment_booked : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} a été enregistré"
     flash_error_booking_invalid_appointment : "Ce rendez-vous n'est pas valide"
     flash_error_booking_cannot_be_cancelled : "Ce rendez-vous ne peut pas être annulé"

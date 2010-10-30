@@ -2,6 +2,12 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class BookingTest < ActiveSupport::TestCase  
 
+  def test_cancellation_text
+    b = Factory(:booking)
+    assert_not_nil b.cancellation_text
+    # assert_match %r{}, b.cancellation_text
+  end
+
   def test_reminder_will_be_sent_at
     pro = Factory(:practitioner)
     Time.zone = pro.timezone
@@ -70,10 +76,18 @@ class BookingTest < ActiveSupport::TestCase
     assert_equal old_size-1, Reminder.all.size
   end  
 
-  def test_cancel
+  def test_cancel_by_client
     booking = Factory(:booking)
     assert_equal 1, booking.reminders.size
-    booking.cancel!
+    booking.client_cancel!
+    booking.reload
+    assert_equal 0, booking.reminders.size    
+  end
+
+  def test_cancel_by_pro
+    booking = Factory(:booking)
+    assert_equal 1, booking.reminders.size
+    booking.pro_cancel!
     booking.reload
     assert_equal 0, booking.reminders.size    
   end

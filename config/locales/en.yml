@@ -162,6 +162,8 @@
   flash_error_authentication_not_authent_client : "Not authenticated as a client"
   flash_error_authentication_must_be_logged : "You must be logged in to see this page"
   #booking
+  cancellation_text: "Dear {{client_name}},<br/><br/>Your appointment with {{pro_name}} {{start_date_and_time_str}} has been cancelled.<br/><br/>If you have any questions, please contact {{pro_name}} at: {{pro_phone}}.<br/><br/>{{signature}},<br/>{{pro_name}}"  
+  signature: "Best regards"
   flash_notice_booking_appointment_booked : "Your appointment with {{booking_partner}} on {{booking_date}} at {{booking_time}} has been booked"
   flash_error_booking_invalid_appointment : "This appointment is invalid"
   flash_error_booking_cannot_be_cancelled : "This appointment cannot be cancelled"

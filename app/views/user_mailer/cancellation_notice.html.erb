@@ -1,7 +1,1 @@
-Dear <%= @booking.client.first_name%>,<br/>
-<br/>
-Your appointment with <%= @booking.practitioner.name%> <%=@booking.start_date_and_time_str%> has been cancelled.<br/>
-<br/>
-Please contact <%= @booking.practitioner.name%> on: <%= @booking.practitioner.phone%> if you have any more questions.<br/>
-<br/>
-<%= render :partial => "signature" %>
+<%= @cancellation_text%>

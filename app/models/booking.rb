@@ -67,18 +67,27 @@ class Booking < ActiveRecord::Base
 
   aasm_state :new_booking
   aasm_state :confirmed, :enter => [:remove_reminders, :set_confirmed_at]
-  aasm_state :cancelled, :enter => [:remove_reminders, :send_cancellation_notice]
+  aasm_state :cancelled_by_client, :enter => [:remove_reminders]
+  aasm_state :cancelled_by_pro, :enter => [:remove_reminders]
     
   aasm_event :confirm do
     transitions :from => :new_booking, :to => :confirmed
   end
 
-  aasm_event :cancel do
-    transitions :from => [:new_booking, :confirmed], :to => :cancelled
+  aasm_event :client_cancel do
+    transitions :from => [:new_booking, :confirmed], :to => :cancelled_by_client
+  end
+  
+  aasm_event :pro_cancel do
+    transitions :from => [:new_booking, :confirmed], :to => :cancelled_by_pro
   end
   
   def to_s
     "#{client.name} at #{practitioner.name} on #{starts_at}"
+  end
+  
+  def cancellation_text
+    I18n.t(:cancellation_text, :client_name => client.try(:first_name), :pro_name => practitioner.try(:name), :pro_phone => practitioner.try(:phone), :start_date_and_time_str  => start_date_and_time_str, :signature => I18n.t(:signature))
   end
   
   def last_reminder
@@ -91,13 +100,6 @@ class Booking < ActiveRecord::Base
   
   def set_confirmed_at
     self.update_attribute(:confirmed_at, Time.now)
-  end
-  
-  def send_cancellation_notice
-    unless self.in_grace_period?
-      UserEmail.create(:to => self.client.email, :from => APP_CONFIG[:from_email], :client => self.client, :practitioner => self.practitioner,
-       :subject => I18n.t(:your_booking_was_cancelled, :pro_name => self.practitioner.name), :email_type => UserEmail::CANCELLATION_NOTICE, :delay_mins => 0)
-    end
   end
   
   def check_in_grace_period

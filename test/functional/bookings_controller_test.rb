@@ -15,40 +15,52 @@ class BookingsControllerTest < ActionController::TestCase
     assert_not_nil booking.confirmed_at
   end
 
-  def test_cancel
-    mail_size = UserEmail.all.size
+  def test_client_cancel
+    old_mail_size = ActionMailer::Base.deliveries.size    
     booking = Factory(:booking)
     assert booking.new_booking?
     assert_not_nil booking.confirmation_code
-    post :cancel, {:id => booking.id, :confirmation_code => booking.confirmation_code}
+    post :client_cancel, {:id => booking.id, :confirmation_code => booking.confirmation_code}
     assert_response :success
     booking.reload
-    assert booking.cancelled?
-    assert_equal mail_size, UserEmail.all.size, "No email should have been sent, as this booking is still in its grace period"
+    assert booking.cancelled_by_client?
+    assert_equal old_mail_size, ActionMailer::Base.deliveries.size, "No email should have been sent, as the client cancelled this booking"
   end
 
-  def test_cancel_pro_in_grace_period
-    mail_size = UserEmail.all.size
-    booking = Factory(:booking, :state => "new_booking", :created_at => 20.minutes.ago)
-    assert booking.in_grace_period?
+  def test_pro_cancel_dont_send_email
+    old_mail_size = ActionMailer::Base.deliveries.size    
+    booking = Factory(:booking, :state => "new_booking")
     pro = booking.practitioner
-    post :cancel, {:id => booking.id}, {:pro_id => pro.id}
+    post :pro_cancel, {:format => "json", :id => booking.id, :send_email => false}, {:pro_id => pro.id}
     assert_response :success
     booking.reload
-    assert booking.cancelled?
-    assert_equal mail_size, UserEmail.all.size, "No email should have been sent, as this booking is still in its grace period"
+    assert booking.cancelled_by_pro?
+    assert_equal old_mail_size, ActionMailer::Base.deliveries.size, "No email should have been sent, as this booking is still in its grace period"
   end
 
-  def test_cancel_pro_out_of_grace_period
-    mail_size = UserEmail.all.size
-    booking = Factory(:booking, :state => "new_booking", :created_at => 2.hours.ago)
-    assert !booking.in_grace_period?
+  def test_pro_cancel_send_email
+    old_mail_size = ActionMailer::Base.deliveries.size    
+    booking = Factory(:booking, :state => "new_booking")
     pro = booking.practitioner
-    post :cancel, {:id => booking.id}, {:pro_id => pro.id}
+    post :pro_cancel, {:format => "json", :id => booking.id, :send_email => true}, {:pro_id => pro.id}
     assert_response :success
     booking.reload
-    assert booking.cancelled?
-    assert_equal mail_size+1, UserEmail.all.size, "An email to the client should have been sent"
+    assert booking.cancelled_by_pro?
+    assert_equal old_mail_size+1, ActionMailer::Base.deliveries.size, "An email to the client should have been sent"
+  end
+
+  def test_pro_cancel_send_email_with_custom_text
+    custom_text = "Hello Dad"
+    old_mail_size = ActionMailer::Base.deliveries.size    
+    booking = Factory(:booking, :state => "new_booking")
+    pro = booking.practitioner
+    post :pro_cancel, {:format => "json", :id => booking.id, :send_email => true, :cancellation_text => custom_text}, {:pro_id => pro.id}
+    assert_response :success
+    booking.reload
+    assert booking.cancelled_by_pro?
+    assert_equal old_mail_size+1, ActionMailer::Base.deliveries.size, "An email to the client should have been sent"
+    last_email = ActionMailer::Base.deliveries.last
+    assert_equal custom_text, last_email.body
   end
 
   #Cyrille (26 September 2010: for the moment, clients cannot destroy bookings)
@@ -157,7 +169,6 @@ class BookingsControllerTest < ActionController::TestCase
                   :booking => {:client_id => kartini.id, :client_phone_prefix => "029",  :client_phone_suffix => "28", :client_email  => "kthom@test.com" } }, {:pro_id => sav.id }
     assert_response :success
     assert_valid_json(@response.body)
-    puts flash[:error]
     assert_not_nil flash[:error]
     assert_nil flash[:notice]
   end

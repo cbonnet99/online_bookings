@@ -1,22 +1,35 @@
 class BookingsController < ApplicationController
   
-  before_filter :require_selected_practitioner, :except => [:confirm, :cancel] 
-  before_filter :login_required, :except => [:flash, :index_cal, :confirm, :cancel]
+  before_filter :require_selected_practitioner, :except => [:confirm, :client_cancel] 
+  before_filter :login_required, :except => [:flash, :index_cal, :confirm, :client_cancel]
 
-  def cancel
-    if pro_logged_in?
-      @booking = current_pro.bookings.find(params[:id])
-    else
-      @booking = Booking.find_by_confirmation_code_and_id(params[:confirmation_code], params[:id])
-    end
+  def client_cancel
+    @booking = Booking.find_by_confirmation_code_and_id(params[:confirmation_code], params[:id])
     if @booking.nil?
-      logger.error("Invalid attempt to cancel an with ID: #{params[:id]} and confirmation_code: #{params[:confirmation_code]}")
+      logger.error("Invalid attempt to cancel a booking with ID: #{params[:id]} and confirmation_code: #{params[:confirmation_code]}")
       flash[:error] = I18n.t(:flash_error_booking_cannot_be_cancelled)
     else
-      @booking.cancel!
+      @booking.client_cancel!
       flash[:notice] = I18n.t(:flash_notice_booking_appointment_cancelled , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
     end    
   end
+
+  def pro_cancel
+    @booking = current_pro.bookings.find(params[:id])
+    if @booking.nil?
+      logger.error("Error in pro_cancel: booking ID: #{params[:id]} doesn't exist for pro ID: #{current_pro.id}")
+      flash[:error] = I18n.t(:flash_error_booking_cannot_be_cancelled)
+    else
+      @booking.pro_cancel!
+      if params[:send_email]
+        UserMailer.deliver_cancellation_notice(@booking, params[:cancellation_text] || @booking.cancellation_text)
+      end
+      flash[:notice] = I18n.t(:flash_notice_booking_appointment_cancelled , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
+    end
+    render :action => "flash", :format => "json"
+  end
+  
+
   
   def confirm
     @booking = Booking.find_by_confirmation_code_and_id(params[:confirmation_code], params[:id])
