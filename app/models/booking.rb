@@ -51,7 +51,7 @@ class Booking < ActiveRecord::Base
   
   before_destroy :check_in_grace_period
   after_create :save_client_attributes, :update_relations_after_create, :send_invite, :create_reminder
-  after_destroy :update_relations_after_destroy, :remove_reminders
+  after_destroy :remove_reminders
   after_update :save_client_attributes
   before_update :set_times
   before_create :generate_confirmation_code, :set_name, :set_times
@@ -172,15 +172,6 @@ class Booking < ActiveRecord::Base
         if self.client.relations.find_by_practitioner_id(self.practitioner_id).nil?
           Relation.create(:practitioner_id => self.practitioner_id, :client_id => self.client_id )
         end
-      end
-    end
-  end
-
-  def update_relations_after_destroy
-    unless self.client.nil?
-      last_appointment_with_this_client = (self.client.bookings.find_all_by_practitioner_id(self.practitioner_id).size == 0)
-      if last_appointment_with_this_client
-        self.client.relations.find_by_practitioner_id(self.practitioner_id).try(:destroy)
       end
     end
   end
