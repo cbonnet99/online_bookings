@@ -3,8 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class BookingsControllerTest < ActionController::TestCase
 
   def test_confirm
-    booking = Factory(:booking)
-    assert booking.new_booking?
+    booking = Factory(:booking, :state => "unconfirmed")
     assert_not_nil booking.confirmation_code
     post :confirm, {:id => booking.id, :confirmation_code => booking.confirmation_code}
     assert_response :success
@@ -17,8 +16,7 @@ class BookingsControllerTest < ActionController::TestCase
 
   def test_client_cancel
     old_mail_size = ActionMailer::Base.deliveries.size    
-    booking = Factory(:booking)
-    assert booking.new_booking?
+    booking = Factory(:booking, :state => "unconfirmed")
     assert_not_nil booking.confirmation_code
     post :client_cancel, {:id => booking.id, :confirmation_code => booking.confirmation_code}
     assert_response :success
@@ -29,7 +27,7 @@ class BookingsControllerTest < ActionController::TestCase
 
   def test_pro_cancel_dont_send_email
     old_mail_size = ActionMailer::Base.deliveries.size    
-    booking = Factory(:booking, :state => "new_booking")
+    booking = Factory(:booking, :state => "unconfirmed")
     pro = booking.practitioner
     post :pro_cancel, {:format => "json", :id => booking.id, :send_email => false}, {:pro_id => pro.id}
     assert_response :success
@@ -40,7 +38,7 @@ class BookingsControllerTest < ActionController::TestCase
 
   def test_pro_cancel_send_email
     old_mail_size = ActionMailer::Base.deliveries.size    
-    booking = Factory(:booking, :state => "new_booking")
+    booking = Factory(:booking, :state => "unconfirmed")
     pro = booking.practitioner
     post :pro_cancel, {:format => "json", :id => booking.id, :send_email => true}, {:pro_id => pro.id}
     assert_response :success
@@ -52,7 +50,7 @@ class BookingsControllerTest < ActionController::TestCase
   def test_pro_cancel_send_email_with_custom_text
     custom_text = "Hello Dad"
     old_mail_size = ActionMailer::Base.deliveries.size    
-    booking = Factory(:booking, :state => "new_booking")
+    booking = Factory(:booking, :state => "unconfirmed")
     pro = booking.practitioner
     post :pro_cancel, {:format => "json", :id => booking.id, :send_email => true, :cancellation_text => custom_text}, {:pro_id => pro.id}
     assert_response :success
@@ -78,7 +76,7 @@ class BookingsControllerTest < ActionController::TestCase
   # end
 
   def test_destroy_in_grace_period
-    new_booking = Factory(:booking, :state => "new_booking")
+    new_booking = Factory(:booking, :state => "in_grace_period")
     pro = new_booking.practitioner
     old_size = Booking.all.size
     post :destroy, {:practitioner_id => pro.permalink, :format => "json", :id => new_booking.id},
@@ -126,7 +124,7 @@ class BookingsControllerTest < ActionController::TestCase
   def test_update_as_client    
     sav = practitioners(:sav)
     cyrille = clients(:cyrille)
-    cyrille_sav = Factory(:booking, :client => cyrille, :practitioner => sav, :created_at => 10.minutes.ago, :state => "new_booking")
+    cyrille_sav = Factory(:booking, :client => cyrille, :practitioner => sav, :created_at => 10.minutes.ago, :state => "in_grace_period")
     kartini = clients(:kartini)
     post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
                   :booking => {:name => "John Denver", :client_id  => kartini.id} }, {:client_id => cyrille.id }
@@ -144,7 +142,7 @@ class BookingsControllerTest < ActionController::TestCase
     sav = practitioners(:sav)
     cyrille = clients(:cyrille)
     kartini = clients(:kartini)
-    cyrille_sav = Factory(:booking, :client => cyrille, :practitioner => sav, :created_at => 10.minutes.ago, :state => "new_booking")
+    cyrille_sav = Factory(:booking, :client => cyrille, :practitioner => sav, :created_at => 10.minutes.ago, :state => "in_grace_period")
     post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
                   :booking => {:client_id => kartini.id, :client_phone_prefix => "029",  :client_phone_suffix => "2873129731", :client_email  => "kthom@test.com" } }, {:pro_id => sav.id }
     assert_response :success
@@ -164,7 +162,7 @@ class BookingsControllerTest < ActionController::TestCase
     sav = practitioners(:sav)
     cyrille = clients(:cyrille)
     kartini = clients(:kartini)
-    cyrille_sav = Factory(:booking, :client => cyrille, :practitioner => sav, :created_at => 10.minutes.ago, :state => "new_booking")
+    cyrille_sav = Factory(:booking, :client => cyrille, :practitioner => sav, :created_at => 10.minutes.ago, :state => "in_grace_period")
     post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
                   :booking => {:client_id => kartini.id, :client_phone_prefix => "029",  :client_phone_suffix => "28", :client_email  => "kthom@test.com" } }, {:pro_id => sav.id }
     assert_response :success
@@ -175,7 +173,7 @@ class BookingsControllerTest < ActionController::TestCase
 
   def test_update_in_grace_period
     mail_size = UserEmail.all.size    
-    booking = Factory(:booking, :state => "new_booking", :created_at => 20.minutes.ago)
+    booking = Factory(:booking, :state => "in_grace_period", :created_at => 20.minutes.ago)
     pro = booking.practitioner
     new_client = Factory(:client)
     post :update, {:practitioner_id => pro.permalink, :format => "json", :id => booking.id, 
@@ -190,7 +188,7 @@ class BookingsControllerTest < ActionController::TestCase
   end
 
   def test_update_outside_of_grace_period
-    booking = Factory(:booking, :state => "new_booking", :created_at => 2.hours.ago)
+    booking = Factory(:booking, :state => "unconfirmed", :created_at => 2.hours.ago)
     pro = booking.practitioner
     old_client = booking.client
     new_client = Factory(:client)
@@ -277,10 +275,6 @@ class BookingsControllerTest < ActionController::TestCase
     cyrille.reload
     assert_equal "Joe", cyrille.first_name
     assert_equal "Sullivan", cyrille.last_name
-    assert_equal mail_size+1, UserEmail.all.size
-    new_email = UserEmail.last
-    assert_equal sav.email, new_email.to
-    assert_match /#{cyrille.name}/, new_email.subject
   end
 
   def test_create_different_timezone
@@ -330,10 +324,6 @@ class BookingsControllerTest < ActionController::TestCase
     cyrille.reload
     assert_equal "Joe", cyrille.first_name
     assert_equal "Sullivan", cyrille.last_name
-    assert_equal mail_size+1, UserEmail.all.size
-    new_email = UserEmail.last
-    assert_equal sav.email, new_email.to
-    assert_match /#{cyrille.name}/, new_email.subject
   end
 
   def test_create_with_prep_time
@@ -363,10 +353,6 @@ class BookingsControllerTest < ActionController::TestCase
     cyrille.reload
     assert_equal "Joe", cyrille.first_name
     assert_equal "Sullivan", cyrille.last_name
-    assert_equal mail_size+1, UserEmail.all.size
-    new_email = UserEmail.last
-    assert_equal sav.email, new_email.to
-    assert_match /#{cyrille.name}/, new_email.subject
   end
 
   def test_create_no_invite
@@ -423,11 +409,6 @@ class BookingsControllerTest < ActionController::TestCase
     assert_not_nil new_booking.starts_at
     assert_not_nil new_booking.ends_at
     assert_not_nil new_booking.booking_type
-    assert_equal reminders_size+1, Reminder.all.size
-    assert_equal mail_size+1, UserEmail.all.size
-    new_email = UserEmail.last
-    assert_equal cyrille.email, new_email.to
-    assert_match /#{sav.name}/, new_email.subject
   end
 
   def test_create_pro_longer
@@ -460,10 +441,6 @@ class BookingsControllerTest < ActionController::TestCase
     assert_equal end_date.in_time_zone(megan.timezone).beginning_of_day.advance(:hours => 15), new_booking.ends_at, "Sould last 2 hours, according to booking type"
     
     assert_not_nil new_booking.booking_type
-    assert_equal mail_size+1, UserEmail.all.size
-    new_email = UserEmail.last
-    assert_equal cyrille.email, new_email.to
-    assert_match /#{megan.name}/, new_email.subject
   end
 
   #Cyrille (7 Sep 2010: no own time option for the moment)

@@ -50,36 +50,42 @@ class Booking < ActiveRecord::Base
   attr_accessor :current_client, :current_pro, :client_phone_prefix, :client_phone_suffix, :client_email
   
   before_destroy :check_in_grace_period
-  after_create :save_client_attributes, :update_relations_after_create, :send_invite, :create_reminder
+  after_create :save_client_attributes, :update_relations_after_create
   after_destroy :remove_reminders
   after_update :save_client_attributes
   before_update :set_times
   before_create :generate_confirmation_code, :set_name, :set_times
 
   named_scope :need_pro_reminder, lambda { {:conditions => ["pro_reminder_sent_at IS NULL AND starts_at BETWEEN ? AND ?", 1.day.from_now.beginning_of_day.utc, 1.day.from_now.end_of_day.utc]} }
+  named_scope :ending_grace_period,  lambda { {:conditions => ["state = ? and created_at < ?", "in_grace_period", 1.hour.ago.utc] }}
 
   PREP_LABEL = "prep-"
   GRACE_PERIOD_IN_HOURS = 1
   
   aasm_column :state
 
-  aasm_initial_state :new_booking
+  aasm_initial_state :in_grace_period
 
-  aasm_state :new_booking
-  aasm_state :confirmed, :enter => [:remove_reminders, :set_confirmed_at]
-  aasm_state :cancelled_by_client, :enter => [:remove_reminders]
-  aasm_state :cancelled_by_pro, :enter => [:remove_reminders]
+  aasm_state :in_grace_period, :exit => :send_client_invite 
+  aasm_state :unconfirmed, :enter => :create_reminder
+  aasm_state :confirmed, :enter => [:remove_unsent_reminders, :set_confirmed_at]
+  aasm_state :cancelled_by_client, :enter => [:remove_unsent_reminders]
+  aasm_state :cancelled_by_pro, :enter => [:remove_unsent_reminders]
+
+  aasm_event :end_grace_period do
+    transitions :from => :in_grace_period, :to => :unconfirmed
+  end  
     
   aasm_event :confirm do
-    transitions :from => :new_booking, :to => :confirmed
+    transitions :from => [:in_grace_period, :unconfirmed], :to => :confirmed
   end
 
   aasm_event :client_cancel do
-    transitions :from => [:new_booking, :confirmed], :to => :cancelled_by_client
+    transitions :from => [:in_grace_period, :unconfirmed, :confirmed], :to => :cancelled_by_client
   end
   
   aasm_event :pro_cancel do
-    transitions :from => [:new_booking, :confirmed], :to => :cancelled_by_pro
+    transitions :from => [:in_grace_period, :unconfirmed, :confirmed], :to => :cancelled_by_pro
   end
   
   def to_s
@@ -105,13 +111,13 @@ class Booking < ActiveRecord::Base
   def check_in_grace_period
     raise ActiveRecord::RecordNotSaved unless self.in_grace_period?
   end
-  
-  def in_grace_period?
-    new_booking? && (created_at.nil? || created_at > GRACE_PERIOD_IN_HOURS.hours.ago)
-  end
-  
+    
   def remove_reminders
     self.reminders.destroy_all
+  end
+  
+  def remove_unsent_reminders
+    self.reminders.unsent.each{|b| b.destroy}
   end
   
   def create_reminder
@@ -141,30 +147,28 @@ class Booking < ActiveRecord::Base
     end    
   end
   
-  def send_invite
+  def send_client_invite
     unless self.client.nil?
-      if !current_client.nil? && self.client == current_client && self.practitioner.invite_on_client_book?      
-        UserEmail.create(:to => self.practitioner.email, :from => APP_CONFIG[:from_email], :client => self.client, :practitioner => self.practitioner,  
-         :subject => I18n.t(:client_booking, :client_name => self.client.name, :booking_date => self.start_date.day_and_time), :email_type => UserEmail::PRO_INVITE, :delay_mins => GRACE_PERIOD_IN_HOURS*60)
-      end
-      if !current_pro.nil? && self.practitioner == current_pro  && self.practitioner.invite_on_pro_book?     
+      if !self.practitioner.nil? && !self.client.nil? && self.practitioner.invite_on_pro_book?     
          UserEmail.create(:to => self.client.email, :from => APP_CONFIG[:from_email], :client => self.client, :practitioner => self.practitioner,
-          :subject => I18n.t(:pro_booking, :pro_name => self.practitioner.name, :booking_date => self.start_date.day_and_time), :email_type => UserEmail::CLIENT_INVITE, :delay_mins => GRACE_PERIOD_IN_HOURS*60)
+          :subject => I18n.t(:pro_booking, :pro_name => self.practitioner.name, :booking_date => self.start_date.day_and_time), :email_type => UserEmail::CLIENT_INVITE, :delay_mins => 0)
       end
     end
   end
-    
+
   def state_color
     case state
     when "confirmed":
       "#0C6"
-    when "new_booking":
+    when "in_grace_period":
+      "#bf0000"
+    when "unconfirmed":
       "#bf0000"
     else
       "grey"
     end
   end
-
+  
   def update_relations_after_create
     unless self.client.nil?
       first_appointment_with_this_client = (self.client.bookings.find_all_by_practitioner_id(self.practitioner_id).size == 1)
@@ -385,8 +389,7 @@ class Booking < ActiveRecord::Base
   end
   
   def needs_reminder_sent?
-    Time.zone = self.practitioner.timezone
-    return self.new_booking? && !last_reminder.nil? && last_reminder.sent_at.nil?
+    return (self.in_grace_period? || self.unconfirmed?) && !last_reminder.nil? && last_reminder.sent_at.nil?
   end
   
   def reminder_will_be_sent_at
@@ -400,7 +403,6 @@ class Booking < ActiveRecord::Base
   def reminder_was_sent_at
     unless last_reminder.nil?
       if self.confirmed? && !last_reminder.sent_at.nil?
-        Time.zone = self.practitioner.timezone
         if !last_reminder.sent_at.nil?
           return last_reminder.sent_at
         else
@@ -419,7 +421,7 @@ class Booking < ActiveRecord::Base
   end
 
   def needs_warning?
-     new_booking? && starts_at > Time.now.in_time_zone(practitioner.timezone) && starts_at < Time.now.in_time_zone(practitioner.timezone).advance(:hours => practitioner.no_cancellation_period_in_hours)
+     (in_grace_period? || unconfirmed?) && starts_at > Time.now.in_time_zone(practitioner.timezone) && starts_at < Time.now.in_time_zone(practitioner.timezone).advance(:hours => practitioner.no_cancellation_period_in_hours)
   end
   
   def duration_mins

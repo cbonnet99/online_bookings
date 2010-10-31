@@ -261,10 +261,10 @@ class PractitionerTest < ActiveSupport::TestCase
     k = Factory(:client, :first_name => "Ms", :last_name => "K")
     booking1 = Factory(:booking, :client => cyrille, :practitioner => megan)
     booking2 = Factory(:booking, :client => k, :practitioner => megan )
-    booking_cancelled = Factory(:booking, :state => "cancelled",  :client => k, :practitioner => megan )
+    booking_cancelled = Factory(:booking, :state => "cancelled_by_client",  :client => k, :practitioner => megan )
     megan_bookings = megan.all_bookings(cyrille, Time.zone.now.beginning_of_week.to_f, Time.zone.now.end_of_week.to_f)
-    assert megan_bookings.is_a?(Enumerable)
-    assert_equal 7, megan_bookings.size, "Megan bookings seen by Cyrille are: #{megan_bookings.inspect}"
+    assert megan_bookings.is_a?(Enumerable)    
+    assert_equal 7, megan_bookings.size, "Megan bookings seen by Cyrille are: #{megan_bookings.to_sentence}"
     cyrille_booking = megan_bookings.select{|b| b.is_a?(Booking) && b.client_id == cyrille.id}.first
     assert !cyrille_booking.read_only?, "Booking was: #{cyrille_booking.inspect}"
     k_booking = megan_bookings.select{|b| b.is_a?(Booking) && b.client_id == k.id}.first

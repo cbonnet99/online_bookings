@@ -11,7 +11,7 @@ class PractitionerTest < ActiveSupport::TestCase
     b2.destroy
     assert_equal old_size+1, Relation.all.size, "Relation should have changed: there is still 1 booking between these 2 people"
     b.destroy
-    assert_equal old_size, Relation.all.size
+    assert_equal old_size+1, Relation.all.size, "Relation should be preserved, even when no booking is left"
   end
   
   def test_with_existing_relation

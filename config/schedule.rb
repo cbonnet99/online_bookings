@@ -1,6 +1,7 @@
 set :output, "/var/log/cron_colibri.log"
 
 every 5.minutes do
+  runner "TaskUtils.end_bookings_grace_period"
   runner "UserEmail.send_unsent_emails"
 end
 

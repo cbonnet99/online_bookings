@@ -37,6 +37,7 @@ Factory.define :practitioner do |f|
   f.timezone "Wellington"
   f.state "active"
   f.country_code "NZ"
+  f.invite_on_pro_book true
 end
 
 Factory.define :relation do |b|
@@ -48,10 +49,10 @@ Factory.define :booking do |b|
   b.association :client
   b.association :practitioner
   b.name {|b| b.client.try(:name) || "Own time"}
-  b.starts_at Time.now.beginning_of_day.advance(:hours=>9)
-  b.ends_at Time.now.beginning_of_day.advance(:hours=>10)
+  b.starts_at Time.now.in_time_zone("Wellington").beginning_of_day.advance(:hours=>9)
+  b.ends_at Time.now.in_time_zone("Wellington").beginning_of_day.advance(:hours=>10)
   b.sequence(:client_email) { |n| "foo#{n}@test.com" }  
-  b.state "new_booking"
+  b.state "in_grace_period"
 end
 
 Factory.define :extra_working_day do |b|

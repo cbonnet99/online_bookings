@@ -67,7 +67,7 @@ class Practitioner < ActiveRecord::Base
   FIRST_NAMES = ["Roger", "Oliver", "Susan", "Jeff", "Isabel", "Beth", "Lorelei", "Tadeo"]
   LAST_NAMES = ["Yi", "Aloha", "Jones", "Salvador", "Lanta", "Spaniel", "Humbri", "Lavaur", "Pujol"]
   DOMAINS = ["gmail.com", "test.com", "info.org"]
-  BOOKING_STATES = ["unconfirmed", "confirmed" ,"cancelled"]
+  BOOKING_STATES = ["in_grace_period", "unconfirmed", "confirmed" ,"cancelled_by_client", "cancelled_by_pro"]
   
   def mobile_phone_prefixes
     $mobile_phone_prefixes[country_code.try(:upcase)] || $mobile_phone_prefixes[$default_country_code.upcase()]
@@ -304,7 +304,7 @@ class Practitioner < ActiveRecord::Base
   end
 
   def raw_own_bookings(start_time, end_time)
-    Booking.find_all_by_practitioner_id(self.id, :conditions => ["state <> ? AND starts_at BETWEEN ? AND ?", "cancelled", start_time, end_time] )
+    Booking.find_all_by_practitioner_id(self.id, :conditions => ["state <> ? AND state <> ? AND starts_at BETWEEN ? AND ?", "cancelled_by_client", "cancelled_by_pro", start_time, end_time] )
   end
     
   def own_bookings(start_timestamp=nil, end_timestamp=nil)
@@ -351,7 +351,7 @@ class Practitioner < ActiveRecord::Base
   end
   
   def client_bookings(current_client, start_time, end_time)
-    raw_bookings = Booking.find_all_by_practitioner_id(self.id, :conditions => ["state <> ? AND starts_at BETWEEN ? AND ?", "cancelled", start_time.utc, end_time.utc] )
+    raw_bookings = Booking.find_all_by_practitioner_id(self.id, :conditions => ["state <> ? AND state <> ? AND starts_at BETWEEN ? AND ?", "cancelled_by_client", "cancelled_by_pro", start_time.utc, end_time.utc] )
     prep_times = []
     raw_bookings.each do |b|
       b.current_client = current_client

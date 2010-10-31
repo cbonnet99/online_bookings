@@ -2,6 +2,25 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class TaskUtilsTest < ActiveSupport::TestCase
 
+  def test_end_bookings_grace_period
+    old_size = UserEmail.all.size
+    pro = Factory(:practitioner)
+    booking_still_in_grace_period = Factory(:booking, :state => "in_grace_period", :practitioner => pro,  :created_at => 10.minutes.ago.in_time_zone(pro.timezone))
+    booking_ending_grace_period = Factory(:booking, :state => "in_grace_period", :practitioner => pro, :created_at => 2.hours.ago.in_time_zone(pro.timezone))
+    
+    TaskUtils.end_bookings_grace_period
+    
+    assert_equal old_size+1, UserEmail.all.size, "1 email should have been sent to the client with an invite"
+
+    booking_still_in_grace_period.reload
+    assert booking_still_in_grace_period.in_grace_period?
+    assert_equal 0, booking_still_in_grace_period.reminders.size
+
+    booking_ending_grace_period.reload
+    assert booking_ending_grace_period.unconfirmed?
+    assert_equal 1, booking_ending_grace_period.reminders.size
+  end
+
   def test_create_sample_data
     bookings_size = Booking.all.size
     pro_size = Practitioner.all.size
@@ -20,9 +39,15 @@ class TaskUtilsTest < ActiveSupport::TestCase
   
   def test_send_reminders
     ActionMailer::Base.deliveries.clear
-    booking_remind_me = Factory(:booking, :starts_at => 1.day.from_now.advance(:minutes => -30))
     
-    booking_dont_remind_me = Factory(:booking, :state => "reminder_sent", :starts_at => 1.day.from_now.advance(:minutes => 30))
+    pro = Factory(:practitioner)
+    booking_remind_me = Factory(:booking, :practitioner => pro, :starts_at => 1.day.from_now.in_time_zone(pro.timezone).advance(:minutes => -30))
+    booking_remind_me.end_grace_period!
+    assert_equal 1, booking_remind_me.reminders.size
+    
+    booking_dont_remind_me = Factory(:booking, :practitioner => pro, :starts_at => 1.day.from_now.in_time_zone(pro.timezone).advance(:minutes => 30))
+    booking_dont_remind_me.end_grace_period!
+    assert_equal 1, booking_dont_remind_me.reminders.size
     
     TaskUtils.send_reminders
     

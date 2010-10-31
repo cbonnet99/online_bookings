@@ -2,6 +2,13 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class BookingTest < ActiveSupport::TestCase  
 
+  def test_endind_grace_period
+    pro = Factory(:practitioner)
+    booking_still_in_grace_period = Factory(:booking, :state => "in_grace_period", :created_at => 10.minutes.ago.in_time_zone(pro.timezone))
+    booking_ending_grace_period = Factory(:booking, :state => "in_grace_period", :created_at => 2.hours.ago.in_time_zone(pro.timezone))
+    assert_equal 1, Booking.ending_grace_period.size
+  end    
+
   def test_cancellation_text
     b = Factory(:booking)
     assert_not_nil b.cancellation_text
@@ -11,13 +18,16 @@ class BookingTest < ActiveSupport::TestCase
   def test_reminder_will_be_sent_at
     pro = Factory(:practitioner)
     Time.zone = pro.timezone
-    booking = Factory(:booking, :practitioner => pro, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now, :state => "new_booking")
+    booking = Factory(:booking, :practitioner => pro, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now)
+    booking.end_grace_period!
     assert_not_nil booking.reminder_will_be_sent_at, "A new booking in the future: a reminder should be sent"
 
-    booking = Factory(:booking, :practitioner => pro, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now, :state => "confirmed")
+    booking = Factory(:booking, :practitioner => pro, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now)
+    booking.confirm!
     assert_nil booking.reminder_will_be_sent_at, "An already confirmed booking in the future: a reminder should NOT be sent"
 
-    booking = Factory(:booking, :practitioner => pro, :starts_at => 2.hours.ago, :ends_at => 3.hours.ago, :state => "new_booking")
+    booking = Factory(:booking, :practitioner => pro, :starts_at => 2.hours.ago, :ends_at => 3.hours.ago)
+    booking.end_grace_period!
     booking.reminders.last.update_attribute(:sent_at, Time.zone.now)
     assert_nil booking.reminder_will_be_sent_at, "A new booking in the past: a reminder should already have been sent"
   end
@@ -25,59 +35,54 @@ class BookingTest < ActiveSupport::TestCase
   def test_reminder_was_sent_at
     pro = Factory(:practitioner)
     Time.zone = pro.timezone
-    booking = Factory(:booking, :practitioner => pro, :starts_at => 2.hours.ago, :ends_at => 3.hours.ago, :state => "confirmed")
+    booking = Factory(:booking, :practitioner => pro, :starts_at => 2.hours.ago, :ends_at => 3.hours.ago)
+
+    booking.end_grace_period!
+    assert_equal 1, booking.reminders.size
+
     reminder = booking.last_reminder
     reminder.update_attribute(:sent_at, Time.now)
     reminder.reload
+
+    booking.confirm!
+    assert_equal 1, booking.reminders.size
+    
     assert_not_nil booking.reminder_was_sent_at, "A confirmed booking in the past, with a reminder that was sent (sent at is not null): it should have a was sent at date"
 
-    booking = Factory(:booking, :practitioner => pro, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now, :state => "new_booking")
+    booking = Factory(:booking, :practitioner => pro, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now)
+    booking.end_grace_period!
     assert_nil booking.reminder_was_sent_at
   end
 
   def test_reminders
-    booking = Factory(:booking, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now, :state => "new_booking")
-    reminders = booking.reminders
-    assert_equal 1, reminders.size
+    booking = Factory(:booking, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now)
+    booking.end_grace_period!
+    assert_equal 1, booking.reminders.size
   end
 
   def test_needs_warning
-    booking = Factory(:booking, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now, :state => "new_booking")
+    booking = Factory(:booking, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now, :state => "unconfirmed")
     assert booking.needs_warning?
 
     booking = Factory(:booking, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now, :state => "confirmed")
     assert !booking.needs_warning?
     
-    booking = Factory(:booking, :starts_at => 30.hours.from_now, :ends_at => 31.hours.from_now, :state => "new_booking")
+    booking = Factory(:booking, :starts_at => 30.hours.from_now, :ends_at => 31.hours.from_now, :state => "unconfirmed")
     assert !booking.needs_warning?
 
-    booking = Factory(:booking, :starts_at => 7.hours.ago, :ends_at => 3.hours.ago, :state => "new_booking")
+    booking = Factory(:booking, :starts_at => 7.hours.ago, :ends_at => 3.hours.ago, :state => "unconfirmed")
     assert !booking.needs_warning?
-    
-  end
-
-  def test_in_grace_period
-    booking = Factory(:booking, :created_at => 20.minutes.ago, :state => "new_booking")
-    assert booking.in_grace_period?
-
-    booking = Factory(:booking, :created_at => 2.hours.ago)
-    assert !booking.in_grace_period?
-    
-    booking = Factory(:booking, :created_at => 20.minutes.ago, :state => "confirmed")
-    assert !booking.in_grace_period?
     
   end
 
   def test_destroy
     booking = Factory(:booking)
-    assert_equal 1, booking.reminders.size
-    old_size = Reminder.all.size
     booking.destroy
-    assert_equal old_size-1, Reminder.all.size
   end  
 
   def test_cancel_by_client
     booking = Factory(:booking)
+    booking.end_grace_period!
     assert_equal 1, booking.reminders.size
     booking.client_cancel!
     booking.reload
@@ -86,6 +91,7 @@ class BookingTest < ActiveSupport::TestCase
 
   def test_cancel_by_pro
     booking = Factory(:booking)
+    booking.end_grace_period!
     assert_equal 1, booking.reminders.size
     booking.pro_cancel!
     booking.reload

@@ -1,5 +1,11 @@
 class TaskUtils
   PRO_ARRAYS = [["Cyrille", "Bonnet", "cb@gmail.com", "04 34 55 45 23"], ["Kartini", "Thomas", "kt@gmail.com", "04 34 55 45 11"]]
+
+  def self.end_bookings_grace_period
+    Booking.ending_grace_period.each do |b|
+      b.end_grace_period!
+    end
+  end
   
   def self.delete_sample_data
     unless Rails.env.production?
