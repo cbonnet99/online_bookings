@@ -1,3 +1,11 @@
+Factory.define :country do |c|
+  c.is_default false
+  c.country_code "FR"
+  c.locale "FR"
+  c.mobile_phone_prefixes "06,07"
+  c.land_line_phone_prefixes "01,02,03,04,05,08,09"
+end
+
 Factory.define :booking_type do |bt|
   bt.association :practitioner
   bt.duration_mins 60

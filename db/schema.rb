@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101001123414) do
+ActiveRecord::Schema.define(:version => 20101104201811) do
 
   create_table "booking_types", :force => true do |t|
     t.string   "title"
@@ -53,6 +53,16 @@ ActiveRecord::Schema.define(:version => 20101001123414) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "country_code",  :limit => 2
+  end
+
+  create_table "countries", :force => true do |t|
+    t.string   "country_code",             :limit => 3
+    t.boolean  "is_default",                            :default => false
+    t.string   "locale",                   :limit => 3
+    t.string   "mobile_phone_prefixes"
+    t.string   "land_line_phone_prefixes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "delayed_jobs", :force => true do |t|
