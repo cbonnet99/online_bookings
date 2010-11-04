@@ -238,7 +238,7 @@ fr:
     select_practicioner_title: "Veuillez choisir un praticien"
     select_practicioner_message: "Veuillez choisir le praticien de votre choix:"
     #client login info
-    login_info_logged_as: "Connecté(e) avec: "
+    login_info_logged_as: "Votre nom: "
     login_info_edit_link: "Modifier vos infos perso"
     login_info_logout_link: "Se déconnecter"
     #login_phone
@@ -251,7 +251,7 @@ fr:
     login_phone_book: "Prendre rendez-vous"
     #session/new
     session_new_title: "Bienvenue sur Colibri"
-    session_new_remember: "J'ai oublié(e) mon mot de passe"
+    session_new_remember: "J'ai oublié mon mot de passe"
     session_new_email: "Votre adresse email"
     session_new_login: "Se connecter"
     session_new_password: "Mot de passe"

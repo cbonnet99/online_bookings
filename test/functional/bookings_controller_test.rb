@@ -2,13 +2,25 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class BookingsControllerTest < ActionController::TestCase
 
-  def test_confirm
+  def test_client_confirm
     booking = Factory(:booking, :state => "unconfirmed")
     assert_not_nil booking.confirmation_code
-    post :confirm, {:id => booking.id, :confirmation_code => booking.confirmation_code}
+    post :client_confirm, {:id => booking.id, :confirmation_code => booking.confirmation_code}
     assert_response :success
     assert_not_nil flash[:notice]
     assert_match %r{#{booking.practitioner.name}}, flash[:notice]
+    booking.reload
+    assert booking.confirmed?
+    assert_not_nil booking.confirmed_at
+  end
+
+  def test_pro_confirm
+    booking = Factory(:booking, :state => "unconfirmed")
+    pro = booking.practitioner
+    post :pro_confirm, {:format => "json", :id => booking.id}, {:pro_id  => pro.id}
+    assert_response :success
+    assert_not_nil flash[:notice]
+    assert_match %r{#{booking.client.name}}, flash[:notice]
     booking.reload
     assert booking.confirmed?
     assert_not_nil booking.confirmed_at

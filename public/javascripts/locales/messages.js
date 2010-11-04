@@ -17,6 +17,8 @@ I18n.translations = {
 		button_nosave: "Close this window",
 		button_save: "Save",
 		button_delete: "Delete",
+		button_cancel: "Cancel",
+		button_confirm: "Confirm",
 		tr_use24Hour : false,
 		/*close flash */
 		close: "Close",
@@ -50,7 +52,9 @@ I18n.translations = {
 		sorry: "Impossible de prendre un rendez-vous dans le passé",
 		button_nosave: "Fermer la fenêtre",
 		button_save: "Enregistrer",
-		button_delete: "Annuler",
+		button_delete: "Effacer",
+		button_cancel: "Annuler",
+		button_confirm: "Confirmer",
 		tr_use24Hour : true,
 		/*close flash */
 		close: "Fermer",

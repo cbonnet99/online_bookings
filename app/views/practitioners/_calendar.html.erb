@@ -17,25 +17,40 @@ $(document).ready(function() {
    var $calendar = $('#calendar');
    var mylocal = '<%=  I18n.locale %>' ;
    I18n.locale = mylocal;
-   var id = 10;
-	
+
    //colors
    var eventTimeNormalColor = "#2B72D0";
    var pastEventColor = "#999";
    var eventTitleNormalColor = "#68A1E5";
    var eventTitleHoverColor = "#2B72D0";
 
+   var setHeaderIcons = function(calEvent, $event){
+       if ((calEvent.end.getTime() < (new Date().getTime())) || calEvent.readOnly) {
+          /* don't do anything for past events*/
+       }
+       else {
+		  if (calEvent.state === "confirmed") {
+			$event.find(".wc-time").append(" <img src='/images/confirmed-small.jpg'/>");
+		  };
+		  if (calEvent.needs_warning === true) {
+			$event.find(".wc-time").append(" <img src='/images/unconfirmed_warning_small.png'/>");
+		  };
+       };
+   };
+
    var updateEvent = function(calEvent, data){
-		calEvent.id = data.booking.id;
-		calEvent.title = data.booking.title;
-		calEvent.start = data.booking.start;
-		calEvent.end = data.booking.end;
-		calEvent.client_id = data.booking.client_id;
-		calEvent.client_name = data.booking.client_name;
-		calEvent.phone_prefix = data.booking.phone_prefix;
-		calEvent.phone_suffix = data.booking.phone_suffix;
-		calEvent.email = data.booking.email;
-     	$calendar.weekCalendar("updateEvent", calEvent);
+         calEvent = data.booking;
+		// calEvent.id = data.booking.id;
+		// calEvent.title = data.booking.title;
+		// calEvent.start = data.booking.start;
+		// calEvent.end = data.booking.end;
+		// calEvent.client_id = data.booking.client_id;
+		// calEvent.client_name = data.booking.client_name;
+		// calEvent.phone_prefix = data.booking.phone_prefix;
+		// calEvent.phone_suffix = data.booking.phone_suffix;
+		// calEvent.email = data.booking.email;
+     	// $calendar.weekCalendar("updateEvent", calEvent);
+        $calendar.weekCalendar("refresh");
    };
 
    var getNewEventValues = function(newCalEvent, start, end, title, client_id, phone_prefix, phone_suffix, email, booking_type_id){
@@ -102,10 +117,57 @@ $(document).ready(function() {
          );
    };
 
-   var changeButtonColors = function() {
-       $("button:contains('save')").html(I18n.t("button_save")).hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("color", "#090").css("background", "url('/images/green_tick.gif')").css("background-repeat", "no-repeat").css("padding", "5px 5px 5px 30px").css("font-size", "12px");
-       $("button:contains('delete')").html(I18n.t("button_delete")).hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("background", "url('/images/red_x.gif')").css("background-repeat", "no-repeat").css("color", "#C00").css("padding", "5px 5px 5px 30px").css("font-size", "12px");
-       $("button:contains('cancel')").html(I18n.t("button_nosave")).hover(function(){$(this).css("background-color", "lightgrey");}, function(){$(this).css("background-color", "white");}).css("background-color", "white").css("color", "black").css("padding", "5px 5px 5px 5px").css("font-size", "12px");
+   var changeButton = function(button, html, image, color){
+       button.html(html).hover(function(){
+             $(this).css("background-color", "lightgrey");
+           }, function(){
+             $(this).css("background-color", "white");
+           }
+       ).css("background", "url('/images/"+image+"')").css("background-repeat", "no-repeat").css("color", color).css("padding", "5px 5px 5px 30px").css("font-size", "12px");
+	}
+	
+   var changeButtonColors = function(calEvent) {
+     var buttonSave = $("button:contains('saveonly')");
+     var buttonConfirm = $("button:contains('confirm')");
+     var buttonDelete = $("button:contains('delete')");
+     var buttonCancel = $("button:contains('cancel')");
+     
+     if ((calEvent.state === "in_grace_period") || (calEvent.state === "unconfirmed")){
+       buttonConfirm.show();
+       changeButton(buttonConfirm, I18n.t("button_confirm"), 'green_tick.gif', "#090");
+     }
+     else {
+       buttonConfirm.hide();
+     }
+
+     if (calEvent.locked){
+       buttonSave.hide();
+     }
+     else {
+       buttonSave.show();
+       changeButton(buttonSave, I18n.t("button_save"), 'green_tick.gif', "#090");
+     };
+     console.log("calEvent.state: "+calEvent.state);
+     if (calEvent.state === "in_grace_period"){
+       console.log("Showing delete, hiding cancel");
+       buttonDelete.show();
+       buttonCancel.hide();
+       changeButton(buttonDelete, I18n.t("button_delete"), 'red_x.gif', "#C00");
+     }
+     else {
+       console.log("Showing cancel, hiding delete");
+       buttonDelete.hide();
+       buttonCancel.show();
+       changeButton(buttonCancel, I18n.t("button_cancel"), 'red_x.gif', "#C00");
+     };
+
+     $("button:contains('nosave')").html(
+         I18n.t("button_nosave")).hover(function(){
+             $(this).css("background-color", "lightgrey");
+           }, function(){
+             $(this).css("background-color", "white");
+           }
+     ).css("background-color", "white").css("color", "black").css("padding", "5px 5px 5px 5px").css("font-size", "12px");
 	
    }
 	
@@ -153,17 +215,7 @@ $(document).ready(function() {
          return $(window).height() - $("h1").outerHeight() - 1;
       },
       eventAfterRender : function(calEvent, $event) {
-        if ((calEvent.end.getTime() < (new Date().getTime())) || calEvent.readOnly) {
-           /* don't do anything for past events*/
-        }
-        else {
-		  if (calEvent.state === "confirmed") {
-			$event.find(".wc-time").append(" <img src='/images/confirmed-small.jpg'/>");
-		  };
-		  if (calEvent.needs_warning === true) {
-			$event.find(".wc-time").append(" <img src='/images/unconfirmed_warning.png'/>");
-		  }
-        }
+        setHeaderIcons(calEvent, $event);
       },
       eventRender : function(calEvent, $event) {
         if ((calEvent.end.getTime() < (new Date().getTime())) || calEvent.readOnly) {
@@ -220,7 +272,7 @@ $(document).ready(function() {
 	               $('#calendar').weekCalendar("removeUnsavedEvents");
 	            },
 	            buttons: {
-	               save : function() {
+	               saveonly : function() {
                       if ($("#event_edit_form").valid()) {
 	                      var newCalEvent = new Object();
                           getNewEventValues(newCalEvent, startField.val(), endField.val(), titleField.val(), clientField.val(), phonePrefix.val(), phoneSuffix.val(), clientEmail.val(), bookingTypeField.val());
@@ -243,7 +295,7 @@ $(document).ready(function() {
 						}, "json");
                       }
 	               },
-	               cancel : function() {
+	               nosave : function() {
 	                  $dialogContent.dialog("close");
 	               }
 	            }
@@ -256,7 +308,7 @@ $(document).ready(function() {
 			<% if own_calendar?(pro, current_pro)-%>
 	         setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
 			<% end -%>
-         changeButtonColors();
+         changeButtonColors(calEvent);
          $("#no-cancellation").css("display", "none");			
 		  }
       },
@@ -309,7 +361,7 @@ $(document).ready(function() {
                $('#calendar').weekCalendar("removeUnsavedEvents");
             },
             buttons: {
-               save : function() {
+               saveonly : function() {
                   if ($("#event_edit_form").valid()) {
                       var newCalEvent = new Object();
                       getNewEventValues(newCalEvent, startField.val(), endField.val(), titleField.val(), clientField.val(), phonePrefix.val(), phoneSuffix.val(), clientEmail.val(), bookingTypeField.val());
@@ -327,17 +379,28 @@ $(document).ready(function() {
 						}, "json");
 					}
                },
-               cancel : function() {
+               nosave : function() {
                   $dialogContent.dialog("close");
                },
-               "delete" : function() {
-	
+               "cancel" : function() {
+                  $dialogContent.dialog("close");
+               },
+               "delete" : function() {	
 				  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "DELETE", "format": "json"}, function(data){
 					  if ((data.flash.error === undefined) || (data.flash.error === '')) {
 	                    $calendar.weekCalendar("removeEvent", calEvent.id);
                         if (data.prep_id) {
 	                      $calendar.weekCalendar("removeEvent", data.prep_id);
                         }
+	                  }
+	                  $dialogContent.dialog("close");
+					  displayFlash(data.flash);
+					}, "json");
+               },
+               "confirm" : function() {
+				  $.post("/bookings/"+calEvent.id+"/pro_confirm.json", {"format": "json"}, function(data){
+					  if ((data.flash.error === undefined) || (data.flash.error === '')) {
+	                    $calendar.weekCalendar("refresh");
 	                  }
 	                  $dialogContent.dialog("close");
 					  displayFlash(data.flash);
@@ -383,7 +446,7 @@ $(document).ready(function() {
          var endField2 = $dialogContent.find("select[name='end']").val(calEvent.end);
          setupStartAndEndTimeFields(startField2, endField2, calEvent, 	$calendar.weekCalendar("getTimeslotTimes", calEvent.start));
          $(window).resize().resize(); //fixes a bug in modal overlay size ??
-         changeButtonColors();
+         changeButtonColors(calEvent);
       },
       eventMouseover : function(calEvent, $event) {
       },

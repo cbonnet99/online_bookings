@@ -1,7 +1,7 @@
 class BookingsController < ApplicationController
   
-  before_filter :require_selected_practitioner, :except => [:confirm, :client_cancel] 
-  before_filter :login_required, :except => [:flash, :index_cal, :confirm, :client_cancel]
+  before_filter :require_selected_practitioner, :except => [:client_confirm, :client_cancel] 
+  before_filter :login_required, :except => [:flash, :index_cal, :client_confirm, :client_cancel]
 
   def client_cancel
     @booking = Booking.find_by_confirmation_code_and_id(params[:confirmation_code], params[:id])
@@ -31,7 +31,7 @@ class BookingsController < ApplicationController
   
 
   
-  def confirm
+  def client_confirm
     @booking = Booking.find_by_confirmation_code_and_id(params[:confirmation_code], params[:id])
     if @booking.nil?
       logger.error("Invalid attempt to confirm an with ID: #{params[:id]} and confirmation_code: #{params[:confirmation_code]}")
@@ -40,6 +40,18 @@ class BookingsController < ApplicationController
       @booking.confirm!
       flash[:notice] = I18n.t(:flash_notice_booking_confirmed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
     end
+  end
+  
+  def pro_confirm
+    @booking = current_pro.bookings.find(params[:id])
+    if @booking.nil?
+      logger.error("Invalid attempt to confirm an with ID: #{params[:id]} for pro: #{current_pro.id}")
+      flash[:error] = I18n.t(:flash_error_booking_invalid_appointment)
+    else
+      @booking.confirm!
+      flash[:notice] = I18n.t(:flash_notice_booking_confirmed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
+    end
+    render :action => "flash", :format => "json"
   end
   
   def index
@@ -136,5 +148,6 @@ class BookingsController < ApplicationController
       @booking.destroy
       flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_removed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
     end
+    render :action => "flash", :format => "json"
   end
 end

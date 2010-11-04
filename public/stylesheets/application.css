@@ -1,6 +1,7 @@
+div#content h1{margin-top: 5px; margin-bottom: 5px;}
 ul.event-icons {padding: 0;}
 ul.event-icons li {list-style: none;}
-ul.event-icons li#event_unconfirmed_warning {background: url('../images/unconfirmed_warning.png') no-repeat; padding-left: 20px;}
+ul.event-icons li#event_unconfirmed_warning {background: url('../images/unconfirmed_warning_small.png') no-repeat; padding-left: 20px;}
 ul.event-icons li#event_confirmed {background: url('../images/confirmed-small.png') no-repeat; padding-left: 20px;}
 ul.event-icons li#event_locked {background: url('../images/lock-small.png') no-repeat; padding-left: 20px;}
 option.mobile{font-weight:bold;}
@@ -14,7 +15,7 @@ input.submit:hover {background:#090; }
 div#errorExplanation li{color: #333;}
 #logo{float: left;}
 #logged-client-name, #logged-pro-name{color: #f8f8f8;}
-#container-center{margin: 60px 0 0 60px;padding: 10px 24px 10px 24px;background-color: #303030;width:80%;}
+#container-center{margin: 20px 0 0 20px;padding: 10px 24px 10px 24px;background-color: #303030;width:80%;}
 #container-center a{color: #0cc;}
 #container-center {color:#f8f8f8;}
 #container-center fieldset#email_all p{color:#000;}
@@ -73,7 +74,7 @@ div.header div.container div#pro-links a{color: #0cc}
 div.header a {margin-left: 10px; color: #f8f8f8; text-decoration: none; line-height: 1.7em;}
 div.header div.container div#pro-links a {margin-left: 0px; margin-right: 10px;}
 div.header a:hover {text-decoration: underline;}
-div#content{margin: 10px; padding-left: 100px;padding-right:100px;}
+div#content{margin: 10px; padding-left: 50px;padding-right:50px;}
 div.login-info{float: left;}
 div#selected-pro-info{float: right;}
 #pro-login, #client-login-info, #pro-login-info, #selected-pro-info{font-size: small; color: grey;}

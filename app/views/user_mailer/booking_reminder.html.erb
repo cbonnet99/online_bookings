@@ -4,7 +4,7 @@ We would like to remind you that you have an appointment with <%= @booking.pract
 <br/>
 To confirm this appointment, please simply click on the link below:<br/>
 <br/>
-<%= link_to confirm_booking_url(:id => @booking.id, :confirmation_code => @booking.confirmation_code), confirm_booking_url(:id => @booking.id, :confirmation_code => @booking.confirmation_code)%><br/>
+<%= link_to client_confirm_booking_url(:id => @booking.id, :confirmation_code => @booking.confirmation_code), client_confirm_booking_url(:id => @booking.id, :confirmation_code => @booking.confirmation_code)%><br/>
 <br/>
 If you cannot make it, please call <%= @booking.practitioner.first_name%> on <%= @booking.practitioner.phone %>.<br/>
 <br/>

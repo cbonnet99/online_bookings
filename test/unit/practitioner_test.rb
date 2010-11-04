@@ -8,8 +8,8 @@ class PractitionerTest < ActiveSupport::TestCase
 
   def test_phone_prefixes
     pro = Factory(:practitioner, :country_code => "FR")
-    assert_equal ["06"], pro.mobile_phone_prefixes
-    assert_equal ["01", "02", "03", "04", "05", "07", "08", "09"], pro.landline_phone_prefixes
+    assert_equal ["06", "07"], pro.mobile_phone_prefixes
+    assert_equal ["01", "02", "03", "04", "05", "08", "09"], pro.landline_phone_prefixes
 
     pro = Factory(:practitioner, :country_code => "NZ")
     assert_equal ["021", "022", "027", "029"], pro.mobile_phone_prefixes
@@ -17,8 +17,8 @@ class PractitionerTest < ActiveSupport::TestCase
 
 
     pro = Factory(:practitioner, :country_code => "")
-    assert_equal ["06"], pro.mobile_phone_prefixes
-    assert_equal ["01", "02", "03", "04", "05", "07", "08", "09"], pro.landline_phone_prefixes
+    assert_equal ["06", "07"], pro.mobile_phone_prefixes
+    assert_equal ["01", "02", "03", "04", "05", "08", "09"], pro.landline_phone_prefixes
 
   end
 
