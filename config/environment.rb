@@ -42,12 +42,6 @@ Rails::Initializer.run do |config|
   # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
   # Run "rake -D time" for a list of tasks for finding time zone names.
   config.time_zone = 'Paris'
-
-  $default_country_code = "FR"
-  $available_country_codes = ["FR","NZ"]
-  $translated_country_codes_to_locales = {:nz => :en}
-  $mobile_phone_prefixes = {"FR" => ["06","07"], "NZ" => ["021","022","027","029"]}
-  $landline_phone_prefixes = {"FR" => ["01","02","03","04","05","08","09"], "NZ" => ["03", "04", "06", "07", "09"]}
   
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
    config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]

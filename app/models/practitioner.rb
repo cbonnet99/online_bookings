@@ -24,11 +24,12 @@ class Practitioner < ActiveRecord::Base
   has_many :booking_types
   has_many :extra_working_days  
   has_many :extra_non_working_days  
+  belongs_to :country
 
   # new columns need to be added here to be writable through mass assignment
   attr_accessible :username, :email, :password, :password_confirmation, :working_hours, :working_days, :first_name,
    :last_name, :phone, :no_cancellation_period_in_hours, :working_day_monday, :working_day_tuesday, :working_day_wednesday,
-    :working_day_thursday, :working_day_friday, :working_day_saturday, :working_day_sunday, :timezone, :country_code
+    :working_day_thursday, :working_day_friday, :working_day_saturday, :working_day_sunday, :timezone, :country
   
   attr_accessor :password, :working_day_monday, :working_day_tuesday, :working_day_wednesday, :working_day_thursday,
    :working_day_friday, :working_day_saturday, :working_day_sunday
@@ -64,17 +65,15 @@ class Practitioner < ActiveRecord::Base
   #WORKING_DAYS = Date::DAY_NAMES
   #WORKING_DAYS = I18n.t 'date.day_names' does not work with actul code sunday is first day of the week
 
-  FIRST_NAMES = ["Roger", "Oliver", "Susan", "Jeff", "Isabel", "Beth", "Lorelei", "Tadeo"]
-  LAST_NAMES = ["Yi", "Aloha", "Jones", "Salvador", "Lanta", "Spaniel", "Humbri", "Lavaur", "Pujol"]
   DOMAINS = ["gmail.com", "test.com", "info.org"]
   BOOKING_STATES = ["in_grace_period", "unconfirmed", "confirmed" ,"cancelled_by_client", "cancelled_by_pro"]
   
   def mobile_phone_prefixes
-    $mobile_phone_prefixes[country_code.try(:upcase)] || $mobile_phone_prefixes[$default_country_code.upcase()]
+    self.country.mobile_phone_prefixes
   end
   
   def landline_phone_prefixes
-    $landline_phone_prefixes[country_code.try(:upcase)] || $landline_phone_prefixes[$default_country_code.upcase()]
+    self.country.landline_phone_prefixes
   end
   
   def delete_sample_data!
@@ -93,15 +92,17 @@ class Practitioner < ActiveRecord::Base
   def create_sample_data!(number_clients=30, number_bookings=150)
     if self.test_user?
       clients = []
-      possible_mobile_prefixes = $mobile_phone_prefixes[self.country_code]
+      possible_mobile_prefixes = self.country.mobile_phone_prefixes
+      first_names = self.country.sample_first_names.split(",")
+      last_names = self.country.sample_last_names.split(",")
       number_clients.times do
-        first_name = FIRST_NAMES[rand(FIRST_NAMES.size)]
-        last_name = LAST_NAMES[rand(LAST_NAMES.size)]
+        first_name = first_names[rand(first_names.size)]
+        last_name = last_names[rand(last_names.size)]
         all_client_names = clients.map(&:name)
         while (all_client_names.include?("#{first_name} #{last_name}"))
           #puts "#{first_name} #{last_name} is taken, trying again"
-          first_name = FIRST_NAMES[rand(FIRST_NAMES.size)]
-          last_name = LAST_NAMES[rand(LAST_NAMES.size)]
+          first_name = first_names[rand(first_names.size)]
+          last_name = last_names[rand(last_names.size)]
         end
         email = "#{first_name}.#{last_name}@#{DOMAINS[rand(DOMAINS.size)]}"
         client = Client.find_by_email(email)
@@ -111,7 +112,7 @@ class Practitioner < ActiveRecord::Base
           # puts "+++++ Creating client #{first_name} #{last_name} with email: #{email} and phone: (#{rand_phone_prefix}) #{rand_phone_suffix}"
           client = Client.new(:first_name => first_name, :last_name => last_name, :phone_prefix  => rand_phone_prefix,
               :phone_suffix => rand_phone_suffix, 
-              :email => email, :password => first_name[0,4], :password_confirmation => first_name[0,4]  )
+              :email => email, :password => first_name[0,2] + last_name[0,2], :password_confirmation => first_name[0,2] + last_name[0,2])
           client.save!
         end
         clients << client

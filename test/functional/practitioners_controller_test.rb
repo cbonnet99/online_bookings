@@ -6,7 +6,8 @@ class PractitionersControllerTest < ActionController::TestCase
     get :new
     assert_template 'new'
     assert_not_nil assigns(:practitioner)
-    assert_equal "FR", assigns(:practitioner).country_code
+    france = Country.find_by_country_code("FR")
+    assert_equal france.id, assigns(:practitioner).country_id
   end
 
   def test_reset_ical_sharing_on

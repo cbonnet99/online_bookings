@@ -10,6 +10,7 @@ class Client < ActiveRecord::Base
   has_many :relations
   has_many :practitioners, :through => :relations
   has_many :user_emails
+  belongs_to :country
   
   # new columns need to be added here to be writable through mass assignment
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :phone_prefix, :phone_suffix, :name
@@ -126,11 +127,11 @@ class Client < ActiveRecord::Base
   end
   
   def mobile_phone_prefixes
-    $mobile_phone_prefixes[country_code.try(:upcase)] || $mobile_phone_prefixes[$default_country_code.upcase()]
+    self.country.mobile_phone_prefixes
   end
   
   def landline_phone_prefixes
-    $landline_phone_prefixes[country_code.try(:upcase)] || $landline_phone_prefixes[$default_country_code.upcase()]
+    self.country.landline_phone_prefixes
   end  
   
   def phone_prefixes

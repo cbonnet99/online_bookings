@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101104201811) do
+ActiveRecord::Schema.define(:version => 20101104213339) do
 
   create_table "booking_types", :force => true do |t|
     t.string   "title"
@@ -52,15 +52,19 @@ ActiveRecord::Schema.define(:version => 20101104201811) do
     t.string   "reset_code",    :limit => 40
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "country_code",  :limit => 2
+    t.integer  "country_id"
   end
 
   create_table "countries", :force => true do |t|
-    t.string   "country_code",             :limit => 3
-    t.boolean  "is_default",                            :default => false
-    t.string   "locale",                   :limit => 3
-    t.string   "mobile_phone_prefixes"
-    t.string   "land_line_phone_prefixes"
+    t.string   "country_code",                 :limit => 3
+    t.boolean  "is_default",                                :default => false
+    t.string   "locale",                       :limit => 3
+    t.string   "mobile_phone_prefixes_list"
+    t.string   "landline_phone_prefixes_list"
+    t.string   "name"
+    t.string   "timezones"
+    t.text     "sample_first_names"
+    t.text     "sample_last_names"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -119,7 +123,7 @@ ActiveRecord::Schema.define(:version => 20101104201811) do
     t.integer  "prep_time_mins",                                :default => 0
     t.string   "timezone",                                      :default => "Wellington"
     t.string   "state"
-    t.string   "country_code",                    :limit => 2
+    t.integer  "country_id"
   end
 
   create_table "relations", :force => true do |t|

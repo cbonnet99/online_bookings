@@ -2,8 +2,8 @@ Factory.define :country do |c|
   c.is_default false
   c.country_code "FR"
   c.locale "FR"
-  c.mobile_phone_prefixes "06,07"
-  c.land_line_phone_prefixes "01,02,03,04,05,08,09"
+  c.mobile_phone_prefixes_list "06,07"
+  c.landline_phone_prefixes_list "01,02,03,04,05,08,09"
 end
 
 Factory.define :booking_type do |bt|
@@ -27,7 +27,7 @@ Factory.define :client do |f|
   f.password "foobar"
   f.password_confirmation { |u| u.password }
   f.sequence(:email) { |n| "foo#{n}@example.com" }
-  f.country_code "NZ"
+  f.association :country
 end
 
 Factory.define :practitioner do |f|
@@ -44,7 +44,7 @@ Factory.define :practitioner do |f|
   f.sequence(:email) { |n| "foo#{n}@example.com" }
   f.timezone "Wellington"
   f.state "active"
-  f.country_code "NZ"
+  f.association :country
   f.invite_on_pro_book true
 end
 

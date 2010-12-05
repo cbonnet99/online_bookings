@@ -16,11 +16,13 @@ class TaskUtils
   end
   
   def self.create_sample_data(number_clients=30, number_bookings=150)
+    
     #French pro
     Time.zone = "Paris"
     pro_array = PRO_ARRAYS.first
+    france = Country.find_by_country_code("FR")
     pro = Practitioner.new(:first_name => pro_array[0], :last_name => pro_array[1], :timezone => "Paris",
-        :country_code => "FR",  
+        :country => france,  
         :email => pro_array[2], :password => pro_array[0][0,4], :password_confirmation => pro_array[0][0,4],
         :working_hours => "8-18", :working_days => "1,2,3,4,5", :no_cancellation_period_in_hours => Practitioner::DEFAULT_CANCELLATION_PERIOD,
         :phone => pro_array[3])
@@ -31,7 +33,7 @@ class TaskUtils
     Time.zone = "Wellington"
     pro_array = PRO_ARRAYS.second
     pro = Practitioner.new(:first_name => pro_array[0], :last_name => pro_array[1], :timezone => "Wellington",
-        :country_code => "NZ",  
+        :country => Country.find_by_country_code("NZ"),  
         :email => pro_array[2], :password => pro_array[0][0,4], :password_confirmation => pro_array[0][0,4],
         :working_hours => "8-18", :working_days => "1,2,3,4,5", :no_cancellation_period_in_hours => Practitioner::DEFAULT_CANCELLATION_PERIOD,
         :phone => pro_array[3])

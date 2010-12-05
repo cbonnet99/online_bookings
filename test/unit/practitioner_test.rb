@@ -7,29 +7,24 @@ class PractitionerTest < ActiveSupport::TestCase
   fixtures :all
 
   def test_phone_prefixes
-    pro = Factory(:practitioner, :country_code => "FR")
+    pro = Factory(:practitioner, :country => countries(:fr))
     assert_equal ["06", "07"], pro.mobile_phone_prefixes
     assert_equal ["01", "02", "03", "04", "05", "08", "09"], pro.landline_phone_prefixes
 
-    pro = Factory(:practitioner, :country_code => "NZ")
+    pro = Factory(:practitioner, :country => countries(:nz))
     assert_equal ["021", "022", "027", "029"], pro.mobile_phone_prefixes
     assert_equal ["03", "04", "06", "07", "09"], pro.landline_phone_prefixes
-
-
-    pro = Factory(:practitioner, :country_code => "")
-    assert_equal ["06", "07"], pro.mobile_phone_prefixes
-    assert_equal ["01", "02", "03", "04", "05", "08", "09"], pro.landline_phone_prefixes
 
   end
 
   def test_delete_sample_data
-    pro = Factory(:practitioner, :state => "test_user")
+    pro = Factory(:practitioner, :state => "test_user", :country  => countries(:fr))
     pro.create_sample_data!
     pro.delete_sample_data!
   end
   
   def test_delete_sample_data_for_non_test_user
-    pro = Factory(:practitioner, :state => "active")
+    pro = Factory(:practitioner, :state => "active", :country  => countries(:fr))
     client = Factory(:client)
     booking = Factory(:booking, :practitioner => pro, :client => client)
     assert_raise(CantDeleteSampleDataOnNonTestProException) do
@@ -42,7 +37,7 @@ class PractitionerTest < ActiveSupport::TestCase
   
 
   def test_create_sample_data_for_non_test_user
-    pro = Factory(:practitioner, :state => "active")
+    pro = Factory(:practitioner, :state => "active", :country  => countries(:fr))
     assert_raise(CantCreateSampleDataOnNonTestProException){
       pro.create_sample_data!
     }
@@ -50,7 +45,7 @@ class PractitionerTest < ActiveSupport::TestCase
   end
 
   def test_create_sample_data
-    pro = Factory(:practitioner, :state => "test_user")
+    pro = Factory(:practitioner, :state => "test_user", :country  => countries(:fr))
     pro.create_sample_data!
     pro.reload
     assert_equal 30, pro.clients.size

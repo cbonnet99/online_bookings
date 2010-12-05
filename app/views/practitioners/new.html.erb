@@ -21,8 +21,8 @@
     <%= f.text_field :phone %>
   </p>
   <p>
-    <%= f.label :country_code, t(:practitioner_country) %>:<br />
-	<%= f.select :country_code, @supported_countries %>
+    <%= f.label :country_i, t(:practitioner_country) %>:<br />
+	<%= f.select :country_id, @supported_countries %>
   </p>
   <p>
     <%= f.label :no_cancellation_period_in_hours, t(:practitioner_new_nocancellation) %><br />

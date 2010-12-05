@@ -20,30 +20,26 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def default_country_code
-    if I18n.locale.to_s == "fr"
-      return "FR"
-    else
-      return $default_country_code
-    end
+  def default_country
+    return Country.default_country
   end
   
   def set_locale
     selected_locale = extract_locale_from_subdomain
     if selected_locale.nil?
       country_code = locate_current_user
-      selected_locale = translate_country_code_to_locale(country_code)
+      selected_locale = translate_country_code_to_locale(country_code)  
     end
-    I18n.locale = selected_locale unless selected_locale.nil?
+    I18n.locale = selected_locale.downcase unless selected_locale.nil?
   end
   
   def translate_country_code_to_locale(country_code)
-    country_code = country_code.try(:downcase).try(:to_sym) if country_code.is_a?(String)
-    if $translated_country_codes_to_locales.include?(country_code)
-      $translated_country_codes_to_locales[country_code]
-    else
-      country_code
+    country_code = country_code.try(:upcase) if country_code.is_a?(String)
+    selected_country = Country.find_by_country_code(country_code)
+    if selected_country.nil?
+      selected_country = Country.default_country
     end
+    return selected_country.locale
   end
   
   def extract_locale_from_subdomain
@@ -56,24 +52,26 @@ class ApplicationController < ActionController::Base
   def get_country_code_from_subdomain
     res = request.subdomains.first.try(:upcase)
     logger.debug("========= res STEP 1: #{res}")
-    if res.blank? || !$available_country_codes.include?(res)
+    if res.blank? || !Country.available_country_codes.include?(res)
       res = locate_current_user
       logger.debug("========= res STEP 2: #{res}")
     end
-    res = $default_country_code if !$available_country_codes.include?(res)
+    res = Country.default_country.country_code if !Country.available_country_codes.include?(res)
     res
   end
   
   def get_phone_prefixes
-    @mobile_prefixes = $mobile_phone_prefixes[cookies[:country_code].try(:upcase)] || $mobile_phone_prefixes[$default_country_code.upcase()]
-    @landline_prefixes = $landline_phone_prefixes[cookies[:country_code].try(:upcase)] || $landline_phone_prefixes[$default_country_code.upcase()]
+    @country = Country.find_by_country_code(cookies[:country_code].try(:upcase))
+    @mobile_prefixes = @country.try(:mobile_phone_prefixes) || Country.default_country.mobile_phone_prefixes
+    @landline_prefixes = @country.try(:landline_phone_prefixes) || Country.default_country.landline_phone_prefixes
     @phone_prefixes = @mobile_prefixes + @landline_prefixes
   end
   
   def get_practitioners(country_code)
     country_code = @current_country_code if country_code.blank?    
-    country_code = $default_country_code if country_code.blank?
-    @practitioners = Practitioner.find(:all, :conditions => ["country_code = ?", country_code], :order => "first_name, last_name")
+    country_code = Country.default_country.country_code if country_code.blank?
+    @country = Country.find_by_country_code(country_code)
+    @practitioners = @country.try(:practitioners)
   end
   
   def get_selected_practitioner
@@ -105,7 +103,7 @@ class ApplicationController < ActionController::Base
       @current_country_code = get_country_code_from_subdomain
       logger.debug("========= @current_country_code STEP 1: #{@current_country_code}")
     else
-      @current_country_code = @current_selected_pro.country_code
+      @current_country_code = @current_selected_pro.country.country_code
       logger.debug("========= @current_country_code STEP 2: #{@current_country_code}")
     end
   end

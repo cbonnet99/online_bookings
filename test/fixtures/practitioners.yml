@@ -10,7 +10,7 @@ megan:
     working_days: "4,5"
     phone: 021 34556666
     no_cancellation_period_in_hours: 24
-    country_code: NZ
+    country_id: 101
     own_time_label: Own time
     timezone: Wellington
 sav:
@@ -26,7 +26,7 @@ sav:
     bookings_publish_code: 676c5653c5ef
     phone: 021 34556667
     no_cancellation_period_in_hours: 24
-    country_code: NZ
+    country_id: 101
     own_time_label: Own time
     timezone: Wellington
 rene:
@@ -41,6 +41,6 @@ rene:
     working_days: "1,2,3,4,5"
     phone: 06 87 66 67 57
     no_cancellation_period_in_hours: 24
-    country_code: FR
+    country_id: 100
     own_time_label: Own time
     timezone: Paris    

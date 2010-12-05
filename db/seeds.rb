@@ -6,10 +6,10 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Major.create(:name => 'Daley', :city => cities.first)
 
-Practitioner.create(:first_name => "David", :last_name => "Savage", :permalink => "david-savage", :email => "sav@beamazing.co.nz",
-                    :password => "secret", :password_confirmation => "secret", :working_hours => "9-10,10:30-11:30,12-13,13:30-14:30,15-16,16:30-17:30", 
-                    :working_days => "1,3" )
-Practitioner.create(:first_name => "Megan", :last_name => "Savage", :permalink => "megan-savage", :email => "megan@beamazing.co.nz",
-                    :password => "secret", :password_confirmation => "secret", :working_hours => "9-10,10:30-11:30,12-13,13:30-14:30,15-16,16:30-17:30", 
-                    :working_days => "2,4" )
+Country.create(:is_default => true, :country_code => "FR", :locale => "FR", :mobile_phone_prefixes_list => "06,07",
+ :landline_phone_prefixes_list => "01,02,03,04,05,08,09",  :sample_first_names => "Jean,Marie,Ben,Marius,Edith,Laurent,Mo,Lise,Jean-Pierre,Theo",
+ :sample_last_names => "Martin,Souza,Marcos,Durand,Adjani,Pujol,Cerdan,Hernin,Lindon", :timezones => "Paris")
 
+Country.create(:is_default => false, :country_code => "NZ", :locale => "EN", :mobile_phone_prefixes_list => "021,022,027,029",
+  :landline_phone_prefixes_list => "03,04,06,07,09",  :sample_first_names => "Liz,Mary,Josh,Ed,Warren,John,Megan,David,Tane",
+  :sample_last_names => "Martin,Whenua,Marcos,Yi,Johnson,Jackson,Mana,Batista", :timezones => "Wellington")

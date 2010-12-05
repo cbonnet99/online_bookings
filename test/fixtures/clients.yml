@@ -7,6 +7,7 @@ cyrille:
     password_salt: bef65e058905c379436d80d1a32e7374b139e7b0
     phone_prefix: "021"
     phone_suffix: 1853654
+    country_id: 100
 kartini:
     email: kartini@gmail.com
     # password: "secret"
@@ -14,4 +15,5 @@ kartini:
     password_salt: bef65e058905c379436d80d1a32e7374b139e7b0
     phone_prefix: "021"
     phone_suffix: 1854444
+    country_id: 101
     

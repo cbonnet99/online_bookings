@@ -23,9 +23,9 @@ class PractitionersController < ApplicationController
     @practitioner.working_hours = "8-12,13-18"
     @practitioner.own_time_label = "Own time"
     @practitioner.no_cancellation_period_in_hours = 24
-    @practitioner.country_code = default_country_code
+    @practitioner.country = default_country
     @days_in_week = Practitioner::WORKING_DAYS
-    @supported_countries = $available_country_codes
+    @supported_countries = Country.available_countries
   end
 
   def edit_selected
