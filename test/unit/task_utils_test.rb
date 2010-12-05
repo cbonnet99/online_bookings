@@ -2,6 +2,21 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class TaskUtilsTest < ActiveSupport::TestCase
 
+  def test_time_to_recreate_test_user
+    france = countries(:fr)
+    assert_equal 0, france.practitioners.test_user.size
+    TaskUtils.time_to_recreate_test_user?(2, 5)
+    assert_equal 1, france.practitioners.test_user.size
+    french_test_user = france.practitioners.test_user.first
+    TaskUtils.time_to_recreate_test_user?(2, 5)
+    assert_equal 1, france.practitioners.test_user.size
+    assert_equal french_test_user, france.practitioners.test_user.first, "The French test user should not have been recreated, since it was newly recreated"
+    french_test_user.update_attribute(:created_at, 25.hours.ago)
+    TaskUtils.time_to_recreate_test_user?(2, 5)
+    assert_equal 1, france.practitioners.test_user.size
+    assert_not_equal french_test_user, france.practitioners.test_user.first, "The French test user should have been recreated, since it was old"
+  end
+
   def test_end_bookings_grace_period
     old_size = UserEmail.all.size
     pro = Factory(:practitioner)

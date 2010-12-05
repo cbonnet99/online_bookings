@@ -1,6 +1,17 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class CountryTest < ActiveSupport::TestCase
+
+  def test_recreate_test_user
+    france = countries(:fr)
+    assert_equal 0, france.practitioners.test_user.size
+    france.recreate_test_user(2, 5)
+    assert_equal 1, france.practitioners.test_user.size, "One demo practitioner should have been created"
+    france.recreate_test_user(2, 5)
+    assert_equal 1, france.practitioners.test_user.size, "There should still only be one demo practitioner: it should have been deleted and then recreated"
+  end
+
+
   def test_default_country
     assert_equal countries(:fr), Country.default_country
   end

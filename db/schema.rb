@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101104213339) do
+ActiveRecord::Schema.define(:version => 20101205200329) do
 
   create_table "booking_types", :force => true do |t|
     t.string   "title"
@@ -67,6 +67,11 @@ ActiveRecord::Schema.define(:version => 20101104213339) do
     t.text     "sample_last_names"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "demo_first_name"
+    t.string   "demo_last_name"
+    t.string   "demo_phone"
+    t.string   "demo_email"
+    t.string   "demo_password"
   end
 
   create_table "delayed_jobs", :force => true do |t|

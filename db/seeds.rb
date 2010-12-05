@@ -8,8 +8,12 @@
 
 Country.create(:is_default => true, :country_code => "FR", :locale => "FR", :mobile_phone_prefixes_list => "06,07",
  :landline_phone_prefixes_list => "01,02,03,04,05,08,09",  :sample_first_names => "Jean,Marie,Ben,Marius,Edith,Laurent,Mo,Lise,Jean-Pierre,Theo",
- :sample_last_names => "Martin,Souza,Marcos,Durand,Adjani,Pujol,Cerdan,Hernin,Lindon", :timezones => "Paris")
+ :sample_last_names => "Martin,Souza,Marcos,Durand,Adjani,Pujol,Cerdan,Hernin,Lindon", :timezones => "Paris",
+ :demo_first_name => "Léa", :demo_last_name => "Martin", :demo_phone => "01 22 33 44 55", :demo_email => "lea@test.fr",
+ :demo_password => "demo")
 
 Country.create(:is_default => false, :country_code => "NZ", :locale => "EN", :mobile_phone_prefixes_list => "021,022,027,029",
   :landline_phone_prefixes_list => "03,04,06,07,09",  :sample_first_names => "Liz,Mary,Josh,Ed,Warren,John,Megan,David,Tane",
-  :sample_last_names => "Martin,Whenua,Marcos,Yi,Johnson,Jackson,Mana,Batista", :timezones => "Wellington")
+  :sample_last_names => "Martin,Whenua,Marcos,Yi,Johnson,Jackson,Mana,Batista", :timezones => "Wellington",
+   :demo_first_name => "Lea", :demo_last_name => "Martin", :demo_phone => "027 111 22 33", :demo_email => "lea@test.co.nz",
+   :demo_password => "demo")

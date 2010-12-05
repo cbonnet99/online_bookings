@@ -1,5 +1,4 @@
 class TaskUtils
-  PRO_ARRAYS = [["Cyrille", "Bonnet", "cb@gmail.com", "04 34 55 45 23"], ["Kartini", "Thomas", "kt@gmail.com", "04 34 55 45 11"]]
 
   def self.end_bookings_grace_period
     Booking.ending_grace_period.each do |b|
@@ -15,32 +14,35 @@ class TaskUtils
     end
   end
   
+  def self.time_to_recreate_test_user?(number_clients=30, number_bookings=150)
+    Country.all.each do |country|
+      Time.zone = country.default_timezone
+      all_test_users = country.practitioners.test_user
+      if all_test_users.size > 1
+        logger.error("Country: #{country.name} has #{all_test_users.size} demo users. It should only have one! I will delete them all and recreate one now.")
+        country.recreate_test_user(number_clients, number_bookings)
+      else
+        if all_test_users.size == 0
+          country.recreate_test_user(number_clients, number_bookings)
+        else
+          test_user = all_test_users.first
+          if test_user.created_at + 24.hours < Time.zone.now
+            country.recreate_test_user(number_clients, number_bookings)
+          else
+            just_past_midnight = Time.zone.now.strftime("%H") == "00"
+            if just_past_midnight
+              country.recreate_test_user(number_clients, number_bookings)
+            end
+          end
+        end
+      end
+    end
+  end
+  
   def self.create_sample_data(number_clients=30, number_bookings=150)
-    
-    #French pro
-    Time.zone = "Paris"
-    pro_array = PRO_ARRAYS.first
-    france = Country.find_by_country_code("FR")
-    pro = Practitioner.new(:first_name => pro_array[0], :last_name => pro_array[1], :timezone => "Paris",
-        :country => france,  
-        :email => pro_array[2], :password => pro_array[0][0,4], :password_confirmation => pro_array[0][0,4],
-        :working_hours => "8-18", :working_days => "1,2,3,4,5", :no_cancellation_period_in_hours => Practitioner::DEFAULT_CANCELLATION_PERIOD,
-        :phone => pro_array[3])
-    pro.save!
-    pro.create_sample_data!(number_clients, number_bookings)
-    
-    #NZ pro
-    Time.zone = "Wellington"
-    pro_array = PRO_ARRAYS.second
-    pro = Practitioner.new(:first_name => pro_array[0], :last_name => pro_array[1], :timezone => "Wellington",
-        :country => Country.find_by_country_code("NZ"),  
-        :email => pro_array[2], :password => pro_array[0][0,4], :password_confirmation => pro_array[0][0,4],
-        :working_hours => "8-18", :working_days => "1,2,3,4,5", :no_cancellation_period_in_hours => Practitioner::DEFAULT_CANCELLATION_PERIOD,
-        :phone => pro_array[3])
-    pro.save!
-    pro.create_sample_data!(number_clients, number_bookings)
-    
-    
+    Country.all.each do |country|
+      country.recreate_test_user(number_clients, number_bookings)
+    end    
   end
     
   def self.send_reminders
