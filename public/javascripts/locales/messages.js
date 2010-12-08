@@ -19,6 +19,8 @@ I18n.translations = {
 		button_delete: "Delete",
 		button_cancel: "Cancel",
 		button_confirm: "Confirm",
+		button_yes: "Confirm",
+		button_no: "Keep the appointment",
 		tr_use24Hour : false,
 		/*close flash */
 		close: "Close",
@@ -51,10 +53,12 @@ I18n.translations = {
 		today: "Aujourd'hui",
 		sorry: "Impossible de prendre un rendez-vous dans le passé",
 		button_nosave: "Fermer la fenêtre",
-		button_save: "Enregistrer",
+		button_save: "Sauvegarder",
 		button_delete: "Effacer",
 		button_cancel: "Annuler",
 		button_confirm: "Confirmer",
+		button_yes: "Annulation confirmée",
+		button_no: "Garder le RV",
 		tr_use24Hour : true,
 		/*close flash */
 		close: "Fermer",

@@ -15,6 +15,7 @@ jQuery.validator.addMethod(
 $(document).ready(function() {
 
    var $calendar = $('#calendar');
+   var $cancelDialog = $("#event_cancel_container");
    var mylocal = '<%=  I18n.locale %>' ;
    I18n.locale = mylocal;
 
@@ -123,8 +124,28 @@ $(document).ready(function() {
            }, function(){
              $(this).css("background-color", "white");
            }
-       ).css("background", "url('/images/"+image+"')").css("background-repeat", "no-repeat").css("color", color).css("padding", "5px 5px 5px 30px").css("font-size", "12px");
+       ).css("color", color).css("font-size", "12px");
+
+       if (image !== ''){
+         button.css("padding", "5px 5px 5px 30px").css("background", "url('/images/"+image+"')").css("background-repeat", "no-repeat");
+       }
+       else{
+         button.css("padding", "5px 5px 5px 5px");
+       };
+
+       if (color === "#090"){
+         button.css("float", "right");
+       }
 	}
+
+   var changeCancelButtons = function(){
+     var buttonYes = $("button:contains('yes')");
+     var buttonNo = $("button:contains('no')");
+
+     changeButton(buttonYes, I18n.t("button_yes"), 'green_tick.gif', "#090");
+     changeButton(buttonNo, I18n.t("button_no"), 'red_x.gif', "#C00");
+
+   };
 	
    var changeButtonColors = function(calEvent) {
      var buttonSave = $("button:contains('saveonly')");
@@ -145,7 +166,7 @@ $(document).ready(function() {
      }
      else {
        buttonSave.show();
-       changeButton(buttonSave, I18n.t("button_save"), 'green_tick.gif', "#090");
+       changeButton(buttonSave, I18n.t("button_save"), '', "#090");
      };
      console.log("calEvent.state: "+calEvent.state);
      if (calEvent.state === "in_grace_period"){
@@ -264,7 +285,7 @@ $(document).ready(function() {
 
 	         $dialogContent.dialog({
 	            modal: true,
-				width: '350px',
+				width: 400,
 	            title: I18n.t("new_appointment"),
 	            close: function() {
 	               $dialogContent.dialog("destroy");
@@ -353,7 +374,7 @@ $(document).ready(function() {
 
          $dialogContent.dialog({
             modal: true,
-			width: '350px',
+			width: 500,
             title: $calendar.weekCalendar("formatDate", calEvent.start),
             close: function() {
                $dialogContent.dialog("destroy");
@@ -361,28 +382,55 @@ $(document).ready(function() {
                $('#calendar').weekCalendar("removeUnsavedEvents");
             },
             buttons: {
-               saveonly : function() {
-                  if ($("#event_edit_form").valid()) {
-                      var newCalEvent = new Object();
-                      getNewEventValues(newCalEvent, startField.val(), endField.val(), titleField.val(), clientField.val(), phonePrefix.val(), phoneSuffix.val(), clientEmail.val(), bookingTypeField.val());
-					  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json", "booking[client_id]": newCalEvent.client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": newCalEvent.booking_type_id<%end-%>, "booking[name]": newCalEvent.title, "booking[client_phone_prefix]": newCalEvent.phone_prefix, "booking[client_phone_suffix]": newCalEvent.phone_suffix, "booking[client_email]": newCalEvent.client_email, "booking[starts_at]": newCalEvent.start.toString(), "booking[ends_at]": newCalEvent.end.toString()}, function(data){
-						if ((data.flash.error === undefined) || (data.flash.error === '')) {
-                          updateEvent(calEvent, data);
-			             }
-	                    if (data.prep) {
-	                        var prepEvent = data.prep;
-		                  $calendar.weekCalendar("updateEvent", prepEvent);
-	                    }
-			            $dialogContent.dialog("close");
-	                    $dialogContent.hide();
-						displayFlash(data.flash);
-						}, "json");
-					}
+               "cancel" : function() {
+                  console.log("In cancel");
+                  $.get("/bookings/" + calEvent.id + "/cancel_text", function(data){
+                    console.log("Cancel text: "+ data);
+                    $("textarea#cancel_cancellation_text").val(data);
+                  });
+                  
+                  $("input#cancel_booking_id").val(calEvent.id);
+				   $cancelDialog.dialog(
+					{
+						autoOpen: false,
+						modal: true,
+						width: 400,
+						position: 'right',
+						title: '<%=t(:cancel)%>',
+						buttons:
+						  {
+						    "no": function(){
+								$(this).dialog("close");
+						    },
+						    "yes": function(){
+							    var booking_id = $("input#cancel_booking_id").val();
+							    var send_email = $("input#cancel_send_email").val();
+							    var cancellation_text = $("textarea#cancel_cancellation_text").val();
+							    console.log("url:"+"/bookings/" + booking_id + "/pro_cancel");
+							    console.log("send_email: "+send_email);
+							    console.log("cancellation_text: "+cancellation_text);
+							  	$.post("/bookings/" + booking_id + "/pro_cancel", {"format": "json", "send_email": send_email, "cancellation_text": cancellation_text},
+							      function(data){
+				                    if (data === null){
+				                      alert(I18n.t("sorry_server"));
+				                    }
+				                    else {
+				                      if ((data.flash.error === undefined) || (data.flash.error === '')) {
+							             $calendar.weekCalendar("refresh");
+				                       }
+									   $cancelDialog.dialog("close");				
+									   $dialogContent.dialog("close");				
+					                   displayFlash(data.flash);
+				                    }
+							      }
+						      , "json");
+						    }
+						}
+					});
+                  changeCancelButtons();
+                  $cancelDialog.dialog("open");
                },
                nosave : function() {
-                  $dialogContent.dialog("close");
-               },
-               "cancel" : function() {
                   $dialogContent.dialog("close");
                },
                "delete" : function() {	
@@ -405,6 +453,24 @@ $(document).ready(function() {
 	                  $dialogContent.dialog("close");
 					  displayFlash(data.flash);
 					}, "json");
+               },
+               saveonly : function() {
+                  if ($("#event_edit_form").valid()) {
+                      var newCalEvent = new Object();
+                      getNewEventValues(newCalEvent, startField.val(), endField.val(), titleField.val(), clientField.val(), phonePrefix.val(), phoneSuffix.val(), clientEmail.val(), bookingTypeField.val());
+					  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json", "booking[client_id]": newCalEvent.client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": newCalEvent.booking_type_id<%end-%>, "booking[name]": newCalEvent.title, "booking[client_phone_prefix]": newCalEvent.phone_prefix, "booking[client_phone_suffix]": newCalEvent.phone_suffix, "booking[client_email]": newCalEvent.client_email, "booking[starts_at]": newCalEvent.start.toString(), "booking[ends_at]": newCalEvent.end.toString()}, function(data){
+						if ((data.flash.error === undefined) || (data.flash.error === '')) {
+                          updateEvent(calEvent, data);
+			             }
+	                    if (data.prep) {
+	                        var prepEvent = data.prep;
+		                  $calendar.weekCalendar("updateEvent", prepEvent);
+	                    }
+			            $dialogContent.dialog("close");
+	                    $dialogContent.hide();
+						displayFlash(data.flash);
+						}, "json");
+					}
                }
             }
          }).show();
@@ -579,6 +645,7 @@ $(document).ready(function() {
 });
 </script><% title pro.calendar_title%>
 <div id="calendar"></div>
+
 <div id="event_edit_container">	
 	<form id="event_edit_form"> 
 		<ul class="event-icons">
@@ -607,4 +674,13 @@ $(document).ready(function() {
 			</li>
 		</ul> 
 	</form> 
+</div>
+
+<div id="event_cancel_container">	
+  <form id="event_cancel_form">
+	<p><%=t(:cancel_warning_text)%></p>
+	<input type="hidden" id="cancel_booking_id"></input>
+	<input type="checkbox" id="cancel_send_email" name="send_email" checked="true"></input><label for="cancel_send_email"><%= t(:cancel_send_email)%></label><br/>
+	<textarea id="cancel_cancellation_text" name="cancellation_text" cols="35" rows="15"></textarea>
+  </form>
 </div>

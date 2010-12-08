@@ -2,6 +2,17 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class BookingsControllerTest < ActionController::TestCase
 
+  def test_cancel_text
+    booking = Factory(:booking, :state => "unconfirmed")
+    pro = booking.practitioner
+    post :cancel_text, {:id => booking.id}, {:pro_id => pro.id}
+    assert_response :success
+    assert !@response.body.blank?, "No cancellation text was returned"
+    name_regex = Regexp.new(booking.practitioner.name)
+    assert_match name_regex, @response.body
+    assert_no_match %r{<br/>}, @response.body, "HTML BRs should have been replaced by \n"
+  end
+
   def test_client_confirm
     booking = Factory(:booking, :state => "unconfirmed")
     assert_not_nil booking.confirmation_code
@@ -60,7 +71,7 @@ class BookingsControllerTest < ActionController::TestCase
   end
 
   def test_pro_cancel_send_email_with_custom_text
-    custom_text = "Hello Dad"
+    custom_text = "Hello Dad\nIt's me"
     old_mail_size = ActionMailer::Base.deliveries.size    
     booking = Factory(:booking, :state => "unconfirmed")
     pro = booking.practitioner
@@ -70,7 +81,7 @@ class BookingsControllerTest < ActionController::TestCase
     assert booking.cancelled_by_pro?
     assert_equal old_mail_size+1, ActionMailer::Base.deliveries.size, "An email to the client should have been sent"
     last_email = ActionMailer::Base.deliveries.last
-    assert_equal custom_text, last_email.body
+    assert_equal custom_text.gsub(/\n/, "<br/>"), last_email.body, "The email should contain the custom text, with HTML BRs"
   end
 
   #Cyrille (26 September 2010: for the moment, clients cannot destroy bookings)

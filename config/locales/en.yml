@@ -162,7 +162,7 @@
   flash_error_authentication_not_authent_client : "Not authenticated as a client"
   flash_error_authentication_must_be_logged : "You must be logged in to see this page"
   #booking
-  cancellation_text: "Dear {{client_name}},<br/><br/>Your appointment with {{pro_name}} {{start_date_and_time_str}} has been cancelled.<br/><br/>If you have any questions, please contact {{pro_name}} at: {{pro_phone}}.<br/><br/>{{signature}},<br/>{{pro_name}}"  
+  cancellation_text: "Dear {{client_name}},<br/><br/>Your appointment with {{pro_name}} {{start_date_and_time_str}} has been cancelled.<br/><br/>If you have any questions, please contact me at: {{pro_phone}}.<br/><br/>{{signature}},<br/>{{pro_name}}"  
   signature: "Best regards"
   flash_notice_booking_appointment_booked : "Your appointment with {{booking_partner}} on {{booking_date}} at {{booking_time}} has been booked"
   flash_error_booking_invalid_appointment : "This appointment is invalid"
@@ -310,6 +310,11 @@
   appointment_email: "Email"
   appointment_comment: "Comment: "
   appointment_do_not_save_button: "don't save"
+  #appointment cancel
+  cancel_send_email: "Send a cancellation email"
+  cancel_email_text: "Email"
+  cancel: "Cancel"
+  cancel_warning_text: You are about to cancel an appointment. Please confirm.
   #appointment popup
   lunch: "Not available"
   non_working: "Not available"

@@ -4,7 +4,7 @@ fr:
         default: "%d/%m/%Y"
         short: "%e %b"
         long: "%e %B %Y"
-        long_ordinal: "%e %B %Y"
+        long_ordinal: "%A %d %B %Y"
         only_day: "%e"
 
       day_names: [ lundi, mardi, mercredi, jeudi, vendredi, samedi , dimanche]
@@ -202,7 +202,7 @@ fr:
     flash_error_authentication_not_authent_client : "Vous n'êtes pas authentifié(e)"
     flash_error_authentication_must_be_logged : "Vous devez être connecté(e) pour pouvoir afficher cette page"
     #booking
-    cancellation_text: "Bonjour,<br/><br/>Votre rendez-vous avec {{pro_name}} {{start_date_and_time_str}} a été annulé.<br/><br/>Si vous avez des questions, vous pouvez contacter {{pro_name}} au: {{pro_phone}}.<br/><br/>{{signature}},<br/>{{pro_name}}"
+    cancellation_text: "Bonjour,<br/><br/>Votre rendez-vous avec {{pro_name}} {{start_date_and_time_str}} a été annulé.<br/><br/>Si vous avez des questions, vous pouvez me contacter au: {{pro_phone}}.<br/><br/>{{signature}},<br/>{{pro_name}}"
     signature: "Cordialement"
     flash_notice_booking_appointment_booked : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} a été enregistré"
     flash_error_booking_invalid_appointment : "Ce rendez-vous n'est pas valide"
@@ -345,6 +345,12 @@ fr:
     appointment_phone: "Téléphone (mobile de préférence)"
     appointment_email: "Adresse email"
     appointment_comment: "Commentaire: "
+    #appointment cancel
+    cancel_send_email: "Envoyer un email d'annulation"
+    cancel_email_text: "Email"
+    cancel: "Annuler"
+    cancel_warning_text: Vous allez annuler ce rendez-vous. Merci de bien vouloir confirmer.
+
     lunch: "Non réservable"
     non_working: "Non réservable"
     appt_booked: "Rendez-vous indisponible"

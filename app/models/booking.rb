@@ -25,7 +25,7 @@ class NonWorkingBooking
     booking.start = @start_time.strftime("%Y%m%dT%H%M%S")
     booking.end = @end_time.strftime("%Y%m%dT%H%M%S")
     booking.summary = @title
-    booking.description = ""
+    booking.description
     booking.location = ''
     booking.klass = "PUBLIC"
     booking.created = Time.zone.now
@@ -231,16 +231,15 @@ class Booking < ActiveRecord::Base
   end
   
   def start_date_and_time_str
-    # "on #{self.start_date_str} at #{self.start_time_str}"
-    
     I18n.t(:date_and_time, :scope=>[:time], :date => "#{self.start_date_str}" , :time => "#{self.start_time_str}")
     
   end
   def start_date
     self.starts_at
   end
+  
   def start_date_str
-    "#{self.starts_at.strftime('%A %d %B %Y')}"
+    I18n.l(self.starts_at, :format => :long_ordinal)
   end
   
   def start_time_str

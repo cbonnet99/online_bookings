@@ -3,6 +3,15 @@ class BookingsController < ApplicationController
   before_filter :require_selected_practitioner, :except => [:client_confirm, :client_cancel] 
   before_filter :login_required, :except => [:flash, :index_cal, :client_confirm, :client_cancel]
 
+  def cancel_text
+    @booking = current_pro.bookings.find(params[:id])
+    if @booking.nil?
+      render :text  => ""
+    else
+      render :text => @booking.cancellation_text.gsub(%r{<br/>}, "\n")
+    end
+  end
+
   def client_cancel
     @booking = Booking.find_by_confirmation_code_and_id(params[:confirmation_code], params[:id])
     if @booking.nil?
@@ -22,7 +31,8 @@ class BookingsController < ApplicationController
     else
       @booking.pro_cancel!
       if params[:send_email]
-        UserMailer.deliver_cancellation_notice(@booking, params[:cancellation_text] || @booking.cancellation_text)
+        @cancellation_text = params[:cancellation_text].blank? ? @booking.cancellation_text : params[:cancellation_text].gsub(/\n/, "<br/>")
+        UserMailer.deliver_cancellation_notice(@booking,  @cancellation_text)
       end
       flash[:notice] = I18n.t(:flash_notice_booking_appointment_cancelled , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
     end

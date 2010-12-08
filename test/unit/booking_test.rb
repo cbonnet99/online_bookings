@@ -12,7 +12,8 @@ class BookingTest < ActiveSupport::TestCase
   def test_cancellation_text
     b = Factory(:booking)
     assert_not_nil b.cancellation_text
-    # assert_match %r{}, b.cancellation_text
+    name_regex = Regexp.new(b.practitioner.name)
+    assert_match name_regex, b.cancellation_text
   end
 
   def test_reminder_will_be_sent_at
