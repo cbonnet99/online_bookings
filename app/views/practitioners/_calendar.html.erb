@@ -25,6 +25,12 @@ $(document).ready(function() {
    var eventTitleNormalColor = "#68A1E5";
    var eventTitleHoverColor = "#2B72D0";
 
+	var addFlashCalendar = function() {
+		if ($("#flash_calendar").length == 0){
+			$("<div id='flash_calendar'></div>").appendTo($("div.wc-nav"));
+		}
+	};
+
    var setHeaderIcons = function(calEvent, $event){
        if ((calEvent.end.getTime() < (new Date().getTime())) || calEvent.readOnly) {
           /* don't do anything for past events*/
@@ -419,7 +425,7 @@ $(document).ready(function() {
 							             $calendar.weekCalendar("refresh");
 				                       }
 									   $cancelDialog.dialog("close");				
-									   $dialogContent.dialog("close");				
+									   $dialogContent.dialog("close");
 					                   displayFlash(data.flash);
 				                    }
 							      }
@@ -676,7 +682,7 @@ $(document).ready(function() {
 	</form> 
 </div>
 
-<div id="event_cancel_container">	
+<div id="event_cancel_container" style="display: none">	
   <form id="event_cancel_form">
 	<p><%=t(:cancel_warning_text)%></p>
 	<input type="hidden" id="cancel_booking_id"></input>
