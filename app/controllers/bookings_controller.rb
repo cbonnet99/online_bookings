@@ -34,7 +34,7 @@ class BookingsController < ApplicationController
         @cancellation_text = params[:cancellation_text].blank? ? @booking.cancellation_text : params[:cancellation_text].gsub(/\n/, "<br/>")
         UserMailer.deliver_cancellation_notice(@booking,  @cancellation_text)
       end
-      flash[:notice] = I18n.t(:flash_notice_booking_appointment_cancelled , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
+      flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_cancelled , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
     end
     render :action => "flash", :format => "json"
   end
@@ -45,10 +45,10 @@ class BookingsController < ApplicationController
     @booking = Booking.find_by_confirmation_code_and_id(params[:confirmation_code], params[:id])
     if @booking.nil?
       logger.error("Invalid attempt to confirm an with ID: #{params[:id]} and confirmation_code: #{params[:confirmation_code]}")
-      flash[:error] = I18n.t(:flash_error_booking_invalid_appointment)
+      flash.now[:error] = I18n.t(:flash_error_booking_invalid_appointment)
     else
       @booking.confirm!
-      flash[:notice] = I18n.t(:flash_notice_booking_confirmed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
+      flash.now[:notice] = I18n.t(:flash_notice_booking_confirmed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
     end
   end
   
@@ -56,10 +56,10 @@ class BookingsController < ApplicationController
     @booking = current_pro.bookings.find(params[:id])
     if @booking.nil?
       logger.error("Invalid attempt to confirm an with ID: #{params[:id]} for pro: #{current_pro.id}")
-      flash[:error] = I18n.t(:flash_error_booking_invalid_appointment)
+      flash.now[:error] = I18n.t(:flash_error_booking_invalid_appointment)
     else
       @booking.confirm!
-      flash[:notice] = I18n.t(:flash_notice_booking_confirmed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
+      flash.now[:notice] = I18n.t(:flash_notice_booking_confirmed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
     end
     render :action => "flash", :format => "json"
   end
@@ -84,7 +84,7 @@ class BookingsController < ApplicationController
   def index_cal
     @practitioner = Practitioner.find_by_bookings_publish_code(params["pub_code"])
     if @practitioner.nil?
-      flash[:error] = I18n.t(:flash_error_booking_couldnot_find_practitioner)
+      flash.now[:error] = I18n.t(:flash_error_booking_couldnot_find_practitioner)
       render :action => "flash"
     else
       @bookings = @practitioner.own_bookings(Time.zone.now.advance(:month => -1).beginning_of_month, Time.zone.now.advance(:months => 1).end_of_month)
@@ -119,7 +119,7 @@ class BookingsController < ApplicationController
       @prep = @booking.prep
       flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_booked , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
     else
-      flash[:error] = I18n.t(:booking_not_saved, :error => @booking.errors.full_messages.to_sentence)
+      flash.now[:error] = I18n.t(:booking_not_saved, :error => @booking.errors.full_messages.to_sentence)
     end
     render :action => "flash", :format => "json"
   end
@@ -138,10 +138,10 @@ class BookingsController < ApplicationController
           @prep = @booking.prep
           flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_changed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
         else
-          flash[:error] = I18n.t(:error_while_saving_booking)
+          flash.now[:error] = I18n.t(:error_while_saving_booking)
         end
       else
-        flash[:error] = I18n.t(:error_saving_booking_outside_of_grace_period)
+        flash.now[:error] = I18n.t(:error_saving_booking_outside_of_grace_period)
       end
     end
     render :action => "flash", :format => "json"
