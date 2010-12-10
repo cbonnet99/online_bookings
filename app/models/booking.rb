@@ -213,7 +213,9 @@ class Booking < ActiveRecord::Base
   end
   
   def send_reminder_email!
-    UserMailer.deliver_booking_reminder(self)
+    if !self.practitioner.test_user? || (self.practitioner.test_user? && self.client.email == self.practitioner.email)
+      UserMailer.deliver_booking_reminder(self)
+    end
   end
 
   def generate_confirmation_code
