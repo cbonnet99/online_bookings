@@ -127,7 +127,7 @@
   #session
   flash_notice_session_welcome: "Welcome to "
   flash_error_session_invalid_login_password: "Invalid login or password."
-  flash_notice_session_logout: "You have been logged out."
+  flash_notice_session_logout: "Thanks for your visit. See you next time!"
   #client
   flash_error_client_invalid_client: "Invalid client"
   flash_notice_client_client_deleted: "Client deleted"
@@ -222,6 +222,8 @@
   practitioner_login_info_message: "You are logged in as: "
   practitioner_login_info_edit_link: "Edit"
   practitioner_login_info_logout_link: "Logout"
+  #practitioner/edit
+  pro_edit_settings: "Edit your settings"
   #practitioner/share-ical
   practitioner_share_ical_message: "Your iCal feed URL is "
   practitioner_share_ical_stop: "Stop sharing iCal feed"

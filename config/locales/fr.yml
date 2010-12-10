@@ -168,7 +168,7 @@ fr:
     #session
     flash_notice_session_welcome: "Bienvenu(e) sur "
     flash_error_session_invalid_login_password: "Votre mot de passe ou votre adresse email est invalide."
-    flash_notice_session_logout: "Vous êtes déconecté(e)"
+    flash_notice_session_logout: "Merci de votre visite. A la prochaine!"
     #client
     flash_error_client_invalid_client: "Client n'existe pas"
     flash_notice_client_client_deleted: "Client a été supprimé"
@@ -261,11 +261,13 @@ fr:
     #practicioner/show
     practitioner_show_message: "Pour prendre un rendez-vous, clickez sur un des espaces libres du calendrier. La date du jour apparait en jaune. Pour changer de semaine, utilisez les boutons "
     #practitioner/login_info
-    practitioner_login_info_message: "Connecté(e) avec: "
-    practitioner_login_info_edit_link: "Modifier"
+    practitioner_login_info_message: "Vous êtes: "
+    practitioner_login_info_edit_link: "Paramètres"
     practitioner_login_info_logout_link: "Se déconnecter"
+    #practitioner/edit
+    pro_edit_settings: "Changer vos paramètres"
     #practitioner/share-ical
-    practitioner_share_ical_message : "L'URL de votre Flux Ical est: "
+    practitioner_share_ical_message : "L'URL de votre flux Ical est: "
     practitioner_share_ical_stop : "Désactiver le flux Ical"
     practitioner_share_ical_start : "Activer le flux Ical"
     #practitioner/selected_pro_info

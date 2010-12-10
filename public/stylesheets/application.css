@@ -1,3 +1,6 @@
+div#right-spacer {padding: 5px;}
+div.header div.container div#pro-links span.button{background-color: grey; color: white; padding: 5px;}
+div.header div.container div#pro-links span.button a{color: white; margin-right: 5px;}
 div#content h1{margin-top: 5px; margin-bottom: 5px;}
 ul.event-icons {padding: 0;}
 ul.event-icons li {list-style: none;}
