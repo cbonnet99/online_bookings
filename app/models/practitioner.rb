@@ -63,7 +63,7 @@ class Practitioner < ActiveRecord::Base
   #WORKING_DAYS = [I18n.t(:monday),I18n.t(:tuesday) ,I18n.t(:wednesday) , I18n.t(:thursday), I18n.t(:friday),I18n.t(:saturday) ,I18n.t(:sunday) ]
   WORKING_DAYS = ["monday","tuesday" ,"wednesday" , "thursday", "friday","saturday" ,"sunday" ]
   #WORKING_DAYS = Date::DAY_NAMES
-  #WORKING_DAYS = I18n.t 'date.day_names' does not work with actul code sunday is first day of the week
+  #WORKING_DAYS = I18n.t 'date.day_names' does not work with actual code sunday is first day of the week
 
   DOMAINS = ["gmail.com", "test.com", "info.org"]
   BOOKING_STATES = ["in_grace_period", "unconfirmed", "confirmed" ,"cancelled_by_client", "cancelled_by_pro"]

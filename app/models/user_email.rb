@@ -17,19 +17,37 @@ class UserEmail < ActiveRecord::Base
       if sent >= BATCH
         break
       end
-      if email.created_at.advance(:minutes  => email.delay_mins).utc < Time.now.utc
-        email_call = "deliver_#{email.email_type}".to_sym
-        begin
-          UserMailer.send(email_call, email.to, email.from, email.subject, email.booking)
-          puts "Sent email #{email.email_type} to #{email.to}"
-          email.update_attribute(:sent_at, Time.zone.now)
+      if email.practitioner.test_user?
+        if email.to == email.practitioner.email
+          email.send!
           sent += 1
-        rescue NoMethodError
-          puts "ERROR: Cannot send user email ID #{email.id}, email type #{email.email_type} does not correspond to any method in UserMailer"
-          logger.error("Cannot send user email ID #{email.id}, email type #{email.email_type} does not correspond to any method in UserMailer")
+        else
+          #pretend we sent it: this is only a test user
+          email.mark_as_sent!
         end
+      else
+        email.send!
+        sent += 1
       end
     end
   end
-  
+
+  def mark_as_sent!
+    self.update_attribute(:sent_at, Time.zone.now)
+  end
+
+  def send!
+    if self.created_at.advance(:minutes  => self.delay_mins).utc < Time.now.utc
+      email_call = "deliver_#{self.email_type}".to_sym
+      begin
+        UserMailer.send(email_call, self.to, self.from, self.subject, self.booking)
+        puts "Sent email #{self.email_type} to #{self.to}"
+        self.mark_as_sent!
+      rescue NoMethodError
+        puts "ERROR: Cannot send user email ID #{self.id}, email type #{self.email_type} does not correspond to any method in UserMailer"
+        logger.error("Cannot send user email ID #{self.id}, email type #{self.email_type} does not correspond to any method in UserMailer")
+      end
+    end    
+  end
+      
 end
