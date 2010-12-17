@@ -19,7 +19,7 @@ fr:
         time: "%Hh%M"
         short: "%d %b %Hh%M"
         long: "%A %d %B %Y %H:%M:%S %Z"
-        long_ordinal: "%A %d %B %Y %H:%M:%S %Z"
+        long_ordinal: "%A %d %B %Y"
         only_second: "%S"
         custo_date: "%A %d %B %Y"
         timeampm: "%Hh%M %p"

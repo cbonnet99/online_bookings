@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class BookingTest < ActiveSupport::TestCase  
-
+class BookingTest < ActiveSupport::TestCase
+  
   def test_endind_grace_period
     pro = Factory(:practitioner)
     booking_still_in_grace_period = Factory(:booking, :state => "in_grace_period", :created_at => 10.minutes.ago.in_time_zone(pro.timezone))
@@ -9,11 +9,17 @@ class BookingTest < ActiveSupport::TestCase
     assert_equal 1, Booking.ending_grace_period.size
   end    
 
+  def test_start_date_str
+    b = Factory(:booking)
+    assert_no_match %r{00 CET}, b.start_date_str
+  end
+
   def test_cancellation_text
     b = Factory(:booking)
     assert_not_nil b.cancellation_text
     name_regex = Regexp.new(b.practitioner.name)
     assert_match name_regex, b.cancellation_text
+    assert_no_match %r{00 CET}, b.cancellation_text
   end
 
   def test_reminder_will_be_sent_at
