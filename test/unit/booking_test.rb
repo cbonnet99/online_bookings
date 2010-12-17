@@ -111,8 +111,9 @@ class BookingTest < ActiveSupport::TestCase
   end
 
   def test_simple_time
-    booking = Factory(:booking)
-    booking.starts_at.simple_time    
+    starts_at = DateTime.strptime("1/1/2010 10:06 CEST", "%d/%m/%Y %H:%M %Z").in_time_zone("Paris")
+    time = starts_at.simple_time
+    assert_match "06", time
   end
 
   def test_js_args
