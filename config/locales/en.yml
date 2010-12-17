@@ -4,6 +4,7 @@
       default: "%Y-%m-%d"
       short: "%e %b"
       long: "%B %e, %Y"
+      long_ordinal: "%A %d %B %Y"
       only_day: "%e"
 
     day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
@@ -18,6 +19,7 @@
       time: "%H:%M"
       short: "%d %b %H:%M"
       long: "%B %d, %Y %H:%M"
+      long_ordinal: "%A %d %B %Y"
       only_second: "%S"
       custo_date: "%A %d %B %Y"
       timeampm: "%H:%M %p"
