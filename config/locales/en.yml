@@ -123,7 +123,7 @@
   #practicioner
   flash_error_practitioner_not_found: "Could not find this practitioner"
   flash_notice_practitioner_visualize_ical: "You can now visualize your calendar in iCal"
-  flash_notice_practitioner_thanks_signup: "Thank you for signing up! You are now logged in."
+  flash_notice_practitioner_thanks_signup: "Welcome to Colibri!"
   #application
   flash_error_session_not_selected_pro: "No selected practitioner"
   #session
@@ -247,20 +247,34 @@
   flash_notice_client_update_reset_phone: "Your phone number has been updated"
   flash_error_client_update_reset_phone: "There was an error while resetting your phone number"
   #Practitioner/new
-  practitioner_new_title: "Register for a free trial"
+  practitioner_new_title: "Try Colibri for free"
   practitioner_new_message1: "Already have an account?"
+  pro_try_again: "Please try again"
+  pro_incomplete_registration: "Your registration was not completed"
+  pro_no_password: "Your password cannot be empty"
+  pro_mismatched_passwords: "Your password and its confirmation do not match"
+  pro_invalid_username: "Your username should only contain letters, numbers, or .-_@"
+  pro_empty_first_name: "Your first name cannot be empty"
+  pro_empty_last_name: "Your last name cannot be empty"
+  pro_sample_data_help: "Sample appointments will be added to your calendar: it will give you a better idea of what Colibri can do. This sample data is removed when you start using Colibri for real."
+  pro_mandatory_field: Mandatory field
+  pro_invalid_email: "Your email adress is not valid"
   practitioner_new_login_link: "Log in"
-  practitioner_new_first_name: "Your first name:"
-  practitioner_new_last_name: "Your last name:"
-  practitioner_new_email: "Your mail address:"
-  practitioner_new_phone: "Your phone number:"
+  practitioner_new_first_name: "Your first name"
+  practitioner_new_last_name: "Your last name"
+  practitioner_new_email: "Your mail address"
+  practitioner_new_phone: "Your phone number"
   practitioner_country: "Country"
   practitioner_new_nocancellation: "No cancellation period:"
   practitioner_new_worked_days: "What days do you work?"
-  practitioner_new_working_hours: "What are your working hours? (please use 24 hour times. For instance, if you work from 8am to 12pm, and then from 1pm to 6pm, enter below: 8-12,13-18)"
+  practitioner_new_working_hours: "What are your working hours?"
   practitioner_new_hours: "hours"
   practitioner_new_password: "Password"
   practitioner_new_confirm_password: "Confirm Password"
+  practitioner_lunch_break: "I take a break for lunch"
+  practitioner_time_from: "From"
+  practitioner_time_to: "to"
+  practitioner_time_and_from: "And from"
   practitioner_new_register_button: "Register"
   #Client/new
   client_new_title: "Step 2: your phone number"
@@ -330,6 +344,9 @@
   calendar_timeSeparator: to
   #practitioner_controller
   practitioner_owntime: "Own time"
+  practitioner_sample_data: "Add sample data to my calendar"
+  about_you: "About you"
+  about_your_work: "About your work"
   #practitioner model  
   prep_time: "Prep time"
   #UserMailer

@@ -6,9 +6,12 @@ megan:
     # password: "secret"
     password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f
     password_salt: bef65e058905c379436d80d1a32e7374b139e7b0
-    working_hours: "8-18"
+    lunch_break: false
+    start_time1: 8
+    end_time1: 18
     working_days: "4,5"
-    phone: 021 34556666
+    phone_prefix: 021
+    phone_suffix: 34556666
     no_cancellation_period_in_hours: 24
     country_id: 101
     own_time_label: Own time
@@ -21,10 +24,13 @@ sav:
     # password: "secret"
     password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f
     password_salt: bef65e058905c379436d80d1a32e7374b139e7b0
-    working_hours: "9-10,10:30-11:30,12-13,13:30-14:30,15-16,16:30-17:30"
+    lunch_break: false
+    start_time1: 9
+    end_time1: 18
     working_days: "1,3"
     bookings_publish_code: 676c5653c5ef
-    phone: 021 34556667
+    phone_prefix: 021
+    phone_suffix: 34556667
     no_cancellation_period_in_hours: 24
     country_id: 101
     own_time_label: Own time
@@ -37,9 +43,14 @@ rene:
     # password: "secret"
     password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f
     password_salt: bef65e058905c379436d80d1a32e7374b139e7b0
-    working_hours: "9-12,13-18"
+    lunch_break: true
+    start_time1: 9
+    end_time1: 12
+    start_time2: 13
+    end_time2: 18
     working_days: "1,2,3,4,5"
-    phone: 06 87 66 67 57
+    phone_prefix: 06
+    phone_suffix: 87 66 67 57
     no_cancellation_period_in_hours: 24
     country_id: 100
     own_time_label: Own time

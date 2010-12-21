@@ -35,10 +35,13 @@ Factory.define :practitioner do |f|
   # f.last_name "Name"
   f.first_name "John"
   f.last_name "Foo"
-  f.working_hours "8-18"
+  f.lunch_break false
+  f.start_time1 8
+  f.end_time1 18
   f.working_days "4,5"
   f.password "foobar"
-  f.phone "021-234234324"
+  f.phone_prefix "021"
+  f.phone_suffix"234234324"
   f.no_cancellation_period_in_hours 24
   f.password_confirmation { |u| u.password }
   f.sequence(:email) { |n| "foo#{n}@example.com" }

@@ -561,7 +561,7 @@ class BookingsControllerTest < ActionController::TestCase
     get :index, {:practitioner_id => pro.permalink, :format => "json", :start => Time.zone.now.beginning_of_week, :end => Time.zone.now.end_of_week}, {:client_id => clients(:cyrille).id }
     # puts @response.body
     assert_valid_json(@response.body)
-    assert_equal 17, assigns(:bookings).size, "Sav should have 0 booking, 6 slots on 2 working days (for 12 bookings) and 5 non-working days, but bookings are: #{assigns(:bookings).to_sentence}"
+    assert_equal 5, assigns(:bookings).size, "Sav should have 0 booking and 5 non-working days, but bookings are: #{assigns(:bookings).to_sentence}"
     assert_match(/state/, @response.body)
   end
 
@@ -571,7 +571,7 @@ class BookingsControllerTest < ActionController::TestCase
     get :index, {:practitioner_id => pro.permalink, :format => "json", :start => Time.zone.now.beginning_of_week, :end => Time.zone.now.end_of_week}, {:pro_id => practitioners(:sav).id }
     # puts @response.body
     assert_valid_json(@response.body)
-    assert_equal 17, assigns(:bookings).size, "Sav should have 0 booking, 6 slots on 2 working days (for 12 bookings) and 5 non-working days, but bookings are: #{assigns(:bookings).to_json}"
+    assert_equal 5, assigns(:bookings).size, "Sav should have 0 booking and 5 non-working days, but bookings are: #{assigns(:bookings).to_json}"
   end
 
   def test_index_megan_next_week
@@ -591,7 +591,7 @@ class BookingsControllerTest < ActionController::TestCase
     get :index, {:practitioner_id => pro.permalink, :format => "json", :start => Time.zone.now.end_of_week, :end => Time.zone.now.end_of_week.advance(:days => 7 )}, {:client_id => clients(:cyrille).id }
     # puts @response.body
     assert_valid_json(@response.body)
-    assert_equal 18, assigns(:bookings).size, "Sav should have 1 booking, 6 slots on 2 working days (for 12 bookings) and 5 non-working day, but bookings are: #{assigns(:bookings).to_json}"
+    assert_equal 6, assigns(:bookings).size, "Sav should have 1 booking and 5 non-working day, but bookings are: #{assigns(:bookings).to_json}"
   end  
 
   def test_index_sav_own_next_week
@@ -600,7 +600,7 @@ class BookingsControllerTest < ActionController::TestCase
     get :index, {:practitioner_id => pro.permalink, :format => "json", :start => Time.zone.now.end_of_week, :end => Time.zone.now.end_of_week.advance(:days => 7 )}, {:pro_id => practitioners(:sav).id }
     # puts @response.body
     assert_valid_json(@response.body)
-    assert_equal 18, assigns(:bookings).size, "Sav should have 1 booking, 6 slots on 2 working days (for 12 bookings) and 5 non-working day, but bookings are: #{assigns(:bookings).to_json}"
+    assert_equal 6, assigns(:bookings).size, "Sav should have 1 booking and 5 non-working day, but bookings are: #{assigns(:bookings).to_json}"
     first_booking = assigns(:bookings).first
     assert !first_booking.read_only?, "The first booking (a booking by a client) should be editable, but it is read only"
     assert_not_equal "Booked", first_booking.name, "The client name for the first booking (a booking by a client) should be visible to the practitioner"

@@ -3,6 +3,15 @@ class Country < ActiveRecord::Base
   has_many :clients
   has_many :practitioners
 
+  def working_hours_select
+    if time_slots.blank?
+      return []
+    else
+      sliced_time_slots = time_slots.split(",")
+      (1..24).inject([]){|memo, hour| memo << [sliced_time_slots[hour-1], hour]}
+    end
+  end
+
   def default_timezone
     self.timezones.split(",").first
   end
@@ -11,8 +20,8 @@ class Country < ActiveRecord::Base
     self.practitioners.test_user.each{|p| p.delete}
     pro = Practitioner.new(:first_name => self.demo_first_name, :last_name => self.demo_last_name, :timezone => self.default_timezone,
         :country => self,  
-        :email => self.demo_email, :password => self.demo_password, :password_confirmation => self.demo_password,
-        :working_hours => "8-18", :working_days => "1,2,3,4,5", :no_cancellation_period_in_hours => Practitioner::DEFAULT_CANCELLATION_PERIOD,
+        :email => self.demo_email, :password => self.demo_password, :password_confirmation => self.demo_password, :lunch_break => false, 
+        :start_time1 => 8, :end_time1 => 18, :working_days => "1,2,3,4,5", :no_cancellation_period_in_hours => Practitioner::DEFAULT_CANCELLATION_PERIOD,
         :phone => self.demo_phone)
     pro.save!
     pro.create_sample_data!(number_clients, number_bookings)

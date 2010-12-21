@@ -162,7 +162,7 @@ fr:
     #practicioner
     flash_error_practitioner_not_found : "Nous n'avons pas trouvé le praticien que vous recherchez"
     flash_notice_practitioner_visualize_ical : "Vous pouvez maintenant voir votre calendrier dans Ical"
-    flash_notice_practitioner_thanks_signup : "Votre enregistrement est terminé! votre connexion est active"
+    flash_notice_practitioner_thanks_signup : "Bienvenue sur Colibri!"
     #application
     flash_error_session_not_selected_pro: "Vous n'avez pas sélectionné de praticien"
     #session
@@ -185,7 +185,7 @@ fr:
     flash_error_client_phone_mismatch : "Les numéros de téléphone de sont pas identiques. Veuillez entrez les numéros à nouveau."
     flash_notice_client_welcome_back : "Vous êtes de nouveau connécté(e)"
     flash_notice_client_book_enter_phone: "Pour prendre votre premier rendez-vous, veuillez entrer votre numéro de téléphone"
-    flash_error_invalid_email: "Votre addresse email n'est pas valide: vérifiez qu'il ne manque pas un (.) ou le signe @ ?"
+    flash_error_invalid_email: "Votre adresse email n'est pas valide: vérifiez qu'il ne manque pas un (.) ou le signe @ ?"
     flash_notice_client_enter_4_digit : "Veuillez entrer les 4 derniers chiffres de votre numéro de téléphone"
     flash_warning_client_phone_empty: "Nos données montrent que nous n'avons pas votre numéro de téléphone: Nous vous avons envoyé un email avec un lien pour pouvoir le renseigner."
     flash_notice_client_can_book : "Vous pouvez maintenant prendre rendez-vous"
@@ -281,20 +281,34 @@ fr:
     clients_form_phone: "Votre téléphone (de préférence un portable):"
     clients_form_change_button: "Modifier"
     #Practitioner/new
-    practitioner_new_title: "Créer un compte (Gratuit pendant 30 jours)"
+    practitioner_new_title: "Essayez Colibri gratuitement"
     practitioner_new_message1: "Vous avez déjà un compte?"
+    pro_try_again: "Merci de réessayer"
+    pro_incomplete_registration: "Votre profil n'a pas pu être complété"
+    pro_no_password: "Votre mot de passe ne peut pas être vide"
+    pro_mismatched_passwords: "Il ya une différence entre votre mot de passe et sa confirmation"
+    pro_invalid_username: "Votre nom d'utilisateur ne devrait contenir que des lettres, des chiffres et les caractères .-_@"
+    pro_empty_first_name: "Votre prénom ne peut pas être vide"
+    pro_empty_last_name: "Votre nom ne peut pas être vide"
+    pro_mandatory_field: Champ obligatoire
+    pro_sample_data_help: "Des rendez-vous fictifs seront ajoutés à votre calendrier: cela vous donne une meilleure idée des fonctionnalités de Colibri. Ces rendez-vous fictifs seront effaçés lorsque vous commencez à utiliser Colibri pour vos propres rendez-vous."
+    pro_invalid_email: "Votre addresse email n'est pas valide"
     practitioner_new_login_link: "Se connecter"
-    practitioner_new_first_name: "Prénom:"
-    practitioner_new_last_name: "Nom:"
-    practitioner_new_email: "Votre addresse email: "
-    practitioner_new_phone: "Votre numéro de téléphone:"
+    practitioner_new_first_name: "Prénom"
+    practitioner_new_last_name: "Nom"
+    practitioner_new_email: "Votre adresse email"
+    practitioner_new_phone: "Votre numéro de téléphone"
     practitioner_country: "Pays"
     practitioner_new_nocancellation: "Période pendant laquelle un rendez-vous ne peut plus être annulé en ligne:"
-    practitioner_new_worked_days: "Que jours travaillez vous?"
-    practitioner_new_working_hours: "Entrez vos heures de travail hebdomadaires? (Utilisez un format de 0 à 24h. Par exemple, si vous travaillez de 8h à 12h, et 13h de à 18h, entrez: 8-12,13-18)"
+    practitioner_new_worked_days: "Quels jours de la semaine travaillez vous?"
+    practitioner_new_working_hours: "Quels sont vos horaires de travail?"
     practitioner_new_hours: "heures"
     practitioner_new_password: "Mot de passe"
     practitioner_new_confirm_password: "Confirmez votre mot de passe"
+    practitioner_lunch_break: "Je m'arrête pour le déjeuner"
+    practitioner_time_from: "De"
+    practitioner_time_to: "à"
+    practitioner_time_and_from: "Et de"
     practitioner_new_register_button: "Créer votre compte"
     #Client/new
     client_new_title: "Etape 2: Votre numéro de téléphone"
@@ -363,6 +377,9 @@ fr:
     calendar_timeSeparator: à
     #practitioner_controller
     practitioner_owntime: "Temps perso."
+    practitioner_sample_data: "Ajouter des données d'exemple à mon calendrier"
+    about_you: "Vous"
+    about_your_work: "Votre travail"
     #practitioner model
     prep_time: "Préparation"
     #UserMailer

@@ -28,16 +28,50 @@ class PractitionersControllerTest < ActionController::TestCase
 
   def test_create
     old_size = Practitioner.all.size
-    post :create, :practitioner => {:email => "cb@test.com", :phone => "021 221312312", :first_name => "Joe",
+    post :create, :practitioner => {:sample_data => false, :email => "cb@test.com", :phone_prefix => "06", :phone_suffix => "221312312", :first_name => "Joe",
        :last_name => "Test", :password => "blabla", :password_confirmation => "blabla",
-        :working_day_monday => "1", :working_hours => "9-12,13-18", :no_cancellation_period_in_hours => 24 }
+        :working_day_monday => "1", :lunch_break => true, :start_time1 => 9, :end_time1  => 12, :start_time2 => 13, :end_time2 => 18, :country_id  => countries(:fr).id }
     assert_not_nil assigns(:practitioner)
+    assert_equal 0, assigns(:practitioner).errors.size, "There are unexpected errors on new pro: #{assigns(:practitioner).errors.full_messages.to_sentence}"
     assert_redirected_to practitioner_url(assigns(:practitioner).permalink)
     assert_not_nil assigns(:practitioner)
     assert assigns(:practitioner).errors.blank?, "Errors found: #{assigns(:practitioner).errors.full_messages.to_sentence}"
     assert_equal "1", assigns(:practitioner).working_days
+    assert_not_nil assigns(:practitioner).permalink
+    assert assigns(:practitioner).lunch_break?
+    assert_equal 0, assigns(:practitioner).bookings.size, "No sample data should be created"
     assert_nil flash[:error]
     assert_equal old_size+1, Practitioner.all.size
+  end
+
+  def test_create_with_sample_data
+    old_size = Practitioner.all.size
+    post :create, :practitioner => {:sample_data => true, :email => "cb@test.com", :phone_prefix => "06", :phone_suffix => "221312312", :first_name => "Joe",
+       :last_name => "Test", :password => "blabla", :password_confirmation => "blabla",
+        :working_day_monday => "1", :lunch_break => true, :start_time1 => 9, :end_time1  => 12, :start_time2 => 13, :end_time2 => 18, :country_id  => countries(:fr).id }
+    assert_not_nil assigns(:practitioner)
+    assert_equal 0, assigns(:practitioner).errors.size, "There are unexpected errors on new pro: #{assigns(:practitioner).errors.full_messages.to_sentence}"
+    assert_redirected_to practitioner_url(assigns(:practitioner).permalink)
+    assert_not_nil assigns(:practitioner)
+    assert assigns(:practitioner).errors.blank?, "Errors found: #{assigns(:practitioner).errors.full_messages.to_sentence}"
+    assert_equal "1", assigns(:practitioner).working_days
+    assert_not_nil assigns(:practitioner).permalink
+    assert assigns(:practitioner).lunch_break?
+    assert assigns(:practitioner).bookings.size > 0, "Sample data should have been created"
+    assert_nil flash[:error]
+    assert_equal old_size+1, Practitioner.all.size
+  end
+
+  def test_create_error
+    old_size = Practitioner.all.size
+    post :create, :practitioner => {:lunch_break => false, :start_time1 => 9, :end_time1  => 16}
+    assert_not_nil assigns(:practitioner)
+    assert assigns(:practitioner).errors.size > 0, "There should be some errors"
+    assert_not_nil assigns(:practitioner)
+    assert !assigns(:practitioner).lunch_break?
+    assert_equal 9, assigns(:practitioner).start_time1
+    assert_equal 16, assigns(:practitioner).end_time1
+    assert_equal old_size, Practitioner.all.size
   end
 
   def test_edit_selected

@@ -27,28 +27,35 @@ class Practitioner < ActiveRecord::Base
   belongs_to :country
 
   # new columns need to be added here to be writable through mass assignment
-  attr_accessible :username, :email, :password, :password_confirmation, :working_hours, :working_days, :first_name,
-   :last_name, :phone, :no_cancellation_period_in_hours, :working_day_monday, :working_day_tuesday, :working_day_wednesday,
-    :working_day_thursday, :working_day_friday, :working_day_saturday, :working_day_sunday, :timezone, :country
+  attr_accessible :username, :email, :password, :password_confirmation, :working_days, :first_name,
+   :last_name, :no_cancellation_period_in_hours, :working_day_monday, :working_day_tuesday, :working_day_wednesday,
+    :working_day_thursday, :working_day_friday, :working_day_saturday, :working_day_sunday, :timezone, :country, :country_id,
+    :lunch_break, :start_time1, :end_time1, :start_time2, :end_time2, :phone_prefix, :phone_suffix, :sample_data
   
   attr_accessor :password, :working_day_monday, :working_day_tuesday, :working_day_wednesday, :working_day_thursday,
-   :working_day_friday, :working_day_saturday, :working_day_sunday
+   :working_day_friday, :working_day_saturday, :working_day_sunday, :sample_data
+   
   before_save :prepare_password
   
-  validates_presence_of :working_hours, :phone, :no_cancellation_period_in_hours
-  validates_format_of :working_hours, :with => /\-/, :message => "should contain at least one dash to denote start and end times"
-  validates_format_of :username, :with => /^[-\w\._@]+$/i, :allow_blank => true, :message => "should only contain letters, numbers, or .-_@"
-  validates_format_of :email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
-  validates_presence_of :password, :on => :create
+  validates_presence_of :no_cancellation_period_in_hours
+  validates_presence_of :first_name, :message => "^#{I18n.t(:pro_empty_first_name)}" 
+  validates_presence_of :last_name, :message => "^#{I18n.t(:pro_empty_last_name)}"
+  validates_format_of :username, :with => /^[-\w\._@]+$/i, :allow_blank => true, :message => "^#{I18n.t(:pro_invalid_username)}"
+  validates_format_of :email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i, :message => "^#{I18n.t(:pro_invalid_email)}" 
+  validates_presence_of :password, :on => :create, :message => "^#{I18n.t(:pro_no_password)}"
+  validates_presence_of :start_time1, :end_time1 
+  validates_presence_of :start_time2, :if => Proc.new {|pro| pro.lunch_break?}
+  validates_presence_of :end_time2, :if => Proc.new {|pro| pro.lunch_break?}
   validates_presence_of :working_days
-  validates_confirmation_of :password
+  validates_presence_of :country_id
+  validates_confirmation_of :password, :message => "^#{I18n.t(:pro_mismatched_passwords)}"
   validates_length_of :password, :minimum => 4, :allow_blank => true
   validates_uniqueness_of :email
   
   named_scope :want_reminder_night_before, :conditions => "reminder_night_before IS true"
   
-  before_validation :set_working_days
-  
+  before_validation :set_working_days, :set_cancellation_period, :cleanup_phone
+  after_create :check_sample_data
   aasm_column :state
   
   aasm_initial_state :test_user
@@ -60,13 +67,31 @@ class Practitioner < ActiveRecord::Base
     
   DEFAULT_CANCELLATION_PERIOD = 24
   TITLE_FOR_NON_WORKING = "Booked"
-  #WORKING_DAYS = [I18n.t(:monday),I18n.t(:tuesday) ,I18n.t(:wednesday) , I18n.t(:thursday), I18n.t(:friday),I18n.t(:saturday) ,I18n.t(:sunday) ]
   WORKING_DAYS = ["monday","tuesday" ,"wednesday" , "thursday", "friday","saturday" ,"sunday" ]
-  #WORKING_DAYS = Date::DAY_NAMES
-  #WORKING_DAYS = I18n.t 'date.day_names' does not work with actual code sunday is first day of the week
 
   DOMAINS = ["gmail.com", "test.com", "info.org"]
   BOOKING_STATES = ["in_grace_period", "unconfirmed", "confirmed" ,"cancelled_by_client", "cancelled_by_pro"]
+  
+  def check_sample_data
+    if sample_data == true
+      self.create_sample_data!
+    end
+  end
+  
+  def phone
+    "#{phone_prefix}-#{phone_suffix}"
+  end
+
+  def cleanup_phone
+    self.phone_prefix = self.phone_prefix.gsub(/[ -\/]/, '') unless phone_prefix.nil?
+    self.phone_suffix = self.phone_suffix.gsub(/[ -\/]/, '') unless phone_suffix.nil?
+  end
+  
+  def set_cancellation_period
+    if self.no_cancellation_period_in_hours.blank?
+      self.no_cancellation_period_in_hours = DEFAULT_CANCELLATION_PERIOD
+    end
+  end
   
   def mobile_phone_prefixes
     self.country.mobile_phone_prefixes
@@ -297,11 +322,15 @@ class Practitioner < ActiveRecord::Base
   end
     
   def biz_hours_start
-    TimeUtils.round_previous_hour(working_hours.split("-").first)
+    TimeUtils.round_previous_hour(start_time1.to_s)
   end
   
   def biz_hours_end
-    TimeUtils.round_next_hour(working_hours.split("-").last)
+    if lunch_break?
+      TimeUtils.round_next_hour(end_time2.to_s)
+    else
+      TimeUtils.round_next_hour(end_time1.to_s)
+    end
   end
 
   def raw_own_bookings(start_time, end_time)
@@ -439,33 +468,19 @@ class Practitioner < ActiveRecord::Base
   
   def bookings_for_working_hours(start_time, end_time)
     res = []
-    current = start_time
-    while current < end_time
-      day, month, year, week_day = current.strftime("%d %m %Y %w").split(" ")
-      if !working_days.blank? && working_days.include?(week_day)
-        split_hours = working_hours.split(",")
-        split_hours.each_with_index do |str, i|
-          slot_start_time = str.split("-").try(:last)
-          if slot_start_time.nil?
-            raise "There is a format error on working hours for practitioner #{self.name}: #{self.working_hours} [start time for #{str}]"
-          end
-          is_last_entry = (i >= split_hours.size-1)
-          if is_last_entry
-            slot_end_time = self.biz_hours_end
-          else
-            slot_end_time = split_hours[i+1].split("-").try(:first)
-          end            
-          if slot_end_time.nil?
-            raise "There is a format error on working hours for practitioner #{self.name}: #{self.working_hours} [end time for #{split_hours[i+1]}]"
-          end
-          if slot_end_time > slot_start_time
-            res << NonWorkingBooking.new("#{self.id}-#{day}-#{month}-#{year}-#{slot_start_time}", I18n.t(:lunch), Time.parse("#{year}/#{month}/#{day} #{TimeUtils.fix_minutes(slot_start_time)}"), Time.parse("#{year}/#{month}/#{day} #{TimeUtils.fix_minutes(slot_end_time)}"), true)
-          end
+    if lunch_break?
+      current = start_time
+      break_start_time = end_time1
+      break_end_time = start_time2
+      while current < end_time
+        day, month, year, week_day = current.strftime("%d %m %Y %w").split(" ")
+        if !working_days.blank? && working_days.include?(week_day)
+            res << NonWorkingBooking.new("#{self.id}-#{day}-#{month}-#{year}-#{break_start_time}", I18n.t(:lunch), Time.parse("#{year}/#{month}/#{day} #{TimeUtils.fix_minutes(slot_start_time)}"), Time.parse("#{year}/#{month}/#{day} #{TimeUtils.fix_minutes(break_end_time)}"), true)
         end
+        current += 1.day
       end
-      current += 1.day
     end
-    res
+    return res
   end
   
   # login can be either username or email address

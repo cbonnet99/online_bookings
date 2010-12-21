@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101205200329) do
+ActiveRecord::Schema.define(:version => 20101221114631) do
 
   create_table "booking_types", :force => true do |t|
     t.string   "title"
@@ -72,6 +72,11 @@ ActiveRecord::Schema.define(:version => 20101205200329) do
     t.string   "demo_phone"
     t.string   "demo_email"
     t.string   "demo_password"
+    t.string   "time_slots"
+    t.integer  "default_start_time1"
+    t.integer  "default_end_time1"
+    t.integer  "default_start_time2"
+    t.integer  "default_end_time2"
   end
 
   create_table "delayed_jobs", :force => true do |t|
@@ -116,9 +121,7 @@ ActiveRecord::Schema.define(:version => 20101205200329) do
     t.string   "last_name"
     t.string   "permalink"
     t.string   "working_days",                    :limit => 20
-    t.string   "working_hours"
     t.string   "bookings_publish_code"
-    t.string   "phone"
     t.boolean  "reminder_night_before"
     t.integer  "no_cancellation_period_in_hours"
     t.boolean  "invite_on_client_book",                         :default => true
@@ -129,6 +132,13 @@ ActiveRecord::Schema.define(:version => 20101205200329) do
     t.string   "timezone",                                      :default => "Wellington"
     t.string   "state"
     t.integer  "country_id"
+    t.string   "phone_prefix"
+    t.string   "phone_suffix"
+    t.boolean  "lunch_break"
+    t.integer  "start_time1"
+    t.integer  "end_time1"
+    t.integer  "start_time2"
+    t.integer  "end_time2"
   end
 
   create_table "relations", :force => true do |t|

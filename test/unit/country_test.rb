@@ -1,7 +1,13 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class CountryTest < ActiveSupport::TestCase
-
+  
+  def test_working_hours_select
+    france = countries(:fr)
+    assert !france.working_hours_select.blank?
+    assert_equal 24, france.working_hours_select.size, "Unexpected working_hours_select: #{france.working_hours_select}"
+  end
+  
   def test_recreate_test_user
     france = countries(:fr)
     assert_equal 0, france.practitioners.test_user.size

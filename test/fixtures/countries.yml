@@ -15,6 +15,11 @@ fr:
     demo_phone: "01 22 33 44 55"
     demo_email: "lea@test.fr"
     demo_password: "demo"
+    time_slots: 1h,2h,3h,4h,5h,6h,7h,8h,9h,10h,11h,Midi,13h,14h,15h,16h,17h,18h,19h,20h,21h,22h,23h,Minuit
+    default_start_time1: 8
+    default_end_time1: 12
+    default_start_time2: 14
+    default_end_time2: 18
     
 nz:
     id: 101
@@ -32,3 +37,8 @@ nz:
     demo_phone: "027 111 22 33"
     demo_email: "lea@test.co.nz"
     demo_password: "demo"
+    time_slots: 1am,2am,3am,4am,5am,6am,7am,8am,9am,10am,11am,Noon,1pm,2pm,3pm,4pm,5pm,6pm,7pm,8pm,9pm,10pm,11pm,Midnight
+    default_start_time1: 8
+    default_end_time1: 12
+    default_start_time2: 13
+    default_end_time2: 17

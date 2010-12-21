@@ -5,7 +5,7 @@ class PractitionerTest < ActiveSupport::TestCase
   include ColibriExceptions
   
   fixtures :all
-
+  
   def test_phone_prefixes
     pro = Factory(:practitioner, :country => countries(:fr))
     assert_equal ["06", "07"], pro.mobile_phone_prefixes
@@ -123,13 +123,6 @@ class PractitionerTest < ActiveSupport::TestCase
                   :working_day_wednesday => "1", :working_day_thursday => "1", :working_day_friday => "1",
                   :working_day_saturday => "0", :working_day_sunday => "0")
     assert_equal "1,2,3,4,5", pro.working_days
-  end
-
-  def test_client_with_empty_cancel_period
-    assert_raise ActiveRecord::RecordInvalid do
-      Factory(:practitioner, :no_cancellation_period_in_hours  => nil)
-    end
-    Factory(:practitioner, :no_cancellation_period_in_hours  => 0)
   end
 
   def test_add_client_existing
@@ -292,25 +285,11 @@ class PractitionerTest < ActiveSupport::TestCase
   end
   
   def test_bookings_for_working_hours_simple
-    simple = Factory(:practitioner, :working_days => "4,5", :working_hours => "9-18" )
+    simple = Factory(:practitioner, :working_days => "4,5", :lunch_break => false, :start_time1 => 9, :end_time1 => 18 )
     bookings = simple.bookings_for_working_hours(Time.now.beginning_of_week, Time.now.end_of_week)
     assert_equal 0, bookings.size, "There should 0 bookings as Simple works straight through. Actual: #{bookings.inspect}"
   end
-  
-  def test_bookings_for_working_hours_with_slots
-    user_with_slots = Factory(:practitioner, :working_days => "4,5", :working_hours => "9-10,10:30-11:30,12-13,13:30-14:30,15-16,16:30-17:30")
-    bookings = user_with_slots.bookings_for_working_hours(Time.now.beginning_of_week, Time.now.end_of_week)
-    assert_equal 12, bookings.size, "There should 12 bookings as user_with_slots works in slots: 6 slots in 2 working days (including one at the end: from 17:30 to 18). Actual: #{bookings.inspect}"
-    assert_not_nil bookings.last
-    assert_equal "18", bookings.last.end_time.strftime("%H")
-  end
-  
-  def test_bookings_for_working_hours_with_slots_extended_period
-    user_with_slots = Factory(:practitioner, :working_days => "4,5", :working_hours => "9-10,10:30-11:30,12-13,13:30-14:30,15-16,16:30-17:30")
-    bookings = user_with_slots.bookings_for_working_hours(Time.now.beginning_of_week.advance(:days => -7), Time.now.end_of_week.advance(:days => 7))
-    assert_equal 36, bookings.size, "There should 36 bookings as user_with_slots works in slots: 3 times as many as above, as we are asking for 3 weeks. Actual: #{bookings.inspect}"
-  end
-  
+    
   def test_valid
     assert Factory(:practitioner).valid?
   end

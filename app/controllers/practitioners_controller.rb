@@ -20,12 +20,17 @@ class PractitionersController < ApplicationController
   
   def new
     @practitioner = Practitioner.new
-    @practitioner.working_hours = "8-12,13-18"
+    @practitioner.lunch_break = true
+    @practitioner.start_time1 = 8
+    @practitioner.end_time1 = 12
+    @practitioner.start_time2 = 13
+    @practitioner.end_time2 = 18
     @practitioner.own_time_label = "Own time"
     @practitioner.no_cancellation_period_in_hours = 24
     @practitioner.country = default_country
     @days_in_week = Practitioner::WORKING_DAYS
     @supported_countries = Country.available_countries
+    get_phone_prefixes
   end
 
   def edit_selected
@@ -57,6 +62,8 @@ class PractitionersController < ApplicationController
       redirect_to practitioner_url(@practitioner.permalink)
     else
       @days_in_week = Practitioner::WORKING_DAYS
+      @supported_countries = Country.available_countries
+      get_phone_prefixes
       render :action => 'new'
     end
   end
