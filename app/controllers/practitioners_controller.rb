@@ -20,6 +20,7 @@ class PractitionersController < ApplicationController
   
   def new
     @practitioner = Practitioner.new
+    @practitioner.sample_data = true
     @practitioner.lunch_break = true
     @practitioner.start_time1 = 8
     @practitioner.end_time1 = 12

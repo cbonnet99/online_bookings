@@ -163,6 +163,12 @@ fr:
     flash_error_practitioner_not_found : "Nous n'avons pas trouvé le praticien que vous recherchez"
     flash_notice_practitioner_visualize_ical : "Vous pouvez maintenant voir votre calendrier dans Ical"
     flash_notice_practitioner_thanks_signup : "Bienvenue sur Colibri!"
+    error_morning_times: "Votre matinée ne peut commencer avant d'être terminée: veuillez changer votre horaire d'ouverture"
+    error_day_times: "Votre journée ne peut commencer avant d'être terminée: veuillez changer votre horaire d'ouverture"
+    error_afternoon_times: "Votre après-midi ne peut commencer avant d'être terminée: veuillez changer votre horaire d'ouverture l'après-midi"
+    test_user: Utilisateur de test
+    upgrade: Commencer à utiliser le vrai Colibri
+    select_credit_card: Selectionnez une carte de crédit
     #application
     flash_error_session_not_selected_pro: "Vous n'avez pas sélectionné de praticien"
     #session
@@ -288,6 +294,7 @@ fr:
     practitioner_new_message1: "Vous avez déjà un compte?"
     pro_try_again: "Merci de réessayer"
     pro_incomplete_registration: "Votre profil n'a pas pu être complété"
+    pro_email_taken: "Cette adresse email est déjà prise. Veuillez en choisir une autre."
     pro_no_password: "Votre mot de passe ne peut pas être vide"
     pro_mismatched_passwords: "Il ya une différence entre votre mot de passe et sa confirmation"
     pro_invalid_username: "Votre nom d'utilisateur ne devrait contenir que des lettres, des chiffres et les caractères .-_@"

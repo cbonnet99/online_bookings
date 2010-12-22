@@ -6,7 +6,7 @@
 <% form_for @practitioner do |f| %>
   <%= f.error_messages :header_message => "#{t(:pro_try_again)}!", :message => "#{t(:pro_incomplete_registration)}:" %>
   <p>
-	<%= f.check_box :sample_data, :checked => true %><%= f.label :sample_data, t(:practitioner_sample_data)%>
+	<%= f.check_box :sample_data %><%= f.label :sample_data, t(:practitioner_sample_data)%>
 	<br/><span class="help"><%= t(:pro_sample_data_help)%></span>
   </p>
   <br/>

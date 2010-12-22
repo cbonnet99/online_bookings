@@ -124,6 +124,12 @@
   flash_error_practitioner_not_found: "Could not find this practitioner"
   flash_notice_practitioner_visualize_ical: "You can now visualize your calendar in iCal"
   flash_notice_practitioner_thanks_signup: "Welcome to Colibri!"
+  error_morning_times: "Your morning cannot start before it ends: please change your start time"
+  error_day_times: "Your day cannot start before it ends: please change your start time"
+  error_afternoon_times: "Your afternoon cannot start before it ends: please change your afternoon start time"
+  test_user: Test User
+  upgrade: Upgrade to the full Colibri
+  select_credit_card: Select a credit card
   #application
   flash_error_session_not_selected_pro: "No selected practitioner"
   #session
@@ -252,6 +258,7 @@
   #Practitioner/new
   practitioner_new_title: "Try Colibri for free"
   practitioner_new_message1: "Already have an account?"
+  pro_email_taken: "This email address is already in use. Please select a different one."
   pro_try_again: "Please try again"
   pro_incomplete_registration: "Your registration was not completed"
   pro_no_password: "Your password cannot be empty"

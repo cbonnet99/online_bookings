@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    $("#practitioner_first_name").focus();
     if ($("#practitioner_lunch_break").is(':checked')) {
         $("#pro-extra-times").show();
     }

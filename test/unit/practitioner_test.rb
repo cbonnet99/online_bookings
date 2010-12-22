@@ -310,6 +310,11 @@ class PractitionerTest < ActiveSupport::TestCase
   def test_require_well_formed_email
     assert new_practitioner(:email => 'foo@bar@example.com').errors.on(:email)
   end
+
+  def test_times
+    assert new_practitioner(:start_time1  => Time.now, :end_time1 => Time.now.advance(:hours => -1)).errors.on(:start_time1), "There should be an error on start_time1 as it is later than end_time1"
+    assert new_practitioner(:lunch_break => true, :start_time2  => Time.now, :end_time2 => Time.now.advance(:hours => -1)).errors.on(:start_time2), "There should be an error on start_time2 as it is later than end_time2"    
+  end
   
   def test_validate_uniqueness_of_email
     Factory(:practitioner, :email => 'bar@example.com')

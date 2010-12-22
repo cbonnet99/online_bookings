@@ -8,18 +8,18 @@ nz_no_sms:
 
 nz_basic:
   amount: 3995
-  title: Basic
+  title: Emails + text messages
   description: Unlimited emails, 200 text messages
   country: nz
 
 fr_no_sms:
     amount: 1995
-    title: Unlimited emails
-    description: Unlimited emails, no text messages
+    title: Emails illimités
+    description: Emails illimités, pas de SMS
     country: fr
 
 fr_basic:
     amount: 3995
-    title: Basic
-    description: Unlimited emails, 200 text messages
+    title: Emails + SMS
+    description: Emails illimités, 200 SMS
     country: fr

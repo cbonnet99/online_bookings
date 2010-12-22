@@ -50,7 +50,7 @@ class Practitioner < ActiveRecord::Base
   validates_presence_of :country_id
   validates_confirmation_of :password, :message => "^#{I18n.t(:pro_mismatched_passwords)}"
   validates_length_of :password, :minimum => 4, :allow_blank => true
-  validates_uniqueness_of :email
+  validates_uniqueness_of :email, :message => "^#{I18n.t(:pro_email_taken)}" 
   
   named_scope :want_reminder_night_before, :conditions => "reminder_night_before IS true"
   
@@ -71,6 +71,19 @@ class Practitioner < ActiveRecord::Base
 
   DOMAINS = ["gmail.com", "test.com", "info.org"]
   
+  def validate
+    if !start_time1.nil? && !end_time1.nil? && start_time1 > end_time1
+      if lunch_break?
+        errors.add(:start_time1, "^#{I18n.t(:error_morning_times)}")
+      else
+        errors.add(:start_time1, "^#{I18n.t(:error_day_times)}")
+      end        
+    end
+    if !start_time2.nil? && !end_time2.nil? && lunch_break? && start_time2 > end_time2
+      errors.add(:start_time2, "^#{I18n.t(:error_afternoon_times)}")
+    end
+  end
+  
   def set_default_timezone
     if self.timezone.blank?
       self.timezone = self.country.try(:default_timezone)
@@ -78,7 +91,7 @@ class Practitioner < ActiveRecord::Base
   end
   
   def check_sample_data
-    if sample_data == true
+    if sample_data == true || sample_data == "1"
       self.create_sample_data!
     end
   end
@@ -191,8 +204,9 @@ class Practitioner < ActiveRecord::Base
         start_hour = biz_hours[rand(biz_hours.size)]
         starts_at = DateTime.strptime("#{date.strftime('%d/%m/%Y')} #{start_hour}:00 #{timezone_acronym}", "%d/%m/%Y %H:%M %Z")
         client = clients[rand(clients.size)]
-        puts "+++++ Creating past booking at #{starts_at} for client #{client.name}, email: #{client.email}, phone: (#{client.phone_prefix}) #{client.phone_suffix}"
-        random_state = Booking::STATES[rand(Booking::STATES.size)]
+        # puts "+++++ Creating past booking at #{starts_at} for client #{client.name}, email: #{client.email}, phone: (#{client.phone_prefix}) #{client.phone_suffix}"
+        random_state = Booking::NON_GRACE_STATES[rand(Booking::NON_GRACE_STATES.size)]
+        puts "===== random_state: #{random_state}"
         booking = Booking.new(:client => client, :practitioner => self, :name => client.name, :client_phone_prefix => client.phone_prefix, 
             :client_phone_suffix => client.phone_suffix, :client_email => client.email, :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => random_state)
         booking.save!
@@ -214,13 +228,15 @@ class Practitioner < ActiveRecord::Base
         start_hour = biz_hours[rand(biz_hours.size)]
         starts_at = DateTime.strptime("#{date.strftime('%d/%m/%Y')} #{start_hour}:00 #{timezone_acronym}", "%d/%m/%Y %H:%M %Z")
         client = clients[rand(clients.size)]
+        random_state = Booking::NON_GRACE_STATES[rand(Booking::NON_GRACE_STATES.size)]
+        puts "===== random_state: #{random_state}"
         booking = Booking.new(:client => client, :practitioner => self, :name => client.name, 
-            :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => Booking::STATES[rand(Booking::STATES.size)])
+            :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => random_state)
         booking.save!
         if rand(100) < 30
           booking.confirm!
         end
-        puts "+++++ Creating future booking at #{starts_at} for client #{client.name}"
+        # puts "+++++ Creating future booking at #{starts_at} for client #{client.name}"
       end
     else
       raise CantCreateSampleDataOnNonTestProException
