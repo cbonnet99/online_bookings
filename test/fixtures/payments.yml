@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  payment_plan_id: 1
+  amount: 1
+  address1: MyString
+  city: MyString
+  zip: MyString
+  state: MyString
+
+two:
+  payment_plan_id: 1
+  amount: 1
+  address1: MyString
+  city: MyString
+  zip: MyString
+  state: MyString

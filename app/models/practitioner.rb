@@ -35,7 +35,7 @@ class Practitioner < ActiveRecord::Base
   attr_accessor :password, :working_day_monday, :working_day_tuesday, :working_day_wednesday, :working_day_thursday,
    :working_day_friday, :working_day_saturday, :working_day_sunday, :sample_data
    
-  before_save :prepare_password
+  before_save :prepare_password, :set_default_timezone
   
   validates_presence_of :no_cancellation_period_in_hours
   validates_presence_of :first_name, :message => "^#{I18n.t(:pro_empty_first_name)}" 
@@ -70,6 +70,12 @@ class Practitioner < ActiveRecord::Base
   WORKING_DAYS = ["monday","tuesday" ,"wednesday" , "thursday", "friday","saturday" ,"sunday" ]
 
   DOMAINS = ["gmail.com", "test.com", "info.org"]
+  
+  def set_default_timezone
+    if self.timezone.blank?
+      self.timezone = self.country.try(:default_timezone)
+    end
+  end
   
   def check_sample_data
     if sample_data == true
@@ -113,12 +119,16 @@ class Practitioner < ActiveRecord::Base
     end
   end
   
+  def timezone_acronym
+    Time.now.in_time_zone(self.timezone).strftime("%Z")
+  end
+  
   def create_sample_data!(number_clients=nil, number_bookings=nil)
     if number_clients.nil?
       if RAILS_ENV == 'test'
         number_clients = 5
       else
-        number_bookings = 30
+        number_clients = 30
       end
     end
     if number_bookings.nil?
@@ -128,6 +138,18 @@ class Practitioner < ActiveRecord::Base
         number_bookings = 150
       end
     end
+    
+    biz_hours = []
+    start_time1.upto(end_time1) {|h| biz_hours << h}
+    #we remove the last business hour, as bookings will never start at the last hour of the day
+    #(or the last hour of the morning)
+    biz_hours.pop
+    if lunch_break?
+      start_time2.upto(end_time2) {|h| biz_hours << h}
+    end
+    #we remove the last business hour, as bookings will never start at the last hour of the day
+    biz_hours.pop
+    
     if self.test_user?
       clients = []
       possible_mobile_prefixes = self.country.mobile_phone_prefixes
@@ -166,10 +188,10 @@ class Practitioner < ActiveRecord::Base
           days_ago = rand(200)
           date = Time.now.advance(:days => -days_ago).to_date        
         end
-        start_hour = rand(10)+8
-        starts_at = DateTime.strptime("#{date.strftime('%d/%m/%Y')} #{start_hour}:00 CEST", "%d/%m/%Y %H:%M %Z")
+        start_hour = biz_hours[rand(biz_hours.size)]
+        starts_at = DateTime.strptime("#{date.strftime('%d/%m/%Y')} #{start_hour}:00 #{timezone_acronym}", "%d/%m/%Y %H:%M %Z")
         client = clients[rand(clients.size)]
-        # puts "+++++ Creating past booking at #{starts_at} for client #{client.name}, email: #{client.email}, phone: (#{client.phone_prefix}) #{client.phone_suffix}"
+        puts "+++++ Creating past booking at #{starts_at} for client #{client.name}, email: #{client.email}, phone: (#{client.phone_prefix}) #{client.phone_suffix}"
         random_state = Booking::STATES[rand(Booking::STATES.size)]
         booking = Booking.new(:client => client, :practitioner => self, :name => client.name, :client_phone_prefix => client.phone_prefix, 
             :client_phone_suffix => client.phone_suffix, :client_email => client.email, :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => random_state)
@@ -189,7 +211,8 @@ class Practitioner < ActiveRecord::Base
           days_ago = rand(200)
           date = Time.now.advance(:days => days_ago).to_date        
         end
-        starts_at = DateTime.strptime("#{date.strftime('%d/%m/%Y')} #{rand(10)+8}:00 CEST", "%d/%m/%Y %H:%M %Z")
+        start_hour = biz_hours[rand(biz_hours.size)]
+        starts_at = DateTime.strptime("#{date.strftime('%d/%m/%Y')} #{start_hour}:00 #{timezone_acronym}", "%d/%m/%Y %H:%M %Z")
         client = clients[rand(clients.size)]
         booking = Booking.new(:client => client, :practitioner => self, :name => client.name, 
             :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => Booking::STATES[rand(Booking::STATES.size)])
@@ -197,7 +220,7 @@ class Practitioner < ActiveRecord::Base
         if rand(100) < 30
           booking.confirm!
         end
-        # puts "+++++ Creating future booking at #{starts_at} for client #{client.name}"
+        puts "+++++ Creating future booking at #{starts_at} for client #{client.name}"
       end
     else
       raise CantCreateSampleDataOnNonTestProException
@@ -490,7 +513,7 @@ class Practitioner < ActiveRecord::Base
       while current < end_time
         day, month, year, week_day = current.strftime("%d %m %Y %w").split(" ")
         if !working_days.blank? && working_days.include?(week_day)
-            res << NonWorkingBooking.new("#{self.id}-#{day}-#{month}-#{year}-#{break_start_time}", I18n.t(:lunch), Time.parse("#{year}/#{month}/#{day} #{TimeUtils.fix_minutes(slot_start_time)}"), Time.parse("#{year}/#{month}/#{day} #{TimeUtils.fix_minutes(break_end_time)}"), true)
+            res << NonWorkingBooking.new("#{self.id}-#{day}-#{month}-#{year}-#{break_start_time}", I18n.t(:lunch), Time.parse("#{year}/#{month}/#{day} #{TimeUtils.fix_minutes(break_start_time.to_s)}"), Time.parse("#{year}/#{month}/#{day} #{TimeUtils.fix_minutes(break_end_time.to_s)}"), true)
         end
         current += 1.day
       end

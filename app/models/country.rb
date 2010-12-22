@@ -2,6 +2,7 @@ class Country < ActiveRecord::Base
   
   has_many :clients
   has_many :practitioners
+  has_many :payment_plans
 
   def working_hours_select
     if time_slots.blank?

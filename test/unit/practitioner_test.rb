@@ -5,7 +5,7 @@ class PractitionerTest < ActiveSupport::TestCase
   include ColibriExceptions
   
   fixtures :all
-  
+
   def test_phone_prefixes
     pro = Factory(:practitioner, :country => countries(:fr))
     assert_equal ["06", "07"], pro.mobile_phone_prefixes
@@ -291,6 +291,12 @@ class PractitionerTest < ActiveSupport::TestCase
     simple = Factory(:practitioner, :working_days => "4,5", :lunch_break => false, :start_time1 => 9, :end_time1 => 18 )
     bookings = simple.bookings_for_working_hours(Time.now.beginning_of_week, Time.now.end_of_week)
     assert_equal 0, bookings.size, "There should 0 bookings as Simple works straight through. Actual: #{bookings.inspect}"
+  end
+    
+  def test_bookings_for_working_hours_with_break
+    simple = Factory(:practitioner, :working_days => "4,5", :lunch_break => true, :start_time1 => 9, :end_time1 => 12, :start_time2 => 13, :end_time2 => 18 )
+    bookings = simple.bookings_for_working_hours(Time.now.beginning_of_week, Time.now.end_of_week)
+    assert_equal 2, bookings.size, "There should 2 bookings for the breaks. Actual: #{bookings.inspect}"
   end
     
   def test_valid

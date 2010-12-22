@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101221114631) do
+ActiveRecord::Schema.define(:version => 20101222162120) do
 
   create_table "booking_types", :force => true do |t|
     t.string   "title"
@@ -110,6 +110,26 @@ ActiveRecord::Schema.define(:version => 20101221114631) do
 
   add_index "extra_working_days", ["practitioner_id"], :name => "index_extra_working_days_on_practitioner_id"
 
+  create_table "payment_plans", :force => true do |t|
+    t.integer  "amount"
+    t.string   "title"
+    t.text     "description"
+    t.integer  "country_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payments", :force => true do |t|
+    t.integer  "payment_plan_id"
+    t.integer  "amount"
+    t.string   "address1"
+    t.string   "city"
+    t.string   "zip"
+    t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "practitioners", :force => true do |t|
     t.string   "username"
     t.string   "email"
@@ -129,7 +149,7 @@ ActiveRecord::Schema.define(:version => 20101221114631) do
     t.string   "own_time_label"
     t.boolean  "prep_before",                                   :default => false
     t.integer  "prep_time_mins",                                :default => 0
-    t.string   "timezone",                                      :default => "Wellington"
+    t.string   "timezone"
     t.string   "state"
     t.integer  "country_id"
     t.string   "phone_prefix"

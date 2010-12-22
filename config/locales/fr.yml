@@ -255,6 +255,9 @@ fr:
     session_new_email: "Votre adresse email"
     session_new_login: "Se connecter"
     session_new_password: "Mot de passe"
+    #payments/new
+    make_payment: "Nouveau paiement"
+    payment_select_plan: Sélectionner un plan
     #practicioner/index
     from: "De"
     to: "à"

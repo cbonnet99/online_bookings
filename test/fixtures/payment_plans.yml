@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+nz_no_sms:
+  amount: 1995
+  title: Unlimited emails
+  description: Unlimited emails, no text messages
+  country: nz
+
+nz_basic:
+  amount: 3995
+  title: Basic
+  description: Unlimited emails, 200 text messages
+  country: nz
+
+fr_no_sms:
+    amount: 1995
+    title: Unlimited emails
+    description: Unlimited emails, no text messages
+    country: fr
+
+fr_basic:
+    amount: 3995
+    title: Basic
+    description: Unlimited emails, 200 text messages
+    country: fr

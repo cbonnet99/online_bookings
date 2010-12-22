@@ -215,6 +215,9 @@
   session_new_email: "Your email address"
   session_new_login: "Log in"
   session_new_password: "Password"
+  #payments/new
+  make_payment: "Make a payment"
+  payment_select_plan: Select a plan
   #practicioner/index
   from: "from"
   to: "to"
