@@ -61,6 +61,7 @@ class Booking < ActiveRecord::Base
 
   PREP_LABEL = "prep-"
   GRACE_PERIOD_IN_HOURS = 1
+  STATES = ["in_grace_period", "unconfirmed", "confirmed" ,"cancelled_by_client", "cancelled_by_pro"]
   
   aasm_column :state
 

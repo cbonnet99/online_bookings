@@ -16,7 +16,7 @@ class Practitioner < ActiveRecord::Base
   include ColibriExceptions
   include AASM
   
-  has_many :bookings, :dependent => :delete_all 
+  has_many :bookings, :dependent => :delete_all, :order => "starts_at"  
   has_many :reminders, :through => :bookings
   has_many :relations
   has_many :clients, :through => :relations
@@ -70,7 +70,6 @@ class Practitioner < ActiveRecord::Base
   WORKING_DAYS = ["monday","tuesday" ,"wednesday" , "thursday", "friday","saturday" ,"sunday" ]
 
   DOMAINS = ["gmail.com", "test.com", "info.org"]
-  BOOKING_STATES = ["in_grace_period", "unconfirmed", "confirmed" ,"cancelled_by_client", "cancelled_by_pro"]
   
   def check_sample_data
     if sample_data == true
@@ -114,7 +113,21 @@ class Practitioner < ActiveRecord::Base
     end
   end
   
-  def create_sample_data!(number_clients=30, number_bookings=150)
+  def create_sample_data!(number_clients=nil, number_bookings=nil)
+    if number_clients.nil?
+      if RAILS_ENV == 'test'
+        number_clients = 5
+      else
+        number_bookings = 30
+      end
+    end
+    if number_bookings.nil?
+      if RAILS_ENV == 'test'
+        number_bookings = 30
+      else
+        number_bookings = 150
+      end
+    end
     if self.test_user?
       clients = []
       possible_mobile_prefixes = self.country.mobile_phone_prefixes
@@ -157,9 +170,11 @@ class Practitioner < ActiveRecord::Base
         starts_at = DateTime.strptime("#{date.strftime('%d/%m/%Y')} #{start_hour}:00 CEST", "%d/%m/%Y %H:%M %Z")
         client = clients[rand(clients.size)]
         # puts "+++++ Creating past booking at #{starts_at} for client #{client.name}, email: #{client.email}, phone: (#{client.phone_prefix}) #{client.phone_suffix}"
+        random_state = Booking::STATES[rand(Booking::STATES.size)]
         booking = Booking.new(:client => client, :practitioner => self, :name => client.name, :client_phone_prefix => client.phone_prefix, 
-            :client_phone_suffix => client.phone_suffix, :client_email => client.email, :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => BOOKING_STATES[rand(BOOKING_STATES.size)])
+            :client_phone_suffix => client.phone_suffix, :client_email => client.email, :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => random_state)
         booking.save!
+        booking.reminders.create(:sent_at => starts_at.advance(:days => -1))
         if rand(100) < 50
           booking.confirm!
         end
@@ -177,7 +192,7 @@ class Practitioner < ActiveRecord::Base
         starts_at = DateTime.strptime("#{date.strftime('%d/%m/%Y')} #{rand(10)+8}:00 CEST", "%d/%m/%Y %H:%M %Z")
         client = clients[rand(clients.size)]
         booking = Booking.new(:client => client, :practitioner => self, :name => client.name, 
-            :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => BOOKING_STATES[rand(BOOKING_STATES.size)])
+            :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => Booking::STATES[rand(Booking::STATES.size)])
         booking.save!
         if rand(100) < 30
           booking.confirm!

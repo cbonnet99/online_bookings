@@ -49,7 +49,7 @@ class TaskUtilsTest < ActiveSupport::TestCase
     #bookings are in the past AND in the future
     total_number_bookings_per_pro = number_bookings * 2
     
-    assert_equal bookings_size+(total_number_bookings_per_pro*number_pros), Booking.all.size, "300 appointments should have been created"
+    assert_equal bookings_size+(total_number_bookings_per_pro*number_pros), Booking.all.size
   end
   
   def test_send_reminders
