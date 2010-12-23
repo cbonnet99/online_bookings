@@ -1,3 +1,5 @@
+.waiting-content{text-align: center;}
+.no-display{display: none;}
 div.floaty {float: left; margin: 20px;}
 div.right-times {text-align: right; width: 250px; padding: 10px;}
 form#new_practitioner label.question {font-weight: bold;}

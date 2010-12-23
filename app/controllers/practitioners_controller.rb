@@ -1,8 +1,13 @@
 class PractitionersController < ApplicationController
   
   before_filter :require_selected_practitioner, :only => [:show] 
-  before_filter :login_required, :only => [:show]
+  before_filter :login_required, :only => [:show, :reset_ical_sharing, :create_sample_data, :waiting_sample_data]
   before_filter :locate_current_user, :only => [:edit_selected] 
+
+  def create_sample_data
+    current_pro.create_sample_data!
+    render :text => "Sample data created" 
+  end
   
   def edit
     @practitioner = Practitioner.find_by_permalink(params[:id])
@@ -59,8 +64,12 @@ class PractitionersController < ApplicationController
     if @practitioner.save
       session[:pro_id] = @practitioner.id
       Time.zone = @practitioner.timezone
-      flash[:notice] = I18n.t(:flash_notice_practitioner_thanks_signup)
-      redirect_to practitioner_url(@practitioner.permalink)
+      if @practitioner.create_sample_data?
+        redirect_to waiting_sample_data_practitioner_url(@practitioner.permalink)
+      else
+        flash[:notice] = I18n.t(:flash_notice_practitioner_thanks_signup)
+        redirect_to practitioner_url(@practitioner.permalink)
+      end
     else
       @days_in_week = Practitioner::WORKING_DAYS
       @supported_countries = Country.available_countries

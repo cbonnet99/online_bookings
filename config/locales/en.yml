@@ -256,6 +256,9 @@
   flash_notice_client_update_reset_phone: "Your phone number has been updated"
   flash_error_client_update_reset_phone: "There was an error while resetting your phone number"
   #Practitioner/new
+  create_pro_step1_msg: Creating new profile
+  create_pro_step2_msg: Adding sample clients
+  create_pro_step3_msg: Adding sample appointments
   practitioner_new_title: "Try Colibri for free"
   practitioner_new_message1: "Already have an account?"
   pro_email_taken: "This email address is already in use. Please select a different one."

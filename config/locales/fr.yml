@@ -290,6 +290,9 @@ fr:
     clients_form_phone: "Votre téléphone (de préférence un portable):"
     clients_form_change_button: "Modifier"
     #Practitioner/new
+    create_pro_step1_msg: Création du nouveau profil
+    create_pro_step2_msg: Ajout de clients d'exemple
+    create_pro_step3_msg: Ajout de rendez-vous d'exemple
     practitioner_new_title: "Essayez Colibri gratuitement"
     practitioner_new_message1: "Vous avez déjà un compte?"
     pro_try_again: "Merci de réessayer"

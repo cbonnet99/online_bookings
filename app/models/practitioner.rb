@@ -55,7 +55,6 @@ class Practitioner < ActiveRecord::Base
   named_scope :want_reminder_night_before, :conditions => "reminder_night_before IS true"
   
   before_validation :set_working_days, :set_cancellation_period, :cleanup_phone
-  after_create :check_sample_data
   aasm_column :state
   
   aasm_initial_state :test_user
@@ -70,6 +69,10 @@ class Practitioner < ActiveRecord::Base
   WORKING_DAYS = ["monday","tuesday" ,"wednesday" , "thursday", "friday","saturday" ,"sunday" ]
 
   DOMAINS = ["gmail.com", "test.com", "info.org"]
+  
+  def create_sample_data?
+    sample_data == "1" or sample_data == true
+  end
   
   def validate
     if !start_time1.nil? && !end_time1.nil? && start_time1 > end_time1
@@ -89,13 +92,7 @@ class Practitioner < ActiveRecord::Base
       self.timezone = self.country.try(:default_timezone)
     end
   end
-  
-  def check_sample_data
-    if sample_data == true || sample_data == "1"
-      self.create_sample_data!
-    end
-  end
-  
+    
   def phone
     "#{phone_prefix}-#{phone_suffix}"
   end

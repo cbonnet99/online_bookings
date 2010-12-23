@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   #BOOKINGS
   map.calendar_bookings '/practitioners/:practitioner_id/bookings/:pub_code', :controller => 'bookings', :action => 'index_cal', :format  => "ics"
 
-  map.resources :practitioners, :member => {:reset_ical_sharing  => [:get, :post]}
+  map.resources :practitioners, :member => {:reset_ical_sharing  => [:get, :post], :waiting_sample_data => :get, :create_sample_data  => :post}
   map.resources :practitioners do |p|
     p.resources :bookings
   end
