@@ -2,7 +2,6 @@
 <% title t(:practitioner_new_title) %>
 
 <p><%= t(:practitioner_new_message1)%> <%= link_to t(:practitioner_new_login_link), login_path %></p>
-
 <% form_for @practitioner do |f| %>
   <%= f.error_messages :header_message => "#{t(:pro_try_again)}!", :message => "#{t(:pro_incomplete_registration)}:" %>
   <p>

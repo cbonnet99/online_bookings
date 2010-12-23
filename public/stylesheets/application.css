@@ -1,5 +1,5 @@
 div.floaty {float: left; margin: 20px;}
-div.right-times {text-align: right; width: 250px;}
+div.right-times {text-align: right; width: 250px; padding: 10px;}
 form#new_practitioner label.question {font-weight: bold;}
 fieldset {margin-top: 15px; margin-bottom: 15px;}
 fieldset legend {font-size: large;}

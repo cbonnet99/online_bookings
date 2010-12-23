@@ -146,9 +146,9 @@ class Practitioner < ActiveRecord::Base
     end
     if number_bookings.nil?
       if RAILS_ENV == 'test'
-        number_bookings = 30
+        number_bookings = 15
       else
-        number_bookings = 150
+        number_bookings = 50
       end
     end
     
@@ -194,11 +194,11 @@ class Practitioner < ActiveRecord::Base
       wd_as_numbers = self.working_days_as_numbers
       #appointments in the past
       number_bookings.times do
-        days_ago = rand(200)
+        days_ago = rand(20)
         date = Time.now.advance(:days => -days_ago).to_date
         while (!wd_as_numbers.include?(date.wday)) do
           #try again if it's not a working day
-          days_ago = rand(200)
+          days_ago = rand(20)
           date = Time.now.advance(:days => -days_ago).to_date        
         end
         start_hour = biz_hours[rand(biz_hours.size)]
@@ -206,7 +206,6 @@ class Practitioner < ActiveRecord::Base
         client = clients[rand(clients.size)]
         # puts "+++++ Creating past booking at #{starts_at} for client #{client.name}, email: #{client.email}, phone: (#{client.phone_prefix}) #{client.phone_suffix}"
         random_state = Booking::NON_GRACE_STATES[rand(Booking::NON_GRACE_STATES.size)]
-        puts "===== random_state: #{random_state}"
         booking = Booking.new(:client => client, :practitioner => self, :name => client.name, :client_phone_prefix => client.phone_prefix, 
             :client_phone_suffix => client.phone_suffix, :client_email => client.email, :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => random_state)
         booking.save!
@@ -218,18 +217,17 @@ class Practitioner < ActiveRecord::Base
     
       #appointments in the future
       number_bookings.times do
-        days = rand(200)
+        days = rand(20)
         date = Time.now.advance(:days => days).to_date
         while (!wd_as_numbers.include?(date.wday)) do
           #try again if it's not a working day
-          days_ago = rand(200)
+          days_ago = rand(20)
           date = Time.now.advance(:days => days_ago).to_date        
         end
         start_hour = biz_hours[rand(biz_hours.size)]
         starts_at = DateTime.strptime("#{date.strftime('%d/%m/%Y')} #{start_hour}:00 #{timezone_acronym}", "%d/%m/%Y %H:%M %Z")
         client = clients[rand(clients.size)]
         random_state = Booking::NON_GRACE_STATES[rand(Booking::NON_GRACE_STATES.size)]
-        puts "===== random_state: #{random_state}"
         booking = Booking.new(:client => client, :practitioner => self, :name => client.name, 
             :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => random_state)
         booking.save!
