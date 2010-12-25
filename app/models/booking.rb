@@ -1,3 +1,5 @@
+require 'clickatell'
+
 class NonWorkingBooking
   attr_accessor :id, :title, :start_time, :end_time, :read_only
   def initialize(id, title, start_time, end_time, read_only)
@@ -63,6 +65,7 @@ class Booking < ActiveRecord::Base
   GRACE_PERIOD_IN_HOURS = 1
   STATES = ["in_grace_period", "unconfirmed", "confirmed" ,"cancelled_by_client", "cancelled_by_pro"]
   NON_GRACE_STATES = ["unconfirmed", "confirmed" ,"cancelled_by_client", "cancelled_by_pro"]
+  SMS_MAX_SIZE = 140
   
   aasm_column :state
 
@@ -214,10 +217,34 @@ class Booking < ActiveRecord::Base
     return booking, hash_booking
   end
   
+  def sms_reminder_text
+    I18n.t(:sms_reminder, :pro_name => self.practitioner.try(:name), :booking_datetime => self.start_date_and_time_str  )
+  end
+  
+  def send_reminder_sms!
+    if !self.practitioner.test_user? || (self.practitioner.test_user? && $admin_phones.include?(self.client.phone))
+      if self.practitioner.sms_credit > 0
+        if RAILS_ENV == "production"
+          api = Clickatell::API.authenticate('3220575', 'cbonnet99', 'mavslr55')
+          api.send_message(self.client.phone, self.sms_reminder_text)
+        end
+        self.last_reminder.mark_as!(:sms)
+        self.practitioner.update_attribute(:sms_credit, self.practitioner.sms_credit - 1)
+      else
+        send_reminder_email!
+      end
+    end
+    #even if no email was sent, we mark it as sent
+    self.last_reminder.mark_as_sent!
+  end
+  
   def send_reminder_email!
     if !self.practitioner.test_user? || (self.practitioner.test_user? && self.client.email == self.practitioner.email)
       UserMailer.deliver_booking_reminder(self)
+      self.last_reminder.mark_as!(:email)
     end
+    #even if no email was sent, we mark it as sent
+    self.last_reminder.mark_as_sent!
   end
 
   def generate_confirmation_code

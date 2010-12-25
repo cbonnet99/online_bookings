@@ -1,6 +1,46 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class BookingTest < ActiveSupport::TestCase
+
+  def test_send_reminder_sms
+    pro = Factory(:practitioner, :country => countries(:fr), :sms_credit => 50 )
+    b = Factory(:booking, :practitioner => pro)
+    r = b.create_reminder
+    assert_nil r.sent_at
+    b.send_reminder_sms!
+    r.reload
+    assert_not_nil r.sent_at
+    assert_equal Reminder::TYPES[:sms], r.reminder_type
+    pro.reload
+    assert_equal 49, pro.sms_credit
+  end
+
+  def test_send_reminder_sms_no_credit
+    pro = Factory(:practitioner, :country => countries(:fr), :sms_credit => 0 )
+    b = Factory(:booking, :practitioner => pro)
+    r = b.create_reminder
+    assert_nil r.sent_at
+    b.send_reminder_sms!
+    r.reload
+    assert_not_nil r.sent_at
+    assert_equal Reminder::TYPES[:email], r.reminder_type
+  end
+
+  def test_sms_reminder_text_fr
+    pro = Factory(:practitioner, :country => countries(:fr))
+    b = Factory(:booking, :practitioner => pro)
+    txt = b.sms_reminder_text
+    assert_not_nil txt
+    assert txt.size < Booking::SMS_MAX_SIZE
+  end
+  
+  def test_sms_reminder_text_nz
+    pro = Factory(:practitioner, :country => countries(:nz))
+    b = Factory(:booking, :practitioner => pro)
+    txt = b.sms_reminder_text
+    assert_not_nil txt
+    assert txt.size < Booking::SMS_MAX_SIZE
+  end
   
   def test_endind_grace_period
     pro = Factory(:practitioner)

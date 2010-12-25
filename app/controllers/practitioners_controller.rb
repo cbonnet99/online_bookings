@@ -15,10 +15,10 @@ class PractitionersController < ApplicationController
 
   def reset_ical_sharing
     if current_pro.nil?
-      flash[:error] = I18n.t(:flash_error_practitioner_not_found)
+      flash.now[:error] = I18n.t(:flash_error_practitioner_not_found)
     else
       current_pro.toggle_bookings_publish_code
-      flash[:notice] = I18n.t(:flash_notice_practitioner_visualize_ical)
+      flash.now[:notice] = I18n.t(:flash_notice_practitioner_visualize_ical)
     end
     render :layout => false 
   end

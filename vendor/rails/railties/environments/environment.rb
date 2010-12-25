@@ -39,3 +39,6 @@ Rails::Initializer.run do |config|
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
 end
+
+$admins = [{:email => "cbonnet99@gmail.com", :first_name => "Cyrille", :last_name => "Bonnet", :phone  => "0760566501"}]
+$admin_phones = ["0760566501"]

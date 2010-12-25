@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101222162120) do
+ActiveRecord::Schema.define(:version => 20101224073028) do
 
   create_table "booking_types", :force => true do |t|
     t.string   "title"
@@ -159,6 +159,7 @@ ActiveRecord::Schema.define(:version => 20101222162120) do
     t.integer  "end_time1"
     t.integer  "start_time2"
     t.integer  "end_time2"
+    t.integer  "sms_credit",                                    :default => 0
   end
 
   create_table "relations", :force => true do |t|
@@ -174,6 +175,7 @@ ActiveRecord::Schema.define(:version => 20101222162120) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "sending_at"
+    t.string   "reminder_type"
   end
 
   create_table "user_emails", :force => true do |t|

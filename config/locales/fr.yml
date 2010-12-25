@@ -349,6 +349,8 @@ fr:
     client_index_add_more: "Ajouter"
     mobile_prefixes_label: "Mobiles"
     landline_prefixes_label: "Fixes"
+    #SMS
+    sms_reminder: Nous vous rappellons que vous avez un rendez-vous avec {{pro_name}} {{booking_datetime}}
     #booking/create
     booking_not_saved: "Votre rendez-vous n'a pu être sauvegardé car: {{error}}"
     phone_number_too_long: "Le numéro de téléphone est trop long ({{max}} maximum)"

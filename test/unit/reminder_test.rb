@@ -34,6 +34,7 @@ class ReminderTest < ActiveSupport::TestCase
     #Assertions
     assert_equal 1, ActionMailer::Base.deliveries.size
     Time.zone = pro.timezone
+    last_reminder.reload
     assert_in_delta local_time_for_pro, last_reminder.sent_at, 1
   end
     
@@ -63,9 +64,11 @@ class ReminderTest < ActiveSupport::TestCase
     #Assertions
     assert_equal 1, ActionMailer::Base.deliveries.size, "Only the reminder to self should have generated an email"
     Time.zone = pro.timezone
+    self_reminder.reload
     assert_not_nil self_reminder.sent_at
     assert_in_delta local_time_for_pro, self_reminder.sent_at, 1
     
+    other_reminder.reload
     assert_not_nil other_reminder.sent_at, "Even though no email was sent, the reminder should be marked as sent"
     
   end
