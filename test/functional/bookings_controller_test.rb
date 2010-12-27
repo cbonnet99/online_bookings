@@ -445,8 +445,8 @@ class BookingsControllerTest < ActionController::TestCase
     ends = end_date.advance(:hours=>14)
     post :create, {:practitioner_id => megan.permalink, :format => "json",
       :booking => {:name => "undefined", :client_id => cyrille.id, :comment => "I'll be on time", :booking_type => booking_types(:megan_two_hour), 
-      :starts_at => "#{starts}",
-      :ends_at => "#{ends}"}},
+      :starts_at => "#{starts.to_s(:full_with_year)}",
+      :ends_at => "#{ends.to_s(:full_with_year)}"}},
       {:pro_id => megan.id }
     # puts @response.body
     assert_not_nil assigns["booking"]

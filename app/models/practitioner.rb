@@ -162,6 +162,20 @@ class Practitioner < ActiveRecord::Base
     
     if self.test_user?
       clients = []
+      
+      #first create a client with the same name as the pro (for testing purposes)
+      existing_client = Client.find_by_email(self.email)
+      if existing_client
+        clients << existing_client
+      else
+        pwd = "#{self.last_name}passwd"
+        client = Client.new(:first_name => self.first_name, :last_name => self.last_name, :phone_prefix  => self.phone_prefix,
+            :phone_suffix => self.phone_suffix, 
+            :email => self.email, :password => pwd, :password_confirmation => pwd)
+        client.save!
+        clients << client
+      end
+      
       possible_mobile_prefixes = self.country.mobile_phone_prefixes
       first_names = self.country.sample_first_names.split(",")
       last_names = self.country.sample_last_names.split(",")
@@ -180,9 +194,10 @@ class Practitioner < ActiveRecord::Base
           rand_phone_prefix = possible_mobile_prefixes[rand(possible_mobile_prefixes.size)]
           rand_phone_suffix = "#{rand(9)}#{rand(9)} #{rand(9)}#{rand(9)} #{rand(9)}#{rand(9)} #{rand(9)}#{rand(9)}"
           # puts "+++++ Creating client #{first_name} #{last_name} with email: #{email} and phone: (#{rand_phone_prefix}) #{rand_phone_suffix}"
+          pwd = first_name[0,2] + last_name[0,2]
           client = Client.new(:first_name => first_name, :last_name => last_name, :phone_prefix  => rand_phone_prefix,
               :phone_suffix => rand_phone_suffix, 
-              :email => email, :password => first_name[0,2] + last_name[0,2], :password_confirmation => first_name[0,2] + last_name[0,2])
+              :email => email, :password => pwd, :password_confirmation => pwd)
           client.save!
         end
         clients << client

@@ -48,11 +48,12 @@ class PractitionerTest < ActiveSupport::TestCase
     pro = Factory(:practitioner, :state => "test_user", :country  => countries(:fr))
     pro.create_sample_data!
     pro.reload
-    assert_equal 5, pro.clients.size
+    assert_equal 6, pro.clients.size
     assert_equal 30, pro.bookings.size, "There should be 15 bookings in the past and 15 bookings in the future"
     booking_in_the_past = pro.bookings.find(:first, :conditions => ["starts_at < ?", Time.now.in_time_zone(pro.timezone)])
     assert_not_nil booking_in_the_past, "There should be at least one booking in the past"
     assert_equal 1, booking_in_the_past.reminders.size, "A reminder should have been created for a past booking"
+    assert_not_nil pro.clients.find_by_email(pro.email), "A test client with the same email as the pro should have been created"
   end
 
   def test_working_days_as_numbers

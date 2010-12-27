@@ -1,0 +1,1 @@
+Time::DATE_FORMATS[:full_with_year] = "%a %b %d %Y %H:%M:%S GMT%z (%Z)"
