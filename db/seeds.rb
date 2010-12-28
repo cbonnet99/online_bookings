@@ -7,7 +7,7 @@
 #   Major.create(:name => 'Daley', :city => cities.first)
 
 fr = Country.create(:is_default => true, :country_code => "FR", :name => "France", :locale => "FR", :mobile_phone_prefixes_list => "06,07",
- :landline_phone_prefixes_list => "01,02,03,04,05,08,09",  :sample_first_names => "Jean,Marie,Ben,Marius,Edith,Laurent,Mo,Lise,Jean-Pierre,Theo",
+ :landline_phone_prefixes_list => "01,02,03,04,05,08,09",  :sample_first_names => "Jean,Marie,Ben,Marius,Edith,Olivier,Mo,Lise,Jean-Pierre,Theo",
  :sample_last_names => "Martin,Souza,Marcos,Durand,Adjani,Pujol,Cerdan,Hernin,Lindon", :timezones => "Paris",
  :demo_first_name => "Léa", :demo_last_name => "Martin", :demo_phone => "01 22 33 44 55", :demo_email => "lea@test.fr",
  :demo_password => "demo", :time_slots => "1h,2h,3h,4h,5h,6h,7h,8h,9h,10h,11h,Midi,13h,14h,15h,16h,17h,18h,19h,20h,21h,22h,23h,Minuit",

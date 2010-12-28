@@ -97,16 +97,11 @@ module ApplicationHelper
   end
 
   def current_pro_phone_prefixes_options(current_pro)
-    res = "<option value=''></option>"
-    current_pro.mobile_phone_prefixes.each do |p|
-      res << "<option class='mobile' value='#{p}'"
-      res << ">#{p}</option>"
-    end
-    current_pro.landline_phone_prefixes.each do |p|
-      res << "<option value='#{p}'"
-      res << ">#{p}</option>"
-    end
-    return res
+    country_phone_prefixes_options(current_pro.country)
+  end
+
+  def country_phone_prefixes_options(country)
+    return (country || Country.default_country).phone_prefixes_select
   end
   
   def current_pro_booking_type_options(current_pro)

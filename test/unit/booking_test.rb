@@ -201,10 +201,23 @@ class BookingTest < ActiveSupport::TestCase
   end
   
   def test_to_json_confirmed
-    booking = Factory(:booking, :confirmed_at  => 2.hours.ago)
+    booking = Factory(:booking)
+    booking.end_grace_period!
+    assert booking.reminders.size > 0
+    reminder = booking.reminders.first
+    #let's pretend this reminder was sent, so that it won't be deleted on confirmation
+    reminder.update_attribute(:sent_at, Time.now)
+    #and let's pretend it was sent by email
+    reminder.update_attribute(:reminder_type, Reminder::TYPES[:email])
+    booking.confirm!
+
     json = booking.to_json
     assert_match %r{"confirmed_at":"(.*)"}, json
-    
+    assert booking.reminders.size > 0
+    assert_match %r{"reminder_was_sent_at":"(.*)"}, json
+    reminder = booking.reminders.first
+    assert_equal "email", reminder.reminder_type
+    assert_match %r{"reminder_was_sent_by":"email"}, json    
   end
   
   def test_to_json_unconfirmed

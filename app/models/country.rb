@@ -4,6 +4,19 @@ class Country < ActiveRecord::Base
   has_many :practitioners
   has_many :payment_plans
 
+  def phone_prefixes_select
+    res = "<option value=''></option>"
+    mobile_phone_prefixes.each do |p|
+      res << "<option class='mobile' value='#{p}'"
+      res << ">#{p}</option>"
+    end
+    landline_phone_prefixes.each do |p|
+      res << "<option value='#{p}'"
+      res << ">#{p}</option>"
+    end
+    return res
+  end
+
   def working_hours_select
     if time_slots.blank?
       return []

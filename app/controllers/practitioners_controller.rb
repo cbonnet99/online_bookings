@@ -36,7 +36,7 @@ class PractitionersController < ApplicationController
     @practitioner.country = default_country
     @days_in_week = Practitioner::WORKING_DAYS
     @supported_countries = Country.available_countries
-    get_phone_prefixes
+    
   end
 
   def edit_selected

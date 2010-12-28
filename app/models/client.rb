@@ -21,7 +21,7 @@ class Client < ActiveRecord::Base
   
   validates_uniqueness_of :email, :allow_blank => true
   validates_format_of :email, :with => RE_EMAIL
-  validates_length_of :phone_prefix, :within => 2..3, :allow_nil => true 
+  validates_length_of :phone_prefix, :within => 2..3, :allow_blank => true
   # validates_presence_of :password, :on => :create
   validates_confirmation_of :password
   validates_length_of :password, :minimum => 4, :allow_blank => true

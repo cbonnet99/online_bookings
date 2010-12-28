@@ -60,8 +60,8 @@ Factory.define :booking do |b|
   b.association :client
   b.association :practitioner
   b.name {|b| b.client.try(:name) || "Own time"}
-  b.starts_at Time.now.in_time_zone("Wellington").beginning_of_day.advance(:hours=>9)
-  b.ends_at Time.now.in_time_zone("Wellington").beginning_of_day.advance(:hours=>10)
+  b.starts_at Time.now.in_time_zone("Wellington").end_of_week.advance(:hours=>9)
+  b.ends_at Time.now.in_time_zone("Wellington").end_of_week.advance(:hours=>10)
   b.sequence(:client_email) { |n| "foo#{n}@test.com" }  
   b.state "in_grace_period"
 end

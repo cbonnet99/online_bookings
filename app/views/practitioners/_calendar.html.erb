@@ -24,7 +24,14 @@ $(document).ready(function() {
    var pastEventColor = "#999";
    var eventTitleNormalColor = "#68A1E5";
    var eventTitleHoverColor = "#2B72D0";
-
+	
+	var formatDateAndTime = function(mydate) {
+        var date_str = $calendar.weekCalendar("formatDate", mydate);
+        var time_str = $calendar.weekCalendar("formatTime", mydate);
+        return(date_str + " " + I18n.t("time_at") + " " + time_str);
+		
+	};
+	
 	var addFlashCalendar = function() {
 		if ($("#flash_calendar").length == 0){
 			$("<div id='flash_calendar'></div>").appendTo($("div.wc-nav"));
@@ -496,10 +503,26 @@ $(document).ready(function() {
          else{
            $("#event_confirmed").show();
            var confirmed_date = new Date(calEvent.confirmed_at);
-           var confirmed_date_str = $calendar.weekCalendar("formatDate", confirmed_date);
-           var confirmed_time_str = $calendar.weekCalendar("formatTime", confirmed_date);
-           $("#event_confirmed_at").html(confirmed_date_str + " " + I18n.t("time_at") + " " + confirmed_time_str);
+           $("#event_confirmed_at").html(formatDateAndTime(confirmed_date));
          };
+         if (calEvent.reminder_was_sent_at !== null){
+           $("#event_reminder_was_sent_at").show();
+           var reminder_date = new Date(calEvent.reminder_was_sent_at);
+           $("#event_reminder_was_sent_at").append(" "+formatDateAndTime(reminder_date));
+           console.log("retrieving reminder_type_"+calEvent.reminder_was_sent_by);
+           $("#event_reminder_was_sent_at").append(" "+I18n.t("reminder_type_"+calEvent.reminder_was_sent_by));
+		 }
+		 else {
+			$("#event_reminder_was_sent_at").hide();
+		 };
+         if (calEvent.reminder_will_be_sent_at !== null){
+           $("#event_reminder_will_be_sent_at").show();
+           var reminder_date = new Date(calEvent.reminder_will_be_sent_at);
+           $("#event_reminder_will_be_sent_at").append(" "+formatDateAndTime(reminder_date));
+		 }
+		 else {
+			$("#event_reminder_will_be_sent_at").hide();
+		 };
          if (calEvent.needs_warning === true){
            $("#event_unconfirmed_warning").show();
          } else {
@@ -636,6 +659,8 @@ $(document).ready(function() {
 <div id="event_edit_container">	
 	<form id="event_edit_form"> 
 		<ul class="event-icons">
+			<li id="event_reminder_will_be_sent_at"><%= t(:reminder_will_be_sent_at, :scope => [:event_window])%></li>
+			<li id="event_reminder_was_sent_at"><%= t(:reminder_was_sent_at, :scope => [:event_window])%></li>
 			<li id="event_confirmed"><%= t(:confirmed, :scope => [:event_window])%> <span id="event_confirmed_at"></span></li>
 			<li id="event_unconfirmed_warning"><%= t(:unconfirmed_warning, :scope => [:event_window])%></li>
 			<li id="event_locked"><%= t(:locked, :scope => [:event_window])%></li>			

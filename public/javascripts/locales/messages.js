@@ -3,6 +3,8 @@ I18n.translations = {
 	
 	
 	en:{
+	    reminder_type_email: "by email",
+	    reminder_type_sms: "by text message",
 	    sorry_server: "Our apologies but we cannot contact the server: maybe your Internet connection is not working or your browser is set to work offline?",
 	    time_at: "at",
 	    event_confirmed: "Confirmed",
@@ -41,6 +43,8 @@ I18n.translations = {
 	       Sun: "Sun",Mon: "Mon",Tue: "Tue",Wed: "Wed",Thu: "Thu",Fri: "Fri",Sat: "Sat"},
 		
 	fr:{
+	    reminder_type_email: "par email",
+	    reminder_type_sms: "par SMS",
 	    sorry_server: "Nous vous présentons nos excuses, mais nous ne pouvons pas contacter le serveur: peut-être que votre connection Internet ne fonctionne pas ou votre navigateur est en mode hors-ligne?",
 	    time_at: "à",
 	    event_confirmed: "Confirmé",

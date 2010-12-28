@@ -54,6 +54,13 @@ class PractitionerTest < ActiveSupport::TestCase
     assert_not_nil booking_in_the_past, "There should be at least one booking in the past"
     assert_equal 1, booking_in_the_past.reminders.size, "A reminder should have been created for a past booking"
     assert_not_nil pro.clients.find_by_email(pro.email), "A test client with the same email as the pro should have been created"
+
+    confirmed_booking_in_the_future = pro.bookings.find(:first, :conditions => ["starts_at > ? and state = ?", Time.now.in_time_zone(pro.timezone), "confirmed"])
+    assert_not_nil confirmed_booking_in_the_future, "There should be at least one confirmed booking in the future"
+    assert_equal 1, confirmed_booking_in_the_future.reminders.size, "A reminder should have been created for a future booking"
+    reminder = confirmed_booking_in_the_future.last_reminder
+    assert_not_nil reminder.sent_at
+    assert_not_nil reminder.reminder_type
   end
 
   def test_working_days_as_numbers
@@ -251,8 +258,10 @@ class PractitionerTest < ActiveSupport::TestCase
     Time.zone = megan.timezone
     cyrille = Factory(:client, :first_name => "Cyrille", :last_name => "Bonnet")
     k = Factory(:client, :first_name => "Ms", :last_name => "K")
-    booking1 = Factory(:booking, :client => cyrille, :practitioner => megan)
-    booking2 = Factory(:booking, :client => k, :practitioner => megan )
+    booking1 = Factory(:booking, :client => cyrille, :practitioner => megan, :starts_at  => Time.zone.now.beginning_of_day.advance(:hours=>9),
+    :ends_at => Time.zone.now.beginning_of_day.advance(:hours=>10))
+    booking2 = Factory(:booking, :client => k, :practitioner => megan, :starts_at  => Time.zone.now.beginning_of_day.advance(:hours=>10),
+    :ends_at => Time.zone.now.beginning_of_day.advance(:hours=>11) )
     booking_cancelled = Factory(:booking, :state => "cancelled_by_client",  :client => k, :practitioner => megan )
     megan_bookings = megan.all_bookings(cyrille, Time.zone.now.beginning_of_week.to_f, Time.zone.now.end_of_week.to_f)
     assert megan_bookings.is_a?(Enumerable)    

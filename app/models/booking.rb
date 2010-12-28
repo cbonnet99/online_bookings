@@ -126,7 +126,8 @@ class Booking < ActiveRecord::Base
   end
   
   def create_reminder
-    Reminder.create(:booking => self, :sending_at => starts_at.advance(:days => -1))
+    reminder_time = starts_at.advance(:days => -1)
+    reminder = Reminder.create(:booking => self, :sending_at => reminder_time)
   end
   
   def set_defaults(current_client, current_pro, client, pro)
@@ -431,19 +432,15 @@ class Booking < ActiveRecord::Base
   end
   
   def reminder_was_sent_at
-    unless last_reminder.nil?
-      if self.confirmed? && !last_reminder.sent_at.nil?
-        if !last_reminder.sent_at.nil?
-          return last_reminder.sent_at
-        else
-          nil
-        end
-      end
-    end
+    last_reminder.try(:sent_at)
   end
+
+  def reminder_was_sent_by
+    last_reminder.try(:reminder_type)
+  end  
   
   def to_json(options={})
-    super options.merge(:only => [:id, :client_id, :booking_type_id, :confirmed_at], :methods => [:client_name, :phone_prefix, :phone_suffix, :email, :locked, :title, :start, :end, :readOnly, :state, :needs_warning, :errors, :reminder_was_sent_at, :reminder_will_be_sent_at])
+    super options.merge(:only => [:id, :client_id, :booking_type_id, :confirmed_at], :methods => [:client_name, :phone_prefix, :phone_suffix, :email, :locked, :title, :start, :end, :readOnly, :state, :needs_warning, :errors, :reminder_was_sent_at, :reminder_was_sent_by, :reminder_will_be_sent_at])
   end
 
   def needs_warning

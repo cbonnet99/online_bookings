@@ -150,6 +150,8 @@ fr:
         confirmed: Confirmé
         unconfirmed_warning: Ce RV n'a pas été confirmé
         locked: Ce RV ne peut pas être modifié
+        reminder_will_be_sent_at: Un rappel sera envoyé le
+        reminder_was_sent_at: Un rappel a été envoyé le
   #weekday
     monday: "lundi"
     tuesday: "mardi"

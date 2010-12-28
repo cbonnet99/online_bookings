@@ -15,6 +15,9 @@ ActionController::Routing::Routes.draw do |map|
 
   #FLASH
   map.flash 'flash', :controller => 'bookings', :action => 'flash'
+
+  #COUNTRIES
+  map.country_mobile_phone_prefixes '/countries/mobile_phone_prefixes/:id', :controller => 'countries', :action => 'mobile_phone_prefixes'
   
   #PRACTITIONER
   map.edit_selected_practitioner 'edit_selected_practitioner', :controller => 'practitioners', :action => 'edit_selected'
