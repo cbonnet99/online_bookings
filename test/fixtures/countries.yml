@@ -19,6 +19,9 @@ fr:
     default_end_time1: 12
     default_start_time2: 14
     default_end_time2: 18
+    currency: EUR
+    currency_symbol: EUR
+    currency_before: false
     
 nz:
     name: New Zealand
@@ -40,3 +43,6 @@ nz:
     default_end_time1: 12
     default_start_time2: 13
     default_end_time2: 17
+    currency: NZD
+    currency_symbol: $
+    currency_before: true

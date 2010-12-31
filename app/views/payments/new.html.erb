@@ -1,42 +1,50 @@
+<% javascript "new-payment"%>
 <% title t(:make_payment)%>
 <% form_for @payment do |f| -%>
 <%= f.error_messages :header_message => "#{t(:payment_try_again)}!", :message => "#{t(:incomplete_payment)}:" %>
-<ol>
-	<li><%= t(:payment_select_plan) %>:<br/>
-		<%= f.select :payment_plan_id, @plans.collect {|p| [p.title, p.id]}%></li>
-	<li><%= t(:select_credit_card) %>:
-		<ul>
-			<li>
-	        <%= f.label :first_name, "First name<span class='mandatoryStar'>*</span>" %>
+<div><span class="mandatory">*</span>=<%= t(:pro_mandatory_field)%></div>
+<fieldset id="about-you">
+	<legend><%= t(:payment_plan)%></legend>
+	<div><%= f.label :payment_plan_id, "#{t(:payment_select_plan)}:"%><br/>
+		<%= f.select :payment_plan_id, @plans.collect {|p| [p.title, p.id]}%></div>
+</fieldset>
+<fieldset id="about-you">
+	<legend><%= t(:credit_card_details)%></legend>
+	<div><%= t(:select_credit_card) %>:</div>
+	  <div class="cleaner"></div>
+		<div class="floaty">
+		    <%= f.label :first_name, "#{t(:practitioner_new_first_name)}<span class='mandatory'>*</span>" %><br/>
 	        <%= f.text_field :first_name %>
-	      </li>
-	      <li>
-	        <%= f.label :last_name, "Surname<span class='mandatoryStar'>*</span>" %>
+	    </div>
+		<div class="floaty">
+	        <%= f.label :last_name, "#{t(:practitioner_new_last_name)}<span class='mandatory'>*</span>" %><br/>
 	        <%= f.text_field :last_name %>
-	      </li>
-	      <li>
-	        <%= f.label :card_type %>
-	        <%= f.select :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["American Express", "american_express"]] %>
-	      </li>
-	      <li>
-	        <%= f.label :card_number, "Card number<span class='mandatoryStar'>*</span>" %>
+	    </div>
+	  <div class="cleaner"></div>
+		<div class="floaty">
+	        <%= f.label :card_number, "#{t(:credit_card_number)}<span class='mandatory'>*</span>:" %><br/>
 	        <%= f.text_field :card_number %>
-	      </li>
-	      <li>
-	        <%= f.label :card_verification, "Card Verification Value (CVV)<span class='mandatoryStar'>*</span><br/><span style='font-size: 10px;'>[These are the last three digits of the number on the back of your credit card]</span>" %>
-	        <%= f.text_field :card_verification %>
-	      </li>
-	      <li>
-	        <%= f.label :card_expires_on %>
+	    </div>
+		<div class="floaty">
+	        <%= f.label :card_type, "#{t(:credit_card_type)}:" %><br/>
+	        <%= f.select :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["American Express", "american_express"]] %>
+	    </div>
+	  <div class="cleaner"></div>
+		<div class="floaty">
+	        <%= f.label :card_verification, "#{t(:ccv_text)}<span class='mandatory'>*</span><br/><span style='font-size: 10px;'>[#{t(:ccv_explanation)}]</span>:" %><br/>
+	        <%= f.text_field :card_verification, :size => 3  %>
+	    </div>
+		<div class="floaty">
+	        <%= f.label :card_expires_on, "#{t(:card_expires_on)}:" %><br/>
 	        <%= f.date_select :card_expires_on, :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true %>
-	      </li>
-	      
-		</ul>
-	</li>
-</ol>
-<%= submit_tag 'Cancel', :class => "button cancel", :name => "cancel"   %>
-<%= submit_tag 'Process my payment', :class => "button submit", :name => "process"  %>
+	    </div>
+	  <div class="cleaner"></div>
+</fieldset>
+<%= submit_tag t(:payment_cancel), :class => "button cancel", :name => "cancel"   %>
+<div class="right-floaty"><%= submit_tag t(:payment_process), :class => "button submit", :name => "process"  %>
+<div id="waiting_black_small"><%= t(:processing_payment)%><%= image_tag "waiting_black_small.gif"%></div></div>
+<div class="cleaner"></div>
 <% end -%>
-<div id="payment-processor">Payments processed by <a href="http://www.paymentexpress.com/about/about_paymentexpress/privacy_policy.html">
+<div id="payment-processor"><%= t(:payments_by)%> <a href="http://www.paymentexpress.com/about/about_paymentexpress/privacy_policy.html">
 <img src="/images/paymentexpress.png" alt="Payment Processor" width="118" height="21" />
 </a></div>

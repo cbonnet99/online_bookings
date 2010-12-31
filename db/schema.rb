@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101231103717) do
+ActiveRecord::Schema.define(:version => 20101231105557) do
 
   create_table "booking_types", :force => true do |t|
     t.string   "title"
@@ -77,6 +77,9 @@ ActiveRecord::Schema.define(:version => 20101231103717) do
     t.integer  "default_end_time1"
     t.integer  "default_start_time2"
     t.integer  "default_end_time2"
+    t.string   "currency"
+    t.string   "currency_symbol"
+    t.boolean  "currency_before"
   end
 
   create_table "delayed_jobs", :force => true do |t|

@@ -131,7 +131,7 @@
   error_afternoon_times: "Your afternoon cannot start before it ends: please change your afternoon start time"
   test_user: Test User
   upgrade: Upgrade to the full Colibri
-  select_credit_card: Select a credit card
+  select_credit_card: Please enter your credit card details
   #application
   flash_error_session_not_selected_pro: "No selected practitioner"
   #session
@@ -226,7 +226,17 @@
   #payments/new
   make_payment: "Make a payment"
   payment_select_plan: Select a plan
+  payment_plan: Payment plan  
+  credit_card_details: Credit card
+  credit_card_type: Card type
+  ccv_text: Card Verification Value (CVV)
+  ccv_explanation: These are the last three digits of the number on the back of your credit card
+  card_expires_on: Card expires on
+  payment_cancel: Cancel
+  payment_process: Process my payment
+  payments_by: Payments processed by
   payment_try_again: "Please try again"
+  processing_payment: We are processing your payment
   incomplete_payment: "Your payment could not be completed"
   payment_cancelled: "Payment cancelled"
   payment_problem: "There was a problem processing your payment"

@@ -170,7 +170,7 @@ fr:
     error_afternoon_times: "Votre après-midi ne peut commencer avant d'être terminée: veuillez changer votre horaire d'ouverture l'après-midi"
     test_user: Utilisateur de test
     upgrade: Commencer à utiliser le vrai Colibri
-    select_credit_card: Selectionnez une carte de crédit
+    select_credit_card: Entrez les détails de votre carte de crédit
     #application
     flash_error_session_not_selected_pro: "Vous n'avez pas sélectionné de praticien"
     #session
@@ -265,7 +265,18 @@ fr:
     session_new_password: "Mot de passe"
     #payments/new
     make_payment: "Nouveau paiement"
-    payment_select_plan: Sélectionner un plan
+    payment_select_plan: Sélectionner un abonnement
+    payment_plan: Abonnement
+    credit_card_details: Carte de crédit
+    credit_card_type: Type de carte
+    credit_card_number: Numéro de carte
+    ccv_text: Numéros de vérification
+    ccv_explanation: Les 3 derniers numéros au dos de votre carte
+    card_expires_on: Date d'expiration
+    payment_cancel: Annuler
+    payment_process: Payer maintenant
+    payments_by: Paiements par
+    processing_payment: Nous traitons votre paiement
     payment_try_again: "Merci de réessayer"
     incomplete_payment: "Votre paiement n'a pas pu être complété"
     payment_cancelled: "Paiement annulé"
@@ -311,7 +322,7 @@ fr:
     pro_empty_first_name: "Votre prénom ne peut pas être vide"
     pro_empty_last_name: "Votre nom ne peut pas être vide"
     pro_mandatory_field: Champ obligatoire
-    pro_sample_data_help: "Des rendez-vous fictifs seront ajoutés à votre calendrier: cela vous donne une meilleure idée des fonctionnalités de Colibri. Ces rendez-vous fictifs seront effaçés lorsque vous commencez à utiliser Colibri pour vos propres rendez-vous."
+    pro_sample_data_help: "Des rendez-vous fictifs seront ajoutés à votre calendrier: cela vous donne une meilleure idée des fonctionnalités de Colibri. Ces rendez-vous fictifs seront effaçés lorsque vous commencerez à utiliser Colibri pour vos propres rendez-vous."
     pro_invalid_email: "Votre addresse email n'est pas valide"
     practitioner_new_login_link: "Se connecter"
     practitioner_new_first_name: "Prénom"
