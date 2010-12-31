@@ -19,6 +19,7 @@ class Practitioner < ActiveRecord::Base
   has_many :bookings, :dependent => :delete_all, :order => "starts_at"  
   has_many :reminders, :through => :bookings
   has_many :relations
+  has_many :payments
   has_many :clients, :through => :relations
   has_many :user_emails
   has_many :booking_types
@@ -63,12 +64,24 @@ class Practitioner < ActiveRecord::Base
   aasm_state :trial
   aasm_state :active
   aasm_state :cancelled
+
+  # aasm_event :activate do
+  #   transitions :from => [:test_user, :trial], :to => :active
+  # end
+    
+  aasm_event :cancel do
+    transitions :from => [:test_user, :trial, :active], :to => :cancelled
+  end
     
   DEFAULT_CANCELLATION_PERIOD = 24
   TITLE_FOR_NON_WORKING = "Booked"
   WORKING_DAYS = ["monday","tuesday" ,"wednesday" , "thursday", "friday","saturday" ,"sunday" ]
 
   DOMAINS = ["gmail.com", "test.com", "info.org"]
+
+  def activate!
+    self.update_attribute(:state, "active")
+  end
   
   def create_sample_data?
     sample_data == "1" or sample_data == true

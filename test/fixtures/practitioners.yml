@@ -13,7 +13,7 @@ megan:
     phone_prefix: 021
     phone_suffix: 34556666
     no_cancellation_period_in_hours: 24
-    country_id: 101
+    country: nz
     own_time_label: Own time
     timezone: Wellington
 sav:
@@ -32,7 +32,7 @@ sav:
     phone_prefix: 021
     phone_suffix: 34556667
     no_cancellation_period_in_hours: 24
-    country_id: 101
+    country: nz
     own_time_label: Own time
     timezone: Wellington
 rene:
@@ -52,6 +52,6 @@ rene:
     phone_prefix: 06
     phone_suffix: 87 66 67 57
     no_cancellation_period_in_hours: 24
-    country_id: 100
+    country: fr
     own_time_label: Own time
     timezone: Paris    

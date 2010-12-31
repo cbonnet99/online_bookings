@@ -30,3 +30,11 @@ config.action_mailer.delivery_method = :smtp
 
 # Enable threaded mode
 # config.threadsafe!
+
+config.after_initialize do
+  ActiveMerchant::Billing::Base.mode = :production
+  ::GATEWAY = ActiveMerchant::Billing::PaymentExpressGateway.new(
+    :login => "BeAmazing",
+    :password => "1081fc38"
+  )
+end

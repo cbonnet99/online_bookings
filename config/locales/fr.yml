@@ -266,6 +266,11 @@ fr:
     #payments/new
     make_payment: "Nouveau paiement"
     payment_select_plan: Sélectionner un plan
+    payment_try_again: "Merci de réessayer"
+    incomplete_payment: "Votre paiement n'a pas pu être complété"
+    payment_cancelled: "Paiement annulé"
+    payment_problem: "Votre paiement n'a pas pu être complété"
+    payment_thanks: "Merci pour votre paiement. Vous pouvez maintenant utiliser toutes les fonctionalités de Colibri."
     #practicioner/index
     from: "De"
     to: "à"

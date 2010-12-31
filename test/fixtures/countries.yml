@@ -1,6 +1,5 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 fr:
-    id: 100
     name: France
     is_default: true
     country_code: "FR"
@@ -22,7 +21,6 @@ fr:
     default_end_time2: 18
     
 nz:
-    id: 101
     name: New Zealand
     is_default: false
     country_code: "NZ"

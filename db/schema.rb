@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101224073028) do
+ActiveRecord::Schema.define(:version => 20101231103717) do
 
   create_table "booking_types", :force => true do |t|
     t.string   "title"
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(:version => 20101224073028) do
     t.integer  "country_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "sms_credit",  :default => 0
   end
 
   create_table "payments", :force => true do |t|
@@ -128,6 +129,13 @@ ActiveRecord::Schema.define(:version => 20101224073028) do
     t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "practitioner_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "ip_address"
+    t.string   "card_type"
+    t.date     "card_expires_on"
+    t.string   "status"
   end
 
   create_table "practitioners", :force => true do |t|
