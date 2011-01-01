@@ -11,6 +11,8 @@ class PaymentsControllerTest < ActionController::TestCase
     pro = Factory(:practitioner, :country => countries(:fr), :state => "test_user")
     assert pro.test_user?
     assert_equal 0, pro.sms_credit
+    pro.create_sample_data!
+    assert pro.bookings.size > 0
     payment_plan = payment_plans(:fr_basic)
     assert_not_nil payment_plan
     assert payment_plan.sms_credit > 0
@@ -28,6 +30,7 @@ class PaymentsControllerTest < ActionController::TestCase
     assert_redirected_to practitioner_url(pro.permalink)
     assert assigns(:payment).completed?
     pro.reload
+    assert_equal 0, pro.bookings.size, "The sample data should have been deleted"
     assert pro.active?
     assert_equal payment_plan.sms_credit, pro.sms_credit
   end

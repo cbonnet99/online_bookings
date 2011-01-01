@@ -65,9 +65,9 @@ class Practitioner < ActiveRecord::Base
   aasm_state :active
   aasm_state :cancelled
 
-  # aasm_event :activate do
-  #   transitions :from => [:test_user, :trial], :to => :active
-  # end
+  aasm_event :activate do
+    transitions :from => [:test_user, :trial], :to => :active
+  end
     
   aasm_event :cancel do
     transitions :from => [:test_user, :trial, :active], :to => :cancelled
@@ -78,10 +78,6 @@ class Practitioner < ActiveRecord::Base
   WORKING_DAYS = ["monday","tuesday" ,"wednesday" , "thursday", "friday","saturday" ,"sunday" ]
 
   DOMAINS = ["gmail.com", "test.com", "info.org"]
-
-  def activate!
-    self.update_attribute(:state, "active")
-  end
   
   def create_sample_data?
     sample_data == "1" or sample_data == true
@@ -131,12 +127,12 @@ class Practitioner < ActiveRecord::Base
   
   def delete_sample_data!
     if self.test_user?
+      self.bookings.delete_all
       self.clients.each do |client|
         if client.relations.blank?
           client.delete
         end
       end
-      self.destroy
     else
       raise CantDeleteSampleDataOnNonTestProException
     end
