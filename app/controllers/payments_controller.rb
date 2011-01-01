@@ -3,6 +3,7 @@ class PaymentsController < ApplicationController
 
   def new
     @plans = @current_pro.country.try(:payment_plans)
+    @default_plan = @plans.select{|p| p.highlighted?}.first
     @payment = Payment.new
     @payment.first_name = @current_pro.first_name
     @payment.last_name = @current_pro.last_name

@@ -2,8 +2,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PaymentsControllerTest < ActionController::TestCase
   def test_new
-    pro = Factory(:practitioner)
+    pro = Factory(:practitioner, :country => countries(:fr))
     get :new, {}, :pro_id  => pro.id
+    assert_not_nil assigns(:default_plan)
+    assert !assigns(:plans).blank?
     assert_response :success
   end
   
@@ -25,6 +27,7 @@ class PaymentsControllerTest < ActionController::TestCase
       :city => "Villefranche" } }, :pro_id  => pro.id
       
     assert_not_nil assigns(:payment)
+    assert_equal "EUR", assigns(:payment).currency    
     assert_equal 0, assigns(:payment).errors.size, "Unexpected errors: #{assigns(:payment).errors.full_messages.to_sentence}"
     assert_not_nil assigns(:payment).amount
     assert_redirected_to practitioner_url(pro.permalink)

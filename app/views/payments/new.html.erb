@@ -6,7 +6,14 @@
 <fieldset id="about-you">
 	<legend><%= t(:payment_plan)%></legend>
 	<div><%= f.label :payment_plan_id, "#{t(:payment_select_plan)}:"%><br/>
-		<%= f.select :payment_plan_id, @plans.collect {|p| [p.title, p.id]}%></div>
+		<%= f.select :payment_plan_id, @plans.collect {|p| [p.title, p.id]}, :selected => @default_plan.try(:id) %></div>
+	<% @plans.each do |p| -%>
+	<div id="payment-plan-<%=p.id%>" class="payment-plan rounded<% if p.highlighted?%> highlighted-payment-plan selected-payment-plan<%end%>">
+		<div class="title"><%= p.title%></div>
+		<div class="price"><%= p.price_display%></div>
+		<div class="description"><%= p.description%></div>
+	</div>
+	<% end -%>
 </fieldset>
 <fieldset id="about-you">
 	<legend><%= t(:credit_card_details)%></legend>

@@ -1,3 +1,11 @@
+div.payment-plan{border: solid 1px #303030; background-color: #F8F8F8; color: #303030; float: left; padding: 10px; width: 150px; margin: 10px;}
+div.selected-payment-plan{background-color: #0CC;}
+div.roll-payment-plan{background-color: #6ff;}
+div.roll-payment-plan{cursor: pointer;}
+div.payment-plan div.title{font-size: 24px;}
+div.selected-payment-plan div.title{font-size: 32px;}
+div.payment-plan div.description{font-style: italic;}
+div.payment-plan div.description ul{padding-left: 0; margin-left: 0; list-style: none;}
 div#waiting_black_small{display: none;}
 #new_payment input.submit{font-size: large;}
 .right-floaty{float: right;}

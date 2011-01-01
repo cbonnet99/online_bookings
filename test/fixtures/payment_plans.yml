@@ -13,6 +13,7 @@ nz_basic:
   description: "Unlimited emails, 200 text messages"
   country: nz
   sms_credit: 200
+  highlighted: true
 
 fr_no_sms:
     amount: 1495
@@ -27,3 +28,4 @@ fr_basic:
     description: "Emails illimités, 200 SMS"
     country: fr
     sms_credit: 200
+    highlighted: true

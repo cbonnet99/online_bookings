@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101231105557) do
+ActiveRecord::Schema.define(:version => 20110101205836) do
 
   create_table "booking_types", :force => true do |t|
     t.string   "title"
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(:version => 20101231105557) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sms_credit",  :default => 0
+    t.boolean  "highlighted", :default => false
   end
 
   create_table "payments", :force => true do |t|
@@ -139,6 +140,7 @@ ActiveRecord::Schema.define(:version => 20101231105557) do
     t.string   "card_type"
     t.date     "card_expires_on"
     t.string   "status"
+    t.string   "currency"
   end
 
   create_table "practitioners", :force => true do |t|

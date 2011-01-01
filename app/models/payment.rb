@@ -32,6 +32,7 @@ class Payment < ActiveRecord::Base
   
   def set_amount
     self.amount = payment_plan.try(:amount)
+    self.currency = self.practitioner.country.currency
   end
   
   def purchase!
