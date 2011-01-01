@@ -1,3 +1,5 @@
 <% if pro_logged_in? -%>
-	<div id="pro-login-info" class="login-info"><%= t(:practitioner_login_info_message) %><span id="logged-pro-name"><%= current_pro.email%></span>&nbsp;<%= link_to t(:practitioner_login_info_edit_link), edit_practitioner_url(current_pro)%> | <span class="button rounded"><%= link_to t(:practitioner_login_info_logout_link), logout_url%></span><span id="right-spacer">&nbsp;</div></div>
+	<div id="pro-login-info" class="login-info"><%= t(:practitioner_login_info_message) %><span id="logged-pro-name"><%= current_pro.email%></span>&nbsp;<%= link_to t(:practitioner_login_info_edit_link), edit_practitioner_url(current_pro)%> | <span class="button rounded"><%= link_to t(:practitioner_login_info_logout_link), logout_url%></span><span id="right-spacer">&nbsp;
+<div class="cleaner"></div>
+<% if current_pro.has_sms_credit? -%><div id="pro-sms-credits"><%= t(:sms_credit_left, :sms_credit => current_pro.sms_credit) %></div><% end -%></div>
 <% end -%>

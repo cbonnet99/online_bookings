@@ -224,7 +224,7 @@ class Booking < ActiveRecord::Base
   
   def send_reminder_sms!
     if !self.practitioner.test_user? || (self.practitioner.test_user? && $admin_phones.include?(self.client.phone))
-      if self.practitioner.sms_credit > 0
+      if self.practitioner.has_sms_credit?
         if RAILS_ENV == "production"
           api = Clickatell::API.authenticate('3220575', 'cbonnet99', 'mavslr55')
           api.send_message(self.client.phone, self.sms_reminder_text)

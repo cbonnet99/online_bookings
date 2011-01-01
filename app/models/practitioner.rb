@@ -78,6 +78,10 @@ class Practitioner < ActiveRecord::Base
   WORKING_DAYS = ["monday","tuesday" ,"wednesday" , "thursday", "friday","saturday" ,"sunday" ]
 
   DOMAINS = ["gmail.com", "test.com", "info.org"]
+
+  def has_sms_credit?
+    !sms_credit.nil? && sms_credit > 0
+  end
   
   def create_sample_data?
     sample_data == "1" or sample_data == true

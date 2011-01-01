@@ -39,7 +39,7 @@ div#errorExplanation li{color: #333;}
 #no-cancellation .warning {font-weight: bold; color: #c00;}
 #no-cancellation .phone {font-weight: bold;}
 .ui-state-default, .ui-widget-content .ui-state-default { background-color: #f8f8f8;}
-div.header a.selected-tab{color: #222; background-color: #f8f8f8;font-weight: bold; padding: 5px 5px 20px 5px;}
+div.header a.selected-tab{color: #222; background-color: #f8f8f8;font-weight: bold; padding: 5px 5px 30px 5px;}
 .help{color: grey;font-size: 12px;}
 #container-center .wc-header{color: #000;}
 #container-center #flash_calendar{color: #000;}
@@ -81,7 +81,7 @@ ul.event-fields li{list-style: none; padding: 5px;}
 /******************************************/
 
 body{margin:0;padding:0;background-color: #f8f8f8;}
-div.header{background-color: #222; font-size: 14px;	line-height: 1.7em; height: 50px; color:#f8f8f8;}
+div.header{background-color: #222; font-size: 14px;	line-height: 1.7em; height: 60px; color:#f8f8f8;}
 div.header div.container {padding: 10px 0; }
 div.header div.container div#general-public-links{float: left;}
 div.header div.container div#pro-links{float: right;}

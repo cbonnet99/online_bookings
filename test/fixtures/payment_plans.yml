@@ -1,7 +1,7 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 nz_no_sms:
-  amount: 1995
+  amount: 1495
   title: Unlimited emails
   description: "Unlimited emails, no text messages"
   country: nz
@@ -15,7 +15,7 @@ nz_basic:
   sms_credit: 200
 
 fr_no_sms:
-    amount: 1995
+    amount: 1495
     title: Emails illimités
     description: "Emails illimités, pas de SMS"
     country: fr

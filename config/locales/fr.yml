@@ -291,6 +291,7 @@ fr:
     practitioner_login_info_message: "Vous êtes: "
     practitioner_login_info_edit_link: "Paramètres"
     practitioner_login_info_logout_link: "Se déconnecter"
+    sms_credit_left: "Il vous reste {{sms_credit}} SMS"
     #practitioner/edit
     pro_edit_settings: "Changer vos paramètres"
     #practitioner/share-ical

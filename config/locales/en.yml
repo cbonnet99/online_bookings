@@ -250,6 +250,7 @@
   practitioner_login_info_message: "You are logged in as: "
   practitioner_login_info_edit_link: "Edit"
   practitioner_login_info_logout_link: "Logout"
+  sms_credit_left: "You have {{sms_credit}} text messages left"
   #practitioner/edit
   pro_edit_settings: "Edit your settings"
   #practitioner/share-ical
