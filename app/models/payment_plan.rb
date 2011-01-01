@@ -1,6 +1,7 @@
 class PaymentPlan < ActiveRecord::Base
   belongs_to :country
   has_many :payments
+  has_many :practitioners
   
   def price_display
     s = amount.to_s

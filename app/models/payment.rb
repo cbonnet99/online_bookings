@@ -28,6 +28,7 @@ class Payment < ActiveRecord::Base
     #create_invoice
     self.practitioner.activate! unless self.practitioner.active?
     self.practitioner.update_attribute(:sms_credit, self.payment_plan.sms_credit)
+    self.practitioner.update_attribute(:payment_plan, self.payment_plan)
   end
   
   def set_amount

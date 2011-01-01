@@ -26,12 +26,14 @@ class Practitioner < ActiveRecord::Base
   has_many :extra_working_days  
   has_many :extra_non_working_days  
   belongs_to :country
+  belongs_to :payment_plan
 
   # new columns need to be added here to be writable through mass assignment
   attr_accessible :username, :email, :password, :password_confirmation, :working_days, :first_name,
    :last_name, :no_cancellation_period_in_hours, :working_day_monday, :working_day_tuesday, :working_day_wednesday,
     :working_day_thursday, :working_day_friday, :working_day_saturday, :working_day_sunday, :timezone, :country, :country_id,
-    :lunch_break, :start_time1, :end_time1, :start_time2, :end_time2, :phone_prefix, :phone_suffix, :sample_data
+    :lunch_break, :start_time1, :end_time1, :start_time2, :end_time2, :phone_prefix, :phone_suffix, :sample_data,
+    :payment_plan_id, :payment_plan
   
   attr_accessor :password, :working_day_monday, :working_day_tuesday, :working_day_wednesday, :working_day_thursday,
    :working_day_friday, :working_day_saturday, :working_day_sunday, :sample_data

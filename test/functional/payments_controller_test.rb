@@ -12,6 +12,7 @@ class PaymentsControllerTest < ActionController::TestCase
   def test_create_success
     pro = Factory(:practitioner, :country => countries(:fr), :state => "test_user")
     assert pro.test_user?
+    assert_nil pro.payment_plan
     assert_equal 0, pro.sms_credit
     pro.create_sample_data!
     assert pro.bookings.size > 0
@@ -35,6 +36,7 @@ class PaymentsControllerTest < ActionController::TestCase
     pro.reload
     assert_equal 0, pro.bookings.size, "The sample data should have been deleted"
     assert pro.active?
+    assert_not_nil pro.payment_plan
     assert_equal payment_plan.sms_credit, pro.sms_credit
   end
 
