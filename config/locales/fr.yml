@@ -294,6 +294,9 @@ fr:
     sms_credit_left: "Il vous reste {{sms_credit}} SMS"
     #practitioner/edit
     pro_edit_settings: "Changer vos paramètres"
+    practitioner_save_button: "Sauvegarder"
+    practitioner_saved_error: "Vos paramètres n'ont pas pu être sauvegardés à cause d'une erreur"
+    practitioner_was_saved: "Vos paramètres ont été sauvegardés"
     #practitioner/share-ical
     practitioner_share_ical_message : "L'URL de votre flux Ical est: "
     practitioner_share_ical_stop : "Désactiver le flux Ical"

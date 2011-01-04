@@ -27,7 +27,7 @@ class Country < ActiveRecord::Base
   end
   
   def timezones_array
-    self.timezones.split(",")
+    self.timezones.nil? ? nil : self.timezones.split(",")
   end
   
   def default_timezone

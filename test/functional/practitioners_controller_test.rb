@@ -8,6 +8,8 @@ class PractitionersControllerTest < ActionController::TestCase
     assert_not_nil assigns(:practitioner)
     france = Country.find_by_country_code("FR")
     assert_equal france.id, assigns(:practitioner).country_id
+    assert_select "input[type=password]"
+    assert_select "input[id=practitioner_sample_data]"
   end
 
   def test_reset_ical_sharing_on
@@ -77,7 +79,7 @@ class PractitionersControllerTest < ActionController::TestCase
   end
   
   def test_waiting_sample_data
-    pro = Factory(:practitioner)
+    pro = Factory(:practitioner, :country => countries(:fr) )
     get :waiting_sample_data, {}, {:pro_id => pro.id}
     assert_response :success
   end    
@@ -94,6 +96,38 @@ class PractitionersControllerTest < ActionController::TestCase
     assert_equal old_size, Practitioner.all.size
   end
 
+  def test_edit
+    pro = Factory(:practitioner)
+
+    get :edit, {}, {:pro_id => pro.id}
+    
+    assert_response :success
+    assert_not_nil assigns(:practitioner)
+    assert_select "input[type=password]", :count => 0 
+    assert_select "input[id=practitioner_sample_data]", :count => 0 
+  end
+  
+  def test_update
+    pro = Factory(:practitioner, :country => countries(:fr))
+    
+    post :update, {:practitioner => {:first_name => "NewFirst" }}, {:pro_id => pro.id}
+    assert_redirected_to :action => "edit"
+    assert_nil flash[:error]
+    assert_not_nil flash[:notice]
+    pro.reload
+    assert_equal "NewFirst", pro.first_name 
+  end
+  
+  def test_update_error
+    pro = Factory(:practitioner, :country => countries(:fr))
+    
+    post :update, {:practitioner => {:first_name => "" }}, {:pro_id => pro.id}
+    assert_template "edit"
+    assert_not_nil flash[:error]
+    assert_nil flash[:notice]
+    assert_equal 1, assigns(:practitioner).errors.size
+  end
+  
   def test_edit_selected
     get :edit_selected
     assert_template 'edit_selected'

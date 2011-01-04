@@ -1,0 +1,72 @@
+<% form_for @practitioner do |f| %>
+  <%= f.error_messages :header_message => "#{t(:pro_try_again)}!", :message => "#{t(:pro_incomplete_registration)}:" %>
+  <% if @practitioner.new_record? -%>
+  <p>
+	<%= f.check_box :sample_data %><%= f.label :sample_data, t(:practitioner_sample_data)%>
+	<br/><span class="help"><%= t(:pro_sample_data_help)%></span>
+  </p>
+  <br/>
+  <% end -%>
+  <div><span class="mandatory">*</span>=<%= t(:pro_mandatory_field)%></div>
+  <fieldset id="about-you">
+	<legend><%= I18n.t(:about_you)%></legend>
+  <div class="floaty">
+    <%= f.label :first_name, "#{t(:practitioner_new_first_name)}<span class='mandatory'>*</span>:", :class => "question" %><br />
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="floaty">
+    <%= f.label :last_name, "#{t(:practitioner_new_last_name)}<span class='mandatory'>*</span>:", :class => "question" %><br />
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="cleaner"></div>
+  <div class="floaty">
+    <%= f.label :email, "#{t(:practitioner_new_email)}<span class='mandatory'>*</span>:", :class => "question" %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="floaty">
+    <%= f.label :phone, "#{t(:practitioner_new_phone)}:", :class => "question" %><br />
+    <%= f.select :phone_prefix, country_phone_prefixes_options(@practitioner.country) %><%= f.text_field :phone_suffix, :size => 10, :maxlength => 10 %>
+  </div>
+  <div class="cleaner"></div>
+  <% if @practitioner.new_record? -%>
+  <div class="floaty">
+    <%= f.label :password, "#{t(:practitioner_new_password)}<span class='mandatory'>*</span>:", :class => "question" %><br />
+    <%= f.password_field :password %>
+  </div>
+  <div class="floaty">
+    <%= f.label :password_confirmation, "#{t(:practitioner_new_confirm_password)}<span class='mandatory'>*</span>:", :class => "question" %><br />
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <div class="cleaner"></div>
+  <% end -%>
+  <div class="floaty">
+    <%= f.label :country_id, t(:practitioner_country), :class => "question" %>:<br />
+	<%= f.select :country_id, @supported_countries.map{|c| [c.name, c.id]}%>
+  </div>
+  <div class="cleaner"></div>
+  </fieldset>
+  <fieldset id="about-your-work">
+	<legend><%= I18n.t(:about_your_work)%></legend>
+  <div class="floaty">
+    <%= f.label :working_days, t(:practitioner_new_worked_days), :class => "question" %><br />
+	<ul id="working_days_list">
+	<% @days_in_week.each_with_index do |day, index| -%>
+	    
+    	<li><%= f.check_box "working_day_#{day}".to_sym, :checked => (index<5) %><label for="practitioner_working_day_<%=day%>"><%=I18n.t(day.to_sym).capitalize%></label></li>
+	<%end -%>
+	</ul>
+  </div>
+  <div class="floaty">
+    <%= f.label :working_hours, t(:practitioner_new_working_hours), :class => "question" %><br />
+	<%= f.check_box :lunch_break %><%= f.label :lunch_break, t(:practitioner_lunch_break)%><br/>
+	<div class="right-times"><%= t(:practitioner_time_from)%>: <%= f.select :start_time1, @current_country.working_hours_select %> &nbsp;<%= t(:practitioner_time_to)%>:<%= f.select :end_time1, @current_country.try(:working_hours_select)%></div>
+	<div id="pro-extra-times" class="right-times"><%= t(:practitioner_time_and_from)%>: <%= f.select :start_time2, @current_country.working_hours_select%> &nbsp;<%= t(:practitioner_time_to)%>:<%= f.select :end_time2, @current_country.working_hours_select%></div><br/>
+  </div>
+  <div class="cleaner"></div>
+  </fieldset>
+  <% if @practitioner.new_record? -%>
+  <p><%= f.submit t(:practitioner_new_register_button) %></p>
+  <% else -%>
+  <p><%= f.submit t(:practitioner_save_button) %></p>
+  <% end -%>
+<% end %>

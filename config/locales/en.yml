@@ -253,6 +253,9 @@
   sms_credit_left: "You have {{sms_credit}} text messages left"
   #practitioner/edit
   pro_edit_settings: "Edit your settings"
+  practitioner_save_button: "Save"
+  practitioner_saved_error: "There was an error while saving your settings"
+  practitioner_was_saved: "Your settings have been saved"
   #practitioner/share-ical
   practitioner_share_ical_message: "Your iCal feed URL is "
   practitioner_share_ical_stop: "Stop sharing iCal feed"

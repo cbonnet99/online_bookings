@@ -1,8 +1,20 @@
 class PractitionersController < ApplicationController
   
   before_filter :require_selected_practitioner, :only => [:show] 
-  before_filter :login_required, :only => [:show, :reset_ical_sharing, :create_sample_data, :waiting_sample_data]
+  before_filter :login_required, :only => [:update, :edit, :show, :reset_ical_sharing, :create_sample_data, :waiting_sample_data]
   before_filter :locate_current_user, :only => [:edit_selected] 
+
+  def update
+    @practitioner = @current_pro
+    if @practitioner.update_attributes(params[:practitioner])
+      flash[:notice] = t(:practitioner_was_saved)
+      redirect_to :action => "edit" 
+    else
+      flash[:error] = t(:practitioner_saved_error)
+      load_countries_and_days
+      render :action => "edit" 
+    end
+  end
 
   def create_sample_data
     current_pro.create_sample_data!
@@ -10,7 +22,8 @@ class PractitionersController < ApplicationController
   end
   
   def edit
-    @practitioner = Practitioner.find_by_permalink(params[:id])
+    @practitioner = @current_pro
+    load_countries_and_days
   end
 
   def reset_ical_sharing
@@ -34,9 +47,7 @@ class PractitionersController < ApplicationController
     @practitioner.own_time_label = "Own time"
     @practitioner.no_cancellation_period_in_hours = 24
     @practitioner.country = default_country
-    @days_in_week = Practitioner::WORKING_DAYS
-    @supported_countries = Country.available_countries
-    
+    load_countries_and_days
   end
 
   def edit_selected
@@ -71,8 +82,7 @@ class PractitionersController < ApplicationController
         redirect_to practitioner_url(@practitioner.permalink)
       end
     else
-      @days_in_week = Practitioner::WORKING_DAYS
-      @supported_countries = Country.available_countries
+      load_countries_and_days
       get_phone_prefixes
       render :action => 'new'
     end
@@ -83,6 +93,12 @@ class PractitionersController < ApplicationController
       @selected_tab = "calendar"
       @clients = current_pro.clients
     end
+  end
+
+private
+  def load_countries_and_days
+    @supported_countries = Country.available_countries
+    @days_in_week = Practitioner::WORKING_DAYS    
   end
   
 end

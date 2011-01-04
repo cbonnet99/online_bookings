@@ -82,7 +82,7 @@ class Practitioner < ActiveRecord::Base
   DOMAINS = ["gmail.com", "test.com", "info.org"]
   
   def check_timezone
-    if !self.country.timezones_array.include?(self.timezone)
+    if !self.country.nil? && !self.country.timezones_array.nil? && !self.country.timezones_array.include?(self.timezone)
       self.timezone = self.country.default_timezone
     end
   end
