@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
   
   def set_locale
     selected_locale = extract_locale_from_subdomain
+    logger.debug("========= selected_locale from subdomain: #{selected_locale}")
     if selected_locale.nil?
       country_code = locate_current_user
       selected_locale = translate_country_code_to_locale(country_code)  
@@ -34,8 +35,10 @@ class ApplicationController < ActionController::Base
   end
   
   def translate_country_code_to_locale(country_code)
+    country_code = country_code.try(:to_s) if country_code.is_a?(Symbol)
     country_code = country_code.try(:upcase) if country_code.is_a?(String)
     selected_country = Country.find_by_country_code(country_code)
+    logger.debug("========= selected_country from subdomain: #{selected_country}")
     if selected_country.nil?
       selected_country = Country.default_country
     end
@@ -44,9 +47,10 @@ class ApplicationController < ActionController::Base
   
   def extract_locale_from_subdomain
     country_code = request.subdomains.first.try(:downcase).try(:to_sym)
+    logger.debug("========= country_code from subdomain: #{country_code}")
     cookies[:country_code] = country_code
     parsed_locale = translate_country_code_to_locale(country_code)
-    (I18n.available_locales.include? parsed_locale) ? parsed_locale  : nil
+    (I18n.available_locales.include? parsed_locale.try(:downcase).try(:to_sym)) ? parsed_locale  : nil
   end
   
   def get_country_code_from_subdomain

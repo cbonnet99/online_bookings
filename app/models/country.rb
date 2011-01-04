@@ -25,9 +25,13 @@ class Country < ActiveRecord::Base
       (1..24).inject([]){|memo, hour| memo << [sliced_time_slots[hour-1], hour]}
     end
   end
-
+  
+  def timezones_array
+    self.timezones.split(",")
+  end
+  
   def default_timezone
-    self.timezones.split(",").first
+    self.timezones_array.first
   end
 
   def recreate_test_user(number_clients=30, number_bookings=150)

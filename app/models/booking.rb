@@ -94,7 +94,11 @@ class Booking < ActiveRecord::Base
   end
   
   def to_s
-    "#{client.name} at #{practitioner.name} on #{starts_at}"
+    if Rails.env == "development" or Rails.env == "test"
+      "#{id}: #{client.name} at #{practitioner.name} on #{starts_at}"
+    else
+      "#{client.name} at #{practitioner.name} on #{starts_at}"
+    end
   end
   
   def cancellation_text
@@ -127,7 +131,8 @@ class Booking < ActiveRecord::Base
   
   def create_reminder
     reminder_time = starts_at.advance(:days => -1)
-    reminder = Reminder.create(:booking => self, :sending_at => reminder_time)
+    reminder = self.reminders.create(:sending_at => reminder_time)
+    # puts "--- Created reminder for #{self}: #{reminder.inspect}"
   end
   
   def set_defaults(current_client, current_pro, client, pro)

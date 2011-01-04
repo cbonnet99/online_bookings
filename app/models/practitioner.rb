@@ -57,7 +57,7 @@ class Practitioner < ActiveRecord::Base
   
   named_scope :want_reminder_night_before, :conditions => "reminder_night_before IS true"
   
-  before_validation :set_working_days, :set_cancellation_period, :cleanup_phone
+  before_validation :set_working_days, :set_cancellation_period, :cleanup_phone, :check_timezone
   aasm_column :state
   
   aasm_initial_state :test_user
@@ -80,7 +80,13 @@ class Practitioner < ActiveRecord::Base
   WORKING_DAYS = ["monday","tuesday" ,"wednesday" , "thursday", "friday","saturday" ,"sunday" ]
 
   DOMAINS = ["gmail.com", "test.com", "info.org"]
-
+  
+  def check_timezone
+    if !self.country.timezones_array.include?(self.timezone)
+      self.timezone = self.country.default_timezone
+    end
+  end
+  
   def has_sms_credit?
     !sms_credit.nil? && sms_credit > 0
   end

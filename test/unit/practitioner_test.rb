@@ -46,21 +46,27 @@ class PractitionerTest < ActiveSupport::TestCase
 
   def test_create_sample_data
     pro = Factory(:practitioner, :state => "test_user", :country  => countries(:fr))
+    assert_equal 0, pro.bookings.size
     pro.create_sample_data!
     pro.reload
     assert_equal 6, pro.clients.size
     assert_equal 30, pro.bookings.size, "There should be 15 bookings in the past and 15 bookings in the future"
-    booking_in_the_past = pro.bookings.find(:first, :conditions => ["starts_at < ?", Time.now.in_time_zone(pro.timezone)])
-    assert_not_nil booking_in_the_past, "There should be at least one booking in the past"
-    assert_equal 1, booking_in_the_past.reminders.size, "A reminder should have been created for a past booking"
+    bookings_in_the_past = pro.bookings.find(:all, :conditions => ["starts_at < ?", Time.now.in_time_zone(pro.timezone).advance(:hours => -2)])
+    assert bookings_in_the_past.size > 0, "There should be at least one booking in the past"
+    unconfirmed_bookings_in_the_past = bookings_in_the_past.select{|b| !b.confirmed?}
+    unconfirmed_bookings_in_the_past.each do |b|      
+      assert_equal 1, b.reminders.size, "No reminder for unconfirmed past booking: #{b}"
+    end
     assert_not_nil pro.clients.find_by_email(pro.email), "A test client with the same email as the pro should have been created"
 
-    confirmed_booking_in_the_future = pro.bookings.find(:first, :conditions => ["starts_at > ? and state = ?", Time.now.in_time_zone(pro.timezone), "confirmed"])
-    assert_not_nil confirmed_booking_in_the_future, "There should be at least one confirmed booking in the future"
-    assert_equal 1, confirmed_booking_in_the_future.reminders.size, "A reminder should have been created for a future booking"
-    reminder = confirmed_booking_in_the_future.last_reminder
-    assert_not_nil reminder.sent_at
-    assert_not_nil reminder.reminder_type
+    confirmed_bookings_in_the_future = pro.bookings.find(:all, :conditions => ["starts_at > ? and state = ?", Time.now.in_time_zone(pro.timezone), "confirmed"])
+    assert confirmed_bookings_in_the_future.size > 0, "There should be at least one confirmed booking in the future"
+    confirmed_bookings_in_the_future.each do |b|
+      assert_equal 1, b.reminders.size, "A reminder should have been created for confirmed future booking: #{b}"
+      reminder = b.last_reminder
+      assert_not_nil reminder.sent_at
+      assert_not_nil reminder.reminder_type
+    end
   end
 
   def test_working_days_as_numbers
