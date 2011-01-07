@@ -64,6 +64,10 @@ Rails::Initializer.run do |config|
   
 end
 
+ExceptionNotification::Notifier.exception_recipients = %w(cbonnet99@gmail.com)
+ExceptionNotification::Notifier.sender_address = %("Colibri Error" <colibriapp@gmail.com>)
+ExceptionNotification::Notifier.email_prefix = "[Colibri] "
+
 module ActiveSupport
    class TimeWithZone
      

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include Authentication
+  include ExceptionNotification::Notifiable
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
