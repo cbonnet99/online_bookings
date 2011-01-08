@@ -1,3 +1,4 @@
+#general-public-links a.rounded_by_jQuery_corners {text-decoration: none;}
 #container-home .home-rounded a {color: #f8f8f8;} 
 select#payment_payment_plan_id{display: none;}
 div.payment-plan{border: solid 1px #303030; background-color: #F8F8F8; color: #303030; float: left; padding: 10px; width: 150px; margin: 10px;}
@@ -22,7 +23,8 @@ fieldset legend {font-size: large;}
 .mandatory {color: #c00;}
 div#right-spacer {padding: 5px;}
 div.header div.container div#pro-links span.button{background-color: grey; color: white; padding: 5px;}
-div.header div.container div#pro-links span.button a{color: white; margin-right: 5px;}
+div.header div.container div#pro-links span.button a{color: white; margin-right: 5px; text-decoration: none;}
+div.header div.container div#pro-links span.button a:hover{text-decoration: underline;}
 div#content h1{margin-top: 5px; margin-bottom: 5px;}
 ul.event-icons {padding: 0;}
 ul.event-icons li {list-style: none;}
@@ -95,9 +97,9 @@ div.header{background-color: #222; font-size: 14px;	line-height: 1.7em; height: 
 div.header div.container {padding: 10px 0; }
 div.header div.container div#general-public-links{float: left;}
 div.header div.container div#pro-links{float: right;}
-div.header div.container div#pro-links{color: #0cc}
+div.header div.container div#pro-links{color: #f8f8f8}
 div.header div.container div#pro-links a{color: #0cc}
-div.header a {margin-left: 10px; color: #f8f8f8; text-decoration: none; line-height: 1.7em;}
+div.header a {margin-left: 10px; color: #0cc; line-height: 1.7em;}
 div.header div.container div#pro-links a {margin-left: 0px; margin-right: 10px;}
 div.header a:hover {text-decoration: underline;}
 div#content{margin: 10px; padding-left: 50px;padding-right:50px;}

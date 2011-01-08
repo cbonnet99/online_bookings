@@ -231,8 +231,8 @@ fr:
     enter_button: "Entrer"
    # header 
     colibri_header_register: "Essayez Colibri gratuitement"
-    login: "Connexion"
-    header_health_pro: "Praticiens"
+    login: "Connectez-vous"
+    header_health_pro: "Déjà abonné?"
     home: "Accueil"
     header_book_appointment: "Calendrier"
     schedule_tab: "Programme"

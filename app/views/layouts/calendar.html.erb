@@ -26,9 +26,6 @@
 			<div id="general-public-links"><% if pro_logged_in?-%>
 				<%= link_to "Calendar", practitioner_url(current_pro.permalink, :tab => "calendar"), :class => selected_tab_classes(@selected_tab, "calendar")%>
 			<% else -%>
-				<% if !client_logged_in?-%>
-					<%= link_to t(:home), root_url, :class => "link"%> |
-				<% end %>
 				<%= link_to t(:header_book_appointment), current_step, :class => "link"%>
 				<% if client_logged_in?-%> |&nbsp;<% end -%> 
 			<% end -%>
@@ -45,8 +42,7 @@
 					<%= render :partial => "practitioners/selected_pro_info"  %>
 					<%else -%>
 						<span><%= t(:header_health_pro) %>:</span>
-						<%= link_to t(:login), login_url, :class => "link"%> |
-						<%= link_to t(:colibri_header_register), new_practitioner_url, :class => "link"%>
+						<%= link_to t(:login), login_url, :class => "link"%>
 					<%end -%>
 				<% end -%>
 			</div>
