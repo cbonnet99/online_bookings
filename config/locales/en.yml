@@ -227,10 +227,12 @@
   make_payment: "Make a payment"
   payment_select_plan: Select a plan
   payment_plan: Payment plan  
+  payment_plans: Payment plans
   credit_card_details: Credit card
   credit_card_type: Card type
   ccv_text: Card Verification Value (CVV)
   ccv_explanation: These are the last three digits of the number on the back of your credit card
+  credit_card_number: Card number
   card_expires_on: Card expires on
   payment_cancel: Cancel
   payment_process: Process my payment
@@ -244,13 +246,14 @@
   #practicioner/index
   from: "from"
   to: "to"
+  or: or
   #practicioner/show
   practitioner_show_message: "To book an appointment, click on any white space below. Today is highlighted in yellow. To see next week, click on the button on the right with label"
   #practitioner/login_info
   practitioner_login_info_message: "You are logged in as: "
   practitioner_login_info_edit_link: "Edit"
   practitioner_login_info_logout_link: "Logout"
-  sms_credit_left: "You have {{sms_credit}} text messages left"
+  sms_credit_left: "You have <b>{{sms_credit}}</b> text messages left"
   #practitioner/edit
   pro_edit_settings: "Edit your settings"
   practitioner_save_button: "Save"
@@ -281,6 +284,7 @@
   create_pro_step2_msg: Adding sample clients
   create_pro_step3_msg: Adding sample appointments
   practitioner_new_title: "Try Colibri for free"
+  practitioner_sign_up_title: "Sign up with Colibri"
   practitioner_new_message1: "Already have an account?"
   pro_email_taken: "This email address is already in use. Please select a different one."
   pro_try_again: "Please try again"
@@ -310,6 +314,8 @@
   practitioner_time_to: "to"
   practitioner_time_and_from: "And from"
   practitioner_new_register_button: "Register"
+  practitioner_new_continue_payment: "Proceed to payment"
+  flash_notice_practitioner_thanks_payment: "Your profile was created, now please enter your payment details"
   #Client/new
   client_new_title: "Step 2: your phone number"
   client_new_message: "Please enter your phone number"

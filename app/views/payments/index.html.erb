@@ -1,0 +1,10 @@
+<h2><%= t(:payment_plans)%>:</h2>
+<% @plans.each do |p| -%>
+<div id="payment-plan-<%=p.id%>" class="payment-plan rounded">
+	<div class="title"><%= p.title%></div>
+	<div class="price"><%= p.price_display%></div>
+	<div class="description"><%= p.description%></div>
+</div>
+<% end -%>
+<div class="cleaner"></div>
+<p><%= link_to t(:practitioner_sign_up_title), new_practitioner_url(:paying => true)%> <%= t(:or)%> <%= link_to t(:practitioner_new_title), new_practitioner_url%></p>

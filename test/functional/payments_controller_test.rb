@@ -1,6 +1,12 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class PaymentsControllerTest < ActionController::TestCase
+  
+  def test_index
+    get :index
+    assert_response :success
+  end
+
   def test_new
     pro = Factory(:practitioner, :country => countries(:fr))
     get :new, {}, :pro_id  => pro.id

@@ -2,7 +2,8 @@
 <% use_country_select %>
 <p>Colibri gère vos rendez-vous et envoie automatiquement un rappel à vos clients par SMS ou par email.</p>
 <p>Moins d'annulations, plus de temps pour vous concentrer sur votre travail.</p>
-<div id="homepage-pricing" class="rounded home-rounded">Combien ça coûte?</div>
+<div id="homepage-pricing" class="rounded home-rounded"><%= link_to "Combien ça coûte?", payments_url%> </div>
+<div id="homepage-trial" class="rounded home-rounded"><%= link_to "Comment ça marche?", explanation_url%></div>
 <div id="homepage-signup" class="rounded home-rounded"><%= link_to "Essayez Colibri!", new_practitioner_url%></div>
 <div class="cleaner"></div>
 

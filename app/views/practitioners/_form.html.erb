@@ -1,6 +1,9 @@
 <% form_for @practitioner do |f| %>
+	<% unless params[:paying].nil? -%>
+	<input type="hidden" name="paying" value="true"/>
+	<% end -%>
   <%= f.error_messages :header_message => "#{t(:pro_try_again)}!", :message => "#{t(:pro_incomplete_registration)}:" %>
-  <% if @practitioner.new_record? -%>
+  <% if @practitioner.new_record? && params[:paying].nil?  -%>
   <p>
 	<%= f.check_box :sample_data %><%= f.label :sample_data, t(:practitioner_sample_data)%>
 	<br/><span class="help"><%= t(:pro_sample_data_help)%></span>
@@ -65,7 +68,11 @@
   <div class="cleaner"></div>
   </fieldset>
   <% if @practitioner.new_record? -%>
-  <p><%= f.submit t(:practitioner_new_register_button) %></p>
+	<% if params[:paying].nil? -%>
+  		<p><%= f.submit t(:practitioner_new_register_button) %></p>
+	<%else -%>
+	<p><%= f.submit "#{t(:practitioner_new_continue_payment)} >" %></p>	
+	<%end -%>
   <% else -%>
   <p><%= f.submit t(:practitioner_save_button) %></p>
   <% end -%>

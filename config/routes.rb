@@ -28,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
   #CLIENT
   map.country_select 'country_select.:format', :controller => 'clients', :action => 'country_select'
   map.homepage 'homepage', :controller => 'clients', :action => 'homepage'
+  map.explanation 'explanation', :controller => 'clients', :action => 'explanation'
   map.edit_phone 'edit_phone', :controller => 'clients', :action => 'edit_phone'
   map.update_phone 'update_phone', :controller => 'clients', :action => 'update_phone'
   map.reset_phone 'reset_phone', :controller => 'clients', :action => 'reset_phone'

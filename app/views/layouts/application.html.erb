@@ -34,6 +34,8 @@
 			</div>	
 			<% if client_logged_in?-%>
 				<%= render :partial => "clients/login_info" %>
+			<% else -%>
+				<%= link_to t(:home), root_url, :class => "link"%>
 			<% end %>
 			
 			<div id="pro-links">

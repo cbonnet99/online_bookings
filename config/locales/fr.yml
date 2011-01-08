@@ -165,6 +165,7 @@ fr:
     flash_error_practitioner_not_found : "Nous n'avons pas trouvé le praticien que vous recherchez"
     flash_notice_practitioner_visualize_ical : "Vous pouvez maintenant voir votre calendrier dans Ical"
     flash_notice_practitioner_thanks_signup : "Bienvenue sur Colibri!"
+    flash_notice_practitioner_thanks_payment: "Votre profil a été créé, il ne vous reste plus qu'à compléter votre paiement"
     error_morning_times: "Votre matinée ne peut commencer avant d'être terminée: veuillez changer votre horaire d'ouverture"
     error_day_times: "Votre journée ne peut commencer avant d'être terminée: veuillez changer votre horaire d'ouverture"
     error_afternoon_times: "Votre après-midi ne peut commencer avant d'être terminée: veuillez changer votre horaire d'ouverture l'après-midi"
@@ -267,6 +268,7 @@ fr:
     make_payment: "Nouveau paiement"
     payment_select_plan: Sélectionner un abonnement
     payment_plan: Abonnement
+    payment_plans: Abonnements
     credit_card_details: Carte de crédit
     credit_card_type: Type de carte
     credit_card_number: Numéro de carte
@@ -285,13 +287,14 @@ fr:
     #practicioner/index
     from: "De"
     to: "à"
+    or: ou
     #practicioner/show
     practitioner_show_message: "Pour prendre un rendez-vous, clickez sur un des espaces libres du calendrier. La date du jour apparait en jaune. Pour changer de semaine, utilisez les boutons "
     #practitioner/login_info
     practitioner_login_info_message: "Vous êtes: "
     practitioner_login_info_edit_link: "Paramètres"
     practitioner_login_info_logout_link: "Se déconnecter"
-    sms_credit_left: "Il vous reste {{sms_credit}} SMS"
+    sms_credit_left: "Il vous reste <b>{{sms_credit}}</b> SMS"
     #practitioner/edit
     pro_edit_settings: "Changer vos paramètres"
     practitioner_save_button: "Sauvegarder"
@@ -316,6 +319,7 @@ fr:
     create_pro_step2_msg: Ajout de clients d'exemple
     create_pro_step3_msg: Ajout de rendez-vous d'exemple
     practitioner_new_title: "Essayez Colibri gratuitement"
+    practitioner_sign_up_title: "Abonnez-vous à Colibri"
     practitioner_new_message1: "Vous avez déjà un compte?"
     pro_try_again: "Merci de réessayer"
     pro_incomplete_registration: "Votre profil n'a pas pu être complété"
@@ -328,7 +332,7 @@ fr:
     pro_mandatory_field: Champ obligatoire
     pro_sample_data_help: "Des rendez-vous fictifs seront ajoutés à votre calendrier: cela vous donne une meilleure idée des fonctionnalités de Colibri. Ces rendez-vous fictifs seront effaçés lorsque vous commencerez à utiliser Colibri pour vos propres rendez-vous."
     pro_invalid_email: "Votre addresse email n'est pas valide"
-    practitioner_new_login_link: "Se connecter"
+    practitioner_new_login_link: "Connectez-vous"
     practitioner_new_first_name: "Prénom"
     practitioner_new_last_name: "Nom"
     practitioner_new_email: "Votre adresse email"
@@ -345,6 +349,7 @@ fr:
     practitioner_time_to: "à"
     practitioner_time_and_from: "Et de"
     practitioner_new_register_button: "Créer votre compte"
+    practitioner_new_continue_payment: "Payer maintenant"
     #Client/new
     client_new_title: "Etape 2: Votre numéro de téléphone"
     client_new_message: "Entrez votre numéro de téléphone"

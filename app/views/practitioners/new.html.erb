@@ -1,5 +1,9 @@
 <% javascript "new-pro"%>
+<% if params[:paying].nil? -%>
 <% title t(:practitioner_new_title) %>
+<% else -%>
+<% title t(:practitioner_sign_up_title) %>
+<% end -%>
 
 <p><%= t(:practitioner_new_message1)%> <%= link_to t(:practitioner_new_login_link), login_path %></p>
 <%= render :partial => "form" %>

@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
   def extract_locale_from_subdomain
     country_code = request.subdomains.first.try(:downcase).try(:to_sym)
     logger.debug("========= country_code from subdomain: #{country_code}")
-    cookies[:country_code] = country_code
+    cookies[:country_code] = country_code.try(:to_s)
     parsed_locale = translate_country_code_to_locale(country_code)
     (I18n.available_locales.include? parsed_locale.try(:downcase).try(:to_sym)) ? parsed_locale  : nil
   end

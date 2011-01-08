@@ -1,3 +1,4 @@
+#container-home .home-rounded a {color: #f8f8f8;} 
 select#payment_payment_plan_id{display: none;}
 div.payment-plan{border: solid 1px #303030; background-color: #F8F8F8; color: #303030; float: left; padding: 10px; width: 150px; margin: 10px;}
 div.selected-payment-plan{background-color: #0CC;}
@@ -69,10 +70,10 @@ ul#clients {padding:0;}
 #container-home a{color: #0cc;}
 #container-home {color:#f8f8f8;}
 div.home-rounded{background-color: #0cc; color: #f8f8f8; width: 100px; padding: 10px; margin:10px; text-align: center;float: left;}
-div.home-rounded a{color: #f8f8f8; font-weight: bold; font-size: 16px; text-decoration: none;}
+div.home-rounded a{color: #f8f8f8; text-decoration: none;}
 div.rounded a:hover{text-decoration: underline;}
-div#homepage-signup{background-color: #c33;}
-div#homepage-signup a{color: #f8f8f8;}
+div#homepage-signup{background-color: #c33; font-weight: bold; font-size: 16px;}
+div#homepage-signup a, div#homepage-pricing a {color: #f8f8f8;}
 /******************************************/
 
 /************** client edit selected ******************/

@@ -1,0 +1,7 @@
+<% title "How does Colibri work?"%>
+<ol>
+	<li>You book an appointment for one of your clients</li>
+	<li>24 hours prior to the appointment, Colibri sends a reminder to the client</li>
+	<li>The client confirms via Colibri (or calls you to cancel the appointment)</li>
+</ol>
+<p><%= link_to t(:practitioner_sign_up_title), new_practitioner_url(:paying => true)%> <%= t(:or)%> <%= link_to t(:practitioner_new_title), new_practitioner_url%></p>

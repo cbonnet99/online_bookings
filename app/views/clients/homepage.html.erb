@@ -2,7 +2,8 @@
 <% use_country_select %>
 <p>Colibri manages your appointments and automatically sends reminders to your clients by text message or by email.</p>
 <p>Less cancellations, more time to focus on your work.</p>
-<div id="homepage-pricing" class="rounded home-rounded">How much does it cost?</div>
-<div id="homepage-signup" class="rounded home-rounded"><%= link_to "Sign up now", new_practitioner_url%></div>
+<div id="homepage-pricing" class="rounded home-rounded"><%= link_to "How much does it cost?", payments_url %></div>
+<div id="homepage-trial" class="rounded home-rounded"><%= link_to "How does it work?", explanation_url%></div>
+<div id="homepage-signup" class="rounded home-rounded"><%= link_to "Sign up now", new_practitioner_url(:paying => true)%></div>
 <div class="cleaner"></div>
 

@@ -78,8 +78,13 @@ class PractitionersController < ApplicationController
       if @practitioner.create_sample_data?
         redirect_to waiting_sample_data_practitioner_url(@practitioner.permalink)
       else
-        flash[:notice] = I18n.t(:flash_notice_practitioner_thanks_signup)
-        redirect_to practitioner_url(@practitioner.permalink)
+        if params[:paying].nil?
+          flash[:notice] = I18n.t(:flash_notice_practitioner_thanks_signup)
+          redirect_to practitioner_url(@practitioner.permalink)
+        else
+          flash[:notice] = I18n.t(:flash_notice_practitioner_thanks_payment)
+          redirect_to new_payment_url
+        end
       end
     else
       load_countries_and_days

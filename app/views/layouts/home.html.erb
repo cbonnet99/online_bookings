@@ -27,11 +27,6 @@
 		<div class="container">
 			<div id="general-public-links"><% if pro_logged_in?-%>
 				<%= link_to t(:home_calendar_tab), practitioner_url(current_pro.permalink, :tab => "calendar"), :class => selected_tab_classes(@selected_tab, "calendar")%>
-			<% else -%>
-				<% if !client_logged_in?-%>
-					<%= link_to t(:home), root_url, :class => "link"%>
-				<% end %>
-				<% if client_logged_in?-%> |&nbsp;<% end -%> 
 			<% end -%>
 			</div>	
 			<% if client_logged_in?-%>

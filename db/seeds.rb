@@ -16,16 +16,16 @@ fr = Country.create(:is_default => true, :country_code => "FR", :name => "France
  )
 
  PaymentPlan.create(:country => fr, :amount => "1495", :title => "Emails",
-   :description =>  "<ul><li>Emails illimités</li><li>Pas de SMS</li></ul>")
+   :description =>  "<ul><li>Rappels par emails illimités</li><li>Pas de rappels par SMS</li></ul>")
 
  PaymentPlan.create(:country => fr, :amount => "2495", :title => "Mini",
-   :description =>  "<ul><li>Emails illimités</li><li>50 SMS par mois</li></ul>", :sms_credit => 50)
+   :description =>  "<ul><li>Rappels par emails illimités</li><li><b>50</b> rappels par SMS chaque mois</li></ul>", :sms_credit => 50)
 
  PaymentPlan.create(:country => fr, :amount => "3995", :title => "Premium",
-   :description =>  "<ul><li>Emails illimités</li><li>200 SMS par mois</li></ul>", :sms_credit => 200, :highlighted => true)
+   :description =>  "<ul><li>Rappels par emails illimités</li><li><b>200</b> rappels par SMS chaque mois</li></ul>", :sms_credit => 200, :highlighted => true)
 
  PaymentPlan.create(:country => fr, :amount => "9995", :title => "Maxi",
-   :description =>  "<ul><li>Emails illimités</li><li>500 SMS par mois</li></ul>", :sms_credit => 500)
+   :description =>  "<ul><li>Rappels par emails illimités</li><li><b>500</b> rappels par SMS chaque mois</li></ul>", :sms_credit => 500)
 
 
 nz = Country.create(:is_default => false, :country_code => "NZ", :name => "New Zealand",  :locale => "EN", :mobile_phone_prefixes_list => "021,022,027,029",
@@ -38,13 +38,13 @@ nz = Country.create(:is_default => false, :country_code => "NZ", :name => "New Z
    )
 
  PaymentPlan.create(:country => nz, :amount => "1495", :title => "Emails",
-   :description =>  "<ul><li>Unlimited emails</li><li>No text messages</li></ul>" )
+   :description =>  "<ul><li>Unlimited reminders by email</li><li>No reminder by text messages</li></ul>" )
 
  PaymentPlan.create(:country => nz, :amount => "2495", :title => "Mini",
-   :description =>  "<ul><li>Unlimited emails</li><li>50 text messages per month</li></ul>", :sms_credit => 50)
+   :description =>  "<ul><li>Unlimited reminders by email</li><li><b>50</b> reminders by text message per month</li></ul>", :sms_credit => 50)
 
  PaymentPlan.create(:country => nz, :amount => "3995", :title => "Premium",
-   :description =>  "<ul><li>Unlimited emails</li><li>200 text messages per month</li></ul>", :sms_credit => 200, :highlighted => true)
+   :description =>  "<ul><li>Unlimited reminders by email</li><li><b>200</b> reminders by text message per month</li></ul>", :sms_credit => 200, :highlighted => true)
 
  PaymentPlan.create(:country => nz, :amount => "9995", :title => "Maxi",
-   :description =>  "<ul><li>Unlimited emails</li><li>500 text messages per month</li></ul>", :sms_credit => 500)
+   :description =>  "<ul><li>Unlimited reminders by email</li><li><b>500</b> reminders by text message per month</li></ul>", :sms_credit => 500)
