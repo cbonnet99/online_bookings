@@ -28,16 +28,11 @@
 	<div class="header">
 		<div id="logo"><%= link_to image_tag("colibri_text.png", :height => "50"), root_url %></div>
 		<div class="container">
-			<div id="general-public-links"><% if pro_logged_in?-%>
-				<%= link_to t(:home_calendar_tab), practitioner_url(current_pro.permalink), :class => selected_tab_classes(@selected_tab, "calendar")%>
+			<div id="general-public-links"><%= link_to t(:home), root_url, :class => "link"%>
+			<% if pro_logged_in?-%>
+				<%= link_to t(:home_calendar_tab), practitioner_url(current_pro.permalink), :class => selected_tab_classes(@selected_tab, "calendar")%> <%= link_to t(:reminders_tab_title), reminders_url, :class => selected_tab_classes(@selected_tab, "reminders")%>
 			<% end -%>
-			</div>	
-			<% if client_logged_in?-%>
-				<%= render :partial => "clients/login_info" %>
-			<% else -%>
-				<%= link_to t(:home), root_url, :class => "link"%>
-			<% end %>
-			
+			</div>			
 			<div id="pro-links">
 				<% if pro_logged_in?-%>
 				<%= render :partial => "practitioners/login_info" %>

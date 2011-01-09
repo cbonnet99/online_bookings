@@ -160,6 +160,16 @@ fr:
     friday: "vendredi"
     saturday: "samedi"
     sunday: "dimanche"
+
+
+    #reminders
+    reminders_title: Liste des rappels
+    reminders_tab_title: Rappels
+    sent_reminders_title: Liste des rappels déjà envoyés
+    no_reminders: Pas de rappels pour le moment
+    no_sent_reminders: Aucun rappel n'a été envoyé pour le moment
+    back_to_reminders_title: Retour vers les rappels à venir
+
     #flash
     #practicioner
     flash_error_practitioner_not_found : "Nous n'avons pas trouvé le praticien que vous recherchez"

@@ -29,6 +29,7 @@ Rails::Initializer.run do |config|
   config.gem 'ambethia-smtp-tls', :lib => "smtp-tls", :source => "http://gems.github.com"
   config.gem 'active_merchant'
   config.gem 'clickatell'
+  config.gem 'will_paginate'
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

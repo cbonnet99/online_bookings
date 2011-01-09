@@ -1,3 +1,6 @@
+ul#reminders_list {list-style: none;}
+ul#reminders_list li {padding: 10px;}
+.even {background-color: black;}
 #general-public-links a.rounded_by_jQuery_corners {text-decoration: none;}
 #container-home .home-rounded a {color: #f8f8f8;} 
 select#payment_payment_plan_id{display: none;}
@@ -65,7 +68,7 @@ div.header a.selected-tab{color: #222; background-color: #f8f8f8;font-weight: bo
 /************** client INDEX PRO ******************/
 ul#clients li{list-style: none; padding: 5px;}
 ul#clients {padding:0;}
-.odd{background-color: lightgrey;}
+.odd{background-color: grey;}
 /******************************************/
 /************** client INDEX ******************/
 #container-home{margin: 160px 0 0 280px;padding: 10px 24px 10px 24px;background-color: #303030;width:450px;}

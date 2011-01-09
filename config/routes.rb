@@ -1,5 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
 
+  map.resources :reminders, :collection => {:index_past  => :get} 
+
   #BOOKINGS
   map.calendar_bookings '/practitioners/:practitioner_id/bookings/:pub_code', :controller => 'bookings', :action => 'index_cal', :format  => "ics"
 

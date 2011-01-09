@@ -1,0 +1,11 @@
+<% title t(:sent_reminders_title)%>
+<p><%= link_to(t(:back_to_reminders_title), reminders_url)%></p>
+<ul id="reminders_list">
+<% if @reminders.empty? -%>
+<%= t(:no_sent_reminders) %>
+<% else -%>
+<% @reminders.each do |r| -%>
+	<li class="<%=cycle('odd', 'even')%>"><%= "#{r.booking.client.name} #{r.booking.start_date_and_time_str}" %></li>
+<% end -%>
+<% end -%>
+</ul>

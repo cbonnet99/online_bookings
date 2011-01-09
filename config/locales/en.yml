@@ -120,7 +120,16 @@
   friday: "friday"
   saturday: "saturday"
   sunday: "sunday"
-    
+  
+  
+  #reminders
+  reminders_title: Reminders list
+  reminders_tab_title: Reminders
+  sent_reminders_title: Sent reminders list
+  no_reminders: There are no reminders for the moment
+  no_sent_reminders: No reminders have been sent for the moment
+  back_to_reminders_title: Back to the future reminders
+
   #flash message
   #practicioner
   flash_error_practitioner_not_found: "Could not find this practitioner"

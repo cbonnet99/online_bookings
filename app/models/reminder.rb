@@ -1,6 +1,9 @@
 class Reminder < ActiveRecord::Base
-  belongs_to :booking
+  cattr_reader :per_page
+  @@per_page = 10
   
+  belongs_to :booking
+
   validates_presence_of :booking
   
   named_scope :unsent, :conditions =>  "sent_at IS NULL"
