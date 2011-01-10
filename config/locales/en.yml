@@ -353,6 +353,7 @@
   landline_prefixes_label: "Landlines"
   #SMS
   sms_reminder: This is a reminder that you have an appointment with {{pro_name}} {{booking_datetime}}
+  
   #booking/create
   booking_not_saved: "Appointment was not saved because: [error]"  
   phone_number_too_long: "The phone number is too long ({{max}} maximum)"

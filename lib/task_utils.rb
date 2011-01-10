@@ -48,7 +48,7 @@ class TaskUtils
   def self.send_reminders
     Reminder.need_sending.each do |r|
       puts "Sending reminder to: #{r.booking.client.name} for appointment at #{r.booking.starts_at}"
-      r.send_by_email!
+      r.booking.send_reminder!
     end
   end
   

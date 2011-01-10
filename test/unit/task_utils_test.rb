@@ -59,6 +59,8 @@ class TaskUtilsTest < ActiveSupport::TestCase
     booking_remind_me = Factory(:booking, :practitioner => pro, :starts_at => 1.day.from_now.in_time_zone(pro.timezone).advance(:minutes => -30))
     booking_remind_me.end_grace_period!
     assert_equal 1, booking_remind_me.reminders.size
+    reminder = booking_remind_me.reminders.first
+    assert_nil reminder.reminder_text
     
     booking_dont_remind_me = Factory(:booking, :practitioner => pro, :starts_at => 1.day.from_now.in_time_zone(pro.timezone).advance(:minutes => 30))
     booking_dont_remind_me.end_grace_period!
@@ -67,6 +69,8 @@ class TaskUtilsTest < ActiveSupport::TestCase
     TaskUtils.send_reminders
     
     assert_equal 1, ActionMailer::Base.deliveries.size
+    reminder.reload
+    assert_not_nil reminder.reminder_text
     
     ActionMailer::Base.deliveries.clear
     TaskUtils.send_reminders
