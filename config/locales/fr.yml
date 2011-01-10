@@ -169,6 +169,10 @@ fr:
     no_reminders: Pas de rappels pour le moment
     no_sent_reminders: Aucun rappel n'a été envoyé pour le moment
     back_to_reminders_title: Retour vers les rappels à venir
+    future_reminder: Un rappel sera envoyé à {{name}} {{datetime}} 
+    past_reminder: Un rappel a été envoyé à {{name}} {{datetime}} par {{reminder_type}}
+    reminder_type_sms: SMS
+    reminder_type_email: email
 
     #flash
     #practicioner

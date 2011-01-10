@@ -1,11 +1,13 @@
 <% title t(:sent_reminders_title)%>
 <p><%= link_to(t(:back_to_reminders_title), reminders_url)%></p>
-<ul id="reminders_list">
+<ul id="past_reminders_list">
 <% if @reminders.empty? -%>
 <%= t(:no_sent_reminders) %>
 <% else -%>
+<%= will_paginate @reminders %>
 <% @reminders.each do |r| -%>
-	<li class="<%=cycle('odd', 'even')%>"><%= "#{r.booking.client.name} #{r.booking.start_date_and_time_str}" %></li>
+	<li class="<%=cycle('odd', 'even')%>"><div class="<%= r.reminder_type.try(:downcase)%>"><%= t(:past_reminder, :name => r.booking.client.name, :datetime =>  r.booking.start_date_and_time_str, :reminder_type => r.reminder_type.nil? ? "" : t("reminder_type_#{r.reminder_type.try(:downcase)}".to_sym))  %></div></li>
 <% end -%>
+<%= will_paginate @reminders %>
 <% end -%>
 </ul>

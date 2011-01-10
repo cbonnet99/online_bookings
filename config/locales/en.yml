@@ -129,7 +129,11 @@
   no_reminders: There are no reminders for the moment
   no_sent_reminders: No reminders have been sent for the moment
   back_to_reminders_title: Back to the future reminders
-
+  future_reminder: A reminder will be sent to {{name}} {{datetime}} 
+  past_reminder: A reminder was sent to {{name}} {{datetime}} by {{reminder_type}}
+  reminder_type_sms: text message
+  reminder_type_email: email
+  
   #flash message
   #practicioner
   flash_error_practitioner_not_found: "Could not find this practitioner"

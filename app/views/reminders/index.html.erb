@@ -6,7 +6,7 @@
 <% else -%>
 <%= will_paginate @reminders %>
 <% @reminders.each do |r| -%>
-	<li class="<%=cycle('odd', 'even')%>"><%= "#{r.booking.client.name} #{r.booking.start_date_and_time_str}" %></li>
+	<li class="<%=cycle('odd', 'even')%>"><%= t(:future_reminder, :name => r.booking.client.name, :datetime =>  r.booking.start_date_and_time_str) %></li>
 <% end -%>
 <%= will_paginate @reminders %>
 <% end -%>

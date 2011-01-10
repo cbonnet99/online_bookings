@@ -225,6 +225,7 @@ class Practitioner < ActiveRecord::Base
       end
     
       wd_as_numbers = self.working_days_as_numbers
+      reminder_types = Reminder::TYPES.values
       #appointments in the past
       number_bookings.times do
         days_ago = rand(20)
@@ -243,12 +244,17 @@ class Practitioner < ActiveRecord::Base
             :client_phone_suffix => client.phone_suffix, :client_email => client.email, :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => random_state)
         booking.save!
         booking.create_reminder
+        reminder = booking.last_reminder
+        rand_reminder_type = reminder_types[rand(reminder_types.size)]
+        reminder.sending_at = booking.starts_at.advance(:hours => -24)
+        reminder.sent_at = booking.starts_at.advance(:hours => -24)
+        reminder.reminder_type = rand_reminder_type
+        reminder.save!
         if rand(100) < 50
           booking.confirm!
         end
       end
       
-      reminder_types = Reminder::TYPES.values
       #appointments in the future
       number_bookings.times do
         days = rand(20)
@@ -267,8 +273,6 @@ class Practitioner < ActiveRecord::Base
         booking.save!
         booking.create_reminder
         if rand(100) < 30
-          rand_reminder_type = reminder_types[rand(reminder_types.size)]
-          booking.last_reminder.update_attributes(:sent_at => starts_at.advance(:hours => 20), :reminder_type => rand_reminder_type )
           booking.confirm!
         end
         # puts "+++++ Creating future booking at #{starts_at} for client #{client.name}"

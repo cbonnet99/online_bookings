@@ -54,18 +54,39 @@ class PractitionerTest < ActiveSupport::TestCase
     bookings_in_the_past = pro.bookings.find(:all, :conditions => ["starts_at < ?", Time.now.in_time_zone(pro.timezone).advance(:hours => -2)])
     assert bookings_in_the_past.size > 0, "There should be at least one booking in the past"
     unconfirmed_bookings_in_the_past = bookings_in_the_past.select{|b| !b.confirmed?}
+    confirmed_bookings_in_the_past = bookings_in_the_past.select{|b| !b.confirmed?}
+    
+    confirmed_bookings_in_the_past.each do |b|
+      assert_equal 1, b.reminders.size, "There should be a reminder for confirmed past booking: #{b}"
+      last_reminder = b.last_reminder
+      assert_not_nil last_reminder
+      assert_not_nil last_reminder.sent_at
+      assert last_reminder.sent_at < Time.now
+      assert last_reminder.sent_at < b.starts_at
+      assert_not_nil last_reminder.sending_at
+      assert last_reminder.sending_at < Time.now
+      assert last_reminder.sending_at < b.starts_at      
+      assert_not_nil last_reminder.reminder_type
+    end
+    
     unconfirmed_bookings_in_the_past.each do |b|      
-      assert_equal 1, b.reminders.size, "No reminder for unconfirmed past booking: #{b}"
+      assert_equal 1, b.reminders.size, "There should be a reminder for unconfirmed past booking: #{b}"
+      last_reminder = b.last_reminder
+      assert_not_nil last_reminder.sending_at
+      assert last_reminder.sending_at < Time.now
+      assert last_reminder.sending_at < b.starts_at
+      if !last_reminder.sent_at.nil?
+        assert_not_nil last_reminder.reminder_type
+      end
     end
     assert_not_nil pro.clients.find_by_email(pro.email), "A test client with the same email as the pro should have been created"
 
     confirmed_bookings_in_the_future = pro.bookings.find(:all, :conditions => ["starts_at > ? and state = ?", Time.now.in_time_zone(pro.timezone), "confirmed"])
     assert confirmed_bookings_in_the_future.size > 0, "There should be at least one confirmed booking in the future"
-    confirmed_bookings_in_the_future.each do |b|
-      assert_equal 1, b.reminders.size, "A reminder should have been created for confirmed future booking: #{b}"
+    unconfirmed_bookings_in_the_future = pro.bookings.find(:all, :conditions => ["starts_at > ? and state != ?", Time.now.in_time_zone(pro.timezone), "confirmed"])    
+    unconfirmed_bookings_in_the_future.each do |b|
+      assert_equal 1, b.reminders.size, "A reminder should have been created for unconfirmed future booking: #{b}"
       reminder = b.last_reminder
-      assert_not_nil reminder.sent_at
-      assert_not_nil reminder.reminder_type
     end
   end
 
