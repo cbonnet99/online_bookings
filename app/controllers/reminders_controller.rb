@@ -1,6 +1,6 @@
 class RemindersController < ApplicationController
   
-  before_filter :login_required
+  before_filter :pro_login_required
   
   def index
     @selected_tab = "reminders"

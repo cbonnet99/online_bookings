@@ -155,6 +155,7 @@ class Practitioner < ActiveRecord::Base
   end
   
   def create_sample_data!(number_clients=nil, number_bookings=nil)
+    Time.zone = self.timezone
     if number_clients.nil?
       if RAILS_ENV == 'test'
         number_clients = 5

@@ -59,7 +59,9 @@ module Authentication
   end
   
   def pro_login_required
-    unless pro_logged_in?
+    if pro_logged_in?
+      Time.zone = current_pro.timezone
+    else
       flash[:error] = t(:flash_error_authentication_must_be_logged)
       store_target_location
       redirect_to login_url
