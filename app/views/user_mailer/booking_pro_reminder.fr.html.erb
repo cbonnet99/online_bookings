@@ -1,0 +1,11 @@
+Bonjour,<br/>
+<br/>
+Nous vous rappellons que vous avez <%=pluralize(@bookings.size, "rendez-vous")%> aujourd'hui:<br/>
+<ul>
+	<% @bookings.each do |b| -%>
+	<li><%=b.starts_at.simple_time%>: <%= b.client.name%> (<span style="color: <%= b.state_color%>"><%= b.state%></span>)<br/>
+		<%= link_to b.client.email, "mailto:#{b.client.email}"%> | <%= b.client.phone%></li>
+	<% end -%>
+</ul>
+<br/>
+<%= render :partial => "signature" %>

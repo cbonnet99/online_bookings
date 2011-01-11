@@ -1,0 +1,9 @@
+Bonjour,<br/>
+<br/>
+<%=@client.name%> a pris rendez-vous avec vous le <%=@booking.start_date.day_and_time%>.<br/>
+<br/>
+Pour changer ce rendez-vous:<br/>
+<br/>
+<%= @booking_link%><br/>
+<br/>
+<%= render :partial => "signature" %><br/>

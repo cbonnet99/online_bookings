@@ -1,0 +1,9 @@
+Bonjour,<br/>
+<br/>
+<%= @booking.practitioner.name%> a pris rendez-vous avec vous le <%= @booking.start_date.day_and_time%>.<br/>
+<br/>
+Nous vous enverrons un rappel et vous pouvez consulter votre rendez-vous à tout moment en cliquant sur le lien ci-dessous:<br/>
+<br/>
+<%= @booking_link%><br/>
+<br/>
+<%= render :partial => "signature" %><br/>
