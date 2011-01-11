@@ -6,6 +6,12 @@ class PractitionerTest < ActiveSupport::TestCase
   
   fixtures :all
 
+  def test_unique_permalinks
+    pro = Factory(:practitioner, :first_name => "Tom", :last_name => "Jones")
+    pro_identical = Factory(:practitioner, :first_name => "Tom", :last_name => "Jones")
+    assert_not_equal pro.permalink, pro_identical.permalink
+  end
+
   def test_phone_prefixes
     pro = Factory(:practitioner, :country => countries(:fr))
     assert_equal ["06", "07"], pro.mobile_phone_prefixes

@@ -21,10 +21,14 @@ module Permalinkable
 
   	def computed_permalink
   	  if respond_to?(:full_name)
-  	    full_name.parameterize
+  	    res = full_name.parameterize
 	    else
-  		  name.parameterize
+  		  res = name.parameterize
 		  end
+		  while Practitioner.find_by_permalink(res)
+		    res = "res#{rand(9)}"
+		  end
+		  return res
   	end    
   end
 end
