@@ -21,7 +21,7 @@ class Practitioner < ActiveRecord::Base
   has_many :relations
   has_many :payments
   has_many :clients, :through => :relations
-  has_many :user_emails
+  has_many :user_emails, :dependent => :delete_all
   has_many :booking_types
   has_many :extra_working_days  
   has_many :extra_non_working_days  
