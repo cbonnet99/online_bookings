@@ -7,7 +7,6 @@ end
 
 every 1.hour do
   runner "TaskUtils.send_reminders"
-  runner "TaskUtils.time_to_recreate_test_user?"
 end
 
 every 1.day, :at => "3am"  do
