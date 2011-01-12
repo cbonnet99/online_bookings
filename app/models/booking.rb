@@ -56,6 +56,7 @@ class Booking < ActiveRecord::Base
   after_destroy :remove_reminders
   after_update :save_client_attributes
   before_update :set_times
+  before_validation :create_new_client
   before_create :generate_confirmation_code, :set_name, :set_times
 
   named_scope :need_pro_reminder, lambda { {:conditions => ["pro_reminder_sent_at IS NULL AND starts_at BETWEEN ? AND ?", 1.day.from_now.beginning_of_day.utc, 1.day.from_now.end_of_day.utc]} }
@@ -91,6 +92,16 @@ class Booking < ActiveRecord::Base
   
   aasm_event :pro_cancel do
     transitions :from => [:in_grace_period, :unconfirmed, :confirmed], :to => :cancelled_by_pro
+  end
+  
+  def create_new_client
+    if self.client_id.blank?
+      new_client = Client.new(:name => name, :email => client_email, :phone_prefix => client_phone_prefix,
+                          :phone_suffix => client_phone_suffix)
+      if new_client.save
+        self.client = new_client
+      end
+    end
   end
   
   def to_s

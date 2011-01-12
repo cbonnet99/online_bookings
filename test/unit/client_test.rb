@@ -14,7 +14,12 @@ class ClientTest < ActiveSupport::TestCase
   def setup
     Client.delete_all
   end
-
+  
+  def test_empty_email
+    c = Client.new(:name=>"toto", :phone_prefix=>"06", :phone_suffix=>"231231231")
+    assert c.valid?
+  end
+  
   def test_validate_phone
     c = Factory(:client, :phone_prefix => "06", :phone_suffix => "14 54 34 23")
     assert c.valid?

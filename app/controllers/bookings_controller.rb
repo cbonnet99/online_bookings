@@ -110,7 +110,7 @@ class BookingsController < ApplicationController
     else
       pro = current_pro
     end
-    unless @booking.client_id.nil?
+    unless @booking.client_id.blank?
       client = current_pro.clients.find(@booking.client_id)
       @booking.name = client.try(:default_name)
     end

@@ -409,6 +409,56 @@ class BookingsControllerTest < ActionController::TestCase
     assert_equal mail_size, UserEmail.all.size
   end
 
+  def test_create_pro_no_client_id
+    sav = practitioners(:sav)
+    cyrille = clients(:cyrille)
+    mail_size = UserEmail.all.size
+    old_size = Booking.all.size
+    reminders_size = Reminder.all.size
+    post :create, {:practitioner_id => sav.permalink, :format => "json",
+      :booking => {:name => "Joe Test", :client_email => "joe@test.com", :client_id => "", :comment => "I'll be on time", :booking_type => booking_types(:sav_one_hour), 
+      :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}", :client_phone_prefix => "021", :client_phone_suffix => "4354364",  
+      :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
+      {:pro_id => sav.id }
+    # puts @response.body
+    assert_response :success
+    assert_not_nil assigns["booking"]
+    assert assigns["booking"].errors.blank?, "There should be no errors, but got: #{assigns['booking'].errors.full_messages.to_sentence}"
+    assert_nil flash[:error]
+    assert_not_nil flash[:notice]
+    assert_equal old_size+1, Booking.all.size
+    new_booking = assigns(:booking)
+    assert_equal "Joe Test", new_booking.client_name
+    assert_not_nil new_booking.starts_at
+    assert_not_nil new_booking.ends_at
+    assert_not_nil new_booking.booking_type
+  end
+
+  def test_create_pro_no_client_id_no_email
+    sav = practitioners(:sav)
+    cyrille = clients(:cyrille)
+    mail_size = UserEmail.all.size
+    old_size = Booking.all.size
+    reminders_size = Reminder.all.size
+    post :create, {:practitioner_id => sav.permalink, :format => "json",
+      :booking => {:name => "Joe Test", :client_id => "", :comment => "I'll be on time", :booking_type => booking_types(:sav_one_hour), 
+      :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}", :client_phone_prefix => "021", :client_phone_suffix => "4354364",  
+      :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
+      {:pro_id => sav.id }
+    # puts @response.body
+    assert_response :success
+    assert_not_nil assigns["booking"]
+    assert assigns["booking"].errors.blank?, "There should be no errors, but got: #{assigns['booking'].errors.full_messages.to_sentence}"
+    assert_nil flash[:error]
+    assert_not_nil flash[:notice]
+    assert_equal old_size+1, Booking.all.size
+    new_booking = assigns(:booking)
+    assert_equal "Joe Test", new_booking.client_name
+    assert_not_nil new_booking.starts_at
+    assert_not_nil new_booking.ends_at
+    assert_not_nil new_booking.booking_type
+  end
+
   def test_create_pro
     sav = practitioners(:sav)
     cyrille = clients(:cyrille)

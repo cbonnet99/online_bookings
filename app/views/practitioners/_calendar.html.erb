@@ -67,11 +67,11 @@ $(document).ready(function() {
         $calendar.weekCalendar("refresh");
    };
 
-   var getNewEventValues = function(newCalEvent, start, end, title, client_id, phone_prefix, phone_suffix, email, booking_type_id){
+   var getNewEventValues = function(newCalEvent, start, end, client_name, client_id, phone_prefix, phone_suffix, email, booking_type_id){
        newCalEvent.start = new Date(start);
        newCalEvent.end = new Date(end);
-       newCalEvent.title = title;
        newCalEvent.client_id = client_id;
+       newCalEvent.client_name = client_name;
        newCalEvent.phone_prefix = phone_prefix;
        newCalEvent.phone_suffix = phone_suffix;
        newCalEvent.client_email = email;
@@ -281,7 +281,6 @@ $(document).ready(function() {
              showEditEvent();
 	         var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
 	         var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
-	         var titleField = $dialogContent.find("input[name='title']").val('<%=current_client.try(:name)%>');
 	         var clientField = $dialogContent.find("input[name='client_id']");
 	         var clientFieldName = $dialogContent.find("input[name='client_name']");
 	         var phonePrefix = $dialogContent.find("select[name='client_phone_prefix']");
@@ -309,8 +308,8 @@ $(document).ready(function() {
 	               saveonly : function() {
                       if ($("#event_edit_form").valid()) {
 	                      var newCalEvent = new Object();
-                          getNewEventValues(newCalEvent, startField.val(), endField.val(), titleField.val(), clientField.val(), phonePrefix.val(), phoneSuffix.val(), clientEmail.val(), bookingTypeField.val());
-						  $.post("<%=practitioner_bookings_url(pro)%>", {"format": "json", "booking[name]": newCalEvent.title, "booking[client_id]": newCalEvent.client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": newCalEvent.booking_type_id<%end -%>, "booking[client_phone_prefix]": newCalEvent.phone_prefix, "booking[client_phone_suffix]": newCalEvent.phone_suffix, "booking[client_email]": newCalEvent.client_email, "booking[starts_at]": newCalEvent.start.toString(), "booking[ends_at]": newCalEvent.end.toString()}, function(data){
+                          getNewEventValues(newCalEvent, startField.val(), endField.val(), clientFieldName.val(), clientField.val(), phonePrefix.val(), phoneSuffix.val(), clientEmail.val(), bookingTypeField.val());
+						  $.post("<%=practitioner_bookings_url(pro)%>", {"format": "json", "booking[name]": newCalEvent.client_name, "booking[client_id]": newCalEvent.client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": newCalEvent.booking_type_id<%end -%>, "booking[client_phone_prefix]": newCalEvent.phone_prefix, "booking[client_phone_suffix]": newCalEvent.phone_suffix, "booking[client_email]": newCalEvent.client_email, "booking[starts_at]": newCalEvent.start.toString(), "booking[ends_at]": newCalEvent.end.toString()}, function(data){
                             if (data === null){
                               alert(I18n.t("sorry_server"));
                             }
@@ -363,7 +362,6 @@ $(document).ready(function() {
          resetForm($dialogContent);
          var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
          var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
-         var titleField = $dialogContent.find("input[name='title']").val(calEvent.title);
          var phonePrefix = $dialogContent.find("select[name='client_phone_prefix']").val(calEvent.phone_prefix);
          var phoneSuffix = $dialogContent.find("input[name='client_phone_suffix']").val(calEvent.phone_suffix);
          var clientEmail = $dialogContent.find("input[name='client_email']").val(calEvent.email);
@@ -470,8 +468,8 @@ $(document).ready(function() {
                saveonly : function() {
                   if ($("#event_edit_form").valid()) {
                       var newCalEvent = new Object();
-                      getNewEventValues(newCalEvent, startField.val(), endField.val(), titleField.val(), clientField.val(), phonePrefix.val(), phoneSuffix.val(), clientEmail.val(), bookingTypeField.val());
-					  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json", "booking[client_id]": newCalEvent.client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": newCalEvent.booking_type_id<%end-%>, "booking[name]": newCalEvent.title, "booking[client_phone_prefix]": newCalEvent.phone_prefix, "booking[client_phone_suffix]": newCalEvent.phone_suffix, "booking[client_email]": newCalEvent.client_email, "booking[starts_at]": newCalEvent.start.toString(), "booking[ends_at]": newCalEvent.end.toString()}, function(data){
+                      getNewEventValues(newCalEvent, startField.val(), endField.val(), clientFieldName.val(), clientField.val(), phonePrefix.val(), phoneSuffix.val(), clientEmail.val(), bookingTypeField.val());
+					  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json", "booking[client_id]": newCalEvent.client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": newCalEvent.booking_type_id<%end-%>, "booking[name]": newCalEvent.client_name, "booking[client_phone_prefix]": newCalEvent.phone_prefix, "booking[client_phone_suffix]": newCalEvent.phone_suffix, "booking[client_email]": newCalEvent.client_email, "booking[starts_at]": newCalEvent.start.toString(), "booking[ends_at]": newCalEvent.end.toString()}, function(data){
 						if ((data.flash.error === undefined) || (data.flash.error === '')) {
                           updateEvent(calEvent, data);
 			             }
@@ -670,16 +668,16 @@ $(document).ready(function() {
 				<label for="start"><%= t(:appointment_start_time)%></label><label id="client_start_label" class="read_only_label"></label><select name="start"><option value="">Select</option></select>
 				<label for="end"><%= t(:appointment_end_time)%></label><label id="client_end_label" class="read_only_label"></label><select name="end"><option value="">Select End Time</option></select> 
 			</li> 
-			<li> 
 				<% if pro.has_multiple_booking_types? -%>
+				<li> 
 				<label for="booking_type_id"><%= t(:appointment_booking_type)%></label><br/><label id="client_booking_type_label" class="read_only_label"></label><select name="booking_type_id"><%= current_pro_booking_type_options(current_pro)-%></select>
 			</li> 
-			<li> 
 				<%end -%>
+				<li> 
 				<label for="title"><%= t(:appointment_client)%></label><br/><label id="client_name_label" class="read_only_label"></label><input id="client_id" type="hidden" name="client_id"></input><input id="client_name" type="text" name="client_name" size="30"></input>
 			</li> 
 			<li> 
-				<label for="phone"><%= t(:appointment_phone)%>:</label><br/><label id="client_phone_prefix_label" class="read_only_label"></label><select id="client_phone_prefix" name="client_phone_prefix"><%= current_pro_phone_prefixes_options(pro)-%></select><label id="client_phone_suffix_label" class="read_only_label"></label><input id="client_phone_suffix" type="text" name="client_phone_suffix" size="12"></input>
+				<label for="phone"><%= t(:appointment_phone)%>:</label><br/><label id="client_phone_prefix_label" class="read_only_label"></label><select id="client_phone_prefix" name="client_phone_prefix"><%= current_pro_phone_prefixes_options(pro)-%></select><label id="client_phone_suffix_label" class="read_only_label"></label><input id="client_phone_suffix" type="text" name="client_phone_suffix" size="10" maxlength="10"></input>
 			</li> 
 			<li> 
 				<label for="email"><%= t(:appointment_email)%>:</label><br/><label id="client_email_label" class="read_only_label"></label><input id="client_email" type="text" name="client_email" size="30"></input>
