@@ -5,7 +5,7 @@ every 5.minutes do
   runner "UserEmail.send_unsent_emails"
 end
 
-every 1.hour do
+every 10.minutes do
   runner "TaskUtils.send_reminders"
 end
 

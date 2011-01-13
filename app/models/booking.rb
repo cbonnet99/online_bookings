@@ -39,6 +39,7 @@ end
 
 class Booking < ActiveRecord::Base
   include AASM
+  include Administration
   
   belongs_to :practitioner
   belongs_to :client
@@ -244,7 +245,7 @@ class Booking < ActiveRecord::Base
   end
   
   def send_reminder_sms!
-    if !self.practitioner.test_user? || (self.practitioner.test_user? && $admin_phones.include?(self.client.phone))
+    if !self.practitioner.test_user? || (self.practitioner.test_user? && Administration::ADMIN_PHONES.include?(self.client.phone))
       if self.practitioner.has_sms_credit?
         if RAILS_ENV == "production"
           api = Clickatell::API.authenticate('3220575', 'cbonnet99', 'mavslr55')
