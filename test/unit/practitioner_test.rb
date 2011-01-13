@@ -66,7 +66,7 @@ class PractitionerTest < ActiveSupport::TestCase
       assert_equal 1, b.reminders.size, "There should be a reminder for confirmed past booking: #{b}"
       last_reminder = b.last_reminder
       assert_not_nil last_reminder
-      assert_not_nil last_reminder.sent_at
+      assert_not_nil last_reminder.sent_at, "Reminder #{last_reminder} has not sent_at value"
       assert last_reminder.sent_at < Time.now
       assert last_reminder.sent_at < b.starts_at
       assert_not_nil last_reminder.sending_at

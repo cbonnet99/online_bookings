@@ -173,7 +173,8 @@ class Booking < ActiveRecord::Base
     unless self.client.nil?
       if !self.practitioner.nil? && !self.client.nil? && self.practitioner.invite_on_pro_book?     
          UserEmail.create(:to => self.client.email, :from => APP_CONFIG[:from_email], :client => self.client, :practitioner => self.practitioner,
-          :subject => I18n.t(:pro_booking, :pro_name => self.practitioner.name, :booking_date => self.start_date.day_and_time), :email_type => UserEmail::CLIENT_INVITE, :delay_mins => 0)
+          :subject => I18n.t(:pro_booking, :pro_name => self.practitioner.name, :booking_date => self.start_date.day_and_time),
+          :email_type => UserEmail::CLIENT_INVITE, :delay_mins => 0, :booking => self)
       end
     end
   end

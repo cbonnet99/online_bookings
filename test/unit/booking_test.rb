@@ -2,6 +2,14 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class BookingTest < ActiveSupport::TestCase
 
+  def test_send_client_invite
+    b = Factory(:booking)
+    old_size = UserEmail.all.size
+    b.send_client_invite
+    assert_equal old_size+1, UserEmail.all.size
+    assert_equal 1, b.user_emails.size
+  end
+
   def test_send_reminder_sms
     pro = Factory(:practitioner, :country => countries(:fr), :sms_credit => 50 )
     b = Factory(:booking, :practitioner => pro)

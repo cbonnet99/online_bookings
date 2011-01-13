@@ -11,6 +11,10 @@ class Reminder < ActiveRecord::Base
   
   TYPES = {:email => "email", :sms => "sms"}
   
+  def to_s
+    "for booking #{booking} will be sent on #{sending_at}"
+  end
+  
   def mark_as!(type)
     self.update_attribute(:reminder_type, TYPES[type])
   end

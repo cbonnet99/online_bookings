@@ -202,15 +202,15 @@ class Practitioner < ActiveRecord::Base
       first_names = self.country.sample_first_names.split(",")
       last_names = self.country.sample_last_names.split(",")
       number_clients.times do
-        first_name = first_names[rand(first_names.size)]
-        last_name = last_names[rand(last_names.size)]
+        first_name = first_names.choice
+        last_name = last_names.choice
         all_client_names = clients.map(&:name)
         while (all_client_names.include?("#{first_name} #{last_name}"))
           #puts "#{first_name} #{last_name} is taken, trying again"
-          first_name = first_names[rand(first_names.size)]
-          last_name = last_names[rand(last_names.size)]
+          first_name = first_names.choice
+          last_name = last_names.choice
         end
-        email = "#{first_name}.#{last_name}@#{DOMAINS[rand(DOMAINS.size)]}"
+        email = "#{first_name}.#{last_name}@#{DOMAINS.choice}"
         client = Client.find_by_email(email)
         if client.nil?
           rand_phone_prefix = possible_mobile_prefixes[rand(possible_mobile_prefixes.size)]
@@ -229,11 +229,11 @@ class Practitioner < ActiveRecord::Base
       reminder_types = Reminder::TYPES.values
       #appointments in the past
       number_bookings.times do
-        days_ago = rand(20)
+        days_ago = rand(20)-1
         date = Time.now.advance(:days => -days_ago).to_date
         while (!wd_as_numbers.include?(date.wday)) do
           #try again if it's not a working day
-          days_ago = rand(20)
+          days_ago = rand(20)-1
           date = Time.now.advance(:days => -days_ago).to_date        
         end
         start_hour = biz_hours[rand(biz_hours.size)]
@@ -244,12 +244,17 @@ class Practitioner < ActiveRecord::Base
         booking = Booking.new(:client => client, :practitioner => self, :name => client.name, :client_phone_prefix => client.phone_prefix, 
             :client_phone_suffix => client.phone_suffix, :client_email => client.email, :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => random_state)
         booking.save!
+        # puts "++++ Saved PAST booking #{booking}"
         booking.create_reminder
+        # if booking.reminders.size > 1
+        #   puts "==== ERROR: more than one reminder"
+        # end
         reminder = booking.last_reminder
         rand_reminder_type = reminder_types[rand(reminder_types.size)]
         reminder.sending_at = booking.starts_at.advance(:hours => -24)
         reminder.sent_at = booking.starts_at.advance(:hours => -24)
         reminder.reminder_type = rand_reminder_type
+        # puts "------ SAVING reminder #{reminder}"
         reminder.save!
         if rand(100) < 50
           booking.confirm!
@@ -258,20 +263,21 @@ class Practitioner < ActiveRecord::Base
       
       #appointments in the future
       number_bookings.times do
-        days = rand(20)
-        date = Time.now.advance(:days => days).to_date
+        days_from_now = rand(20)+1
+        date = Time.now.advance(:days => days_from_now).to_date
         while (!wd_as_numbers.include?(date.wday)) do
           #try again if it's not a working day
-          days_ago = rand(20)
-          date = Time.now.advance(:days => days_ago).to_date        
+          days_from_now = rand(20)+1
+          date = Time.now.advance(:days => days_from_now).to_date        
         end
-        start_hour = biz_hours[rand(biz_hours.size)]
+        start_hour = biz_hours.choice
         starts_at = DateTime.strptime("#{date.strftime('%d/%m/%Y')} #{start_hour}:00 #{timezone_acronym}", "%d/%m/%Y %H:%M %Z")
-        client = clients[rand(clients.size)]
-        random_state = Booking::NON_GRACE_STATES[rand(Booking::NON_GRACE_STATES.size)]
+        client = clients.choice
+        random_state = Booking::NON_GRACE_STATES.choice
         booking = Booking.new(:client => client, :practitioner => self, :name => client.name, 
             :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => random_state)
         booking.save!
+        # puts "++++ Saved FUTURE booking #{booking}"
         booking.create_reminder
         if rand(100) < 30
           booking.confirm!
