@@ -257,6 +257,8 @@ class Booking < ActiveRecord::Base
       else
         send_reminder_email!
       end
+    else
+      send_reminder_email!
     end
     #even if no email was sent, we mark it as sent
     self.last_reminder.mark_as_sent!
@@ -265,6 +267,7 @@ class Booking < ActiveRecord::Base
   def send_reminder_email!
     if !self.practitioner.test_user? || (self.practitioner.test_user? && self.client.email == self.practitioner.email)
       sent_email = UserMailer.deliver_booking_reminder(self)
+      Rails.logger.info("Sent booking reminder for #{self}")
       self.last_reminder.update_attribute(:reminder_text, sent_email.body)
       self.last_reminder.mark_as!(:email)
     end
