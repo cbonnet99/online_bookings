@@ -97,11 +97,11 @@ module ApplicationHelper
   end
 
   def current_pro_phone_prefixes_options(current_pro)
-    country_phone_prefixes_options(current_pro.country)
+    country_phone_prefixes_options(current_pro.country, current_pro.phone_prefix)
   end
 
-  def country_phone_prefixes_options(country)
-    return (country || Country.default_country).phone_prefixes_select
+  def country_phone_prefixes_options(country, selected_value)
+    return (country || Country.default_country).phone_prefixes_select(selected_value)
   end
   
   def current_pro_booking_type_options(current_pro)

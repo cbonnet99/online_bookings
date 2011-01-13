@@ -74,6 +74,8 @@ class PractitionersControllerTest < ActionController::TestCase
     assert assigns(:practitioner).lunch_break?
     assert_equal france.default_timezone, assigns(:practitioner).timezone
     assert_equal 0, assigns(:practitioner).bookings.size, "No sample data should be created"
+    assert_equal "06", assigns(:practitioner).phone_prefix
+    assert_equal "221312312", assigns(:practitioner).phone_suffix
     assert_nil flash[:error]
     assert_equal old_size+1, Practitioner.all.size    
   end
@@ -94,6 +96,8 @@ class PractitionersControllerTest < ActionController::TestCase
     assert assigns(:practitioner).lunch_break?
     assert_equal france.default_timezone, assigns(:practitioner).timezone
     assert_equal 0, assigns(:practitioner).bookings.size, "No sample data should be created"
+    assert_equal "06", assigns(:practitioner).phone_prefix
+    assert_equal "221312312", assigns(:practitioner).phone_suffix    
     assert_nil flash[:error]
     assert_equal old_size+1, Practitioner.all.size
   end

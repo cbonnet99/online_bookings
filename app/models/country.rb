@@ -3,15 +3,17 @@ class Country < ActiveRecord::Base
   has_many :clients
   has_many :practitioners
   has_many :payment_plans
-
-  def phone_prefixes_select
+  
+  def phone_prefixes_select(selected_value=nil)
     res = "<option value=''></option>"
     mobile_phone_prefixes.each do |p|
       res << "<option class='mobile' value='#{p}'"
+      res << " selected='selected'" if selected_value == p
       res << ">#{p}</option>"
     end
     landline_phone_prefixes.each do |p|
       res << "<option value='#{p}'"
+      res << " selected='selected'" if selected_value == p
       res << ">#{p}</option>"
     end
     return res
