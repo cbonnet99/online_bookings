@@ -69,6 +69,14 @@ ExceptionNotification::Notifier.exception_recipients = %w(cbonnet99@gmail.com)
 ExceptionNotification::Notifier.sender_address = %("Colibri Error" <colibriapp@gmail.com>)
 ExceptionNotification::Notifier.email_prefix = "[Colibri] "
 
+#add support for choice in Ruby versions that don't support it (1.8.6)
+unless Array.instance_methods.include_method? :choice
+  Array.class_eval do
+    def choice
+      self[self.size.rand]
+    end
+  end
+end
 module ActiveSupport
    class TimeWithZone
      
