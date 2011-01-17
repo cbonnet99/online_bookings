@@ -10,6 +10,20 @@ class BookingTest < ActiveSupport::TestCase
     assert_equal 1, b.user_emails.size
   end
 
+  def test_end_grace_period
+    pro_fr = Factory(:practitioner, :country => countries(:fr))
+    b = Factory(:booking, :practitioner => pro_fr)
+    old_size = UserEmail.all.size
+    assert b.in_grace_period?
+    b.end_grace_period!
+    assert_equal old_size+1, UserEmail.all.size
+    assert_equal 1, b.user_emails.size
+    email_sent = b.user_emails.first
+    ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"].each do |str|
+      assert_no_match Regexp.new(str), email_sent.subject, "Subject should be in French, but the word #{str} was found in: #{email_sent.subject}"
+    end
+  end
+
   def test_send_reminder_sms
     pro = Factory(:practitioner, :country => countries(:fr), :sms_credit => 50 )
     b = Factory(:booking, :practitioner => pro)

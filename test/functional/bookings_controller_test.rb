@@ -25,6 +25,17 @@ class BookingsControllerTest < ActionController::TestCase
     assert_not_nil booking.confirmed_at
   end
 
+  def test_client_confirm_already_confirmed
+    booking = Factory(:booking, :state => "confirmed")
+    assert_not_nil booking.confirmation_code
+    post :client_confirm, {:id => booking.id, :confirmation_code => booking.confirmation_code}
+    assert_response :success
+    assert_not_nil flash[:notice]
+    assert_no_match %r{#{booking.practitioner.name}}, flash[:notice]
+    booking.reload
+    assert booking.confirmed?
+  end
+
   def test_pro_confirm
     booking = Factory(:booking, :state => "unconfirmed")
     pro = booking.practitioner

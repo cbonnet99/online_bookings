@@ -373,6 +373,10 @@
   #booking/update
   error_while_saving_booking: "Our apologies: there was an error while saving your appointment. PLease try again."
   error_saving_booking_outside_of_grace_period: "This appointment cannot be modified anymore. Please cancel it and create a new one."
+  #booking/client_confirm
+  thank_you_confirmed_booking: "Thank you for confirming your appointment"
+  see_you_confirmed_booking: "See you on {{booking_date_and_time}}"
+  flash_notice_booking_already_confirmed: "This booking is already confirmed"
   #appointment popup calendar
   edit_appointement: "Edit"
   appointment_start_time: "From: "

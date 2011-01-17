@@ -47,8 +47,12 @@ class BookingsController < ApplicationController
       logger.error("Invalid attempt to confirm an with ID: #{params[:id]} and confirmation_code: #{params[:confirmation_code]}")
       flash.now[:error] = I18n.t(:flash_error_booking_invalid_appointment)
     else
-      @booking.confirm!
-      flash.now[:notice] = I18n.t(:flash_notice_booking_confirmed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
+      if @booking.confirmed?
+        flash.now[:notice] = I18n.t(:flash_notice_booking_already_confirmed)
+      else
+        @booking.confirm!
+        flash.now[:notice] = I18n.t(:flash_notice_booking_confirmed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
+      end
     end
   end
   
