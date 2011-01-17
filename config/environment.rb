@@ -66,7 +66,7 @@ Rails::Initializer.run do |config|
 end
 
 ExceptionNotification::Notifier.exception_recipients = %w(cbonnet99@gmail.com)
-ExceptionNotification::Notifier.sender_address = %("Colibri Error" <colibriapp@gmail.com>)
+ExceptionNotification::Notifier.sender_address = %("colibriapp@gmail.com)
 ExceptionNotification::Notifier.email_prefix = "[Colibri] "
 
 #add support for choice in Ruby versions that don't support it (1.8.6)
