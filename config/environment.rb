@@ -73,7 +73,7 @@ ExceptionNotification::Notifier.email_prefix = "[Colibri] "
 unless Array.instance_methods.include_method? :choice
   Array.class_eval do
     def choice
-      self[rand(self.size)]
+      self.rand
     end
   end
 end
