@@ -2,8 +2,6 @@ Dear <%=@booking.client.first_name%>,<br/>
 <br/>
 <%= @booking.practitioner.name%> has booked an appointment for you on <%= @booking.start_date.day_and_time%>.<br/>
 <br/>
-We will send you a reminder and you can consult this appointment at any time at:<br/>
-<br/>
-<%= @booking_link%><br/>
+We will send you a reminder the day before your appointment. If you have any questions, you can contact <%= @booking.practitioner.name%> at: <%= @booking.practitioner.phone%><br/>
 <br/>
 <%= render :partial => "signature" %><br/>
