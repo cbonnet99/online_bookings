@@ -51,6 +51,8 @@ class PractitionerTest < ActiveSupport::TestCase
   end
 
   def test_create_sample_data
+    old_reminders_size = Reminder.all.size
+    old_bookings_size = Booking.all.size
     pro = Factory(:practitioner, :state => "test_user", :country  => countries(:fr))
     assert_equal 0, pro.bookings.size
     pro.create_sample_data!
@@ -94,6 +96,12 @@ class PractitionerTest < ActiveSupport::TestCase
       assert_equal 1, b.reminders.size, "A reminder should have been created for unconfirmed future booking: #{b}"
       reminder = b.last_reminder
     end
+    
+    pro.destroy
+    
+    assert_equal old_reminders_size, Reminder.all.size    
+    assert_equal old_bookings_size, Booking.all.size
+    
   end
 
   def test_working_days_as_numbers

@@ -153,6 +153,7 @@ class BookingsController < ApplicationController
     if @booking.nil?
       flash.now[:error] = I18n.t(:flash_error_booking_appointment_not_found)
     else
+      @booking.check_in_grace_period
       @booking_id = @booking.id
       @prep_id = "#{Booking::PREP_LABEL}#{@booking_id}" if @booking.prep_time_mins > 0
       @booking.destroy

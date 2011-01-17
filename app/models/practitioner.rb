@@ -16,8 +16,8 @@ class Practitioner < ActiveRecord::Base
   include ColibriExceptions
   include AASM
   
-  has_many :bookings, :dependent => :delete_all, :order => "starts_at"  
-  has_many :reminders, :through => :bookings, :dependent => :delete_all
+  has_many :bookings, :dependent => :destroy, :order => "starts_at"  
+  has_many :reminders, :through => :bookings
   has_many :relations
   has_many :payments
   has_many :clients, :through => :relations

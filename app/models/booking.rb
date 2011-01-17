@@ -52,7 +52,7 @@ class Booking < ActiveRecord::Base
   attr_accessible :starts_at, :ends_at, :name, :client_phone_prefix, :client_phone_suffix, :client_email, :comment, :booking_type, :booking_type_id, :client_id, :client, :practitioner, :practitioner_id
   attr_accessor :current_client, :current_pro, :client_phone_prefix, :client_phone_suffix, :client_email
   
-  before_destroy :check_in_grace_period
+  # before_destroy :check_in_grace_period
   after_create :save_client_attributes, :update_relations_after_create
   after_destroy :remove_reminders
   after_update :save_client_attributes
