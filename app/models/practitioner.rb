@@ -236,11 +236,11 @@ class Practitioner < ActiveRecord::Base
           days_ago = rand(20)-1
           date = Time.now.advance(:days => -days_ago).to_date        
         end
-        start_hour = biz_hours[rand(biz_hours.size)]
+        start_hour = biz_hours.choice
         starts_at = DateTime.strptime("#{date.strftime('%d/%m/%Y')} #{start_hour}:00 #{timezone_acronym}", "%d/%m/%Y %H:%M %Z")
-        client = clients[rand(clients.size)]
+        client = clients.choice
         # puts "+++++ Creating past booking at #{starts_at} for client #{client.name}, email: #{client.email}, phone: (#{client.phone_prefix}) #{client.phone_suffix}"
-        random_state = Booking::NON_GRACE_STATES[rand(Booking::NON_GRACE_STATES.size)]
+        random_state = Booking::NON_GRACE_STATES.choice
         booking = Booking.new(:client => client, :practitioner => self, :name => client.name, :client_phone_prefix => client.phone_prefix, 
             :client_phone_suffix => client.phone_suffix, :client_email => client.email, :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => random_state)
         booking.save!
@@ -257,7 +257,7 @@ class Practitioner < ActiveRecord::Base
         # puts "------ SAVING reminder #{reminder}"
         reminder.save!
         if rand(100) < 50
-          booking.confirm! unless booking.confirmed?
+          booking.confirm! if booking.unconfirmed?
         end
       end
       
@@ -280,7 +280,7 @@ class Practitioner < ActiveRecord::Base
         # puts "++++ Saved FUTURE booking #{booking}"
         booking.create_reminder
         if rand(100) < 30
-          booking.confirm! unless booking.confirmed?
+          booking.confirm! if booking.unconfirmed?
         end
         # puts "+++++ Creating future booking at #{starts_at} for client #{client.name}"
       end
@@ -574,6 +574,7 @@ class Practitioner < ActiveRecord::Base
       break_end_time = start_time2
       while current < end_time
         day, month, year, week_day = current.strftime("%d %m %Y %w").split(" ")
+        week_day = "7" if week_day == "0"
         if !working_days.blank? && working_days.include?(week_day)
             res << NonWorkingBooking.new("#{self.id}-#{day}-#{month}-#{year}-#{break_start_time}", I18n.t(:lunch), Time.parse("#{year}/#{month}/#{day} #{TimeUtils.fix_minutes(break_start_time.to_s)}"), Time.parse("#{year}/#{month}/#{day} #{TimeUtils.fix_minutes(break_end_time.to_s)}"), true)
         end

@@ -350,6 +350,12 @@ class PractitionerTest < ActiveSupport::TestCase
     assert_equal 2, bookings.size, "There should 2 bookings for the breaks. Actual: #{bookings.inspect}"
   end
     
+  def test_bookings_for_working_hours_with_break_full_week
+    simple = Factory(:practitioner, :working_days => "1,2,3,4,5,6,7", :lunch_break => true, :start_time1 => 9, :end_time1 => 12, :start_time2 => 13, :end_time2 => 18 )
+    bookings = simple.bookings_for_working_hours(Time.now.beginning_of_week, Time.now.end_of_week)
+    assert_equal 7, bookings.size, "There should 7 bookings for the breaks. Actual: #{bookings.inspect}"
+  end
+    
   def test_valid
     assert Factory(:practitioner).valid?
   end
