@@ -307,6 +307,8 @@
   pro_invalid_username: "Your username should only contain letters, numbers, or .-_@"
   pro_empty_first_name: "Your first name cannot be empty"
   pro_empty_last_name: "Your last name cannot be empty"
+  pro_empty_phone_prefix: "Your phone area code cannot be empty"
+  pro_empty_phone_suffix: "Your phone number cannot be empty"
   pro_sample_data_help: "Sample appointments will be added to your calendar: it will give you a better idea of what Colibri can do. This sample data is removed when you start using Colibri for real."
   pro_mandatory_field: Mandatory field
   pro_invalid_email: "Your email adress is not valid"

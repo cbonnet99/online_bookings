@@ -39,7 +39,7 @@ class Country < ActiveRecord::Base
   def recreate_test_user(number_clients=30, number_bookings=150)
     self.practitioners.test_user.each{|p| p.delete}
     pro = Practitioner.new(:first_name => self.demo_first_name, :last_name => self.demo_last_name, :timezone => self.default_timezone,
-        :country => self,  
+        :country => self,  :phone_prefix => "06", :phone_suffix => "12345678",  
         :email => self.demo_email, :password => self.demo_password, :password_confirmation => self.demo_password, :lunch_break => false, 
         :start_time1 => 8, :end_time1 => 18, :working_days => "1,2,3,4,5", :no_cancellation_period_in_hours => Practitioner::DEFAULT_CANCELLATION_PERIOD,
         :phone => self.demo_phone)

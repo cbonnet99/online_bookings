@@ -27,7 +27,7 @@
     <%= f.text_field :email %>
   </div>
   <div class="floaty">
-    <%= f.label :phone, "#{t(:practitioner_new_phone)}:", :class => "question" %><br />
+    <%= f.label :phone, "#{t(:practitioner_new_phone)}<span class='mandatory'>*</span>:", :class => "question" %><br />
     <%= f.select :phone_prefix, country_phone_prefixes_options(@practitioner.country, @practitioner.phone_prefix) %><%= f.text_field :phone_suffix, :size => 10, :maxlength => 10 %>
   </div>
   <div class="cleaner"></div>

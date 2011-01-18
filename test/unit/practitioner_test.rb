@@ -364,6 +364,14 @@ class PractitionerTest < ActiveSupport::TestCase
     assert new_practitioner(:password => '').errors.on(:password)
   end
   
+  def test_require_phone_prefix
+    assert new_practitioner(:phone_prefix => '').errors.on(:phone_prefix)
+  end
+  
+  def test_require_phone_suffix
+    assert new_practitioner(:phone_suffix => '').errors.on(:phone_suffix)
+  end
+  
   def test_require_well_formed_email
     assert new_practitioner(:email => 'foo@bar@example.com').errors.on(:email)
   end

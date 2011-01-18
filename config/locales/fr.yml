@@ -343,6 +343,8 @@ fr:
     pro_invalid_username: "Votre nom d'utilisateur ne devrait contenir que des lettres, des chiffres et les caractères .-_@"
     pro_empty_first_name: "Votre prénom ne peut pas être vide"
     pro_empty_last_name: "Votre nom ne peut pas être vide"
+    pro_empty_phone_prefix: "Le préfixe de votre numéro de téléphone ne peut pas être vide"
+    pro_empty_phone_suffix: "Votre numéro de téléphone ne peut pas être vide"
     pro_mandatory_field: Champ obligatoire
     pro_sample_data_help: "Des rendez-vous fictifs seront ajoutés à votre calendrier: cela vous donne une meilleure idée des fonctionnalités de Colibri. Ces rendez-vous fictifs seront effaçés lorsque vous commencerez à utiliser Colibri pour vos propres rendez-vous."
     pro_invalid_email: "Votre addresse email n'est pas valide"

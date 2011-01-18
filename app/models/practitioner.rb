@@ -49,6 +49,8 @@ class Practitioner < ActiveRecord::Base
   validates_presence_of :start_time1, :end_time1 
   validates_presence_of :start_time2, :if => Proc.new {|pro| pro.lunch_break?}
   validates_presence_of :end_time2, :if => Proc.new {|pro| pro.lunch_break?}
+  validates_presence_of :phone_prefix, :message => "^#{I18n.t(:pro_empty_phone_prefix)}"
+  validates_presence_of :phone_suffix, :message => "^#{I18n.t(:pro_empty_phone_suffix)}"
   validates_presence_of :working_days
   validates_presence_of :country_id
   validates_confirmation_of :password, :message => "^#{I18n.t(:pro_mismatched_passwords)}"
