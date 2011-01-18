@@ -31,7 +31,10 @@ module Authentication
         @current_pro ||= Practitioner.find(session[:pro_id])
       rescue ActiveRecord::RecordNotFound
         session.delete(:pro_id)
+        return nil
       end
+    else
+      return nil
     end
   end
   
