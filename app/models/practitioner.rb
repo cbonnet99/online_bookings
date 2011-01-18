@@ -257,7 +257,7 @@ class Practitioner < ActiveRecord::Base
         # puts "------ SAVING reminder #{reminder}"
         reminder.save!
         if rand(100) < 50
-          booking.confirm!
+          booking.confirm! unless booking.confirmed?
         end
       end
       
@@ -280,7 +280,7 @@ class Practitioner < ActiveRecord::Base
         # puts "++++ Saved FUTURE booking #{booking}"
         booking.create_reminder
         if rand(100) < 30
-          booking.confirm!
+          booking.confirm! unless booking.confirmed?
         end
         # puts "+++++ Creating future booking at #{starts_at} for client #{client.name}"
       end
