@@ -26,7 +26,13 @@ module Authentication
   end
   
   def current_pro
-    @current_pro ||= Practitioner.find(session[:pro_id]) if session[:pro_id]
+    if session[:pro_id]
+      begin
+        @current_pro ||= Practitioner.find(session[:pro_id])
+      rescue ActiveRecord::RecordNotFound
+        session.delete(:pro_id)
+      end
+    end
   end
   
   def client_logged_in?
