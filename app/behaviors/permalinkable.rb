@@ -26,7 +26,7 @@ module Permalinkable
   		  res = name.parameterize
 		  end
 		  while Practitioner.find_by_permalink(res)
-		    res = "res#{rand(9)}"
+		    res = "#{res}#{rand(9)}"
 		  end
 		  return res
   	end    
