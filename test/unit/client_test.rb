@@ -15,6 +15,14 @@ class ClientTest < ActiveSupport::TestCase
     Client.delete_all
   end
   
+  def test_to_json
+    client = Factory(:client)
+    json = client.to_json
+    assert_valid_json(json)
+    assert_match %r{"label"}, json
+    assert_match %r{"value"}, json
+  end
+  
   def test_empty_email
     c = Client.new(:name=>"toto", :phone_prefix=>"06", :phone_suffix=>"231231231")
     assert c.valid?

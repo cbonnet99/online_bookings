@@ -1,5 +1,4 @@
 <% javascript "calendar"%>
-<% javascript practitioner_clients_url(:practitioner_id => @current_selected_pro.try(:id) || current_pro.try(:id), :format => "js" )%>
 <% use_calendar %>
 <% if !@current_pro.nil? && @current_pro.test_user? -%>
 <%= t(:test_user)%> (<%= link_to t(:upgrade), new_payment_url%>)

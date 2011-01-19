@@ -334,7 +334,9 @@ $(document).ready(function() {
 	            }
 	         }).show();
              addClientValidation();
-             $("input#client_name").autocomplete({source: clients_data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}});
+             $.getJSON("/clients.json", function(data){
+	             $("input#client_name").autocomplete({source: data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}});
+             });
 			$("input#client_name").focus();
 			
 
@@ -486,14 +488,10 @@ $(document).ready(function() {
             }
          }).show();
          addClientValidation();
-         $("input#client_name").autocomplete({source: clients_data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value);
-         $("input#client_name").val(ui.item.label);
-         $("input#client_phone_suffix").val(ui.item.phone_suffix);
-         $("select#client_phone_prefix").val(ui.item.phone_prefix);
-         $("input#client_email").val(ui.item.email); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label);
-         $("input#client_phone_suffix").val(ui.item.phone_suffix);
-         $("select#client_phone_prefix").val(ui.item.phone_prefix);
-         $("input#client_email").val(ui.item.email); return false;}});
+         $.getJSON("/clients.json", function(data){
+             $("input#client_name").autocomplete({source: data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}});
+         });
+
          $("input#client_name").focus();
          if ((calEvent.confirmed_at === null) || (calEvent.confirmed_at === '') || (calEvent.confirmed_at === undefined)){
            $("#event_confirmed").hide();

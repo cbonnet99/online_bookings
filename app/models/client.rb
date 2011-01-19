@@ -29,6 +29,18 @@ class Client < ActiveRecord::Base
   PHONE_SUFFIX_MIN = 7
   PHONE_SUFFIX_MAX = 12
   
+  def label
+    name
+  end
+  
+  def value
+    id
+  end
+  
+  def to_json(options={})
+    super(:methods => [:label, :value], :only => [:phone_prefix, :phone_suffix, :email])
+  end
+  
   def validate
     if email.blank? && phone_prefix.blank? && phone_suffix.blank?
       errors.add(:email, I18n.t(:client_email_or_phone_must_not_be_blank))
