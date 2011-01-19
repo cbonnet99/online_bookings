@@ -19,7 +19,7 @@ class Practitioner < ActiveRecord::Base
   has_many :bookings, :dependent => :destroy, :order => "starts_at"  
   has_many :reminders, :through => :bookings
   has_many :payments
-  has_many :clients
+  has_many :clients, :dependent => :delete_all
   has_many :user_emails, :dependent => :delete_all
   has_many :booking_types
   has_many :extra_working_days  
