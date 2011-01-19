@@ -14,7 +14,7 @@ Factory.define :booking_type do |bt|
 end
 Factory.define :user_email do |e|
   e.association :client
-  e.association :practitioner
+  e.practitioner {|a| a.association(:client).practitioner}
   e.association :booking
   e.sequence(:to) { |n| "foo#{n}@example.com" }
   e.from "admin@colibriapp.com"
@@ -28,6 +28,7 @@ Factory.define :client do |f|
   f.password_confirmation { |u| u.password }
   f.sequence(:email) { |n| "foo#{n}@example.com" }
   f.association :country
+  f.association :practitioner
 end
 
 Factory.define :practitioner do |f|
@@ -49,11 +50,6 @@ Factory.define :practitioner do |f|
   f.state "active"
   f.association :country
   f.invite_on_pro_book true
-end
-
-Factory.define :relation do |b|
-  b.association :client
-  b.association :practitioner
 end
 
 Factory.define :booking do |b|

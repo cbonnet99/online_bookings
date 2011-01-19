@@ -38,7 +38,7 @@ class ClientsControllerTest < ActionController::TestCase
 
   def test_destroy
     pro = Factory(:practitioner)
-    client = Factory(:client)
+    client = Factory(:client, :practitioner => pro)
     pro.clients << client
     old_size = pro.clients.size
     post :destroy, {:id => client.id }, {:pro_id => pro.id}
@@ -69,7 +69,7 @@ class ClientsControllerTest < ActionController::TestCase
   end
 
   def test_lookup_client_exists
-    cyrille = clients(:cyrille)
+    cyrille = clients(:cyrille_sav)
     post :lookup, {:client => {:email => cyrille.email} }
     assert_redirected_to login_phone_url(:login => cyrille.email)    
   end
@@ -95,7 +95,7 @@ class ClientsControllerTest < ActionController::TestCase
 
   def test_create_multiple_with_name
     sav = practitioners(:sav)
-    cyrille = clients(:cyrille)
+    cyrille = clients(:cyrille_sav)
     old_size = sav.clients.size
     post :create, {:emails => "\"David Savage\" <cbgt@test.com>, \"Cyrille Test\" <#{cyrille.email}>" }, {:pro_id => sav.id}
     assert_redirected_to practitioner_clients_url(sav.permalink)
@@ -104,7 +104,7 @@ class ClientsControllerTest < ActionController::TestCase
 
   def test_create_multiple
     sav = practitioners(:sav)
-    cyrille = clients(:cyrille)
+    cyrille = clients(:cyrille_sav)
     old_size = sav.clients.size
     post :create, {:emails => "cbgt@test.com, #{cyrille.email}" }, {:pro_id => sav.id}
     assert_redirected_to practitioner_clients_url(sav.permalink)
@@ -113,7 +113,7 @@ class ClientsControllerTest < ActionController::TestCase
 
   def test_create_multiple_with_email
     sav = practitioners(:sav)
-    cyrille = clients(:cyrille)
+    cyrille = clients(:cyrille_sav)
     old_size = sav.clients.size
     
     old_mail_size = ActionMailer::Base.deliveries.size
@@ -130,7 +130,7 @@ class ClientsControllerTest < ActionController::TestCase
 
   def test_create_multiple_error
     sav = practitioners(:sav)
-    cyrille = clients(:cyrille)
+    cyrille = clients(:cyrille_sav)
     old_size = sav.clients.size
     post :create, {:emails => "cbgt@test.com test #{cyrille.email}" }, {:pro_id => sav.id}
     assert_redirected_to new_practitioner_client_url(sav.permalink, :emails => "cbgt@test.com test #{cyrille.email}")
@@ -140,10 +140,10 @@ class ClientsControllerTest < ActionController::TestCase
 
   def test_create_existing_client
     sav = practitioners(:sav)
-    cyrille = clients(:cyrille)
+    cyrille = clients(:cyrille_sav)
     session[:return_to] = practitioner_url(sav)
-    post :create, {:client => {:email => cyrille.email, :phone_prefix => cyrille.phone_prefix, :phone_suffix => cyrille.phone_suffix }}
-    assert_not_nil flash[:error]
+    post :create, {:client => {:email => cyrille.email, :phone_prefix => cyrille.phone_prefix, :phone_suffix => cyrille.phone_suffix }}, {:pro_id => sav.id}
+    assert_not_nil flash[:error], "Flash was: #{flash.inspect}"
     client = assigns(:client)
     assert_not_nil client
     assert !client.errors.blank?, "There should be some errors on the client, as the email address already exists"
@@ -165,7 +165,7 @@ class ClientsControllerTest < ActionController::TestCase
   end
 
   def test_login
-    cyrille = clients(:cyrille)
+    cyrille = clients(:cyrille_sav)
     sav = practitioners(:sav)
     last4_digits = cyrille.phone_suffix[-4..cyrille.phone_suffix.length]
     session[:return_to] = practitioner_url(sav)
@@ -176,7 +176,7 @@ class ClientsControllerTest < ActionController::TestCase
   end
   
   def test_login_phone
-    get :login_phone, :login => clients(:cyrille).email 
+    get :login_phone, :login => clients(:cyrille_sav).email 
     assert_template 'login_phone'
   end
   
@@ -190,7 +190,7 @@ class ClientsControllerTest < ActionController::TestCase
   end
     
   def test_login_wrong_numbers
-    cyrille = clients(:cyrille)
+    cyrille = clients(:cyrille_sav)
     post :login, :login => cyrille.email, :phone_last4digits => "1234"
     assert_not_nil flash[:error]
     assert_redirected_to login_phone_url(:login => cyrille.email)

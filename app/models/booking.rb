@@ -55,7 +55,7 @@ class Booking < ActiveRecord::Base
                   
   attr_accessor :current_client, :current_pro, :client_phone_prefix, :client_phone_suffix, :client_email
   
-  after_create :save_client_attributes, :update_relations_after_create
+  after_create :save_client_attributes
   after_destroy :remove_reminders
   after_update :save_client_attributes
   before_update :set_times
@@ -101,6 +101,7 @@ class Booking < ActiveRecord::Base
     if self.client_id.blank?
       new_client = Client.new(:name => name, :email => client_email, :phone_prefix => client_phone_prefix,
                           :phone_suffix => client_phone_suffix)
+      new_client.practitioner = current_pro
       if new_client.save
         self.client = new_client
       end
@@ -195,17 +196,6 @@ class Booking < ActiveRecord::Base
     end
   end
   
-  def update_relations_after_create
-    unless self.client.nil?
-      first_appointment_with_this_client = (self.client.bookings.find_all_by_practitioner_id(self.practitioner_id).size == 1)
-      if first_appointment_with_this_client
-        if self.client.relations.find_by_practitioner_id(self.practitioner_id).nil?
-          Relation.create(:practitioner_id => self.practitioner_id, :client_id => self.client_id )
-        end
-      end
-    end
-  end
-
   def mark_as_pro_reminder_sent!
     update_attribute(:pro_reminder_sent_at, Time.zone.now)
   end

@@ -189,7 +189,7 @@ class PractitionersControllerTest < ActionController::TestCase
   end
   
   def test_show
-    get :show, {:id => practitioners(:sav).permalink}, {:client_id => clients(:cyrille).id }
+    get :show, {:id => practitioners(:sav).permalink}, {:client_id => clients(:cyrille_sav).id }
     assert_template 'show'
   end
     

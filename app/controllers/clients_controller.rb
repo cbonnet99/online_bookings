@@ -203,6 +203,7 @@ class ClientsController < ApplicationController
       end
     else
       @client = Client.new(params[:client])
+      @client.practitioner_id = current_pro.try(:id)
       if @client.save
         session[:client_id] = @client.id
         flash[:notice] = I18n.t(:flash_notice_client_can_book_now)

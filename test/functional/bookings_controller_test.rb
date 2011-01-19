@@ -95,20 +95,6 @@ class BookingsControllerTest < ActionController::TestCase
     assert_equal custom_text.gsub(/\n/, "<br/>"), last_email.body, "The email should contain the custom text, with HTML BRs"
   end
 
-  #Cyrille (26 September 2010: for the moment, clients cannot destroy bookings)
-  # def test_destroy_client
-  #   cyrille_sav = bookings(:cyrille_sav)
-  #   sav = practitioners(:sav)
-  #   cyrille = clients(:cyrille)
-  #   old_size = Booking.all.size
-  #   post :destroy, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id},
-  #    {:client_id => cyrille.id }
-  #   assert_response :success
-  #   assert_nil flash[:error]
-  #   assert_not_nil flash[:notice]
-  #   assert_equal old_size-1, Booking.all.size
-  # end
-
   def test_destroy_in_grace_period
     new_booking = Factory(:booking, :state => "in_grace_period")
     pro = new_booking.practitioner
@@ -157,9 +143,9 @@ class BookingsControllerTest < ActionController::TestCase
   
   def test_update_as_client    
     sav = practitioners(:sav)
-    cyrille = clients(:cyrille)
+    cyrille = clients(:cyrille_sav)
     cyrille_sav = Factory(:booking, :client => cyrille, :practitioner => sav, :created_at => 10.minutes.ago, :state => "in_grace_period")
-    kartini = clients(:kartini)
+    kartini = clients(:kartini_sav)
     post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
                   :booking => {:name => "John Denver", :client_id  => kartini.id} }, {:client_id => cyrille.id }
     assert_response :success
@@ -174,8 +160,8 @@ class BookingsControllerTest < ActionController::TestCase
 
   def test_update_client_as_pro
     sav = practitioners(:sav)
-    cyrille = clients(:cyrille)
-    kartini = clients(:kartini)
+    cyrille = clients(:cyrille_sav)
+    kartini = clients(:kartini_sav)
     cyrille_sav = Factory(:booking, :client => cyrille, :practitioner => sav, :created_at => 10.minutes.ago, :state => "in_grace_period")
     post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
                   :booking => {:client_id => kartini.id, :client_phone_prefix => "029",  :client_phone_suffix => "2873129731", :client_email  => "kthom@test.com" } }, {:pro_id => sav.id }
@@ -194,8 +180,8 @@ class BookingsControllerTest < ActionController::TestCase
 
   def test_update_client_as_pro_error
     sav = practitioners(:sav)
-    cyrille = clients(:cyrille)
-    kartini = clients(:kartini)
+    cyrille = clients(:cyrille_sav)
+    kartini = clients(:kartini_sav)
     cyrille_sav = Factory(:booking, :client => cyrille, :practitioner => sav, :created_at => 10.minutes.ago, :state => "in_grace_period")
     post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
                   :booking => {:client_id => kartini.id, :client_phone_prefix => "029",  :client_phone_suffix => "28", :client_email  => "kthom@test.com" } }, {:pro_id => sav.id }
@@ -241,8 +227,8 @@ class BookingsControllerTest < ActionController::TestCase
   # def test_update_as_pro_own_time
   #   cyrille_sav = bookings(:cyrille_sav)
   #   sav = practitioners(:sav)
-  #   cyrille = clients(:cyrille)
-  #   kartini = clients(:kartini)
+  #   cyrille = clients(:cyrille_sav)
+  #   kartini = clients(:kartini_sav)
   #   post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
   #                 :booking => {:client_id => "" } }, {:pro_id => sav.id }
   #   assert_response :success
@@ -256,8 +242,8 @@ class BookingsControllerTest < ActionController::TestCase
   # def test_update_as_pro_own_time_null
   #   cyrille_sav = bookings(:cyrille_sav)
   #   sav = practitioners(:sav)
-  #   cyrille = clients(:cyrille)
-  #   kartini = clients(:kartini)
+  #   cyrille = clients(:cyrille_sav)
+  #   kartini = clients(:kartini_sav)
   #   post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
   #                 :booking => {:client_id => "null" } }, {:pro_id => sav.id }
   #   assert_response :success
@@ -271,8 +257,8 @@ class BookingsControllerTest < ActionController::TestCase
   # def test_update_as_pro_own_time_comment
   #   cyrille_sav = bookings(:cyrille_sav)
   #   sav = practitioners(:sav)
-  #   cyrille = clients(:cyrille)
-  #   kartini = clients(:kartini)
+  #   cyrille = clients(:cyrille_sav)
+  #   kartini = clients(:kartini_sav)
   #   post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
   #                 :booking => {:client_id => "", :comment => "Hello" } }, {:pro_id => sav.id }
   #   assert_response :success
@@ -286,7 +272,7 @@ class BookingsControllerTest < ActionController::TestCase
   def test_create
     mail_size = UserEmail.all.size
     sav = practitioners(:sav)
-    cyrille = clients(:cyrille)
+    cyrille = clients(:cyrille_sav)
     old_size = Booking.all.size
     post :create, {:practitioner_id => sav.permalink, :format => "json",
       :booking => {:name => "Joe Sullivan", :comment => "I'll be on time", :booking_type => booking_types(:sav_one_hour), 
@@ -314,7 +300,7 @@ class BookingsControllerTest < ActionController::TestCase
   def test_create_different_timezone
     mail_size = UserEmail.all.size
     sav = practitioners(:sav)
-    cyrille = clients(:cyrille)
+    cyrille = clients(:cyrille_sav)
     old_size = Booking.all.size
     Time.zone = "Paris"
     my_starts = Time.zone.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)
@@ -363,7 +349,7 @@ class BookingsControllerTest < ActionController::TestCase
   def test_create_with_prep_time
     mail_size = UserEmail.all.size
     sav = Factory(:practitioner, :prep_before => false, :prep_time_mins => 30)  
-    cyrille = clients(:cyrille)
+    cyrille = clients(:cyrille_sav)
     old_size = Booking.all.size
     post :create, {:practitioner_id => sav.permalink, :format => "json",
       :booking => {:name => "Joe Sullivan", :comment => "I'll be on time", 
@@ -394,7 +380,7 @@ class BookingsControllerTest < ActionController::TestCase
     sav = practitioners(:sav)
     sav.update_attribute(:invite_on_client_book, false)
     sav.reload
-    cyrille = clients(:cyrille)
+    cyrille = clients(:cyrille_sav)
     old_size = Booking.all.size
     post :create, {:practitioner_id => sav.permalink, :format => "json",
       :booking => {:name => "Joe Sullivan", :comment => "I'll be on time", :booking_type => booking_types(:sav_one_hour), 
@@ -422,7 +408,7 @@ class BookingsControllerTest < ActionController::TestCase
 
   def test_create_pro_no_client_id
     sav = practitioners(:sav)
-    cyrille = clients(:cyrille)
+    cyrille = clients(:cyrille_sav)
     mail_size = UserEmail.all.size
     old_size = Booking.all.size
     reminders_size = Reminder.all.size
@@ -443,11 +429,14 @@ class BookingsControllerTest < ActionController::TestCase
     assert_not_nil new_booking.starts_at
     assert_not_nil new_booking.ends_at
     assert_not_nil new_booking.booking_type
+    new_client = Client.find_by_email("joe@test.com")
+    assert_not_nil new_client
+    assert_equal sav.id, new_client.practitioner_id
   end
 
   def test_create_pro_no_client_id_no_email
     sav = practitioners(:sav)
-    cyrille = clients(:cyrille)
+    cyrille = clients(:cyrille_sav)
     mail_size = UserEmail.all.size
     old_size = Booking.all.size
     reminders_size = Reminder.all.size
@@ -472,7 +461,7 @@ class BookingsControllerTest < ActionController::TestCase
 
   def test_create_pro
     sav = practitioners(:sav)
-    cyrille = clients(:cyrille)
+    cyrille = clients(:cyrille_sav)
     mail_size = UserEmail.all.size
     old_size = Booking.all.size
     reminders_size = Reminder.all.size
@@ -497,7 +486,7 @@ class BookingsControllerTest < ActionController::TestCase
 
   def test_create_pro_longer
     megan = practitioners(:megan)
-    cyrille = clients(:cyrille)
+    cyrille = clients(:cyrille_megan)
     mail_size = UserEmail.all.size
     old_size = Booking.all.size
     start_date = Time.now.beginning_of_week.advance(:days=>7)
@@ -531,7 +520,7 @@ class BookingsControllerTest < ActionController::TestCase
 
   # def test_create_pro_own_time
   #   sav = practitioners(:sav)
-  #   cyrille = clients(:cyrille)
+  #   cyrille = clients(:cyrille_sav)
   #   mail_size = UserEmail.all.size
   #   old_size = Booking.all.size
   #   post :create, {:practitioner_id => sav.permalink, :format => "json",
@@ -552,7 +541,7 @@ class BookingsControllerTest < ActionController::TestCase
   # 
   # def test_create_pro_own_time_with_comment
   #   sav = practitioners(:sav)
-  #   cyrille = clients(:cyrille)
+  #   cyrille = clients(:cyrille_sav)
   #   mail_size = UserEmail.all.size
   #   old_size = Booking.all.size
   #   post :create, {:practitioner_id => sav.permalink, :format => "json",
@@ -576,7 +565,7 @@ class BookingsControllerTest < ActionController::TestCase
     Time.zone = sav.timezone
     sav.update_attribute(:invite_on_pro_book, false)
     sav.reload
-    cyrille = clients(:cyrille)
+    cyrille = clients(:cyrille_sav)
     mail_size = UserEmail.all.size
     old_size = Booking.all.size
     sav_one_hour = booking_types(:sav_one_hour)
@@ -619,7 +608,7 @@ class BookingsControllerTest < ActionController::TestCase
   def test_index_json
     pro = practitioners(:sav)
     Time.zone = pro.timezone
-    get :index, {:practitioner_id => pro.permalink, :format => "json", :start => Time.zone.now.beginning_of_week, :end => Time.zone.now.end_of_week}, {:client_id => clients(:cyrille).id }
+    get :index, {:practitioner_id => pro.permalink, :format => "json", :start => Time.zone.now.beginning_of_week, :end => Time.zone.now.end_of_week}, {:client_id => clients(:cyrille_sav).id }
     # puts @response.body
     assert_valid_json(@response.body)
     assert_equal 5, assigns(:bookings).size, "Sav should have 0 booking and 5 non-working days, but bookings are: #{assigns(:bookings).to_sentence}"
@@ -638,7 +627,7 @@ class BookingsControllerTest < ActionController::TestCase
   def test_index_megan_next_week
     pro = practitioners(:megan)
     Time.zone = pro.timezone
-    get :index, {:practitioner_id => pro.permalink, :format => "json", :start => Time.zone.now.end_of_week, :end => Time.zone.now.end_of_week.advance(:days => 7 )}, {:client_id => clients(:cyrille).id }
+    get :index, {:practitioner_id => pro.permalink, :format => "json", :start => Time.zone.now.end_of_week, :end => Time.zone.now.end_of_week.advance(:days => 7 )}, {:client_id => clients(:cyrille_megan).id }
     # puts @response.body
     assert_valid_json(@response.body)
     assert_equal 7, assigns(:bookings).size, "Megan should have 2 bookings and 5 non-working days, but bookings are: #{assigns(:bookings).to_json}"
@@ -649,7 +638,7 @@ class BookingsControllerTest < ActionController::TestCase
   def test_index_next_week
     pro = practitioners(:sav)
     Time.zone = pro.timezone
-    get :index, {:practitioner_id => pro.permalink, :format => "json", :start => Time.zone.now.end_of_week, :end => Time.zone.now.end_of_week.advance(:days => 7 )}, {:client_id => clients(:cyrille).id }
+    get :index, {:practitioner_id => pro.permalink, :format => "json", :start => Time.zone.now.end_of_week, :end => Time.zone.now.end_of_week.advance(:days => 7 )}, {:client_id => clients(:cyrille_sav).id }
     # puts @response.body
     assert_valid_json(@response.body)
     assert_equal 6, assigns(:bookings).size, "Sav should have 1 booking and 5 non-working day, but bookings are: #{assigns(:bookings).to_json}"

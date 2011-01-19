@@ -18,9 +18,8 @@ class Practitioner < ActiveRecord::Base
   
   has_many :bookings, :dependent => :destroy, :order => "starts_at"  
   has_many :reminders, :through => :bookings
-  has_many :relations
   has_many :payments
-  has_many :clients, :through => :relations
+  has_many :clients
   has_many :user_emails, :dependent => :delete_all
   has_many :booking_types
   has_many :extra_working_days  
@@ -143,9 +142,7 @@ class Practitioner < ActiveRecord::Base
     if self.test_user?
       self.bookings.delete_all
       self.clients.each do |client|
-        if client.relations.blank?
-          client.delete
-        end
+        client.delete
       end
     else
       raise CantDeleteSampleDataOnNonTestProException
@@ -196,6 +193,7 @@ class Practitioner < ActiveRecord::Base
         client = Client.new(:first_name => self.first_name, :last_name => self.last_name, :phone_prefix  => self.phone_prefix,
             :phone_suffix => self.phone_suffix, 
             :email => self.email, :password => pwd, :password_confirmation => pwd)
+        client.practitioner_id = self.id
         client.save!
         clients << client
       end
@@ -222,6 +220,7 @@ class Practitioner < ActiveRecord::Base
           client = Client.new(:first_name => first_name, :last_name => last_name, :phone_prefix  => rand_phone_prefix,
               :phone_suffix => rand_phone_suffix, 
               :email => email, :password => pwd, :password_confirmation => pwd)
+          client.practitioner_id = self.id
           client.save!
         end
         clients << client
@@ -342,7 +341,8 @@ class Practitioner < ActiveRecord::Base
               self.clients << existing_client
               client = existing_client
             else
-              client = self.clients.create(:email => email, :name => name)
+              client = self.clients.new(:email => email, :name => name)
+              client.save!
             end
             # UserMailer.send_later :deliver_initial_client_email, self, client, email_text, email_signoff if send_email
             UserMailer.deliver_initial_client_email(self, client, email_text, email_signoff) if send_email

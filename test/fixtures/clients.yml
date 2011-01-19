@@ -1,4 +1,4 @@
-cyrille:
+cyrille_sav:
     first_name: Cyrille
     last_name: Bonnet
     email: cbonnet99@gmail.com
@@ -8,7 +8,8 @@ cyrille:
     phone_prefix: "021"
     phone_suffix: 1853654
     country_id: 100
-kartini:
+    practitioner: sav
+kartini_sav:
     email: kartini@gmail.com
     # password: "secret"
     password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f
@@ -16,4 +17,24 @@ kartini:
     phone_prefix: "021"
     phone_suffix: 1854444
     country_id: 101
-    
+    practitioner: sav
+cyrille_megan:
+    first_name: Cyrille
+    last_name: Bonnet
+    email: cbonnet99@gmail.com
+    # password: "secret"
+    password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f
+    password_salt: bef65e058905c379436d80d1a32e7374b139e7b0
+    phone_prefix: "021"
+    phone_suffix: 1853654
+    country_id: 100
+    practitioner: megan
+kartini_megan:
+    email: kartini@gmail.com
+    # password: "secret"
+    password_hash: 3488f5f7efecab14b91eb96169e5e1ee518a569f
+    password_salt: bef65e058905c379436d80d1a32e7374b139e7b0
+    phone_prefix: "021"
+    phone_suffix: 1854444
+    country_id: 101
+    practitioner: megan

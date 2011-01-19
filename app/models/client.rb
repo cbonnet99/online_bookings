@@ -7,19 +7,19 @@ class Client < ActiveRecord::Base
   has_many :bookings
   has_many :reminders, :through => :bookings 
   has_many :client_emails
-  has_many :relations
-  has_many :practitioners, :through => :relations
+  belongs_to :practitioner
   has_many :user_emails
   belongs_to :country
   
   # new columns need to be added here to be writable through mass assignment
-  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :phone_prefix, :phone_suffix, :name
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation,
+                  :phone_prefix, :phone_suffix, :name
   
   attr_accessor :password
   before_save :prepare_password
   before_validation :cleanup_phone
   
-  validates_uniqueness_of :email, :allow_blank => true
+  validates_uniqueness_of :email, :allow_blank => true, :scope => :practitioner_id 
   validates_format_of :email, :with => RE_EMAIL, :allow_blank => true
   validates_length_of :phone_prefix, :within => 2..3, :allow_blank => true
   # validates_presence_of :password, :on => :create

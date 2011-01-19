@@ -31,14 +31,13 @@ class PractitionerTest < ActiveSupport::TestCase
   
   def test_delete_sample_data_for_non_test_user
     pro = Factory(:practitioner, :state => "active", :country  => countries(:fr))
-    client = Factory(:client)
-    booking = Factory(:booking, :practitioner => pro, :client => client)
+    client = Factory(:client, :practitioner => pro)
+    assert_equal 1, pro.clients.size
     assert_raise(CantDeleteSampleDataOnNonTestProException) do
       pro.delete_sample_data!
     end
     pro.reload
     assert_equal 1, pro.clients.size
-    assert_equal 1, pro.bookings.size
   end
   
 
@@ -285,10 +284,8 @@ class PractitionerTest < ActiveSupport::TestCase
   
   def test_clients_options
     megan = Factory(:practitioner, :working_days => "4,5")
-    cyrille = Factory(:client)
-    k = Factory(:client)
-    booking = Factory(:booking, :client => cyrille, :practitioner => megan )
-    booking = Factory(:booking, :client => k, :practitioner => megan )
+    cyrille = Factory(:client, :practitioner => megan )
+    k = Factory(:client, :practitioner => megan)
     opts = megan.clients_options
     assert_equal 2, opts.size
     assert_equal [cyrille.name, cyrille.id], opts.first

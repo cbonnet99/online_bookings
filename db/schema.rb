@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110109151127) do
+ActiveRecord::Schema.define(:version => 20110119103709) do
 
   create_table "booking_types", :force => true do |t|
     t.string   "title"
@@ -42,17 +42,18 @@ ActiveRecord::Schema.define(:version => 20110109151127) do
     t.string   "email"
     t.string   "password_hash"
     t.string   "password_salt"
-    t.string   "question",      :limit => 500
+    t.string   "question",        :limit => 500
     t.string   "answer"
     t.string   "string"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "phone_prefix",  :limit => 3
-    t.string   "phone_suffix",  :limit => 10
-    t.string   "reset_code",    :limit => 40
+    t.string   "phone_prefix",    :limit => 3
+    t.string   "phone_suffix",    :limit => 10
+    t.string   "reset_code",      :limit => 40
     t.string   "first_name"
     t.string   "last_name"
     t.integer  "country_id"
+    t.integer  "practitioner_id"
   end
 
   create_table "countries", :force => true do |t|
@@ -174,13 +175,6 @@ ActiveRecord::Schema.define(:version => 20110109151127) do
     t.integer  "end_time2"
     t.integer  "sms_credit",                                    :default => 0
     t.integer  "payment_plan_id"
-  end
-
-  create_table "relations", :force => true do |t|
-    t.integer  "client_id"
-    t.integer  "practitioner_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "reminders", :force => true do |t|

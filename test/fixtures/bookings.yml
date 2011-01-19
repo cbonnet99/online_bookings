@@ -2,20 +2,20 @@ cyrille_megan:
     name: Cyrille Bonnet
     starts_at: <%=Time.now.in_time_zone("Wellington").beginning_of_week.advance(:days=>7).advance(:hours=>9).to_s(:db)%>
     ends_at: <%=Time.now.in_time_zone("Wellington").beginning_of_week.advance(:days=>7).advance(:hours=>10).to_s(:db)%>
-    client: cyrille
+    client: cyrille_megan
     practitioner: megan
     state: confirmed
 cyrille_sav:
     name: Cyrille Bonnet
     starts_at: <%=Time.now.in_time_zone("Wellington").beginning_of_week.advance(:days=>8).advance(:hours=>11).to_s(:db)%>
     ends_at: <%=Time.now.in_time_zone("Wellington").beginning_of_week.advance(:days=>8).advance(:hours=>12).to_s(:db)%>
-    client: cyrille
+    client: cyrille_sav
     practitioner: sav
     state: unconfirmed
 kartini_megan:
     name: Kartini T.
     starts_at: <%=Time.now.in_time_zone("Wellington").beginning_of_week.advance(:days=>7).advance(:hours=>13).to_s(:db)%>
     ends_at: <%=Time.now.in_time_zone("Wellington").beginning_of_week.advance(:days=>7).advance(:hours=>14).to_s(:db)%>
-    client: kartini
+    client: kartini_megan
     practitioner: megan
     state: confirmed    
