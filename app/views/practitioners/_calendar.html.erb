@@ -504,9 +504,8 @@ $(document).ready(function() {
          if (calEvent.reminder_was_sent_at !== null){
            $("#event_reminder_was_sent_at").show();
            var reminder_date = new Date(calEvent.reminder_was_sent_at);
-           $("#event_reminder_was_sent_at").append(" "+formatDateAndTime(reminder_date));
+           $("#event_reminder_was_sent_at_date").html(" "+formatDateAndTime(reminder_date)+I18n.t("reminder_type_"+calEvent.reminder_was_sent_by));
            console.log("retrieving reminder_type_"+calEvent.reminder_was_sent_by);
-           $("#event_reminder_was_sent_at").append(" "+I18n.t("reminder_type_"+calEvent.reminder_was_sent_by));
 		 }
 		 else {
 			$("#event_reminder_was_sent_at").hide();
@@ -514,7 +513,7 @@ $(document).ready(function() {
          if (calEvent.reminder_will_be_sent_at !== null){
            $("#event_reminder_will_be_sent_at").show();
            var reminder_date = new Date(calEvent.reminder_will_be_sent_at);
-           $("#event_reminder_will_be_sent_at").append(" "+formatDateAndTime(reminder_date));
+           $("#event_reminder_will_be_sent_at_date").html(" "+formatDateAndTime(reminder_date));
 		 }
 		 else {
 			$("#event_reminder_will_be_sent_at").hide();
@@ -655,8 +654,8 @@ $(document).ready(function() {
 <div id="event_edit_container">	
 	<form id="event_edit_form"> 
 		<ul class="event-icons">
-			<li id="event_reminder_will_be_sent_at"><%= t(:reminder_will_be_sent_at, :scope => [:event_window])%></li>
-			<li id="event_reminder_was_sent_at"><%= t(:reminder_was_sent_at, :scope => [:event_window])%></li>
+			<li id="event_reminder_will_be_sent_at"><%= t(:reminder_will_be_sent_at, :scope => [:event_window])%><span id="event_reminder_will_be_sent_at_date"></span></li>
+			<li id="event_reminder_was_sent_at"><%= t(:reminder_was_sent_at, :scope => [:event_window])%><span id="event_reminder_was_sent_at_date"></span></li>
 			<li id="event_confirmed"><%= t(:confirmed, :scope => [:event_window])%> <span id="event_confirmed_at"></span></li>
 			<li id="event_unconfirmed_warning"><%= t(:unconfirmed_warning, :scope => [:event_window])%></li>
 			<li id="event_locked"><%= t(:locked, :scope => [:event_window])%></li>			
