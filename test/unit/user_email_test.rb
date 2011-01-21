@@ -1,6 +1,19 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class UserEmailTest < ActiveSupport::TestCase
+
+  def test_send
+    pro = Factory(:practitioner, :country => countries(:fr))
+    client = Factory(:client, :practitioner => pro)
+    ue = Factory(:user_email, :subject => "RV avec un pro", :email_type => UserEmail::CLIENT_INVITE, :client => client, :practitioner => pro)
+    ActionMailer::Base.deliveries.clear
+    
+    ue.send!
+    
+    assert_equal 1, ActionMailer::Base.deliveries.size
+    email = ActionMailer::Base.deliveries.first
+    assert_match %r{rendez-vous}, email.body, "The email body should be in French (it should contain the word: rendez-vous)"
+  end
   
   def test_send_unsent_emails
     ActionMailer::Base.deliveries.clear

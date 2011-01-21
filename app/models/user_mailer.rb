@@ -77,9 +77,14 @@ class UserMailer < ActionMailer::Base
     setup_email(to, from)
     @content_type = "multipart/mixed"
     @subject << subject
+    if booking.practitioner.locale == "EN"
+      filename = "client_invite.text.plain.erb"
+    else
+      filename = "client_invite.#{booking.practitioner.locale.downcase}.text.plain.erb"
+    end
     part :content_type => 'multipart/alternative' do |copy|
           copy.part :content_type => 'text/plain' do |plain|
-            plain.body = render( :file => "client_invite.text.plain.erb", 
+            plain.body = render( :file => filename, 
               :layout => false, :body => {:booking => booking, :booking_link => practitioner_url(booking.practitioner.permalink, :email => booking.client.email )}  )
           end
           # copy.part :content_type => 'text/html' do |html|
@@ -97,9 +102,14 @@ class UserMailer < ActionMailer::Base
   def pro_invite(to, from, subject, booking)
     setup_email(to, from)
     @subject << subject
+    if booking.practitioner.locale == "EN"
+      filename = "pro_invite.text.plain.erb"
+    else
+      filename = "pro_invite.#{booking.practitioner.locale.downcase}.text.plain.erb"
+    end
     part :content_type => 'multipart/alternative' do |copy|
       copy.part :content_type => 'text/plain' do |plain|
-        plain.body = render( :file => "pro_invite.text.plain.erb", 
+        plain.body = render( :file => filename, 
           :layout => false, :body => {:booking => booking, :booking_link => practitioner_url(booking.practitioner.permalink, :email => booking.client.email )}  )
       end
       # copy.part :content_type => 'text/html' do |html|

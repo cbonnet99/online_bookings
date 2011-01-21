@@ -82,6 +82,17 @@ class Practitioner < ActiveRecord::Base
 
   DOMAINS = ["gmail.com", "test.com", "info.org"]
   
+  def locale
+    my_country_code = self.country.country_code
+    my_country_code = my_country_code.try(:to_s) if my_country_code.is_a?(Symbol)
+    my_country_code = my_country_code.try(:upcase) if my_country_code.is_a?(String)
+    selected_country = Country.find_by_country_code(my_country_code)
+    if selected_country.nil?
+      selected_country = Country.default_country
+    end
+    return selected_country.locale    
+  end
+  
   def check_timezone
     if !self.country.nil? && !self.country.timezones_array.nil? && !self.country.timezones_array.include?(self.timezone)
       self.timezone = self.country.default_timezone

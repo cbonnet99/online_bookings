@@ -6,6 +6,14 @@ class PractitionerTest < ActiveSupport::TestCase
   
   fixtures :all
 
+  def test_locale
+    pro_nz = Factory(:practitioner, :country => countries(:nz))
+    pro_fr = Factory(:practitioner, :country => countries(:fr))
+    
+    assert_equal "EN", pro_nz.locale
+    assert_equal "FR", pro_fr.locale
+  end
+
   def test_unique_permalinks
     pro = Factory(:practitioner, :first_name => "Tom", :last_name => "Jones")
     pro_identical = Factory(:practitioner, :first_name => "Tom", :last_name => "Jones")

@@ -1,6 +1,17 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class UserMailerTest < ActionMailer::TestCase
+
+  # def test_pro_invite
+  #   pro = Factory(:practitioner, :country => countries(:fr))
+  #   client = Factory(:client, :practitioner => pro)
+  #   booking = Factory(:booking, :client => client, :practitioner => pro)
+  #   
+  #   new_email = UserMailer.create_pro_invite(pro.email, "myapp@test.com", "Rendez-vous", booking)
+  #   assert_match /rendez-vous/, new_email.body, "The email body should be in French (it should contain the word: rendez-vous)"
+  #   
+  # end
+
   def test_initial_client_email
     ActionMailer::Base.deliveries.clear
     pro = Factory(:practitioner)
