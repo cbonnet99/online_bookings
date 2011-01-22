@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
   
-  before_filter :require_selected_practitioner, :except => [:client_confirm, :client_cancel] 
+  before_filter :require_selected_practitioner, :except => [:client_confirm, :client_cancel, :index_cal] 
   before_filter :login_required, :except => [:flash, :index_cal, :client_confirm, :client_cancel]
 
   def cancel_text
@@ -91,7 +91,7 @@ class BookingsController < ApplicationController
       flash.now[:error] = I18n.t(:flash_error_booking_couldnot_find_practitioner)
       render :action => "flash"
     else
-      @bookings = @practitioner.own_bookings(Time.zone.now.advance(:month => -1).beginning_of_month, Time.zone.now.advance(:months => 1).end_of_month)
+      @bookings = @practitioner.raw_own_bookings(Time.zone.now.advance(:month => -1).beginning_of_month, Time.zone.now.advance(:months => 1).end_of_month)
       calendar = Icalendar::Calendar.new
       @bookings.each do |b|
         calendar.add_event(b.to_ics)

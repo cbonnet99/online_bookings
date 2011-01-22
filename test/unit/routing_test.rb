@@ -10,7 +10,7 @@ class RoutingTest < ActionController::TestCase
     assert_generates "/country_select.js", { :controller => "clients", :action => "country_select", :format => "js"}
     assert_generates "/practitioners/bla/bookings/123.json", { :controller => "bookings", :action => "destroy", :practitioner_id => "bla", :id => "123", :format => "json" }
     assert_generates "/practitioners/bla/bookings/123.json", { :controller => "bookings", :action => "update", :practitioner_id => "bla", :id => "123", :format => "json" }
-    assert_generates "/18/czb123/calendar.ics", { :controller => "bookings", :action => "index_cal", :practitioner_id => "18", :pub_code => "czb123", :format => "ics"}
+    assert_generates "/cyrille-bonnet/czb123/calendar.ics", { :controller => "bookings", :action => "index_cal", :practitioner_id => "cyrille-bonnet", :pub_code => "czb123", :format => "ics"}
     assert_generates "/practitioners/bla/reset_ical_sharing", { :controller => "practitioners", :action => "reset_ical_sharing", :id => "bla"}
     assert_generates "/practitioners/bla/bookings/123.json", { :controller => "bookings", :action => "destroy", :practitioner_id => "bla", :id => "123", :format => "json"}
     assert_generates "/practitioners/bla/bookings/123.json", { :controller => "bookings", :action => "update", :practitioner_id => "bla", :id => "123", :format => "json" }
