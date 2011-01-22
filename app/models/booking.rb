@@ -30,9 +30,9 @@ class NonWorkingBooking
     booking.description
     booking.location = ''
     booking.klass = "PUBLIC"
-    booking.created = Time.zone.now
-    booking.last_modified = Time.zone.now
-    booking.uid = booking.url = "#{@id}"
+    booking.created = Time.zone.now.strftime("%Y%m%dT%H%M%S")
+    booking.last_modified = Time.zone.now.strftime("%Y%m%dT%H%M%S")
+    booking.uid = "#{@id}"
     booking
   end
 end
@@ -40,6 +40,7 @@ end
 class Booking < ActiveRecord::Base
   include AASM
   include Administration
+  include ActionController::UrlWriter
   
   belongs_to :practitioner
   belongs_to :client
@@ -310,7 +311,14 @@ class Booking < ActiveRecord::Base
     to_ics(false, true)
   end
   
-  def to_ics(client_invite=false, pro_invite=false)
+  def url
+    default_url_options[:host] = APP_CONFIG[:site_domain]
+    default_url_options[:protocol] = APP_CONFIG[:site_protocol]
+    default_url_options[:port] = APP_CONFIG[:site_port]
+    practitioner_booking_url(self.practitioner.id, self.id)
+  end
+  
+  def to_ics
     booking = Icalendar::Event.new
     booking.start = self.starts_at.strftime("%Y%m%dT%H%M%S")
     booking.end = self.ends_at.strftime("%Y%m%dT%H%M%S")
@@ -318,34 +326,19 @@ class Booking < ActiveRecord::Base
     booking.description = self.comment
     booking.location = ''
     booking.klass = "PUBLIC"
-    booking.created = self.created_at
-    booking.last_modified = self.updated_at
+    booking.created = self.created_at.strftime("%Y%m%dT%H%M%S")
+    booking.last_modified = self.updated_at.strftime("%Y%m%dT%H%M%S")
     # booking.uid = booking.url = "#{edit_practitioner_booking_url(:practitioner_id => self.practitioner.permalink, :id => self.id)}"
-    booking.uid = booking.url = "#{self.id}"
-    if client_invite
-      params = {"CN" => "\"#{self.practitioner.name}\""}
-      booking.organizer "mailto:#{self.practitioner.email}", params
-      
-      params = {"CN" => "\"#{self.practitioner.name}\"", "CUTYPE" => "INDIVIDUAL", "PARTSTAT" => "ACCEPTED"}
-      booking.add_attendee "mailto:#{self.practitioner.email}", params
-      
-      params = {"CN" => "\"#{self.client.name}\"", "CUTYPE" => "INDIVIDUAL", "PARTSTAT" => "NEEDS-ACTION", "RSVP" => "TRUE"}
-      booking.add_attendee "mailto:#{self.client.email}", params
-    else
-      if pro_invite
-        params = {"CN" => "\"#{self.client.name}\""}
-        booking.organizer "mailto:#{self.client.email}", params
+    booking.uid = "#{self.id}"
+    booking.url = "#{self.url}"
+    params = {"CN" => "\"#{self.client.name}\""}
+    booking.organizer "mailto:#{self.client.email}", params
 
-        params = {"CN" => "\"#{self.client.name}\"", "CUTYPE" => "INDIVIDUAL", "PARTSTAT" => "ACCEPTED"}
-        booking.add_attendee "mailto:#{self.client.email}", params
+    params = {"CN" => "\"#{self.client.name}\"", "CUTYPE" => "INDIVIDUAL", "PARTSTAT" => "ACCEPTED"}
+    booking.add_attendee "mailto:#{self.client.email}", params
 
-        params = {"CN" => "\"#{self.practitioner.name}\"", "CUTYPE" => "INDIVIDUAL", "PARTSTAT" => "NEEDS-ACTION", "RSVP" => "TRUE"}
-        booking.add_attendee "mailto:#{self.practitioner.email}", params
-      else
-        booking.add_attendee self.client.name
-        booking.add_attendee self.practitioner.name
-      end
-    end
+    params = {"CN" => "\"#{self.practitioner.name}\"", "CUTYPE" => "INDIVIDUAL", "PARTSTAT" => "NEEDS-ACTION", "RSVP" => "TRUE"}
+    booking.add_attendee "mailto:#{self.practitioner.email}", params
     booking
   end
 

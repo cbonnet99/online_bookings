@@ -1,5 +1,5 @@
 <div id="share-ical-link"><% if sharing_ical -%>
-<p><%= t(:practitioner_share_ical_message)%><%= link_to calendar_bookings_url(:practitioner_id => current_pro.id, :pub_code => current_pro.bookings_publish_code), calendar_bookings_url(:practitioner_id => current_pro.id, :pub_code => current_pro.bookings_publish_code)%></p>
+<p><%= t(:practitioner_share_ical_message)%>: <%= link_to t(:click_to_calendar), calendar_bookings_url(:practitioner_id => current_pro.id, :pub_code => current_pro.bookings_publish_code, :protocol => "webcal")%></p>
 <%if !current_pro.nil?-%>
 <%= link_to_remote t(:practitioner_share_ical_stop), :update => "ical-feed", :loading => "$('#share-ical-link').hide();$('#waiting-icon').show();", :complete => "$('#waiting-icon').hide();$('#share-ical-link').show();", :url  => reset_ical_sharing_practitioner_url(current_pro.permalink)%>
 <% end -%>

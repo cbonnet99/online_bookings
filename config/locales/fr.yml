@@ -310,12 +310,13 @@ fr:
     practitioner_login_info_logout_link: "Se déconnecter"
     sms_credit_left: "Il vous reste <b>{{sms_credit}}</b> SMS"
     #practitioner/edit
+    click_to_calendar: Votre flux de rendez-vous
     pro_edit_settings: "Changer vos paramètres"
     practitioner_save_button: "Sauvegarder"
     practitioner_saved_error: "Vos paramètres n'ont pas pu être sauvegardés à cause d'une erreur"
     practitioner_was_saved: "Vos paramètres ont été sauvegardés"
     #practitioner/share-ical
-    practitioner_share_ical_message : "L'URL de votre flux Ical est: "
+    practitioner_share_ical_message : "Pour vous abonner à votre calendrier de rendez-vous, cliquez sur le lien"
     practitioner_share_ical_stop : "Désactiver le flux Ical"
     practitioner_share_ical_start : "Activer le flux Ical"
     #practitioner/selected_pro_info

@@ -268,12 +268,13 @@
   practitioner_login_info_logout_link: "Logout"
   sms_credit_left: "You have <b>{{sms_credit}}</b> text messages left"
   #practitioner/edit
+  click_to_calendar: Your calendar feed
   pro_edit_settings: "Edit your settings"
   practitioner_save_button: "Save"
   practitioner_saved_error: "There was an error while saving your settings"
   practitioner_was_saved: "Your settings have been saved"
   #practitioner/share-ical
-  practitioner_share_ical_message: "Your iCal feed URL is "
+  practitioner_share_ical_message: "To subscribe to your calendar, click on the link"
   practitioner_share_ical_stop: "Stop sharing iCal feed"
   practitioner_share_ical_start: "Share iCal feed"
   #practitioner/selected_pro_info

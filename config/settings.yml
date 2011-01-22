@@ -1,7 +1,7 @@
 development:
     site_name: Colibri(DEV)
-    site_domain: localhost.com
-    site_protocol: 3000
+    site_domain: localhost
+    site_port: 3000
     contact_email: colibriapp@gmail.com
     from_email: colibriapp@gmail.com
     show_countries: true

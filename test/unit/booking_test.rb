@@ -2,6 +2,11 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class BookingTest < ActiveSupport::TestCase
 
+  def test_url
+    b = Factory(:booking)
+    assert_not_nil b.url
+  end
+
   def test_send_client_invite
     b = Factory(:booking)
     old_size = UserEmail.all.size
