@@ -1,6 +1,6 @@
 Bonjour,<br/>
 <br/>
-Vous avez rendez-vous avec <%= @booking.practitioner.name%> le <%= @booking.start_date.day_and_time%>.<br/>
+Vous avez rendez-vous avec <%= @booking.practitioner.name%> <%= @booking.start_date_and_time_str%>.<br/>
 <br/>
 Nous vous enverrons un rappel la veille de votre rendez-vous. Si vous avez des questions, vous pouvez contacter <%= @booking.practitioner.name%> au: <%= @booking.practitioner.phone%><br/>
 <br/>

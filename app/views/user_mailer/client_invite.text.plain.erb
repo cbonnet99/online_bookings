@@ -1,6 +1,6 @@
 Dear <%=@booking.client.first_name%>,
 
-<%= @booking.practitioner.name%> has booked an appointment for you on <%=@booking.start_date.day_and_time%>.
+<%= @booking.practitioner.name%> has booked an appointment for you <%=@booking.start_date_and_time_str%>.
 
 We will send you a reminder and you can consult this appointment at any time at:
 
