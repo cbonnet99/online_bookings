@@ -303,14 +303,6 @@ class Booking < ActiveRecord::Base
     
   end
  
-  def to_ics_with_client_invite
-    to_ics(true, false)
-  end
-  
-  def to_ics_with_pro_invite
-    to_ics(false, true)
-  end
-  
   def url
     default_url_options[:host] = APP_CONFIG[:site_domain]
     default_url_options[:protocol] = APP_CONFIG[:site_protocol]
@@ -331,8 +323,8 @@ class Booking < ActiveRecord::Base
     # booking.uid = booking.url = "#{edit_practitioner_booking_url(:practitioner_id => self.practitioner.permalink, :id => self.id)}"
     booking.uid = "#{self.id}"
     booking.url = "#{self.url}"
-    params = {"CN" => "\"#{self.client.name}\""}
-    booking.organizer "mailto:#{self.client.email}", params
+    params = {"CN" => "\"#{self.practitioner.name}\""}
+    booking.organizer "mailto:#{self.practitioner.email}", params
 
     params = {"CN" => "\"#{self.client.name}\"", "CUTYPE" => "INDIVIDUAL", "PARTSTAT" => "ACCEPTED"}
     booking.add_attendee "mailto:#{self.client.email}", params

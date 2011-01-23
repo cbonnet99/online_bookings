@@ -94,7 +94,7 @@ class UserMailer < ActionMailer::Base
     end
     @body[:practitioner] = booking.practitioner
     calendar = Icalendar::Calendar.new
-    calendar.add_event(booking.to_ics_with_client_invite)
+    calendar.add_event(booking.to_ics)
     calendar.publish
     attachment :content_type => "text/calendar", :body => calendar.to_ical, :filename => "booking.ics" 
   end
@@ -118,7 +118,7 @@ class UserMailer < ActionMailer::Base
       # end
     end
     calendar = Icalendar::Calendar.new
-    calendar.add_event(booking.to_ics_with_pro_invite)
+    calendar.add_event(booking.to_ics)
     calendar.publish
     attachment :content_type => "text/calendar", :body => calendar.to_ical, :filename => "booking.ics" 
   end
