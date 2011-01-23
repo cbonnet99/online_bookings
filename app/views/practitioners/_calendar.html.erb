@@ -504,7 +504,8 @@ $(document).ready(function() {
          if (calEvent.reminder_was_sent_at !== null){
            $("#event_reminder_was_sent_at").show();
            var reminder_date = new Date(calEvent.reminder_was_sent_at);
-           $("#event_reminder_was_sent_at_date").html(" "+formatDateAndTime(reminder_date)+I18n.t("reminder_type_"+calEvent.reminder_was_sent_by));
+           $("#event_reminder_was_sent_at_date").html(" "+formatDateAndTime(reminder_date)+" " + I18n.t("reminder_type_"+calEvent.reminder_was_sent_by));
+           $("#event_reminder_was_sent_at").addClass(calEvent.reminder_was_sent_by);
            console.log("retrieving reminder_type_"+calEvent.reminder_was_sent_by);
 		 }
 		 else {
