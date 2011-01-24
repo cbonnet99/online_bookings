@@ -458,15 +458,6 @@ $(document).ready(function() {
 					  displayFlash(data.flash);
 					}, "json");
                },
-               "confirm" : function() {
-				  $.post("/bookings/"+calEvent.id+"/pro_confirm.json", {"format": "json"}, function(data){
-					  if ((data.flash.error === undefined) || (data.flash.error === '')) {
-	                    $calendar.weekCalendar("refresh");
-	                  }
-	                  $dialogContent.dialog("close");
-					  displayFlash(data.flash);
-					}, "json");
-               },
                saveonly : function() {
                   if ($("#event_edit_form").valid()) {
                       var newCalEvent = new Object();
@@ -484,6 +475,15 @@ $(document).ready(function() {
 						displayFlash(data.flash);
 						}, "json");
 					}
+               },
+               "confirm" : function() {
+				  $.post("/bookings/"+calEvent.id+"/pro_confirm.json", {"format": "json"}, function(data){
+					  if ((data.flash.error === undefined) || (data.flash.error === '')) {
+	                    $calendar.weekCalendar("refresh");
+	                  }
+	                  $dialogContent.dialog("close");
+					  displayFlash(data.flash);
+					}, "json");
                }
             }
          }).show();
