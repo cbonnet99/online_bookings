@@ -1,6 +1,5 @@
 class BookingsController < ApplicationController
   
-  before_filter :require_selected_practitioner, :except => [:client_confirm, :client_cancel, :index_cal] 
   before_filter :login_required, :except => [:flash, :index_cal, :client_confirm, :client_cancel]
 
   def cancel_text

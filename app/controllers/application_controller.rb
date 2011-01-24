@@ -112,24 +112,5 @@ class ApplicationController < ActionController::Base
     unless @current_country_code.blank?
       @current_country = Country.find_by_country_code(@current_country_code)
     end
-  end
-  
-  def require_selected_practitioner
-    unless pro_logged_in?
-      get_selected_practitioner
-      #otherwise ask the client to select a practitioner
-      if @current_selected_pro.nil?
-        respond_to do |format|
-          format.json do
-            flash[:error] = I18n.t(:flash_error_session_not_selected_pro) 
-            redirect_to flash_url
-          end
-          format.html do
-            redirect_to edit_selected_practitioner_url
-          end
-        end
-      end
-    end
-  end
-  
+  end  
 end

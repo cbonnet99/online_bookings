@@ -1,8 +1,6 @@
 class PractitionersController < ApplicationController
   
-  before_filter :require_selected_practitioner, :only => [:show] 
-  before_filter :login_required, :only => [:update, :edit, :show, :reset_ical_sharing, :create_sample_data, :waiting_sample_data]
-  before_filter :locate_current_user, :only => [:edit_selected] 
+  before_filter :login_required, :except => [:new, :create]
 
   def update
     @practitioner = @current_pro
@@ -50,26 +48,6 @@ class PractitionersController < ApplicationController
     load_countries_and_days
   end
 
-  def edit_selected
-    get_practitioners(@current_country_code)
-    # session[:return_to] = request.referer
-    session[:return_to] = nil
-  end
-
-  def update_selected
-    @practitioner = Practitioner.find(params[:practitioner_id]) unless params[:practitioner_id].nil?
-    unless @practitioner.nil?
-      cookies[:selected_practitioner_id] = @practitioner.id
-      Time.zone = @practitioner.timezone
-    end
-    redirect_to session[:return_to].nil? ? @practitioner : session[:return_to]
-  end
-  
-  def clear_selected
-    cookies.delete(:selected_practitioner_id)
-    redirect_to root_url
-  end
-  
   def create
     @practitioner = Practitioner.new(params[:practitioner])
     if @practitioner.save
