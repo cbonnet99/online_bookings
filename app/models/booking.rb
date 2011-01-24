@@ -71,6 +71,7 @@ class Booking < ActiveRecord::Base
   STATES = ["in_grace_period", "unconfirmed", "confirmed" ,"cancelled_by_client", "cancelled_by_pro"]
   NON_GRACE_STATES = ["unconfirmed", "confirmed" ,"cancelled_by_client", "cancelled_by_pro"]
   SMS_MAX_SIZE = 140
+  BUFFER_BIZ_HOURS = 2
   
   aasm_column :state
 
@@ -335,6 +336,22 @@ class Booking < ActiveRecord::Base
   end
 
   def validate
+    if ends_at <= starts_at
+      errors.add(:starts_at, "^#{I18n.t(:start_must_be_before_end)}")
+    end
+
+    biz_start_with_buffer = self.practitioner.biz_start_time-BUFFER_BIZ_HOURS
+    biz_start_with_buffer = 0 if biz_start_with_buffer < 0
+    if starts_at < starts_at.beginning_of_day.advance(:hours => biz_start_with_buffer)
+      errors.add(:starts_at, "^#{I18n.t(:start_is_too_early, :actual_time => starts_at.simple_time)}")
+    end
+
+    biz_end_with_buffer = self.practitioner.biz_end_time+BUFFER_BIZ_HOURS
+    biz_end_with_buffer = 24 if biz_end_with_buffer > 24
+    if ends_at > ends_at.beginning_of_day.advance(:hours => biz_end_with_buffer)
+      errors.add(:starts_at, "^#{I18n.t(:start_is_too_late, :actual_time => starts_at.simple_time)}")
+    end
+
     if !client.nil?
       if name.blank?
         errors.add(:name, I18n.t(:booking_name_cannot_be_blank))

@@ -28,6 +28,7 @@ fr:
       pm: ''
       hours_separator: ''
       hours_marker: 'h'
+      hours_selector: '%H'
       date_and_time: "le {{date}} à {{time}}"
 
     datetime:
@@ -225,6 +226,9 @@ fr:
     flash_error_authentication_not_authent_client : "Vous n'êtes pas authentifié(e)"
     flash_error_authentication_must_be_logged : "Vous devez être connecté(e) pour pouvoir afficher cette page"
     #booking
+    start_must_be_before_end: Votre rendez-vous doit commencer après sa date de fin
+    start_is_too_early: Votre rendez-vous doit être dans les horaires d'ouverture ({{actual_time}} est trop tôt)
+    start_is_too_late: Votre rendez-vous doit être dans les horaires d'ouverture ({{actual_time}} est trop tard)
     cancellation_text: "Bonjour,<br/><br/>Votre rendez-vous avec {{pro_name}} {{start_date_and_time_str}} a été annulé.<br/><br/>Si vous avez des questions, vous pouvez me contacter au: {{pro_phone}}.<br/><br/>{{signature}},<br/>{{pro_name}}"
     signature: "Cordialement"
     flash_notice_booking_appointment_booked : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} a été enregistré"

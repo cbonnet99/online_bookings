@@ -249,6 +249,7 @@ class Practitioner < ActiveRecord::Base
           date = Time.now.advance(:days => -days_ago).to_date        
         end
         start_hour = biz_hours.choice
+        Time.zone = self.timezone
         starts_at = DateTime.strptime("#{date.strftime('%d/%m/%Y')} #{start_hour}:00 #{timezone_acronym}", "%d/%m/%Y %H:%M %Z")
         client = clients.choice
         # puts "+++++ Creating past booking at #{starts_at} for client #{client.name}, email: #{client.email}, phone: (#{client.phone_prefix}) #{client.phone_suffix}"
@@ -433,6 +434,18 @@ class Practitioner < ActiveRecord::Base
       self.booking_types.first.duration_mins/30
     end
   end
+  
+  def biz_start_time
+    start_time1
+  end
+    
+  def biz_end_time
+    if lunch_break?
+      end_time2
+    else
+      end_time1
+    end
+  end
     
   def biz_hours_start
     TimeUtils.round_previous_hour(start_time1.to_s)
@@ -576,7 +589,7 @@ class Practitioner < ActiveRecord::Base
   end
   
   def has_bookings_on?(day_date)
-    !self.client_bookings(nil, day_date.beginning_of_day, day_date.end_of_day).blank?
+    !self.client_bookings(nil, day_date.to_time.in_time_zone(self.timezone).beginning_of_day, day_date.to_time.in_time_zone(self.timezone).end_of_day).blank?
   end
   
   def bookings_for_working_hours(start_time, end_time)

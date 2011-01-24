@@ -2,6 +2,30 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class BookingTest < ActiveSupport::TestCase
 
+  def test_validation_times
+    b = Factory.build(:booking, :starts_at => 3.hours.from_now, :ends_at => 2.hours.from_now)
+    assert !b.valid?
+    assert !b.errors.on(:starts_at).nil?
+  end
+
+  def test_validation_times_too_early
+    pro_fr = Factory(:practitioner, :country => countries(:fr) )
+    Time.zone = "Paris"
+    start_time = DateTime.strptime("2011/1/1 3:00 AM #{pro_fr.timezone_acronym}", "%Y/%m/%d %l:%M %p %Z")
+    b = Factory.build(:booking, :starts_at => start_time, :ends_at => start_time.advance(:hours => 1), :practitioner => pro_fr)
+    assert !b.valid?
+    assert !b.errors.on(:starts_at).nil?
+  end
+
+  def test_validation_times_too_late
+    pro_fr = Factory(:practitioner, :country => countries(:fr) )
+    Time.zone = "Paris"
+    start_time = DateTime.strptime("2011/1/1 10:00 PM #{pro_fr.timezone_acronym}", "%Y/%m/%d %l:%M %p %Z")
+    b = Factory.build(:booking, :starts_at => start_time, :ends_at => start_time.advance(:hours => 1), :practitioner => pro_fr)
+    assert !b.valid?
+    assert !b.errors.on(:starts_at).nil?
+  end
+
   def test_url
     b = Factory(:booking)
     assert_not_nil b.url
@@ -81,6 +105,14 @@ class BookingTest < ActiveSupport::TestCase
     assert_no_match %r{00 CET}, b.start_date_str
   end
 
+  def test_start_time_str
+    pro_fr = Factory(:practitioner, :country => countries(:fr) )
+    Time.zone = "Paris"
+    start_time = DateTime.strptime("2011/1/1 3:00 PM #{pro_fr.timezone_acronym}", "%Y/%m/%d %l:%M %p %Z")
+    b = Factory(:booking, :practitioner  => pro_fr, :starts_at => start_time, :ends_at => start_time.advance(:hours  => 1) )
+    assert_match %r{15}, b.start_time_str, "3PM should show 15 in French"
+  end
+
   def test_cancellation_text
     b = Factory(:booking)
     assert_not_nil b.cancellation_text
@@ -92,15 +124,21 @@ class BookingTest < ActiveSupport::TestCase
   def test_reminder_will_be_sent_at
     pro = Factory(:practitioner)
     Time.zone = pro.timezone
-    booking = Factory(:booking, :practitioner => pro, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now)
+    t = 2.days.from_now
+    start_time = DateTime.strptime("#{t.strftime('%d')}/#{t.strftime('%m')}/#{t.strftime('%Y')} 10:00", "%d/%m/%Y %H:%M")
+    
+    booking = Factory(:booking, :practitioner => pro, :starts_at => start_time, :ends_at => start_time.advance(:hours => 1))
     booking.end_grace_period!
     assert_not_nil booking.reminder_will_be_sent_at, "A new booking in the future: a reminder should be sent"
 
-    booking = Factory(:booking, :practitioner => pro, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now)
+    booking = Factory(:booking, :practitioner => pro, :starts_at => start_time, :ends_at => start_time.advance(:hours => 1))
     booking.confirm!
     assert_nil booking.reminder_will_be_sent_at, "An already confirmed booking in the future: a reminder should NOT be sent"
-
-    booking = Factory(:booking, :practitioner => pro, :starts_at => 2.hours.ago, :ends_at => 3.hours.ago)
+    
+    t = 2.days.ago
+    start_time = DateTime.strptime("#{t.strftime('%d')}/#{t.strftime('%m')}/#{t.strftime('%Y')} 10:00", "%d/%m/%Y %H:%M")
+    
+    booking = Factory(:booking, :practitioner => pro, :starts_at => start_time, :ends_at => start_time.advance(:hours => 1))
     booking.end_grace_period!
     booking.reminders.last.update_attribute(:sent_at, Time.zone.now)
     assert_nil booking.reminder_will_be_sent_at, "A new booking in the past: a reminder should already have been sent"
@@ -109,7 +147,9 @@ class BookingTest < ActiveSupport::TestCase
   def test_reminder_was_sent_at
     pro = Factory(:practitioner)
     Time.zone = pro.timezone
-    booking = Factory(:booking, :practitioner => pro, :starts_at => 2.hours.ago, :ends_at => 3.hours.ago)
+    t = 2.days.ago
+    start_time = DateTime.strptime("#{t.strftime('%d')}/#{t.strftime('%m')}/#{t.strftime('%Y')} 10:00", "%d/%m/%Y %H:%M")
+    booking = Factory(:booking, :practitioner => pro, :starts_at => start_time, :ends_at => start_time.advance(:hours => 1))
 
     booking.end_grace_period!
     assert_equal 1, booking.reminders.size
@@ -123,28 +163,46 @@ class BookingTest < ActiveSupport::TestCase
     
     assert_not_nil booking.reminder_was_sent_at, "A confirmed booking in the past, with a reminder that was sent (sent at is not null): it should have a was sent at date"
 
-    booking = Factory(:booking, :practitioner => pro, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now)
+    t = 2.days.from_now
+    start_time = DateTime.strptime("#{t.strftime('%d')}/#{t.strftime('%m')}/#{t.strftime('%Y')} 10:00", "%d/%m/%Y %H:%M")
+    booking = Factory(:booking, :practitioner => pro, :starts_at => start_time, :ends_at => start_time.advance(:hours => 1))
     booking.end_grace_period!
     assert_nil booking.reminder_was_sent_at
   end
 
   def test_reminders
-    booking = Factory(:booking, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now)
+    pro = Factory(:practitioner)
+    Time.zone = pro.timezone
+    t = 2.days.from_now
+    start_time = DateTime.strptime("#{t.strftime('%d')}/#{t.strftime('%m')}/#{t.strftime('%Y')} 10:00 #{pro.timezone_acronym}", "%d/%m/%Y %H:%M %Z")
+    booking = Factory(:booking, :starts_at => start_time, :ends_at => start_time.advance(:hours => 1), :practitioner => pro)
     booking.end_grace_period!
     assert_equal 1, booking.reminders.size
   end
 
   def test_needs_warning
-    booking = Factory(:booking, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now, :state => "unconfirmed")
+    booking = Factory.build(:booking, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now, :state => "unconfirmed")
+    unless booking.valid?
+      booking = Factory.build(:booking, :starts_at => 14.hours.from_now, :ends_at => 17.hours.from_now, :state => "unconfirmed")
+    end
     assert booking.needs_warning?
-
-    booking = Factory(:booking, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now, :state => "confirmed")
+    
+    booking = Factory.build(:booking, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now, :state => "confirmed")
+    unless booking.valid?
+      booking = Factory.build(:booking, :starts_at => 14.hours.from_now, :ends_at => 17.hours.from_now, :state => "confirmed")
+    end
     assert !booking.needs_warning?
     
-    booking = Factory(:booking, :starts_at => 30.hours.from_now, :ends_at => 31.hours.from_now, :state => "unconfirmed")
+    booking = Factory.build(:booking, :starts_at => 30.hours.from_now, :ends_at => 31.hours.from_now, :state => "unconfirmed")
+    unless booking.valid?
+      booking = Factory.build(:booking, :starts_at => 42.hours.from_now, :ends_at => 43.hours.from_now, :state => "unconfirmed")
+    end
     assert !booking.needs_warning?
-
-    booking = Factory(:booking, :starts_at => 7.hours.ago, :ends_at => 3.hours.ago, :state => "unconfirmed")
+    
+    booking = Factory.build(:booking, :starts_at => 7.hours.ago, :ends_at => 6.hours.ago, :state => "unconfirmed")
+    unless booking.valid?
+      booking = Factory.build(:booking, :starts_at => 19.hours.ago, :ends_at => 18.hours.ago, :state => "unconfirmed")
+    end
     assert !booking.needs_warning?
     
   end
@@ -177,7 +235,7 @@ class BookingTest < ActiveSupport::TestCase
     assert_equal 60, booking.duration_mins
   end
 
-  def test_simple_time
+  def test_simple_time    
     starts_at = DateTime.strptime("1/1/2010 10:06 CEST", "%d/%m/%Y %H:%M %Z").in_time_zone("Paris")
     time = starts_at.simple_time
     assert_match "06", time

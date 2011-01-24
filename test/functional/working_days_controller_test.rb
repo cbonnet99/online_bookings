@@ -55,17 +55,19 @@ class WorkingDaysControllerTest < ActionController::TestCase
   
   def test_destroy_error_existing_bookings
     pro = Factory(:practitioner)
-    non_working_days = pro.non_working_days_in_timeframe(Time.now, 1.week.from_now)
+    Time.zone = pro.timezone
+    non_working_days = pro.non_working_days_in_timeframe(Time.zone.now, 1.week.from_now)
     working_day = Factory(:extra_working_day, :day_date => non_working_days.first, :practitioner => pro)
+    start_time = working_day.day_date.to_time.in_time_zone.beginning_of_day.advance(:hours=>9)
     booking = Factory(:booking, :practitioner => pro,
-                      :starts_at => working_day.day_date.to_time.beginning_of_day.advance(:hours=>9),
-                      :ends_at => working_day.day_date.to_time.beginning_of_day.advance(:hours=>10)
+                      :starts_at => start_time,
+                      :ends_at => start_time.advance(:hours=>1)
     )
     old_count = pro.extra_working_days.size
     post :destroy, {:day_date => working_day.day_date }, {:pro_id => pro.id}
     assert_response :success
-    assert_not_nil flash[:error], "Flash was: #{flash.inspect}"
-    assert_nil flash[:notice], "Flash was: #{flash.inspect}"
+    assert_not_nil flash[:error]
+    assert_nil flash[:notice]
     pro.reload
     assert_equal old_count, pro.extra_working_days.size
   end

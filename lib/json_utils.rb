@@ -3,6 +3,9 @@ class JsonUtils
   def self.remove_timezone(hash)
     unless hash.nil?
       hash.each do |k,v|
+        if v.is_a?(ActiveSupport::TimeWithZone) || v.is_a?(DateTime)
+          v = v.to_s
+        end
         if v.is_a?(String)
           md = v.match(/.+(\d\d:\d\d:\d\d)/)
           if md

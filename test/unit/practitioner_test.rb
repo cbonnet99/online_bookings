@@ -141,7 +141,9 @@ class PractitionerTest < ActiveSupport::TestCase
 
   def test_own_bookings_with_prep_times
     pro = Factory(:practitioner, :prep_before => false, :prep_time_mins => 30)
-    booking = Factory(:booking, :practitioner => pro, :prep_before => false, :prep_time_mins => 30, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now)
+    t = 2.days.from_now
+    start_time = DateTime.strptime("#{t.strftime('%d')}/#{t.strftime('%m')}/#{t.strftime('%Y')} 10:00", "%d/%m/%Y %H:%M")
+    booking = Factory(:booking, :practitioner => pro, :prep_before => false, :prep_time_mins => 30, :starts_at => start_time, :ends_at => start_time.advance(:hours => 1))
     #just in case we run these tests on a Sunday after 10PM, I'll take the end of next week...
     my_own_bookings = pro.own_bookings(Time.now.beginning_of_week, Time.now.next_week.end_of_week)
     assert my_own_bookings.include?(booking)

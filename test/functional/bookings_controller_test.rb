@@ -126,7 +126,8 @@ class BookingsControllerTest < ActionController::TestCase
 
   def test_create_no_client
     pro = Factory(:practitioner)
-    post :create, {:format => "json", :booking => {:starts_at => Time.now.end_of_day.advance(:hours => 14), :ends_at => Time.now.end_of_day.advance(:hours => 15)} }, {:pro_id => pro.id }
+    start_time = Time.now.in_time_zone(pro.timezone).end_of_day.advance(:hours => 14)
+    post :create, {:format => "json", :booking => {:starts_at => start_time, :ends_at => start_time.advance(:hours => 1)} }, {:pro_id => pro.id }
     assert_response :success
     assert_not_nil flash[:error], "Flash was: #{flash.inspect}"
     assert_equal 1, assigns(:booking).errors.size, "Errors were: #{assigns(:booking).errors.full_messages.to_sentence}"
@@ -149,7 +150,7 @@ class BookingsControllerTest < ActionController::TestCase
     post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
                   :booking => {:name => "John Denver", :client_id  => kartini.id} }, {:client_id => cyrille.id }
     assert_response :success
-    assert_nil flash[:error]
+    assert_nil flash[:error], "Flash error was: #{flash[:error]}"
     assert_not_nil flash[:notice]
     cyrille_sav.reload
     assert_equal cyrille.id, cyrille_sav.client_id, "Even though the client tried to cheat and send Kartini's as client_id, it should stay with the currently logged in client (Cyrille)"
