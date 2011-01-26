@@ -119,15 +119,15 @@ class BookingTest < ActiveSupport::TestCase
     pro = Factory(:practitioner)
     Time.zone = pro.timezone
     
-    booking = Factory(:booking, :practitioner => pro, :starts_str => starts_str_builder(2.days.from_now), :ends_str => ends_str_builder(2.days.from_now))
+    booking = Factory(:booking, :practitioner => pro, :starts_str => Booking.starts_str_builder(2.days.from_now), :ends_str => Booking.ends_str_builder(2.days.from_now))
     booking.end_grace_period!
     assert_not_nil booking.reminder_will_be_sent_at, "A new booking in the future: a reminder should be sent"
 
-    booking = Factory(:booking, :practitioner => pro, :starts_str => starts_str_builder(2.days.from_now), :ends_str => ends_str_builder(2.days.from_now))
+    booking = Factory(:booking, :practitioner => pro, :starts_str => Booking.starts_str_builder(2.days.from_now), :ends_str => Booking.ends_str_builder(2.days.from_now))
     booking.confirm!
     assert_nil booking.reminder_will_be_sent_at, "An already confirmed booking in the future: a reminder should NOT be sent"
     
-    booking = Factory(:booking, :practitioner => pro, :starts_str => starts_str_builder(2.days.ago), :ends_str => ends_str_builder(2.days.ago))
+    booking = Factory(:booking, :practitioner => pro, :starts_str => Booking.starts_str_builder(2.days.ago), :ends_str => Booking.ends_str_builder(2.days.ago))
     booking.end_grace_period!
     booking.reminders.last.update_attribute(:sent_at, Time.zone.now)
     assert_nil booking.reminder_will_be_sent_at, "A new booking in the past: a reminder should already have been sent"
@@ -136,7 +136,7 @@ class BookingTest < ActiveSupport::TestCase
   def test_reminder_was_sent_at
     pro = Factory(:practitioner)
     Time.zone = pro.timezone
-    booking = Factory(:booking, :practitioner => pro, :starts_str => "#{starts_str_builder(2.days.ago)}", :ends_str => "#{ends_str_builder(2.days.ago)}")
+    booking = Factory(:booking, :practitioner => pro, :starts_str => "#{Booking.starts_str_builder(2.days.ago)}", :ends_str => "#{Booking.ends_str_builder(2.days.ago)}")
 
     booking.end_grace_period!
     assert_equal 1, booking.reminders.size
@@ -150,7 +150,7 @@ class BookingTest < ActiveSupport::TestCase
     
     assert_not_nil booking.reminder_was_sent_at, "A confirmed booking in the past, with a reminder that was sent (sent at is not null): it should have a was sent at date"
 
-    booking = Factory(:booking, :practitioner => pro, :starts_str => "#{starts_str_builder(2.days.from_now)}", :ends_str => "#{ends_str_builder(2.days.from_now)}")
+    booking = Factory(:booking, :practitioner => pro, :starts_str => "#{Booking.starts_str_builder(2.days.from_now)}", :ends_str => "#{Booking.ends_str_builder(2.days.from_now)}")
     booking.end_grace_period!
     assert_nil booking.reminder_was_sent_at
   end
@@ -158,7 +158,7 @@ class BookingTest < ActiveSupport::TestCase
   def test_reminders
     pro = Factory(:practitioner)
     Time.zone = pro.timezone
-    booking = Factory(:booking, :starts_str => starts_str_builder(2.days.from_now), :ends_str => ends_str_builder(2.days.from_now), :practitioner => pro)
+    booking = Factory(:booking, :starts_str => Booking.starts_str_builder(2.days.from_now), :ends_str => Booking.ends_str_builder(2.days.from_now), :practitioner => pro)
     booking.end_grace_period!
     assert_equal 1, booking.reminders.size
   end
@@ -166,16 +166,16 @@ class BookingTest < ActiveSupport::TestCase
   def test_needs_warning
     pro = Factory(:practitioner)
     Time.zone = pro.timezone
-    booking = Factory(:booking, :starts_str => starts_str_builder(date_within_24_hours), :state => "unconfirmed")
+    booking = Factory(:booking, :starts_str => Booking.starts_str_builder(date_within_24_hours), :state => "unconfirmed")
     assert booking.needs_warning?
     
-    confirmed_booking = Factory(:booking, :starts_str => starts_str_builder(date_within_24_hours), :state => "confirmed")
+    confirmed_booking = Factory(:booking, :starts_str => Booking.starts_str_builder(date_within_24_hours), :state => "confirmed")
     assert !confirmed_booking.needs_warning?
     
-    unconfirmed_booking_in_far_future = Factory(:booking, :starts_str => starts_str_builder(2.days.from_now), :state => "unconfirmed")
+    unconfirmed_booking_in_far_future = Factory(:booking, :starts_str => Booking.starts_str_builder(2.days.from_now), :state => "unconfirmed")
     assert !unconfirmed_booking_in_far_future.needs_warning?
     
-    past_booking = Factory(:booking, :starts_str => starts_str_builder(1.day.ago),  :state => "unconfirmed")
+    past_booking = Factory(:booking, :starts_str => Booking.starts_str_builder(1.day.ago),  :state => "unconfirmed")
     assert !past_booking.needs_warning?
     
   end

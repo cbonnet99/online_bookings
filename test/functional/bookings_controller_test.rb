@@ -126,8 +126,7 @@ class BookingsControllerTest < ActionController::TestCase
 
   def test_create_no_client
     pro = Factory(:practitioner)
-    start_time = Time.now.in_time_zone(pro.timezone).end_of_day.advance(:hours => 14)
-    post :create, {:format => "json", :booking => {:starts_at => start_time, :ends_at => start_time.advance(:hours => 1)} }, {:pro_id => pro.id }
+    post :create, {:format => "json", :booking => {:starts_str => Booking.starts_str_builder(1.day.from_now), :ends_str => Booking.ends_str_builder(1.day.from_now)} }, {:pro_id => pro.id }
     assert_response :success
     assert_not_nil flash[:error], "Flash was: #{flash.inspect}"
     assert_equal 1, assigns(:booking).errors.size, "Errors were: #{assigns(:booking).errors.full_messages.to_sentence}"
@@ -277,8 +276,8 @@ class BookingsControllerTest < ActionController::TestCase
     old_size = Booking.all.size
     post :create, {:practitioner_id => sav.permalink, :format => "json",
       :booking => {:name => "Joe Sullivan", :comment => "I'll be on time", :booking_type => booking_types(:sav_one_hour), 
-      :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}",
-      :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
+      :starts_str => Booking.starts_str_builder(1.day.from_now),
+      :ends_str => Booking.ends_str_builder(1.day.from_now)}},
       {:client_id => cyrille.id }
     # puts @response.body 
     assert_not_nil assigns["booking"]
@@ -303,20 +302,11 @@ class BookingsControllerTest < ActionController::TestCase
     sav = practitioners(:sav)
     cyrille = clients(:cyrille_sav)
     old_size = Booking.all.size
-    Time.zone = "Paris"
-    my_starts = Time.zone.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)
-    my_day = my_starts.day
-    my_month= my_starts.month
-    my_year = my_starts.year
-    my_hour = my_starts.hour
-    
-    my_ends = Time.zone.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)
-    my_ends_hour = my_ends.hour
     
     post :create, {:practitioner_id => sav.permalink, :format => "json",
       :booking => {:name => "Joe Sullivan", :comment => "I'll be on time", :booking_type => booking_types(:sav_one_hour), 
-      :starts_at => "#{my_starts}",
-      :ends_at => "#{my_ends}"}},
+      :starts_str => Booking.starts_str_builder(1.day.from_now),
+      :ends_str => Booking.ends_str_builder(1.day.from_now)}},
       {:client_id => cyrille.id }
     # puts @response.body 
     assert_not_nil assigns["booking"]
@@ -330,15 +320,6 @@ class BookingsControllerTest < ActionController::TestCase
     assert_not_nil new_booking.starts_at
     assert_not_nil new_booking.ends_at
     Time.zone = sav.timezone
-    assert_equal my_day, new_booking.starts_at.day
-    assert_equal my_month, new_booking.starts_at.month
-    assert_equal my_year, new_booking.starts_at.year
-    assert_equal my_hour, new_booking.starts_at.hour
-    
-    assert_equal my_day, new_booking.ends_at.day
-    assert_equal my_month, new_booking.ends_at.month
-    assert_equal my_year, new_booking.ends_at.year
-    assert_equal my_ends_hour, new_booking.ends_at.hour
 
     assert_not_nil new_booking.booking_type
     assert_equal sav.id, new_booking.practitioner_id
@@ -354,8 +335,8 @@ class BookingsControllerTest < ActionController::TestCase
     old_size = Booking.all.size
     post :create, {:practitioner_id => sav.permalink, :format => "json",
       :booking => {:name => "Joe Sullivan", :comment => "I'll be on time", 
-      :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}",
-      :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
+      :starts_str => Booking.starts_str_builder(1.day.from_now),
+      :ends_str => Booking.ends_str_builder(1.day.from_now)}},
       {:client_id => cyrille.id }
     # puts @response.body 
     assert_not_nil assigns["booking"]
@@ -385,8 +366,8 @@ class BookingsControllerTest < ActionController::TestCase
     old_size = Booking.all.size
     post :create, {:practitioner_id => sav.permalink, :format => "json",
       :booking => {:name => "Joe Sullivan", :comment => "I'll be on time", :booking_type => booking_types(:sav_one_hour), 
-      :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}",
-      :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
+      :starts_str => Booking.starts_str_builder(1.day.from_now),
+      :ends_str => Booking.ends_str_builder(1.day.from_now)}},
       {:client_id => cyrille.id }
     # puts @response.body 
     assert_not_nil assigns["booking"]
@@ -415,8 +396,8 @@ class BookingsControllerTest < ActionController::TestCase
     reminders_size = Reminder.all.size
     post :create, {:practitioner_id => sav.permalink, :format => "json",
       :booking => {:name => "Joe Test", :client_email => "joe@test.com", :client_id => "", :comment => "I'll be on time", :booking_type => booking_types(:sav_one_hour), 
-      :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}", :client_phone_prefix => "021", :client_phone_suffix => "4354364",  
-      :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
+      :starts_str => Booking.starts_str_builder(1.day.from_now), :client_phone_prefix => "021", :client_phone_suffix => "4354364",  
+      :ends_str => Booking.ends_str_builder(1.day.from_now)}},
       {:pro_id => sav.id }
     # puts @response.body
     assert_response :success
@@ -443,8 +424,8 @@ class BookingsControllerTest < ActionController::TestCase
     reminders_size = Reminder.all.size
     post :create, {:practitioner_id => sav.permalink, :format => "json",
       :booking => {:name => "Joe Test", :client_id => "", :comment => "I'll be on time", :booking_type => booking_types(:sav_one_hour), 
-      :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}", :client_phone_prefix => "021", :client_phone_suffix => "4354364",  
-      :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
+      :starts_str => Booking.starts_str_builder(1.day.from_now), :client_phone_prefix => "021", :client_phone_suffix => "4354364",  
+      :ends_str => Booking.ends_str_builder(1.day.from_now)}},
       {:pro_id => sav.id }
     # puts @response.body
     assert_response :success
@@ -468,8 +449,7 @@ class BookingsControllerTest < ActionController::TestCase
     reminders_size = Reminder.all.size
     post :create, {:practitioner_id => sav.permalink, :format => "json",
       :booking => {:name => "undefined", :client_id => cyrille.id, :comment => "I'll be on time", :booking_type => booking_types(:sav_one_hour), 
-      :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}",
-      :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
+      :starts_str => Booking.starts_str_builder(1.day.from_now), :ends_str => Booking.ends_str_builder(1.day.from_now)}},
       {:pro_id => sav.id }
     # puts @response.body
     assert_response :success
@@ -490,14 +470,10 @@ class BookingsControllerTest < ActionController::TestCase
     cyrille = clients(:cyrille_megan)
     mail_size = UserEmail.all.size
     old_size = Booking.all.size
-    start_date = Time.now.beginning_of_week.advance(:days=>7)
-    starts = start_date.advance(:hours=>13)
-    end_date = Time.now.beginning_of_week.advance(:days=>7)
-    ends = end_date.advance(:hours=>14)
     post :create, {:practitioner_id => megan.permalink, :format => "json",
       :booking => {:name => "undefined", :client_id => cyrille.id, :comment => "I'll be on time", :booking_type => booking_types(:megan_two_hour), 
-      :starts_at => "#{starts.to_s(:full_with_year)}",
-      :ends_at => "#{ends.to_s(:full_with_year)}"}},
+      :starts_str => Booking.starts_str_builder(1.day.from_now),
+      :ends_str => Booking.ends_str_builder(1.day.from_now)}},
       {:pro_id => megan.id }
     # puts @response.body
     assert_not_nil assigns["booking"]
@@ -510,56 +486,8 @@ class BookingsControllerTest < ActionController::TestCase
     assert_not_nil new_booking.starts_at
     assert_not_nil new_booking.ends_at
     
-    #the booking should be made on the practitioner's timezone (in this case at 1pm, Megan's time)
-    assert_equal start_date.in_time_zone(megan.timezone).beginning_of_day.advance(:hours=>13), new_booking.starts_at
-    assert_equal end_date.in_time_zone(megan.timezone).beginning_of_day.advance(:hours => 15), new_booking.ends_at, "Sould last 2 hours, according to booking type"
-    
     assert_not_nil new_booking.booking_type
   end
-
-  #Cyrille (7 Sep 2010: no own time option for the moment)
-
-  # def test_create_pro_own_time
-  #   sav = practitioners(:sav)
-  #   cyrille = clients(:cyrille_sav)
-  #   mail_size = UserEmail.all.size
-  #   old_size = Booking.all.size
-  #   post :create, {:practitioner_id => sav.permalink, :format => "json",
-  #     :booking => {:client_id => "", :comment => "", :booking_type => booking_types(:sav_one_hour), 
-  #     :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}",
-  #     :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
-  #     {:pro_id => sav.id }
-  #   # puts @response.body
-  #   assert_not_nil assigns(:booking)
-  #   assert assigns(:booking).errors.blank?, "There should be no errors, but got: #{assigns['booking'].errors.full_messages.to_sentence}"
-  #   assert_nil flash[:error]
-  #   assert_not_nil flash[:notice]
-  #   assert_equal old_size+1, Booking.all.size
-  #   assert_equal "Own time", assigns(:booking).name
-  #   assert_equal "confirmed", assigns(:booking).state, "Own time bookings are automatically confirmed"
-  #   assert_equal mail_size, UserEmail.all.size, "No email should be sent as this is own time booking"
-  # end
-  # 
-  # def test_create_pro_own_time_with_comment
-  #   sav = practitioners(:sav)
-  #   cyrille = clients(:cyrille_sav)
-  #   mail_size = UserEmail.all.size
-  #   old_size = Booking.all.size
-  #   post :create, {:practitioner_id => sav.permalink, :format => "json",
-  #     :booking => {:client_id => "", :comment => "Lunch", :booking_type => booking_types(:sav_one_hour), 
-  #     :starts_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}",
-  #     :ends_at => "#{Time.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
-  #     {:pro_id => sav.id }
-  #   # puts @response.body
-  #   assert_not_nil assigns(:booking)
-  #   assert assigns(:booking).errors.blank?, "There should be no errors, but got: #{assigns['booking'].errors.full_messages.to_sentence}"
-  #   assert_nil flash[:error]
-  #   assert_not_nil flash[:notice]
-  #   assert_equal old_size+1, Booking.all.size
-  #   assert_equal "Lunch", assigns(:booking).name
-  #   assert_equal "confirmed", assigns(:booking).state, "Own time bookings are automatically confirmed"
-  #   assert_equal mail_size, UserEmail.all.size, "No email should be sent as this is own time booking"
-  # end
 
   def test_create_pro_no_invite
     sav = practitioners(:sav)
@@ -572,8 +500,8 @@ class BookingsControllerTest < ActionController::TestCase
     sav_one_hour = booking_types(:sav_one_hour)
     post :create, {:practitioner_id => sav.permalink, :format => "json",
       :booking => {:name => "undefined", :client_id => cyrille.id, :comment => "I'll be on time", :booking_type => sav_one_hour, 
-      :starts_at => "#{Time.zone.now.beginning_of_week.advance(:days=>7).advance(:hours=>13)}",
-      :ends_at => "#{Time.zone.now.beginning_of_week.advance(:days=>7).advance(:hours=>14)}"}},
+      :starts_str => Booking.starts_str_builder(1.day.from_now),
+      :ends_str => Booking.ends_str_builder(1.day.from_now)}},
       {:pro_id => sav.id }
     assert_response :success
     # puts @response.body

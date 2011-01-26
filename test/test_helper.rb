@@ -36,12 +36,9 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   
-  DEFAULT_START_TIME = 10
-  DEFAULT_END_TIME = 11
-
   def date_after_24_hours
     date = 1.day.from_now
-    if date.strftime("%H").to_i > DEFAULT_START_TIME
+    if date.strftime("%H").to_i > Booking::DEFAULT_START_TIME
       date = 2.days.from_now
     end
     return date    
@@ -49,20 +46,12 @@ class ActiveSupport::TestCase
   
   def date_within_24_hours
     date = 1.day.from_now
-    if date.strftime("%H").to_i < DEFAULT_START_TIME
+    if date.strftime("%H").to_i < Booking::DEFAULT_START_TIME
       date = Time.zone.now
     end
     return date    
   end
-    
-  def starts_str_builder(date)
-    "#{date.strftime("%Y-%m-%d")} #{DEFAULT_START_TIME}:00:00"
-  end
-  
-  def ends_str_builder(date)
-    "#{date.strftime("%Y-%m-%d")} #{DEFAULT_END_TIME}:00:00"
-  end
-  
+      
 	def assert_valid_json(json)	  
 	  if json.match(/\{\s*\{/)
       raise "Invalid JSON (two consecutive brackets: {{): #{json}"

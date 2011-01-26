@@ -6,7 +6,7 @@ class ReminderTest < ActiveSupport::TestCase
     Time.zone = pro.timezone
     
     date = date_within_24_hours
-    booking_needs_sending = Factory(:booking, :starts_str => starts_str_builder(date))
+    booking_needs_sending = Factory(:booking, :starts_str => Booking.starts_str_builder(date))
     booking_needs_sending.end_grace_period!
     assert_equal 1, booking_needs_sending.reminders.size
 

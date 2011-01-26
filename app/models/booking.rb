@@ -72,6 +72,8 @@ class Booking < ActiveRecord::Base
   NON_GRACE_STATES = ["unconfirmed", "confirmed" ,"cancelled_by_client", "cancelled_by_pro"]
   SMS_MAX_SIZE = 140
   BUFFER_BIZ_HOURS = 2
+  DEFAULT_START_TIME = 10
+  DEFAULT_END_TIME = 11  
   
   aasm_column :state
 
@@ -97,6 +99,16 @@ class Booking < ActiveRecord::Base
   
   aasm_event :pro_cancel do
     transitions :from => [:in_grace_period, :unconfirmed, :confirmed], :to => :cancelled_by_pro
+  end
+  
+  def self.starts_str_builder(date, hour=nil)
+    hour = DEFAULT_START_TIME if hour.nil?
+    "#{date.strftime("%Y-%m-%d")} #{hour}:00:00"
+  end
+  
+  def self.ends_str_builder(date, hour=nil)
+    hour = DEFAULT_END_TIME if hour.nil?
+    "#{date.strftime("%Y-%m-%d")} #{hour}:00:00"
   end
   
   def convert_dates

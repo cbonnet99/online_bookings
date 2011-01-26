@@ -141,7 +141,7 @@ class PractitionerTest < ActiveSupport::TestCase
 
   def test_own_bookings_with_prep_times
     pro = Factory(:practitioner, :prep_before => false, :prep_time_mins => 30)
-    booking = Factory(:booking, :practitioner => pro, :prep_before => false, :prep_time_mins => 30, :starts_str => starts_str_builder(2.days.from_now), :ends_str => ends_str_builder(2.days.from_now))
+    booking = Factory(:booking, :practitioner => pro, :prep_before => false, :prep_time_mins => 30, :starts_str => Booking.starts_str_builder(2.days.from_now), :ends_str => Booking.ends_str_builder(2.days.from_now))
     #just in case we run these tests on a Sunday after 10PM, I'll take the end of next week...
     my_own_bookings = pro.own_bookings(Time.now.beginning_of_week, Time.now.next_week.end_of_week)
     assert my_own_bookings.include?(booking)
@@ -159,7 +159,7 @@ class PractitionerTest < ActiveSupport::TestCase
   def test_client_bookings_with_prep_times
     client = Factory(:client)
     pro = Factory(:practitioner, :prep_before => false, :prep_time_mins => 30)
-    booking = Factory(:booking, :practitioner => pro, :client => client, :prep_before => false, :prep_time_mins => 30, :starts_str => starts_str_builder(date_within_24_hours), :ends_str => ends_str_builder(date_within_24_hours))
+    booking = Factory(:booking, :practitioner => pro, :client => client, :prep_before => false, :prep_time_mins => 30, :starts_str => Booking.starts_str_builder(date_within_24_hours), :ends_str => Booking.ends_str_builder(date_within_24_hours))
     #just in case we run these tests on a Sunday after 10PM, I'll take the end of next week...
     my_bookings = pro.client_bookings(client, Time.now.beginning_of_week, Time.now.next_week.end_of_week)
     assert my_bookings.include?(booking)
@@ -307,10 +307,10 @@ class PractitionerTest < ActiveSupport::TestCase
     Time.zone = megan.timezone
     cyrille = Factory(:client, :first_name => "Cyrille", :last_name => "Bonnet")
     k = Factory(:client, :first_name => "Ms", :last_name => "K")
-    booking1 = Factory(:booking, :client => cyrille, :practitioner => megan, :starts_str  => starts_str_builder(1.day.from_now),
-    :ends_str => ends_str_builder(1.day.from_now))
-    booking2 = Factory(:booking, :client => k, :practitioner => megan, :starts_str  => starts_str_builder(2.days.from_now),
-    :ends_str => ends_str_builder(2.days.from_now))
+    booking1 = Factory(:booking, :client => cyrille, :practitioner => megan, :starts_str  => Booking.starts_str_builder(1.day.from_now),
+    :ends_str => Booking.ends_str_builder(1.day.from_now))
+    booking2 = Factory(:booking, :client => k, :practitioner => megan, :starts_str  => Booking.starts_str_builder(2.days.from_now),
+    :ends_str => Booking.ends_str_builder(2.days.from_now))
     booking_cancelled = Factory(:booking, :state => "cancelled_by_client",  :client => k, :practitioner => megan )
     megan_bookings = megan.all_bookings(cyrille, Time.zone.now.beginning_of_week.to_f, Time.zone.now.end_of_week.to_f)
     assert megan_bookings.is_a?(Enumerable)    
