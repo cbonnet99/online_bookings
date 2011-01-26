@@ -1,4 +1,6 @@
-<%= @text %><br/>
+<%if @client.first_name.blank? -%>Hello<%else -%>Dear <%= @client.first_name %><% end -%>,<br/>
+<br/>
+You can now book appointments with me online:
 <%= link_to @link, @link %><br/>
 <%= @signoff %><br/>
-<%= @pro_first_name %>
+<%= @pro.name %>

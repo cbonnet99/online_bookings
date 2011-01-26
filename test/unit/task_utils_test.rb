@@ -56,13 +56,13 @@ class TaskUtilsTest < ActiveSupport::TestCase
     ActionMailer::Base.deliveries.clear
     
     pro = Factory(:practitioner)
-    booking_remind_me = Factory(:booking, :practitioner => pro, :starts_at => 1.day.from_now.in_time_zone(pro.timezone).advance(:minutes => -30))
+    booking_remind_me = Factory(:booking, :practitioner => pro, :starts_str => starts_str_builder(date_within_24_hours))
     booking_remind_me.end_grace_period!
     assert_equal 1, booking_remind_me.reminders.size
     reminder = booking_remind_me.reminders.first
     assert_nil reminder.reminder_text
     
-    booking_dont_remind_me = Factory(:booking, :practitioner => pro, :starts_at => 1.day.from_now.in_time_zone(pro.timezone).advance(:minutes => 30))
+    booking_dont_remind_me = Factory(:booking, :practitioner => pro, :starts_str => starts_str_builder(date_after_24_hours))
     booking_dont_remind_me.end_grace_period!
     assert_equal 1, booking_dont_remind_me.reminders.size
     
@@ -81,9 +81,9 @@ class TaskUtilsTest < ActiveSupport::TestCase
   def test_send_pro_reminders
     ActionMailer::Base.deliveries.clear
     pro = Factory(:practitioner, :reminder_night_before => true)
-    remind_me = Factory(:booking, :starts_at => 1.day.from_now, :practitioner_id => pro.id)
-    dont_remind_me_too_late = Factory(:booking, :starts_at => 2.days.from_now, :practitioner_id => pro.id)
-    dont_remind_me_already_sent = Factory(:booking, :starts_at => 1.day.from_now, :pro_reminder_sent_at => Time.now, :practitioner_id => pro.id)
+    remind_me = Factory(:booking, :starts_str => starts_str_builder(1.day.from_now), :practitioner_id => pro.id)
+    dont_remind_me_too_late = Factory(:booking, :starts_str => starts_str_builder(2.days.from_now), :practitioner_id => pro.id)
+    dont_remind_me_already_sent = Factory(:booking, :starts_str => starts_str_builder(1.day.from_now), :pro_reminder_sent_at => Time.now, :practitioner_id => pro.id)
     
     TaskUtils.send_pro_reminders
     

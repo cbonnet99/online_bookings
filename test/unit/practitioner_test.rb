@@ -141,9 +141,7 @@ class PractitionerTest < ActiveSupport::TestCase
 
   def test_own_bookings_with_prep_times
     pro = Factory(:practitioner, :prep_before => false, :prep_time_mins => 30)
-    t = 2.days.from_now
-    start_time = DateTime.strptime("#{t.strftime('%d')}/#{t.strftime('%m')}/#{t.strftime('%Y')} 10:00", "%d/%m/%Y %H:%M")
-    booking = Factory(:booking, :practitioner => pro, :prep_before => false, :prep_time_mins => 30, :starts_at => start_time, :ends_at => start_time.advance(:hours => 1))
+    booking = Factory(:booking, :practitioner => pro, :prep_before => false, :prep_time_mins => 30, :starts_str => starts_str_builder(2.days.from_now), :ends_str => ends_str_builder(2.days.from_now))
     #just in case we run these tests on a Sunday after 10PM, I'll take the end of next week...
     my_own_bookings = pro.own_bookings(Time.now.beginning_of_week, Time.now.next_week.end_of_week)
     assert my_own_bookings.include?(booking)
@@ -161,7 +159,7 @@ class PractitionerTest < ActiveSupport::TestCase
   def test_client_bookings_with_prep_times
     client = Factory(:client)
     pro = Factory(:practitioner, :prep_before => false, :prep_time_mins => 30)
-    booking = Factory(:booking, :practitioner => pro, :client => client, :prep_before => false, :prep_time_mins => 30, :starts_at => 2.hours.from_now, :ends_at => 3.hours.from_now)
+    booking = Factory(:booking, :practitioner => pro, :client => client, :prep_before => false, :prep_time_mins => 30, :starts_str => starts_str_builder(date_within_24_hours), :ends_str => ends_str_builder(date_within_24_hours))
     #just in case we run these tests on a Sunday after 10PM, I'll take the end of next week...
     my_bookings = pro.client_bookings(client, Time.now.beginning_of_week, Time.now.next_week.end_of_week)
     assert my_bookings.include?(booking)
@@ -284,10 +282,13 @@ class PractitionerTest < ActiveSupport::TestCase
   
   def test_bookings_need_pro_reminder
     pro = Factory(:practitioner)
-    remind_me = Factory(:booking, :starts_at => 1.day.from_now, :practitioner_id => pro.id)
-    dont_remind_me_already_passed = Factory(:booking, :starts_at => 1.day.ago, :practitioner_id => pro.id)
-    dont_remind_me_too_far_in_the_future = Factory(:booking, :starts_at => 2.days.from_now, :practitioner_id => pro.id)
-    dont_remind_me_already_sent = Factory(:booking, :starts_at => 1.day.from_now, :pro_reminder_sent_at => Time.now, :practitioner_id => pro.id)
+    close_future_str = 1.day.from_now.strftime("%Y-%m-%d")
+    past_str = 1.day.ago.strftime("%Y-%m-%d")
+    far_future_str = 2.days.from_now.strftime("%Y-%m-%d")
+    remind_me = Factory(:booking, :starts_str => "#{close_future_str} 10:00:00", :practitioner_id => pro.id)
+    dont_remind_me_already_passed = Factory(:booking, :starts_str =>"#{past_str} 10:00:00", :practitioner_id => pro.id)
+    dont_remind_me_too_far_in_the_future = Factory(:booking, :starts_str => "#{far_future_str} 10:00:00", :practitioner_id => pro.id)
+    dont_remind_me_already_sent = Factory(:booking, :starts_str => "#{close_future_str} 10:00:00", :pro_reminder_sent_at => Time.now, :practitioner_id => pro.id)
     
     assert_equal 1, pro.bookings.need_pro_reminder.size, "Bookings are: #{pro.bookings.need_pro_reminder.inspect}"
   end
@@ -306,10 +307,10 @@ class PractitionerTest < ActiveSupport::TestCase
     Time.zone = megan.timezone
     cyrille = Factory(:client, :first_name => "Cyrille", :last_name => "Bonnet")
     k = Factory(:client, :first_name => "Ms", :last_name => "K")
-    booking1 = Factory(:booking, :client => cyrille, :practitioner => megan, :starts_at  => Time.zone.now.beginning_of_day.advance(:hours=>9),
-    :ends_at => Time.zone.now.beginning_of_day.advance(:hours=>10))
-    booking2 = Factory(:booking, :client => k, :practitioner => megan, :starts_at  => Time.zone.now.beginning_of_day.advance(:hours=>10),
-    :ends_at => Time.zone.now.beginning_of_day.advance(:hours=>11) )
+    booking1 = Factory(:booking, :client => cyrille, :practitioner => megan, :starts_str  => starts_str_builder(1.day.from_now),
+    :ends_str => ends_str_builder(1.day.from_now))
+    booking2 = Factory(:booking, :client => k, :practitioner => megan, :starts_str  => starts_str_builder(2.days.from_now),
+    :ends_str => ends_str_builder(2.days.from_now))
     booking_cancelled = Factory(:booking, :state => "cancelled_by_client",  :client => k, :practitioner => megan )
     megan_bookings = megan.all_bookings(cyrille, Time.zone.now.beginning_of_week.to_f, Time.zone.now.end_of_week.to_f)
     assert megan_bookings.is_a?(Enumerable)    

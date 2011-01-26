@@ -28,16 +28,10 @@ class UserMailer < ActionMailer::Base
   def initial_client_email(pro, client, email_text, email_signoff)
     setup_email(client.email)
     @from = pro.email
-    @subject = "Book appointments with me online"
-    if !client.first_name.blank?
-      text = "Dear #{client.first_name},<br/>"
-    else
-      text = "Hello,<br/>"
-    end
-    @body[:text] = text + email_text.gsub(/\n/, "<br/>")
+    @subject = I18n.t(:initial_client_email_subject)
     @body[:link] = practitioner_url(pro.permalink, :email => client.email )
     @body[:signoff] = email_signoff.gsub(/\n/, "<br/>")
-    @body[:pro_first_name] = pro.first_name
+    @body[:pro] = pro
     @body[:client] = client
   end
 
@@ -60,7 +54,7 @@ class UserMailer < ActionMailer::Base
     @bookings = pro.bookings.need_pro_reminder
     setup_email(pro)
     setup_sender
-    @subject << "You have #{help.pluralize(@bookings.size, 'appointment')} tomorrow"
+    @subject << I18n.t(:booking_pro_reminder_subject, :number_bookings => help.pluralize(@bookings.size, I18n.t(:booking_pro_reminder_appointment)) )
     @body[:bookings] = @bookings
     @body[:pro] = pro
   end
@@ -68,7 +62,7 @@ class UserMailer < ActionMailer::Base
   def reset_phone(client)
     setup_email(client.email)
     setup_sender
-    @subject << "You have requested to reset your phone number"
+    @subject << I18n.t(:reset_phone_subject)
     @body[:reset_link] = reset_phone_url(:reset_code => client.reset_code, :email  => client.email)
     @body[:client] = client
   end

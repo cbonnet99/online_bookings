@@ -52,16 +52,16 @@ class Booking < ActiveRecord::Base
   
   attr_accessible :starts_at, :ends_at, :name, :client_phone_prefix, :client_phone_suffix, :client_email,
                   :comment, :booking_type, :booking_type_id, :client_id, :client, :practitioner,
-                  :practitioner_id, :state
+                  :practitioner_id, :state, :starts_str, :ends_str
                   
-  attr_accessor :current_client, :current_pro, :client_phone_prefix, :client_phone_suffix, :client_email
+  attr_accessor :current_client, :current_pro, :client_phone_prefix, :client_phone_suffix, :client_email,
+                :starts_str, :ends_str
   
   after_create :save_client_attributes
   after_destroy :remove_reminders
   after_update :save_client_attributes
-  before_update :set_times
-  before_validation :create_new_client
-  before_create :generate_confirmation_code, :set_name, :set_times
+  before_validation :create_new_client, :convert_dates, :set_times
+  before_create :generate_confirmation_code, :set_name
 
   named_scope :need_pro_reminder, lambda { {:conditions => ["pro_reminder_sent_at IS NULL AND starts_at BETWEEN ? AND ?", 1.day.from_now.beginning_of_day.utc, 1.day.from_now.end_of_day.utc]} }
   named_scope :ending_grace_period,  lambda { {:conditions => ["state = ? and created_at < ?", "in_grace_period", 1.hour.ago.utc] }}
@@ -97,6 +97,17 @@ class Booking < ActiveRecord::Base
   
   aasm_event :pro_cancel do
     transitions :from => [:in_grace_period, :unconfirmed, :confirmed], :to => :cancelled_by_pro
+  end
+  
+  def convert_dates
+    unless self.starts_str.blank?
+      Time.zone = self.practitioner.timezone
+      self.starts_at = Time.zone.parse(self.starts_str)
+    end  
+    unless self.ends_str.blank?
+      Time.zone = self.practitioner.timezone
+      self.ends_at = Time.zone.parse(ends_str)
+    end  
   end
   
   def create_new_client
@@ -285,8 +296,12 @@ class Booking < ActiveRecord::Base
   
   def start_date_and_time_str
     I18n.t(:date_and_time, :scope=>[:time], :date => "#{self.start_date_str}" , :time => "#{self.start_time_str}")
-    
   end
+  
+  def end_date_and_time_str
+    I18n.t(:date_and_time, :scope=>[:time], :date => "#{self.end_date_str}" , :time => "#{self.end_time_str}")    
+  end
+  
   def start_date
     self.starts_at
   end
@@ -295,10 +310,18 @@ class Booking < ActiveRecord::Base
     I18n.l(self.starts_at, :format => :long_ordinal)
   end
   
-  def start_time_str
-    "#{self.starts_at.simple_time}"
-    
+  def end_date_str
+    I18n.l(self.ends_at, :format => :long_ordinal)
   end
+  
+  def start_time_str
+    "#{self.starts_at.simple_time}"    
+  end
+  
+  def end_time_str
+    "#{self.ends_at.simple_time}"    
+  end
+  
   def start_time
     self.starts_at
     
@@ -337,7 +360,7 @@ class Booking < ActiveRecord::Base
 
   def validate
     if ends_at <= starts_at
-      errors.add(:starts_at, "^#{I18n.t(:start_must_be_before_end)}")
+      errors.add(:starts_at, "^#{I18n.t(:start_must_be_before_end, :starts_at => self.start_date_and_time_str, :ends_at => end_date_and_time_str)}")
     end
 
     biz_start_with_buffer = self.practitioner.biz_start_time-BUFFER_BIZ_HOURS
@@ -348,7 +371,7 @@ class Booking < ActiveRecord::Base
 
     biz_end_with_buffer = self.practitioner.biz_end_time+BUFFER_BIZ_HOURS
     biz_end_with_buffer = 24 if biz_end_with_buffer > 24
-    if ends_at > ends_at.beginning_of_day.advance(:hours => biz_end_with_buffer)
+    if starts_at > starts_at.beginning_of_day.advance(:hours => biz_end_with_buffer)
       errors.add(:starts_at, "^#{I18n.t(:start_is_too_late, :actual_time => starts_at.simple_time)}")
     end
 
@@ -469,7 +492,7 @@ class Booking < ActiveRecord::Base
   end
 
   def needs_warning?
-     (in_grace_period? || unconfirmed?) && starts_at > Time.now.in_time_zone(practitioner.timezone) && starts_at < Time.now.in_time_zone(practitioner.timezone).advance(:hours => practitioner.no_cancellation_period_in_hours)
+     (in_grace_period? || unconfirmed?) && self.starts_at > Time.now.in_time_zone(practitioner.timezone) && self.starts_at < Time.now.in_time_zone(practitioner.timezone).advance(:hours => practitioner.no_cancellation_period_in_hours)
   end
   
   def duration_mins
@@ -481,6 +504,10 @@ class Booking < ActiveRecord::Base
   def set_times
     if !self.booking_type.nil? && self.duration_mins != self.booking_type.duration_mins
       self.ends_at = self.starts_at.advance(:minutes => self.booking_type.duration_mins )
+    end
+    if self.ends_at.nil?
+      duration = self.booking_type.nil? ? BookingType::DEFAULT_DURATION_MINS : self.booking_type.duration_mins
+      self.ends_at = self.starts_at.advance(:minutes => duration)
     end
     if !self.practitioner.nil? && !self.practitioner.prep_time_mins.nil? && self.practitioner.prep_time_mins > 0
       self.prep_before = self.practitioner.prep_before

@@ -186,7 +186,7 @@
   flash_error_authentication_not_authent_client : "Not authenticated as a client"
   flash_error_authentication_must_be_logged : "You must be logged in to see this page"
   #booking
-  start_must_be_before_end: Your appointment must end after it started
+  start_must_be_before_end: "Your appointment must end after it started (it starts {{starts_at}}, but ends {{ends_at}})"
   start_is_too_early: Your appointment must be within business hours ({{actual_time}} is too early)
   start_is_too_late: Your appointment must be within business hours ({{actual_time}} is too late)
   cancellation_text: "Dear {{client_name}},<br/><br/>Your appointment with {{pro_name}} {{start_date_and_time_str}} has been cancelled.<br/><br/>If you have any questions, please contact me at: {{pro_phone}}.<br/><br/>{{signature}},<br/>{{pro_name}}"  
@@ -416,9 +416,13 @@
   about_your_work: "About your work"
   #practitioner model  
   prep_time: "Prep time"
-  #UserMailer
+  #user_mailer
   you_have_booking: "Reminder: you have an appointment tomorrow with [pro_name]"
   your_booking_was_cancelled: "Cancellation: your appointment with [pro_name] was cancelled"
+  initial_client_email_subject: "Book appointments with me online"
+  booking_pro_reminder_subject: "You have {{number_bookings}} tomorrow"
+  booking_pro_reminder_appointment: appointment
+  reset_phone_subject: "You have requested to reset your phone number"
   #UserEmail
-  client_booking: "{{client_name}} has booked on {{booking_date}}"
-  pro_booking: "{{pro_name}} has booked an appointment for you on {{booking_date}}"
+  client_booking: "{{client_name}} has booked {{booking_date}}"
+  pro_booking: "{{pro_name}} has booked an appointment for you {{booking_date}}"

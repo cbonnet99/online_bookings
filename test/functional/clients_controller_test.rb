@@ -125,7 +125,7 @@ class ClientsControllerTest < ActionController::TestCase
     last_email = ActionMailer::Base.deliveries.last
     assert_equal ["cbgt@test.com"], last_email.to
     assert_equal [sav.email], last_email.from
-    assert_match %r{Hello,<br/><br/>}, last_email.body
+    assert_match %r{Hello,<br/>\n<br/>}, last_email.body
   end
 
   def test_create_multiple_error

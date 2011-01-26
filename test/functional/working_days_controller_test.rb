@@ -58,10 +58,9 @@ class WorkingDaysControllerTest < ActionController::TestCase
     Time.zone = pro.timezone
     non_working_days = pro.non_working_days_in_timeframe(Time.zone.now, 1.week.from_now)
     working_day = Factory(:extra_working_day, :day_date => non_working_days.first, :practitioner => pro)
-    start_time = working_day.day_date.to_time.in_time_zone.beginning_of_day.advance(:hours=>9)
     booking = Factory(:booking, :practitioner => pro,
-                      :starts_at => start_time,
-                      :ends_at => start_time.advance(:hours=>1)
+                      :starts_str => starts_str_builder(working_day.day_date),
+                      :ends_str => ends_str_builder(working_day.day_date)
     )
     old_count = pro.extra_working_days.size
     post :destroy, {:day_date => working_day.day_date }, {:pro_id => pro.id}
