@@ -283,7 +283,8 @@ fr:
     session_new_login: "Se connecter"
     session_new_password: "Mot de passe"
     #payments/new
-    make_payment: "Nouveau paiement"
+    make_payment: "Vous abonner à Colibri"
+    beta_testing: "Colibri est en phase finale de tests et nous n'acceptons de nouveaux membres que sur invitation. Si vous êtes intéressé, écrivez-nous: {{email}}."
     payment_select_plan: Sélectionner un abonnement
     payment_plan: Abonnement
     payment_plans: Abonnements
