@@ -25,6 +25,16 @@ $(document).ready(function() {
    var eventTitleNormalColor = "#68A1E5";
    var eventTitleHoverColor = "#2B72D0";
 	
+	var toStringDBFormat = function(mydate) {
+		minutes = mydate.getMinutes().toString();
+		if (minutes.length === 1){
+			minutes = "0" + minutes;
+		};
+		date_str = mydate.getFullYear() + '-' + (mydate.getMonth()+1) + '-' + mydate.getDate() + " " + mydate.getHours() + ":" + minutes + ":00";
+		console.log("-- date_str: "+date_str);
+		return date_str	
+	};
+	
 	var formatDateAndTime = function(mydate) {
         var date_str = $calendar.weekCalendar("formatDate", mydate);
         var time_str = $calendar.weekCalendar("formatTime", mydate);
@@ -309,7 +319,7 @@ $(document).ready(function() {
                       if ($("#event_edit_form").valid()) {
 	                      var newCalEvent = new Object();
                           getNewEventValues(newCalEvent, startField.val(), endField.val(), clientFieldName.val(), clientField.val(), phonePrefix.val(), phoneSuffix.val(), clientEmail.val(), bookingTypeField.val());
-						  $.post("<%=practitioner_bookings_url(pro)%>", {"format": "json", "booking[name]": newCalEvent.client_name, "booking[client_id]": newCalEvent.client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": newCalEvent.booking_type_id<%end -%>, "booking[client_phone_prefix]": newCalEvent.phone_prefix, "booking[client_phone_suffix]": newCalEvent.phone_suffix, "booking[client_email]": newCalEvent.client_email, "booking[starts_at]": newCalEvent.start.toString(), "booking[ends_at]": newCalEvent.end.toString()}, function(data){
+						  $.post("<%=practitioner_bookings_url(pro)%>", {"format": "json", "booking[name]": newCalEvent.client_name, "booking[client_id]": newCalEvent.client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": newCalEvent.booking_type_id<%end -%>, "booking[client_phone_prefix]": newCalEvent.phone_prefix, "booking[client_phone_suffix]": newCalEvent.phone_suffix, "booking[client_email]": newCalEvent.client_email, "booking[starts_str]": toStringDBFormat(newCalEvent.start), "booking[ends_str]": toStringDBFormat(newCalEvent.end)}, function(data){
                             if (data === null){
                               alert(I18n.t("sorry_server"));
                             }
@@ -462,7 +472,7 @@ $(document).ready(function() {
                   if ($("#event_edit_form").valid()) {
                       var newCalEvent = new Object();
                       getNewEventValues(newCalEvent, startField.val(), endField.val(), clientFieldName.val(), clientField.val(), phonePrefix.val(), phoneSuffix.val(), clientEmail.val(), bookingTypeField.val());
-					  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json", "booking[client_id]": newCalEvent.client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": newCalEvent.booking_type_id<%end-%>, "booking[name]": newCalEvent.client_name, "booking[client_phone_prefix]": newCalEvent.phone_prefix, "booking[client_phone_suffix]": newCalEvent.phone_suffix, "booking[client_email]": newCalEvent.client_email, "booking[starts_at]": newCalEvent.start.toString(), "booking[ends_at]": newCalEvent.end.toString()}, function(data){
+					  $.post("/practitioners/<%=pro.permalink%>/bookings/"+calEvent.id+".json", {"_method": "PUT", "format": "json", "booking[client_id]": newCalEvent.client_id<%if pro.has_multiple_booking_types? -%>, "booking[booking_type_id]": newCalEvent.booking_type_id<%end-%>, "booking[name]": newCalEvent.client_name, "booking[client_phone_prefix]": newCalEvent.phone_prefix, "booking[client_phone_suffix]": newCalEvent.phone_suffix, "booking[client_email]": newCalEvent.client_email, "booking[starts_str]": toStringDBFormat(newCalEvent.start), "booking[ends_str]": toStringDBFormat(newCalEvent.end)}, function(data){
 						if ((data.flash.error === undefined) || (data.flash.error === '')) {
                           updateEvent(calEvent, data);
 			             }

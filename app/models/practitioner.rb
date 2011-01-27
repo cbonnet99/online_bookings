@@ -250,12 +250,12 @@ class Practitioner < ActiveRecord::Base
         end
         start_hour = biz_hours.choice
         Time.zone = self.timezone
-        starts_at = DateTime.strptime("#{date.strftime('%d/%m/%Y')} #{start_hour}:00 #{timezone_acronym}", "%d/%m/%Y %H:%M %Z")
         client = clients.choice
-        # puts "+++++ Creating past booking at #{starts_at} for client #{client.name}, email: #{client.email}, phone: (#{client.phone_prefix}) #{client.phone_suffix}"
+        # puts "+++++ Creating past booking at #{starts_str} for client #{client.name}, email: #{client.email}, phone: (#{client.phone_prefix}) #{client.phone_suffix}"
         random_state = Booking::NON_GRACE_STATES.choice
         booking = Booking.new(:client => client, :practitioner => self, :name => client.name, :client_phone_prefix => client.phone_prefix, 
-            :client_phone_suffix => client.phone_suffix, :client_email => client.email, :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => random_state)
+            :client_phone_suffix => client.phone_suffix, :client_email => client.email, :starts_str => "#{date.strftime('%Y-%m-%d')} #{start_hour}:00:00",
+            :ends_str  => "#{date.strftime('%Y-%m-%d')} #{start_hour+1}:00:00", :state => random_state)
         booking.save!
         # puts "++++ Saved PAST booking #{booking}"
         booking.create_reminder
@@ -284,18 +284,17 @@ class Practitioner < ActiveRecord::Base
           date = Time.now.advance(:days => days_from_now).to_date        
         end
         start_hour = biz_hours.choice
-        starts_at = DateTime.strptime("#{date.strftime('%d/%m/%Y')} #{start_hour}:00 #{timezone_acronym}", "%d/%m/%Y %H:%M %Z")
         client = clients.choice
         random_state = Booking::NON_GRACE_STATES.choice
         booking = Booking.new(:client => client, :practitioner => self, :name => client.name, 
-            :starts_at => starts_at, :ends_at  => starts_at.advance(:hours => 1), :state => random_state)
+            :starts_str => "#{date.strftime('%Y-%m-%d')} #{start_hour}:00:00", :ends_str  => "#{date.strftime('%Y-%m-%d')} #{start_hour+1}:00:00", :state => random_state)
         booking.save!
         # puts "++++ Saved FUTURE booking #{booking}"
         booking.create_reminder
         if rand(100) < 30
           booking.confirm! if booking.unconfirmed?
         end
-        # puts "+++++ Creating future booking at #{starts_at} for client #{client.name}"
+        # puts "+++++ Creating future booking at #{starts_str} for client #{client.name}"
       end
     else
       raise CantCreateSampleDataOnNonTestProException

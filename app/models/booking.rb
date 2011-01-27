@@ -50,7 +50,7 @@ class Booking < ActiveRecord::Base
 
   validates_presence_of :practitioner, :starts_at, :ends_at, :client
   
-  attr_accessible :starts_at, :ends_at, :name, :client_phone_prefix, :client_phone_suffix, :client_email,
+  attr_accessible :name, :client_phone_prefix, :client_phone_suffix, :client_email,
                   :comment, :booking_type, :booking_type_id, :client_id, :client, :practitioner,
                   :practitioner_id, :state, :starts_str, :ends_str
                   
