@@ -343,6 +343,7 @@ class Booking < ActiveRecord::Base
     default_url_options[:host] = APP_CONFIG[:site_domain]
     default_url_options[:protocol] = APP_CONFIG[:site_protocol]
     default_url_options[:port] = APP_CONFIG[:site_port]
+    default_url_options[:port] = nil if default_url_options[:port].blank?
     practitioner_booking_url(self.practitioner.id, self.id)
   end
   
@@ -362,10 +363,16 @@ class Booking < ActiveRecord::Base
     params = {"CN" => "\"#{self.practitioner.name}\""}
     booking.organizer "mailto:#{self.practitioner.email}", params
 
-    params = {"CN" => "\"#{self.client.name}\"", "CUTYPE" => "INDIVIDUAL", "PARTSTAT" => "ACCEPTED"}
+    params = {"CN" => "\"#{self.client.name}\"", "CUTYPE" => "INDIVIDUAL"}
+    if self.confirmed?
+      params["PARTSTAT"] = "ACCEPTED"
+    else
+      params["PARTSTAT"] = "NEEDS-ACTION"
+      params["RSVP"] = "TRUE"      
+    end
     booking.add_attendee "mailto:#{self.client.email}", params
 
-    params = {"CN" => "\"#{self.practitioner.name}\"", "CUTYPE" => "INDIVIDUAL", "PARTSTAT" => "NEEDS-ACTION", "RSVP" => "TRUE"}
+    params = {"CN" => "\"#{self.practitioner.name}\"", "CUTYPE" => "INDIVIDUAL", "PARTSTAT" => "ACCEPTED"}
     booking.add_attendee "mailto:#{self.practitioner.email}", params
     booking
   end

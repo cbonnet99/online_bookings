@@ -1,5 +1,5 @@
 class WorkingDaysController < ApplicationController
-  before_filter :login_required
+  before_filter :pro_login_required
   layout false
   
   def create

@@ -162,20 +162,9 @@ class PractitionersControllerTest < ActionController::TestCase
     assert_equal 1, assigns(:practitioner).errors.size
   end
 
-  def test_show
-    get :show, {:id => practitioners(:sav).permalink}, {:client_id => clients(:cyrille_sav).id }
-    assert_template 'show'
-  end
-    
   def test_show_not_logged_in
     get :show, {:id => practitioners(:sav).permalink}
-    assert_redirected_to lookup_form_url 
-  end
-    
-  def test_show_not_logged_in_with_email
-    client = Factory(:client)
-    get :show, {:id => practitioners(:sav).permalink, :email => client.email}
-    assert_redirected_to login_phone_url(:login => client.email)
+    assert_redirected_to login_url 
   end
     
   def test_show_pro

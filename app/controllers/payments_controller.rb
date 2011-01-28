@@ -1,5 +1,5 @@
 class PaymentsController < ApplicationController
-  before_filter :login_required, :except => [:index] 
+  before_filter :pro_login_required, :except => [:index] 
 
   def index
     @country = Country.find_by_country_code(cookies[:country_code].try(:upcase)) || default_country

@@ -1,6 +1,6 @@
 class PractitionersController < ApplicationController
   
-  before_filter :login_required, :except => [:new, :create]
+  before_filter :pro_login_required, :except => [:new, :create]
 
   def update
     @practitioner = @current_pro
@@ -72,10 +72,8 @@ class PractitionersController < ApplicationController
   end
   
   def show
-    if pro_logged_in?
-      @selected_tab = "calendar"
-      @clients = current_pro.clients
-    end
+    @selected_tab = "calendar"
+    @clients = current_pro.clients
   end
 
 private

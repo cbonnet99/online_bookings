@@ -1,9 +1,9 @@
 class BookingsController < ApplicationController
   
-  before_filter :login_required, :except => [:flash, :index_cal, :client_confirm, :client_cancel]
-
+  before_filter :pro_login_required, :except => [:flash, :index_cal, :client_confirm, :client_cancel]
+  before_filter :get_booking, :only => [:edit, :show, :cancel_text, :pro_cancel, :pro_confirm] 
+  
   def cancel_text
-    @booking = current_pro.bookings.find(params[:id])
     if @booking.nil?
       render :text  => ""
     else
@@ -23,7 +23,6 @@ class BookingsController < ApplicationController
   end
 
   def pro_cancel
-    @booking = current_pro.bookings.find(params[:id])
     if @booking.nil?
       logger.error("Error in pro_cancel: booking ID: #{params[:id]} doesn't exist for pro ID: #{current_pro.id}")
       flash[:error] = I18n.t(:flash_error_booking_cannot_be_cancelled)
@@ -56,7 +55,6 @@ class BookingsController < ApplicationController
   end
   
   def pro_confirm
-    @booking = current_pro.bookings.find(params[:id])
     if @booking.nil?
       logger.error("Invalid attempt to confirm an with ID: #{params[:id]} for pro: #{current_pro.id}")
       flash.now[:error] = I18n.t(:flash_error_booking_invalid_appointment)
@@ -106,7 +104,7 @@ class BookingsController < ApplicationController
   end
   
   def create
-    @booking = Booking.new(JsonUtils.scrub_undefined(JsonUtils.remove_timezone(params[:booking])))
+    @booking = Booking.new(JsonUtils.scrub_undefined(params[:booking]))
     if client_logged_in?
       client = current_client  
       pro = @current_selected_pro
@@ -125,10 +123,6 @@ class BookingsController < ApplicationController
       flash.now[:error] = I18n.t(:booking_not_saved, :error => @booking.errors.full_messages.to_sentence)
     end
     render :action => "flash", :format => "json"
-  end
-  
-  def edit
-    @booking = Booking.find(params[:id])
   end
   
   def update
@@ -163,5 +157,10 @@ class BookingsController < ApplicationController
       flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_removed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
     end
     render :action => "flash", :format => "json"
+  end
+  
+private
+  def get_booking
+    @booking = current_pro.bookings.find(params[:id])
   end
 end

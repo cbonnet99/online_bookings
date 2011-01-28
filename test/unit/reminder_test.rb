@@ -5,12 +5,11 @@ class ReminderTest < ActiveSupport::TestCase
     pro = Factory(:practitioner)
     Time.zone = pro.timezone
     
-    date = date_within_24_hours
-    booking_needs_sending = Factory(:booking, :starts_str => Booking.starts_str_builder(date))
+    booking_needs_sending = Factory(:booking, :starts_str => Booking.starts_str_builder(date_within_24_hours))
     booking_needs_sending.end_grace_period!
     assert_equal 1, booking_needs_sending.reminders.size
 
-    booking_does_not_need_sending = Factory(:booking, :starts_at => 1.day.from_now.advance(:minutes => 30))
+    booking_does_not_need_sending = Factory(:booking, :starts_str => Booking.starts_str_builder(date_after_24_hours))
     booking_does_not_need_sending.end_grace_period!
     assert_equal 1, booking_does_not_need_sending.reminders.size
 

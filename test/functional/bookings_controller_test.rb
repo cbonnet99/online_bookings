@@ -2,6 +2,22 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class BookingsControllerTest < ActionController::TestCase
 
+  def test_show
+    pro = Factory(:practitioner)
+    booking = Factory(:booking, :practitioner => pro)
+    
+    get :show, {:id => booking.id}, {:pro_id => pro.id}
+    assert_response :success
+  end
+
+  def test_show_unautorized
+    pro = Factory(:practitioner)
+    booking = Factory(:booking, :practitioner => pro)
+    
+    get :show, {:id => booking.id}
+    assert_redirected_to login_url
+  end
+
   def test_cancel_text
     booking = Factory(:booking, :state => "unconfirmed")
     pro = booking.practitioner
@@ -65,6 +81,7 @@ class BookingsControllerTest < ActionController::TestCase
     pro = booking.practitioner
     post :pro_cancel, {:format => "json", :id => booking.id, :send_email => false}, {:pro_id => pro.id}
     assert_response :success
+    assert_nil flash[:error]
     booking.reload
     assert booking.cancelled_by_pro?
     assert_equal old_mail_size, ActionMailer::Base.deliveries.size, "No email should have been sent, as this booking is still in its grace period"
@@ -76,6 +93,7 @@ class BookingsControllerTest < ActionController::TestCase
     pro = booking.practitioner
     post :pro_cancel, {:format => "json", :id => booking.id, :send_email => true}, {:pro_id => pro.id}
     assert_response :success
+    assert_nil flash[:error]
     booking.reload
     assert booking.cancelled_by_pro?
     assert_equal old_mail_size+1, ActionMailer::Base.deliveries.size, "An email to the client should have been sent"
@@ -88,6 +106,7 @@ class BookingsControllerTest < ActionController::TestCase
     pro = booking.practitioner
     post :pro_cancel, {:format => "json", :id => booking.id, :send_email => true, :cancellation_text => custom_text}, {:pro_id => pro.id}
     assert_response :success
+    assert_nil flash[:error]
     booking.reload
     assert booking.cancelled_by_pro?
     assert_equal old_mail_size+1, ActionMailer::Base.deliveries.size, "An email to the client should have been sent"
@@ -118,12 +137,6 @@ class BookingsControllerTest < ActionController::TestCase
     assert_equal old_size, Booking.all.size
   end
 
-  def test_create_empty
-    post :create, :format => "json" 
-    assert_redirected_to flash_url
-    assert_not_nil flash[:error]
-  end
-
   def test_create_no_client
     pro = Factory(:practitioner)
     post :create, {:format => "json", :booking => {:starts_str => Booking.starts_str_builder(1.day.from_now), :ends_str => Booking.ends_str_builder(1.day.from_now)} }, {:pro_id => pro.id }
@@ -131,33 +144,7 @@ class BookingsControllerTest < ActionController::TestCase
     assert_not_nil flash[:error], "Flash was: #{flash.inspect}"
     assert_equal 1, assigns(:booking).errors.size, "Errors were: #{assigns(:booking).errors.full_messages.to_sentence}"
   end
-
-  def test_update_no_client
-    cyrille_sav = bookings(:cyrille_sav)
-    sav = practitioners(:sav)
-    post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
-                  :booking => {:name => "John Denver"} }
-    assert_redirected_to flash_url
-    assert_not_nil flash[:error]
-  end
   
-  def test_update_as_client    
-    sav = practitioners(:sav)
-    cyrille = clients(:cyrille_sav)
-    cyrille_sav = Factory(:booking, :client => cyrille, :practitioner => sav, :created_at => 10.minutes.ago, :state => "in_grace_period")
-    kartini = clients(:kartini_sav)
-    post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
-                  :booking => {:name => "John Denver", :client_id  => kartini.id} }, {:client_id => cyrille.id }
-    assert_response :success
-    assert_nil flash[:error], "Flash error was: #{flash[:error]}"
-    assert_not_nil flash[:notice]
-    cyrille_sav.reload
-    assert_equal cyrille.id, cyrille_sav.client_id, "Even though the client tried to cheat and send Kartini's as client_id, it should stay with the currently logged in client (Cyrille)"
-    assert_equal "John Denver", cyrille_sav.name
-    cyrille.reload
-    assert_equal "John Denver", cyrille.name
-  end
-
   def test_update_client_as_pro
     sav = practitioners(:sav)
     cyrille = clients(:cyrille_sav)
@@ -222,170 +209,29 @@ class BookingsControllerTest < ActionController::TestCase
     assert_equal old_client.id, booking.client_id
   end
 
-
-  #Cyrille (7 Sep 2010: no own time option for the moment)
-  # def test_update_as_pro_own_time
-  #   cyrille_sav = bookings(:cyrille_sav)
-  #   sav = practitioners(:sav)
-  #   cyrille = clients(:cyrille_sav)
-  #   kartini = clients(:kartini_sav)
-  #   post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
-  #                 :booking => {:client_id => "" } }, {:pro_id => sav.id }
-  #   assert_response :success
-  #   assert_nil flash[:error]
-  #   assert_not_nil flash[:notice]
-  #   cyrille_sav.reload
-  #   assert_equal sav.own_time_label, cyrille_sav.name
-  #   assert_nil cyrille_sav.client_id
-  # end
-
-  # def test_update_as_pro_own_time_null
-  #   cyrille_sav = bookings(:cyrille_sav)
-  #   sav = practitioners(:sav)
-  #   cyrille = clients(:cyrille_sav)
-  #   kartini = clients(:kartini_sav)
-  #   post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
-  #                 :booking => {:client_id => "null" } }, {:pro_id => sav.id }
-  #   assert_response :success
-  #   assert_nil flash[:error]
-  #   assert_not_nil flash[:notice]
-  #   cyrille_sav.reload
-  #   assert_equal sav.own_time_label, cyrille_sav.name
-  #   assert_nil cyrille_sav.client_id
-  # end
-  # 
-  # def test_update_as_pro_own_time_comment
-  #   cyrille_sav = bookings(:cyrille_sav)
-  #   sav = practitioners(:sav)
-  #   cyrille = clients(:cyrille_sav)
-  #   kartini = clients(:kartini_sav)
-  #   post :update, {:practitioner_id => sav.permalink, :format => "json", :id => cyrille_sav.id, 
-  #                 :booking => {:client_id => "", :comment => "Hello" } }, {:pro_id => sav.id }
-  #   assert_response :success
-  #   assert_nil flash[:error]
-  #   assert_not_nil flash[:notice]
-  #   cyrille_sav.reload
-  #   assert_equal "Hello", cyrille_sav.name
-  #   assert_nil cyrille_sav.client_id
-  # end
-
-  def test_create
-    mail_size = UserEmail.all.size
-    sav = practitioners(:sav)
-    cyrille = clients(:cyrille_sav)
-    old_size = Booking.all.size
-    post :create, {:practitioner_id => sav.permalink, :format => "json",
-      :booking => {:name => "Joe Sullivan", :comment => "I'll be on time", :booking_type => booking_types(:sav_one_hour), 
-      :starts_str => Booking.starts_str_builder(1.day.from_now),
-      :ends_str => Booking.ends_str_builder(1.day.from_now)}},
-      {:client_id => cyrille.id }
-    # puts @response.body 
-    assert_not_nil assigns["booking"]
-    assert assigns["booking"].errors.blank?, "There should be no errors, but got: #{assigns['booking'].errors.full_messages.to_sentence}"
-    assert_nil flash[:error]
-    assert_not_nil flash[:notice]
-    assert_match %r{#{assigns(:booking).practitioner.name}}, flash[:notice]
-    assert_equal old_size+1, Booking.all.size    
-    new_booking = assigns(:booking)
-    assert_equal "Joe Sullivan", new_booking.name
-    assert_not_nil new_booking.starts_at
-    assert_not_nil new_booking.ends_at
-    assert_not_nil new_booking.booking_type
-    assert_equal sav.id, new_booking.practitioner_id
-    cyrille.reload
-    assert_equal "Joe", cyrille.first_name
-    assert_equal "Sullivan", cyrille.last_name
-  end
-
-  def test_create_different_timezone
-    mail_size = UserEmail.all.size
-    sav = practitioners(:sav)
-    cyrille = clients(:cyrille_sav)
-    old_size = Booking.all.size
-    
-    post :create, {:practitioner_id => sav.permalink, :format => "json",
-      :booking => {:name => "Joe Sullivan", :comment => "I'll be on time", :booking_type => booking_types(:sav_one_hour), 
-      :starts_str => Booking.starts_str_builder(1.day.from_now),
-      :ends_str => Booking.ends_str_builder(1.day.from_now)}},
-      {:client_id => cyrille.id }
-    # puts @response.body 
-    assert_not_nil assigns["booking"]
-    assert assigns["booking"].errors.blank?, "There should be no errors, but got: #{assigns['booking'].errors.full_messages.to_sentence}"
-    assert_nil flash[:error]
-    assert_not_nil flash[:notice]
-    assert_match %r{#{assigns(:booking).practitioner.name}}, flash[:notice]
-    assert_equal old_size+1, Booking.all.size    
-    new_booking = assigns(:booking)
-    assert_equal "Joe Sullivan", new_booking.name
-    assert_not_nil new_booking.starts_at
-    assert_not_nil new_booking.ends_at
-    Time.zone = sav.timezone
-
-    assert_not_nil new_booking.booking_type
-    assert_equal sav.id, new_booking.practitioner_id
-    cyrille.reload
-    assert_equal "Joe", cyrille.first_name
-    assert_equal "Sullivan", cyrille.last_name
-  end
-
   def test_create_with_prep_time
     mail_size = UserEmail.all.size
     sav = Factory(:practitioner, :prep_before => false, :prep_time_mins => 30)  
-    cyrille = clients(:cyrille_sav)
+    cyrille = Factory(:client, :practitioner => sav)
     old_size = Booking.all.size
     post :create, {:practitioner_id => sav.permalink, :format => "json",
-      :booking => {:name => "Joe Sullivan", :comment => "I'll be on time", 
+      :booking => {:client_id => cyrille.id, :comment => "I'll be on time", 
       :starts_str => Booking.starts_str_builder(1.day.from_now),
       :ends_str => Booking.ends_str_builder(1.day.from_now)}},
-      {:client_id => cyrille.id }
+      {:pro_id => sav.id }
     # puts @response.body 
     assert_not_nil assigns["booking"]
     assert assigns["booking"].errors.blank?, "There should be no errors, but got: #{assigns['booking'].errors.full_messages.to_sentence}"
     assert_nil flash[:error]
     assert_not_nil flash[:notice]
-    assert_match %r{#{assigns(:booking).practitioner.name}}, flash[:notice]
+    assert_match %r{#{assigns(:booking).client.name}}, flash[:notice]
     assert_equal old_size+1, Booking.all.size    
     new_booking = assigns(:booking)
-    assert_equal "Joe Sullivan", new_booking.name
     assert_not_nil new_booking.starts_at
     assert_not_nil new_booking.ends_at
     assert !new_booking.prep_before
     assert_equal 30, new_booking.prep_time_mins
     assert_equal sav.id, new_booking.practitioner_id
-    cyrille.reload
-    assert_equal "Joe", cyrille.first_name
-    assert_equal "Sullivan", cyrille.last_name
-  end
-
-  def test_create_no_invite
-    mail_size = UserEmail.all.size
-    sav = practitioners(:sav)
-    sav.update_attribute(:invite_on_client_book, false)
-    sav.reload
-    cyrille = clients(:cyrille_sav)
-    old_size = Booking.all.size
-    post :create, {:practitioner_id => sav.permalink, :format => "json",
-      :booking => {:name => "Joe Sullivan", :comment => "I'll be on time", :booking_type => booking_types(:sav_one_hour), 
-      :starts_str => Booking.starts_str_builder(1.day.from_now),
-      :ends_str => Booking.ends_str_builder(1.day.from_now)}},
-      {:client_id => cyrille.id }
-    # puts @response.body 
-    assert_not_nil assigns["booking"]
-    assert assigns["booking"].errors.blank?, "There should be no errors, but got: #{assigns['booking'].errors.full_messages.to_sentence}"
-    assert_nil flash[:error]
-    assert_not_nil flash[:notice]
-    assert_match %r{#{assigns(:booking).practitioner.name}}, flash[:notice]
-    assert_equal old_size+1, Booking.all.size
-    new_booking = assigns(:booking)
-    assert_equal "Joe Sullivan", new_booking.name
-    assert_not_nil new_booking.starts_at
-    assert_not_nil new_booking.ends_at
-    assert_not_nil new_booking.booking_type
-    assert_equal sav.id, new_booking.practitioner_id
-    cyrille.reload
-    assert_equal "Joe", cyrille.first_name
-    assert_equal "Sullivan", cyrille.last_name
-    assert_equal mail_size, UserEmail.all.size
   end
 
   def test_create_pro_no_client_id
@@ -537,7 +383,8 @@ class BookingsControllerTest < ActionController::TestCase
   def test_index_json
     pro = practitioners(:sav)
     Time.zone = pro.timezone
-    get :index, {:practitioner_id => pro.permalink, :format => "json", :start => Time.zone.now.beginning_of_week, :end => Time.zone.now.end_of_week}, {:client_id => clients(:cyrille_sav).id }
+    get :index, {:practitioner_id => pro.permalink, :format => "json", :start => Time.zone.now.beginning_of_week,
+       :end => Time.zone.now.end_of_week}, {:pro_id => pro.id }
     # puts @response.body
     assert_valid_json(@response.body)
     assert_equal 5, assigns(:bookings).size, "Sav should have 0 booking and 5 non-working days, but bookings are: #{assigns(:bookings).to_sentence}"
@@ -552,26 +399,6 @@ class BookingsControllerTest < ActionController::TestCase
     assert_valid_json(@response.body)
     assert_equal 5, assigns(:bookings).size, "Sav should have 0 booking and 5 non-working days, but bookings are: #{assigns(:bookings).to_json}"
   end
-
-  def test_index_megan_next_week
-    pro = practitioners(:megan)
-    Time.zone = pro.timezone
-    get :index, {:practitioner_id => pro.permalink, :format => "json", :start => Time.zone.now.end_of_week, :end => Time.zone.now.end_of_week.advance(:days => 7 )}, {:client_id => clients(:cyrille_megan).id }
-    # puts @response.body
-    assert_valid_json(@response.body)
-    assert_equal 7, assigns(:bookings).size, "Megan should have 2 bookings and 5 non-working days, but bookings are: #{assigns(:bookings).to_json}"
-    assert_match %r{Cyrille Bonnet}, @response.body, "Since Cyrille is logged in, his name should be revealed"
-    assert_no_match %r{Kartini}, @response.body, "Since Cyrille is logged in, K's name should NOT be revealed"
-  end
-
-  def test_index_next_week
-    pro = practitioners(:sav)
-    Time.zone = pro.timezone
-    get :index, {:practitioner_id => pro.permalink, :format => "json", :start => Time.zone.now.end_of_week, :end => Time.zone.now.end_of_week.advance(:days => 7 )}, {:client_id => clients(:cyrille_sav).id }
-    # puts @response.body
-    assert_valid_json(@response.body)
-    assert_equal 6, assigns(:bookings).size, "Sav should have 1 booking and 5 non-working day, but bookings are: #{assigns(:bookings).to_json}"
-  end  
 
   def test_index_sav_own_next_week
     pro = practitioners(:sav)

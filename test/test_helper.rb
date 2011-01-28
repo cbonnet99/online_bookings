@@ -38,10 +38,16 @@ class ActiveSupport::TestCase
   
   def date_after_24_hours
     date = 1.day.from_now
-    if date.strftime("%H").to_i > Booking::DEFAULT_START_TIME
+    if date.strftime("%H").to_i >= Booking::DEFAULT_START_TIME
       date = 2.days.from_now
     end
     return date    
+  end
+
+  def date_within_week
+    date = Time.zone.now
+    distance_to_next_sunday = 7 - date.wday
+    date = date.advance(:days => rand(distance_to_next_sunday))
   end
   
   def date_within_24_hours
