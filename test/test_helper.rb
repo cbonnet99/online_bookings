@@ -47,7 +47,12 @@ class ActiveSupport::TestCase
   def date_within_week
     date = Time.zone.now
     distance_to_next_sunday = 7 - date.wday
-    date = date.advance(:days => rand(distance_to_next_sunday))
+    if distance_to_next_sunday > 5
+      days = -rand(distance_to_next_sunday)
+    else
+      days = rand(distance_to_next_sunday)
+    end
+    date = date.advance(:days => days)
   end
   
   def date_within_24_hours

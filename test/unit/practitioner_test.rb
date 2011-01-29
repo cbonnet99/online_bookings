@@ -6,6 +6,11 @@ class PractitionerTest < ActiveSupport::TestCase
   
   fixtures :all
 
+  def test_create
+    pro = Factory(:practitioner, :first_name => "Cyrille", :last_name => "Bonnet")
+    assert_equal "cyrille-bonnet", pro.permalink
+  end
+
   def test_locale
     pro_nz = Factory(:practitioner, :country => countries(:nz))
     pro_fr = Factory(:practitioner, :country => countries(:fr))
@@ -305,10 +310,12 @@ class PractitionerTest < ActiveSupport::TestCase
     Time.zone = megan.timezone
     cyrille = Factory(:client, :first_name => "Cyrille", :last_name => "Bonnet")
     k = Factory(:client, :first_name => "Ms", :last_name => "K")
-    booking1 = Factory(:booking, :client => cyrille, :practitioner => megan, :starts_str  => Booking.starts_str_builder(date_within_week, 10),
-    :ends_str => Booking.ends_str_builder(1.day.from_now))
-    booking2 = Factory(:booking, :client => k, :practitioner => megan, :starts_str  => Booking.starts_str_builder(date_within_week, 11),
-    :ends_str => Booking.ends_str_builder(2.days.from_now))
+    d1 = date_within_week
+    booking1 = Factory(:booking, :client => cyrille, :practitioner => megan, :starts_str  => Booking.starts_str_builder(d1, 10),
+    :ends_str => Booking.ends_str_builder(d1, 11))
+    d2 = date_within_week
+    booking2 = Factory(:booking, :client => k, :practitioner => megan, :starts_str  => Booking.starts_str_builder(d2, 11),
+    :ends_str => Booking.ends_str_builder(d2, 12))
     booking_cancelled = Factory(:booking, :state => "cancelled_by_client",  :client => k, :practitioner => megan )
     megan_bookings = megan.all_bookings(cyrille, Time.zone.now.beginning_of_week.to_f, Time.zone.now.end_of_week.to_f)
     assert megan_bookings.is_a?(Enumerable)    
