@@ -196,7 +196,7 @@ class Practitioner < ActiveRecord::Base
       clients = []
       
       #first create a client with the same name as the pro (for testing purposes)
-      existing_client = Client.find_by_email(self.email)
+      existing_client = self.clients.find_by_email(self.email)
       if existing_client
         clients << existing_client
       else
@@ -222,7 +222,7 @@ class Practitioner < ActiveRecord::Base
           last_name = last_names.choice
         end
         email = "#{first_name}.#{last_name}@#{DOMAINS.choice}"
-        client = Client.find_by_email(email)
+        client = self.clients.find_by_email(email)
         if client.nil?
           rand_phone_prefix = possible_mobile_prefixes[rand(possible_mobile_prefixes.size)]
           rand_phone_suffix = "#{rand(9)}#{rand(9)} #{rand(9)}#{rand(9)} #{rand(9)}#{rand(9)} #{rand(9)}#{rand(9)}"
@@ -347,15 +347,8 @@ class Practitioner < ActiveRecord::Base
             name, email = m[1], m[3]
           end
           unless self.clients.find_by_email(email)
-            existing_client = Client.find_by_email(email)
-            if existing_client
-              self.clients << existing_client
-              client = existing_client
-            else
-              client = self.clients.new(:email => email, :name => name)
-              client.save!
-            end
-            # UserMailer.send_later :deliver_initial_client_email, self, client, email_text, email_signoff if send_email
+            client = self.clients.new(:email => email, :name => name)
+            client.save!
             UserMailer.deliver_initial_client_email(self, client, email_text, email_signoff) if send_email
           end
         end

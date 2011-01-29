@@ -191,7 +191,8 @@ class PractitionerTest < ActiveSupport::TestCase
     old_size = pro.clients.size
         
     pro.add_clients(client.email, false, "", "")
-    assert_equal old_overall_size, Client.all.size
+    assert_equal old_overall_size+1, Client.all.size
+    pro.reload
     assert_equal old_size+1, pro.clients.size
   end
 
@@ -238,14 +239,11 @@ class PractitionerTest < ActiveSupport::TestCase
     old_size = Client.all.size
     
     pro.add_clients("\"New Name\" <#{client.email}>", true, "This is a test", "Cheers")
-    assert_equal old_size, Client.all.size
-    assert_equal old_name, client.name, "Client name shouldn't have changed"
+    assert_equal old_size+1, Client.all.size
     
     assert_equal 1, ActionMailer::Base.deliveries.size
     new_email = ActionMailer::Base.deliveries.first
-    assert_equal [client.email], new_email.to
-    assert_equal [pro.email], new_email.from
-    assert_match %r{Dear #{client.first_name},}, new_email.body    
+    assert_match %r{Dear New,}, new_email.body    
   end
     
   def test_add_client_invalid_email
