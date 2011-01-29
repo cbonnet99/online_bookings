@@ -3,7 +3,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 class BookingTest < ActiveSupport::TestCase
 
   def test_validation_times
-    b = Factory.build(:booking, :starts_at => 3.hours.from_now, :ends_at => 2.hours.from_now)
+    d = date_within_week
+    b = Factory.build(:booking, :starts_str => Booking.starts_str_builder(d, 11), :ends_str => Booking.ends_str_builder(d, 10))
     assert !b.valid?, "Booking should be invalid, because it ends before it starts"
     assert !b.errors.on(:starts_at).nil?
   end

@@ -7,7 +7,7 @@ fr:
         long_ordinal: "%A %d %B %Y"
         only_day: "%e"
 
-      day_names: [ lundi, mardi, mercredi, jeudi, vendredi, samedi , dimanche]
+      day_names: [dimanche, lundi, mardi, mercredi, jeudi, vendredi, samedi]
       abbr_day_names: [dim, lun, mar, mer, jeu, ven, sam]
       month_names: [~, janvier, février, mars, avril, mai, juin, juillet, août, septembre, octobre, novembre, décembre]
       abbr_month_names: [~, jan., fév., mar., avr., mai, juin, juil., août, sept., oct., nov., déc.]
@@ -232,15 +232,15 @@ fr:
     start_is_too_late: Votre rendez-vous doit être dans les horaires d'ouverture ({{actual_time}} est trop tard)
     cancellation_text: "Bonjour,<br/><br/>Votre rendez-vous avec {{pro_name}} {{start_date_and_time_str}} a été annulé.<br/><br/>Si vous avez des questions, vous pouvez me contacter au: {{pro_phone}}.<br/><br/>{{signature}},<br/>{{pro_name}}"
     signature: "Cordialement"
-    flash_notice_booking_appointment_booked : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} a été enregistré"
+    flash_notice_booking_appointment_booked : "Votre rendez-vous avec {{booking_partner}} {{booking_time}} a été enregistré"
     flash_error_booking_invalid_appointment : "Ce rendez-vous n'est pas valide"
     flash_error_booking_cannot_be_cancelled : "Ce rendez-vous ne peut pas être annulé"
-    flash_notice_booking_appointment_cancelled : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} a été annulé"
-    flash_notice_booking_confirmed : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} est confirmé"
+    flash_notice_booking_appointment_cancelled : "Votre rendez-vous avec {{booking_partner}} {{booking_time}} a été annulé"
+    flash_notice_booking_confirmed : "Votre rendez-vous avec {{booking_partner}} {{booking_time}} est confirmé"
     flash_error_booking_couldnot_find_practitioner : "Nous n'avons pas trouvé le praticien que vous recherchez"
     flash_error_booking_appointment_not_found : "Nous avons pas trouvé ce rendez-vous"
-    flash_notice_booking_appointment_changed : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} a été modifié"
-    flash_notice_booking_appointment_removed : "Votre rendez-vous avec {{booking_partner}} le {{booking_date}} à {{booking_time}} a été effacé"
+    flash_notice_booking_appointment_changed : "Votre rendez-vous avec {{booking_partner}} {{booking_time}} a été modifié"
+    flash_notice_booking_appointment_removed : "Votre rendez-vous avec {{booking_partner}} {{booking_time}} a été effacé"
   # colibri app
   # main keyword
   #language
@@ -285,7 +285,7 @@ fr:
     session_new_password: "Mot de passe"
     #payments/new
     make_payment: "Vous abonner à Colibri"
-    beta_testing: "Colibri est en phase finale de tests et nous n'acceptons de nouveaux membres que sur invitation. Si vous êtes intéressé, écrivez-nous: {{email}}."
+    beta_testing: "Colibri est seulement disponible sur invitation pour l'instant. Si vous êtes intéressé, écrivez-nous: {{email}}."
     payment_select_plan: Sélectionner un abonnement
     payment_plan: Abonnement
     payment_plans: Abonnements

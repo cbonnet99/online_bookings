@@ -18,7 +18,7 @@ class BookingsController < ApplicationController
       flash[:error] = I18n.t(:flash_error_booking_cannot_be_cancelled)
     else
       @booking.client_cancel!
-      flash[:notice] = I18n.t(:flash_notice_booking_appointment_cancelled , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
+      flash[:notice] = I18n.t(:flash_notice_booking_appointment_cancelled , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" ,:booking_time => @booking.start_date_and_time_str)
     end    
   end
 
@@ -32,7 +32,7 @@ class BookingsController < ApplicationController
         @cancellation_text = params[:cancellation_text].blank? ? @booking.cancellation_text : params[:cancellation_text].gsub(/\n/, "<br/>")
         UserMailer.deliver_cancellation_notice(@booking,  @cancellation_text)
       end
-      flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_cancelled , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
+      flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_cancelled , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" ,:booking_time => @booking.start_date_and_time_str)
     end
     render :action => "flash", :format => "json"
   end
@@ -49,7 +49,7 @@ class BookingsController < ApplicationController
         flash.now[:notice] = I18n.t(:flash_notice_booking_already_confirmed)
       else
         @booking.confirm!
-        flash.now[:notice] = I18n.t(:flash_notice_booking_confirmed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
+        flash.now[:notice] = I18n.t(:flash_notice_booking_confirmed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_time => @booking.start_date_and_time_str)
       end
     end
   end
@@ -60,7 +60,7 @@ class BookingsController < ApplicationController
       flash.now[:error] = I18n.t(:flash_error_booking_invalid_appointment)
     else
       @booking.confirm!
-      flash.now[:notice] = I18n.t(:flash_notice_booking_confirmed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
+      flash.now[:notice] = I18n.t(:flash_notice_booking_confirmed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_time => @booking.start_date_and_time_str)
     end
     render :action => "flash", :format => "json"
   end
@@ -118,7 +118,7 @@ class BookingsController < ApplicationController
     @booking.set_defaults(current_client, current_pro, client, pro)
     if @booking.save
       @prep = @booking.prep
-      flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_booked , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
+      flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_booked , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_time => @booking.start_date_and_time_str)
     else
       flash.now[:error] = I18n.t(:booking_not_saved, :error => @booking.errors.full_messages.to_sentence)
     end
@@ -133,7 +133,7 @@ class BookingsController < ApplicationController
       if @booking.in_grace_period?
         if @booking.update_attributes(JsonUtils.scrub_undefined(JsonUtils.remove_timezone(hash_booking)))
           @prep = @booking.prep
-          flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_changed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
+          flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_changed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_time => @booking.start_date_and_time_str)
         else
           flash.now[:error] = I18n.t(:error_while_saving_booking)
         end
@@ -154,7 +154,7 @@ class BookingsController < ApplicationController
       @booking_id = @booking.id
       @prep_id = "#{Booking::PREP_LABEL}#{@booking_id}" if @booking.prep_time_mins > 0
       @booking.destroy
-      flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_removed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_date => l(@booking.start_date,:format => :custo_date),:booking_time => l(@booking.start_time, :format => :timeampm))
+      flash.now[:notice] = I18n.t(:flash_notice_booking_appointment_removed , :booking_partner => "#{@booking.partner_name(current_client, current_pro)}" , :booking_time => @booking.start_date_and_time_str)
     end
     render :action => "flash", :format => "json"
   end
