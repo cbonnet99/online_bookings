@@ -1,3 +1,6 @@
+div#event-fields-time-right {float: right;}
+div#event-fields-time-left {float: left;}
+.label-event {font-weight: bold;}
 p#beta-testing-explanation {font-size:large; text-align: center; font-weight: bold; color:#0CC;}
 ul#reminders_list, ul#past_reminders_list {list-style: none;}
 ul#reminders_list li, ul#past_reminders_list li {padding: 10px;}

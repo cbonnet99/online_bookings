@@ -103,6 +103,7 @@ class BookingsControllerTest < ActionController::TestCase
     custom_text = "Hello Dad\nIt's me"
     old_mail_size = ActionMailer::Base.deliveries.size    
     booking = Factory(:booking, :state => "unconfirmed")
+    
     pro = booking.practitioner
     post :pro_cancel, {:format => "json", :id => booking.id, :send_email => true, :cancellation_text => custom_text}, {:pro_id => pro.id}
     assert_response :success

@@ -226,6 +226,7 @@ fr:
     flash_error_authentication_not_authent_client : "Vous n'êtes pas authentifié(e)"
     flash_error_authentication_must_be_logged : "Vous devez être connecté(e) pour pouvoir afficher cette page"
     #booking
+    label_booking_time: Horaire
     start_must_be_before_end: "Votre rendez-vous doit commencer après sa date de fin (il commence {{starts_at}}, mais finit {{ends_at}})"
     start_is_too_early: Votre rendez-vous doit être dans les horaires d'ouverture ({{actual_time}} est trop tôt)
     start_is_too_late: Votre rendez-vous doit être dans les horaires d'ouverture ({{actual_time}} est trop tard)
@@ -421,9 +422,10 @@ fr:
     flash_notice_booking_already_confirmed: "Ce rendez-vous est déjà confirmé"
     #appointment popup calendar
     edit_appointement: "Modifier"
-    appointment_start_time: "De: "
-    appointment_end_time: "à: "
-    appointment_client: "Client: "
+    appointment_start_time: "De"
+    appointment_end_time: "à"
+    appointment_change_time: Changer d'horaire
+    appointment_client: "Client"
     appointment_booking_type: "Type: "
     appointment_your_name: "Votre Nom: "
     appointment_phone: "Téléphone (mobile de préférence)"

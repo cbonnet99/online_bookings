@@ -34,7 +34,7 @@ module ApplicationHelper
     end
   end
   
-  def current_step
+  def rlr_file
     if @current_selected_pro.nil?
       edit_selected_practitioner_url
     else
