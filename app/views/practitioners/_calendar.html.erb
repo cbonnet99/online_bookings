@@ -24,6 +24,17 @@ $(document).ready(function() {
    var pastEventColor = "#999";
    var eventTitleNormalColor = "#68A1E5";
    var eventTitleHoverColor = "#2B72D0";
+
+    var setupBookingWindow = function(startField, endField, calEvent){
+         $.getJSON("/clients.json", function(data){
+             $("input#client_name").autocomplete({source: data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}});
+         });
+        addClientValidation();
+        setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
+        
+		$("input#client_name").focus();
+		
+	}
 	
 	var toStringDBFormat = function(mydate) {
 		minutes = mydate.getMinutes().toString();
@@ -344,15 +355,7 @@ $(document).ready(function() {
 	            }
 	         }).show();
              addClientValidation();
-             $.getJSON("/clients.json", function(data){
-	             $("input#client_name").autocomplete({source: data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}});
-             });
-			$("input#client_name").focus();
-			
-
-			<% if own_calendar?(pro, current_pro)-%>
-	         setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
-			<% end -%>
+             setupBookingWindow(startField, endField, calEvent);
          changeButtonColors(calEvent);
          $("#no-cancellation").css("display", "none");			
 		  }
@@ -497,11 +500,6 @@ $(document).ready(function() {
                }
             }
          }).show();
-         addClientValidation();
-         $.getJSON("/clients.json", function(data){
-             $("input#client_name").autocomplete({source: data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}});
-         });
-
          $("input#client_name").focus();
          if ((calEvent.confirmed_at === null) || (calEvent.confirmed_at === '') || (calEvent.confirmed_at === undefined)){
            $("#event_confirmed").hide();
@@ -545,7 +543,7 @@ $(document).ready(function() {
 
          var startField2 = $dialogContent.find("select[name='start']").val(calEvent.start);
          var endField2 = $dialogContent.find("select[name='end']").val(calEvent.end);
-         setupStartAndEndTimeFields(startField2, endField2, calEvent, 	$calendar.weekCalendar("getTimeslotTimes", calEvent.start));
+         setupBookingWindow(startField2, endField2, calEvent);
          $(window).resize().resize(); //fixes a bug in modal overlay size ??
          changeButtonColors(calEvent);
       },
@@ -608,7 +606,8 @@ $(document).ready(function() {
     * form for editing based on the calendar event being edited
     */
    function setupStartAndEndTimeFields($startTimeField, $endTimeField, calEvent, timeslotTimes) {
-
+      $("select[name=start]").children().remove();
+      $("select[name=end]").children().remove();
       for (var i = 0; i < timeslotTimes.length; i++) {
          var startTime = timeslotTimes[i].start;
          var endTime = timeslotTimes[i].end;
@@ -630,33 +629,6 @@ $(document).ready(function() {
 
    var $endTimeField = $("select[name='end']");
    var $endTimeOptions = $endTimeField.find("option");
-
-   //reduces the end time options to be only after the start time options.
-   $("select[name='start']").change(function() {
-      var startTime = $(this).find(":selected").val();
-      var currentEndTime = $endTimeField.find("option:selected").val();
-      $endTimeField.html(
-            $endTimeOptions.filter(function() {
-               return startTime < $(this).val();
-            })
-      );
-
-      var endTimeSelected = false;
-      $endTimeField.find("option").each(function() {
-         if ($(this).val() === currentEndTime) {
-            $(this).attr("selected", "selected");
-            endTimeSelected = true;
-            return false;
-         }
-      });
-
-      if (!endTimeSelected) {
-         //automatically select an end date 2 slots away.
-         $endTimeField.find("option:eq(1)").attr("selected", "selected");
-      }
-
-   });
-
 
 });
 </script><% title pro.calendar_title%>
