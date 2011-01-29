@@ -34,6 +34,8 @@ $(document).ready(function() {
         else{
           $("#event_confirmed").show();
           var confirmed_date = new Date(calEvent.confirmed_at);
+          console.log("confirmed_date: "+confirmed_date);
+          console.log("formatDateAndTime(confirmed_date): "+formatDateAndTime(confirmed_date));
           $("#event_confirmed_at").html(formatDateAndTime(confirmed_date));
         };
         if (calEvent.reminder_was_sent_at !== null){

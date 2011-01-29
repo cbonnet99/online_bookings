@@ -69,7 +69,6 @@ class Booking < ActiveRecord::Base
   PREP_LABEL = "prep-"
   GRACE_PERIOD_IN_HOURS = 1
   STATES = ["in_grace_period", "unconfirmed", "confirmed" ,"cancelled_by_client", "cancelled_by_pro"]
-  NON_GRACE_STATES = ["unconfirmed", "confirmed" ,"cancelled_by_client", "cancelled_by_pro"]
   SMS_MAX_SIZE = 140
   BUFFER_BIZ_HOURS = 2
   DEFAULT_START_TIME = 10
@@ -172,7 +171,7 @@ class Booking < ActiveRecord::Base
   def create_reminder
     reminder_time = starts_at.advance(:days => -1)
     reminder = self.reminders.create(:sending_at => reminder_time)
-    # puts "--- Created reminder for #{self}: #{reminder.inspect}"
+    return reminder
   end
   
   def set_defaults(current_client, current_pro, client, pro)

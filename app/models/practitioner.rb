@@ -251,11 +251,11 @@ class Practitioner < ActiveRecord::Base
         start_hour = biz_hours.choice
         Time.zone = self.timezone
         client = clients.choice
-        # puts "+++++ Creating past booking at #{starts_str} for client #{client.name}, email: #{client.email}, phone: (#{client.phone_prefix}) #{client.phone_suffix}"
-        random_state = Booking::NON_GRACE_STATES.choice
+        random_state = "unconfirmed"
         booking = Booking.new(:client => client, :practitioner => self, :name => client.name, :client_phone_prefix => client.phone_prefix, 
             :client_phone_suffix => client.phone_suffix, :client_email => client.email, :starts_str => "#{date.strftime('%Y-%m-%d')} #{start_hour}:00:00",
             :ends_str  => "#{date.strftime('%Y-%m-%d')} #{start_hour+1}:00:00", :state => random_state)
+        # puts "+++++ Creating past booking (state: #{random_state}) at #{booking.starts_str} for client #{client.name}, email: #{client.email}, phone: (#{client.phone_prefix}) #{client.phone_suffix}"
         booking.save!
         # puts "++++ Saved PAST booking #{booking}"
         booking.create_reminder
@@ -270,7 +270,9 @@ class Practitioner < ActiveRecord::Base
         # puts "------ SAVING reminder #{reminder}"
         reminder.save!
         if rand(100) < 50
-          booking.confirm! if booking.unconfirmed?
+          if booking.unconfirmed?
+            booking.confirm!
+          end
         end
       end
       
@@ -285,13 +287,17 @@ class Practitioner < ActiveRecord::Base
         end
         start_hour = biz_hours.choice
         client = clients.choice
-        random_state = Booking::NON_GRACE_STATES.choice
+        random_state = "unconfirmed"
         booking = Booking.new(:client => client, :practitioner => self, :name => client.name, 
             :starts_str => "#{date.strftime('%Y-%m-%d')} #{start_hour}:00:00", :ends_str  => "#{date.strftime('%Y-%m-%d')} #{start_hour+1}:00:00", :state => random_state)
+        # puts "+++++ Creating future booking (state: #{random_state}) at #{booking.starts_str} for client #{client.name}, email: #{client.email}, phone: (#{client.phone_prefix}) #{client.phone_suffix}"
         booking.save!
         # puts "++++ Saved FUTURE booking #{booking}"
-        booking.create_reminder
+        reminder = booking.create_reminder
         if rand(100) < 30
+          #pretend that the reminder was sent
+          reminder.sent_at = 30.minutes.ago
+          reminder.save!
           booking.confirm! if booking.unconfirmed?
         end
         # puts "+++++ Creating future booking at #{starts_str} for client #{client.name}"
