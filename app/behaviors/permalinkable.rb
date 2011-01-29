@@ -25,7 +25,7 @@ module Permalinkable
 	    else
   		  res = name.parameterize
 		  end
-		  while Practitioner.find_by_permalink(res)
+		  while !Practitioner.find_by_permalink(res).nil?
 		    res = "#{res}#{rand(9)}"
 		  end
 		  return res
