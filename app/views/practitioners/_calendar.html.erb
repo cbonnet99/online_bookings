@@ -15,7 +15,45 @@ jQuery.validator.addMethod(
 
 
 $(document).ready(function() {
+	
+	var resetClient = function(){
+		$("input#client_id").val("");
+		$("input#client_name").val("");
+		$("select#client_phone_prefix").val("");
+		$("input#client_phone_suffix").val("");
+		$("input#client_email").val("");		
+	};
+	
+	var hideClientTabs = function(calEvent){
+		$("#event-fields-client-tabs").hide();
+        makeFieldsReadonly("event-fields-client");
+		if (calEvent.locked === false){
+			showChangeClient();			
+		}
+		else{
+			hideChangeClient();			
+		};
+	};
+	
+	var showClientTabs = function(){
+		console.log("SHOWING client tabs");
+		$("#event-fields-client-tabs").show();
+		hideChangeClient();
+	};
+	
+	var round_selected_event_tab = function(){
+        var top_settings = {
+                tl: { radius: 10 },
+                tr: { radius: 10 },
+                bl: { radius: 0 },
+                br: { radius: 0 },
+                antiAlias: true,
+            }
 
+        $('a.selected-event-tab').corner(top_settings);		
+	};
+	round_selected_event_tab();
+	
    var $calendar = $('#calendar');
    var $cancelDialog = $("#event_cancel_container");
    var mylocal = '<%=  I18n.locale %>';
@@ -63,14 +101,14 @@ $(document).ready(function() {
         };
         if (calEvent.locked === true){
           $("#event_locked").show();
-          makeFieldsReadonly("event_edit_container");
+          makeFieldsReadonly("event-fields-client");
           hideChangeTime();
         }
         else{
           $("#event_locked").hide();
-          makeFieldsEditable("event_edit_container");
           showChangeTime();
-        }	
+        };
+        hideClientTabs(calEvent);
     };
 
     var hideChangeTime = function(){
@@ -80,11 +118,28 @@ $(document).ready(function() {
     var showChangeTime = function(){
 	  $("#event-fields-change-time").show();
     };
+	
+    var hideChangeClient = function(){
+	  $("#event-fields-change-client").hide();
+    };
 
+    var showChangeClient = function(){
+	  $("#event-fields-change-client").show();
+    };
+	
+	var removeAutocomplete = function(){
+	  $("input#client_name").autocomplete("destroy");	
+	};
+	
+	var setupAutocomplete = function(){
+        $.getJSON("/clients.json", function(data){
+            $("input#client_name").autocomplete({source: data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}});
+        });		
+		
+	};
+	
     var setupBookingWindow = function(startField, endField, calEvent){
-         $.getJSON("/clients.json", function(data){
-             $("input#client_name").autocomplete({source: data, matchContains: true, focus: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}, select: function(event, ui){$("input#client_id").val(ui.item.value); $("input#client_name").val(ui.item.label); $("input#client_phone_suffix").val(ui.item.phone_suffix); $("select#client_phone_prefix").val(ui.item.phone_prefix); $("input#client_email").val(ui.item.email); return false;}});
-         });
+	    setupAutocomplete();
         addClientValidation();
         setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
         
@@ -355,7 +410,7 @@ $(document).ready(function() {
 			
 	         var $dialogContent = $("#event_edit_container");
 	         resetForm($dialogContent);
-             makeFieldsEditable("event_edit_container");
+             makeFieldsEditable("event-fields-client");
 	         var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
 	         var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
 	         var clientField = $dialogContent.find("input[name='client_id']");
@@ -409,6 +464,7 @@ $(document).ready(function() {
              makeFieldsReadonly("event-fields-time");
              setupBookingWindow(startField, endField, calEvent);
              showChangeTime();
+             showClientTabs();
              changeButtonColors(calEvent);
              $("#no-cancellation").css("display", "none");			
 		  }
@@ -642,8 +698,52 @@ $(document).ready(function() {
       $startTimeField.trigger("change");
    }
 
-   var $endTimeField = $("select[name='end']");
-   var $endTimeOptions = $endTimeField.find("option");
+   $("input#cancel_send_email").change(function(){
+       if ($(this).attr("checked")) {
+           $("textarea#cancel_cancellation_text").show();
+       }
+       else {
+           $("textarea#cancel_cancellation_text").hide();            
+       }
+   })
+   
+	$("select[name='booking_type_id']").change(function(){
+		var currentDiffMillis = new Date($("select[name='end']").val()).getTime() - new Date($("select[name='start']").val()).getTime();
+		var booking_type_id = $("select[name='booking_type_id']").val();
+	});
+	
+	$("a#event-fields-change-time").click(function(event){
+	   $(this).hide();
+	   console.log("a#event-fields-change-time CLICKED");
+	   makeFieldsEditable("event-fields-time");
+	   event.preventDefault();
+	});
+		
+	$("a#event-fields-change-client").click(function(event){
+	   $(this).hide();
+	   resetClient();
+       makeFieldsEditable("event-fields-client");
+       showClientTabs();
+	   event.preventDefault();
+	});
+		
+	$("a#event-fields-client-new").click(function(event){
+		$("a#event-fields-client-existing").removeClass("selected-event-tab");
+		$(this).addClass("selected-event-tab");
+		round_selected_event_tab();
+		resetClient();
+		removeAutocomplete();
+	});
+
+	$("a#event-fields-client-existing").click(function(event){
+		$("a#event-fields-client-new").removeClass("selected-event-tab");
+		$(this).addClass("selected-event-tab");
+		console.log("in click event-fields-client-existing");
+		resetClient();
+		round_selected_event_tab();
+		setupAutocomplete();
+	});
+
 
 });
 </script><% title pro.calendar_title%>
@@ -674,6 +774,8 @@ $(document).ready(function() {
 		</fieldset>
 		<fieldset>
 			<legend><%= t(:appointment_client)%></legend>
+            <a id="event-fields-change-client" href="#"><%= t(:appointment_change_client)%></a>
+			<div id="event-fields-client-tabs"><a id="event-fields-client-existing" class="selected-event-tab" href="#"><%= t(:appointment_existing_client)%></a> <a id="event-fields-client-new" href="#"><%= t(:appointment_new_client)%></a></div>
 		<ul class="event-fields" id="event-fields-client"> 
 				<li> 
 				<label id="client_name_label" class="read_only_label"></label><input id="client_id" type="hidden" name="client_id"></input><input id="client_name" type="text" name="client_name" size="30"></input>

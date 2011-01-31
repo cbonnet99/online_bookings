@@ -226,6 +226,8 @@ fr:
     flash_error_authentication_not_authent_client : "Vous n'êtes pas authentifié(e)"
     flash_error_authentication_must_be_logged : "Vous devez être connecté(e) pour pouvoir afficher cette page"
     #booking
+    appointment_existing_client: Client existant
+    appointment_new_client: Nouveau client
     label_booking_time: Horaire
     start_must_be_before_end: "Votre rendez-vous doit commencer après sa date de fin (il commence {{starts_at}}, mais finit {{ends_at}})"
     start_is_too_early: Votre rendez-vous doit être dans les horaires d'ouverture ({{actual_time}} est trop tôt)
@@ -425,6 +427,7 @@ fr:
     appointment_start_time: "De"
     appointment_end_time: "à"
     appointment_change_time: Changer d'horaire
+    appointment_change_client: Changer le client
     appointment_client: "Client"
     appointment_booking_type: "Type: "
     appointment_your_name: "Votre Nom: "
@@ -434,7 +437,7 @@ fr:
     #appointment cancel
     cancel_send_email: "Envoyer un email d'annulation"
     cancel_email_text: "Email"
-    cancel: "Annuler"
+    cancel: "Annuler RV"
     cancel_warning_text: Vous allez annuler ce rendez-vous. Merci de bien vouloir confirmer.
 
     lunch: "Non réservable"
@@ -453,7 +456,7 @@ fr:
     #practitioner model
     prep_time: "Préparation"
     #user_mailer
-    you_have_booking: "Rappel: vous avez un rendez-vous demain avec {{pro_name}}"
+    you_have_booking: "Rappel: vous avez un rendez-vous demain avec {{pro_name}}, {{booking_time}}"
     your_booking_was_cancelled: "Annulation: votre rendez-vous avec {{pro_name}} a été annulé"
     initial_client_email_subject: "Prenez rendez-vous avec moi sur Internet"
     booking_pro_reminder_subject: "Vous avez {{number_bookings}} demain"

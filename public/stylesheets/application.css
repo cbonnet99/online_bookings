@@ -1,3 +1,6 @@
+div#event-fields-client-tabs a {padding: 5px;}
+div#event-fields-client-tabs a.selected-event-tab {background-color: #aaa; color: white;}
+ul#event-fields-client {background-color: #aaa; padding: 5px;}
 div#event-fields-time-right {float: right;}
 div#event-fields-time-left {float: left;}
 .label-event {font-weight: bold;}

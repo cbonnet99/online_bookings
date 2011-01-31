@@ -4,4 +4,3 @@
 <% end -%>
 <% if client_needs_help %><div id="help_calendar"><%= t(:practitioner_show_message) %>  &quot;&lt;&quot; <%= t(:sentencelink_and) %> &quot;&gt;&quot;</div><%end%>
 <%= render :partial => "practitioners/calendar", :locals => {:pro => current_pro}  %>
-<% javascript "calendar"%>

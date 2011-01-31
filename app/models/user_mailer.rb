@@ -8,7 +8,7 @@ class UserMailer < ActionMailer::Base
     @recipients = to
     from =  APP_CONFIG[:contact_email] if from.nil?
     @from = from
-    @subject = "[#{APP_CONFIG[:site_name]}] "
+    @subject = ""
     @sent_on = Time.zone.now
     @content_type = 'text/html'
   end
@@ -45,7 +45,7 @@ class UserMailer < ActionMailer::Base
   def booking_reminder(booking)
     setup_email(booking.client.email)
     setup_sender(booking.practitioner)
-    @subject << I18n.t(:you_have_booking, :pro_name => booking.practitioner.name)
+    @subject << I18n.t(:you_have_booking, :pro_name => booking.practitioner.name, :booking_time => booking.start_date_and_time_str)
     @body[:booking] = booking
     @body[:client] = booking.client
   end

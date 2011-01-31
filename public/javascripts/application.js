@@ -1,13 +1,17 @@
 $(document).ready(function() {
-    top_settings = {
-            tl: { radius: 15 },
-            tr: { radius: 15 },
-            bl: { radius: 0 },
-            br: { radius: 0 },
-            antiAlias: true,
-        }
+    var round_selected = function() {
+        var top_settings = {
+                tl: { radius: 15 },
+                tr: { radius: 15 },
+                bl: { radius: 0 },
+                br: { radius: 0 },
+                antiAlias: true,
+            }
 
-    $('a.selected-tab').corner(top_settings);
+        $('a.selected-tab').corner(top_settings);        
+    };
+    
+    round_selected();
 
 	$('.rounded').corner();
     // $(':input').keydown(function(e) {
