@@ -86,16 +86,16 @@ class BookingsController < ApplicationController
     @practitioner = Practitioner.find_by_bookings_publish_code(params["pub_code"])
     if @practitioner.nil?
       flash.now[:error] = I18n.t(:flash_error_booking_couldnot_find_practitioner)
-      render :action => "flash"
+      redirect_to root_url
     else
       @bookings = @practitioner.raw_own_bookings(Time.zone.now.advance(:month => -1).beginning_of_month, Time.zone.now.advance(:months => 1).end_of_month)
       calendar = Icalendar::Calendar.new
       @bookings.each do |b|
         calendar.add_event(b.to_ics)
+        calendar.publish
+        headers['Content-Type'] = "text/calendar; charset=UTF-8"
+        render :text => calendar.to_ical
       end
-      calendar.publish
-      headers['Content-Type'] = "text/calendar; charset=UTF-8"
-      render :text => calendar.to_ical
     end 
   end
     

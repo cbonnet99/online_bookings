@@ -375,6 +375,12 @@ class BookingsControllerTest < ActionController::TestCase
     assert !assigns(:bookings).blank?
   end
 
+  def test_index_cal_bad_pub_code
+    sav = practitioners(:sav)
+    get :index_cal, {:pub_code => "BAD", :practitioner_id => sav.permalink, :format => "ics"}
+    assert_redirected_to root_url
+  end
+
   def test_index
     pro = Factory(:practitioner)
     get :index, {}, {:pro_id => pro.id }
