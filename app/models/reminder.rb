@@ -24,6 +24,36 @@ class Reminder < ActiveRecord::Base
   end
   
   def send_by_email!
-    self.booking.send_reminder_email!
+    if !self.booking.practitioner.test_user? || (self.booking.practitioner.test_user? && self.booking.client.email == self.booking.practitioner.email)
+      sent_email = UserMailer.deliver_booking_reminder(self.booking)
+      Rails.logger.info("Sent booking reminder for #{self.booking}")
+      self.update_attribute(:reminder_text, sent_email.body)
+      self.mark_as!(:email)
+    end
+    #even if no email was sent, we mark it as sent
+    self.mark_as_sent!
   end
+  
+  def send!
+    send_by_sms!
+  end
+
+  def send_by_sms!
+    #send a copy by email as well
+    send_by_email!
+    if !self.booking.practitioner.test_user? || (self.booking.practitioner.test_user? && Administration::ADMIN_PHONES.include?(self.booking.client.phone))
+      if self.booking.practitioner.has_sms_credit?
+        if RAILS_ENV == "production"
+          api = Clickatell::API.authenticate('3220575', 'cbonnet99', 'mavslr55')
+          api.send_message(self.booking.client.phone, self.booking.sms_reminder_text)
+          self.update_attribute(:reminder_text, self.booking.sms_reminder_text)
+        end
+        self.mark_as!(:sms)
+        self.booking.practitioner.update_attribute(:sms_credit, self.booking.practitioner.sms_credit - 1)
+      end
+    end
+    #even if no email was sent, we mark it as sent
+    self.mark_as_sent!
+  end
+
 end

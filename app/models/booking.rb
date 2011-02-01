@@ -256,41 +256,6 @@ class Booking < ActiveRecord::Base
     I18n.t(:sms_reminder, :pro_name => self.practitioner.try(:name), :booking_datetime => self.start_date_and_time_str  )
   end
   
-  def send_reminder!
-    send_reminder_sms!
-  end
-  
-  def send_reminder_sms!
-    if !self.practitioner.test_user? || (self.practitioner.test_user? && Administration::ADMIN_PHONES.include?(self.client.phone))
-      if self.practitioner.has_sms_credit?
-        if RAILS_ENV == "production"
-          api = Clickatell::API.authenticate('3220575', 'cbonnet99', 'mavslr55')
-          api.send_message(self.client.phone, self.sms_reminder_text)
-          self.last_reminder.update_attribute(:reminder_text, self.sms_reminder_text)
-        end
-        self.last_reminder.mark_as!(:sms)
-        self.practitioner.update_attribute(:sms_credit, self.practitioner.sms_credit - 1)
-      else
-        send_reminder_email!
-      end
-    else
-      send_reminder_email!
-    end
-    #even if no email was sent, we mark it as sent
-    self.last_reminder.mark_as_sent!
-  end
-  
-  def send_reminder_email!
-    if !self.practitioner.test_user? || (self.practitioner.test_user? && self.client.email == self.practitioner.email)
-      sent_email = UserMailer.deliver_booking_reminder(self)
-      Rails.logger.info("Sent booking reminder for #{self}")
-      self.last_reminder.update_attribute(:reminder_text, sent_email.body)
-      self.last_reminder.mark_as!(:email)
-    end
-    #even if no email was sent, we mark it as sent
-    self.last_reminder.mark_as_sent!
-  end
-
   def generate_confirmation_code
     unless client.nil?
       self.confirmation_code = Digest::SHA256.hexdigest(self.name+Time.zone.now.to_s)

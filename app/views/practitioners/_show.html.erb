@@ -3,4 +3,8 @@
 <%= t(:test_user)%> (<%= link_to t(:upgrade), new_payment_url%>)
 <% end -%>
 <% if client_needs_help %><div id="help_calendar"><%= t(:practitioner_show_message) %>  &quot;&lt;&quot; <%= t(:sentencelink_and) %> &quot;&gt;&quot;</div><%end%>
+<% content_for :sidebar_content do -%>
+	<div id="confirmed-icon-explain"> = <%= t(:confirmed_icon_explain)%></div>
+	<div id="unconfirmed-warning-icon-explain"> = <%= t(:unconfirmed_warning_icon_explain)%></div>
+<% end -%>
 <%= render :partial => "practitioners/calendar", :locals => {:pro => current_pro}  %>

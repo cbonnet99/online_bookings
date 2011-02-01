@@ -1,3 +1,6 @@
+div#confirmed-icon-explain{background: url('../images/confirmed.png') no-repeat; padding-left: 20px;}
+div#unconfirmed-warning-icon-explain{background: url('../images/unconfirmed_warning.png') no-repeat; padding-left: 20px;}
+div#sidebar-content{float: left; margin: 20px 0 0 10px; width: 10%;}
 div#event-fields-client-tabs a {padding: 5px;}
 div#event-fields-client-tabs a.selected-event-tab {background-color: #aaa; color: white;}
 ul#event-fields-client {background-color: #aaa; padding: 5px;}
@@ -56,7 +59,7 @@ input.cancel:hover {background:#c00; }
 div#errorExplanation li{color: #333;}
 #logo{float: left;}
 #logged-client-name, #logged-pro-name{color: #f8f8f8;}
-#container-center{margin: 20px 0 0 20px;padding: 10px 24px 10px 24px;background-color: #303030;width:80%;}
+#container-center{float: left; margin: 20px 0 0 20px;padding: 10px 24px 10px 24px;background-color: #303030;width:80%;}
 #container-center a{color: #0cc;}
 #container-center {color:#f8f8f8;}
 #container-center fieldset#email_all p{color:#000;}

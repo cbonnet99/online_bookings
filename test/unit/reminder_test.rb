@@ -1,6 +1,48 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ReminderTest < ActiveSupport::TestCase
+  def test_send_reminder_email
+    ActionMailer::Base.deliveries.clear
+    pro = Factory(:practitioner, :country => countries(:fr), :sms_credit => 0)
+    b = Factory(:booking, :practitioner => pro)
+    r = b.create_reminder    
+    assert_nil r.sent_at
+    
+    #SUT
+    r.send!
+    
+    r.reload
+    assert_not_nil r.sent_at
+    assert_equal Reminder::TYPES[:email], r.reminder_type
+    assert_equal 1, ActionMailer::Base.deliveries.size
+  end
+
+  def test_send_reminder_sms
+    pro = Factory(:practitioner, :country => countries(:fr), :sms_credit => 50 )
+    b = Factory(:booking, :practitioner => pro)
+    r = b.create_reminder
+    assert_nil r.sent_at
+    r.send_by_sms!
+    r.reload
+    assert_not_nil r.sent_at
+    assert_equal Reminder::TYPES[:sms], r.reminder_type
+    pro.reload
+    assert_equal 49, pro.sms_credit
+  end
+
+  def test_send_reminder_sms_no_credit
+    pro = Factory(:practitioner, :country => countries(:fr), :sms_credit => 0 )
+    b = Factory(:booking, :practitioner => pro)
+    r = b.create_reminder
+    assert_nil r.sent_at
+    r.send_by_sms!
+    r.reload
+    assert_not_nil r.sent_at
+    assert_equal Reminder::TYPES[:email], r.reminder_type
+  end
+
+
+
   def test_need_sending
     pro = Factory(:practitioner)
     Time.zone = pro.timezone

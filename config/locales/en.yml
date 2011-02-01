@@ -270,6 +270,8 @@
   or: or
   #practicioner/show
   practitioner_show_message: "To book an appointment, click on any white space below. Today is highlighted in yellow. To see next week, click on the button on the right with label"
+  confirmed_icon_explain: Confirmed
+  unconfirmed_warning_icon_explain: Not confirmed and happening in the next 24 hours
   #practitioner/login_info
   practitioner_login_info_message: "You are logged in as: "
   practitioner_login_info_edit_link: "Edit"

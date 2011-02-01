@@ -312,6 +312,8 @@ fr:
     or: ou
     #practicioner/show
     practitioner_show_message: "Pour prendre un rendez-vous, clickez sur un des espaces libres du calendrier. La date du jour apparait en jaune. Pour changer de semaine, utilisez les boutons "
+    confirmed_icon_explain: Confirmé
+    unconfirmed_warning_icon_explain: Pas encore confirmé et prévu dans les prochaines 24 heures
     #practitioner/login_info
     practitioner_login_info_message: "Vous êtes: "
     practitioner_login_info_edit_link: "Paramètres"
