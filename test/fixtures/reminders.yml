@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  booking_id: 1
-  sent_at: 2010-09-19 21:36:45
-
-two:
-  booking_id: 1
-  sent_at: 2010-09-19 21:36:45

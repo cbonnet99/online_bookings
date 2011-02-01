@@ -82,6 +82,7 @@ class PractitionerTest < ActiveSupport::TestCase
       last_reminder = b.last_reminder
       assert_not_nil last_reminder
       assert_not_nil last_reminder.sent_at, "Reminder #{last_reminder} has not sent_at value"
+      assert_not_nil last_reminder.reminder_type
       assert last_reminder.sent_at < Time.now
       assert last_reminder.sent_at < b.starts_at
       assert_not_nil last_reminder.sending_at
@@ -115,6 +116,8 @@ class PractitionerTest < ActiveSupport::TestCase
       reminder = b.last_reminder
     end
     
+    invalid_reminders = Reminder.find_all_by_reminder_type(nil). select{|r| !r.sent_at.nil?}
+    assert_equal 0, invalid_reminders.size, "Invalid reminders found: #{invalid_reminders.map(&:to_s).to_sentence}"
     pro.destroy
     
     assert_equal old_reminders_size, Reminder.all.size    

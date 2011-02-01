@@ -12,7 +12,11 @@ class Reminder < ActiveRecord::Base
   TYPES = {:email => "email", :sms => "sms"}
   
   def to_s
-    "for booking #{booking} will be sent on #{sending_at}"
+    if !sent_at.nil?
+      "For booking #{booking} was sent on #{sent_at} by #{reminder_type}"
+    else
+      "For booking #{booking} will be sent on #{sending_at}"
+    end
   end
   
   def mark_as!(type)
@@ -31,6 +35,7 @@ class Reminder < ActiveRecord::Base
       self.mark_as!(:email)
     end
     #even if no email was sent, we mark it as sent
+    self.mark_as!(:email)
     self.mark_as_sent!
   end
   

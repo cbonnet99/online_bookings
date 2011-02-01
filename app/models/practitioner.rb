@@ -297,6 +297,7 @@ class Practitioner < ActiveRecord::Base
         if rand(100) < 30
           #pretend that the reminder was sent
           reminder.sent_at = 30.minutes.ago
+          reminder.reminder_type = ["email", "sms"].rand
           reminder.save!
           booking.confirm! if booking.unconfirmed?
         end
