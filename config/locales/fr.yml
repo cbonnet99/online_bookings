@@ -185,7 +185,18 @@ fr:
     error_day_times: "Votre journée ne peut commencer avant d'être terminée: veuillez changer votre horaire d'ouverture"
     error_afternoon_times: "Votre après-midi ne peut commencer avant d'être terminée: veuillez changer votre horaire d'ouverture l'après-midi"
     test_user: Utilisateur de test
-    upgrade: Commencer à utiliser le vrai Colibri
+    upgrade: Commencer à utiliser la version payante de Colibri
+    close_explanation: Fermer
+    test_user_explanation_link: Qu'est-ce qu'un utilisateur de test?
+    test_user_explanation: |
+        Un utilisateur de test ne peut pas envoyer de SMS et seuls les emails adressés à un client
+        <strong>avec la même adresse email que l'utilisateur de test</strong> seront envoyés.<br/>
+        Colibri dans sa version payante enverra pour vous:
+        <ul>
+        <li>vos rappels par email</li>
+        <li>vos rappels par SMS</li>
+        </ul>
+        Pour commencer à utiliser la version payante, cliquez simplement sur le lien ci-dessous.
     select_credit_card: Entrez les détails de votre carte de crédit
     #application
     flash_error_session_not_selected_pro: "Vous n'avez pas sélectionné de praticien"
@@ -358,7 +369,7 @@ fr:
     pro_empty_phone_suffix: "Votre numéro de téléphone ne peut pas être vide"
     pro_mandatory_field: Champ obligatoire
     pro_sample_data_help: "Des rendez-vous fictifs seront ajoutés à votre calendrier: cela vous donne une meilleure idée des fonctionnalités de Colibri. Ces rendez-vous fictifs seront effaçés lorsque vous commencerez à utiliser Colibri pour vos propres rendez-vous."
-    pro_invalid_email: "Votre addresse email n'est pas valide"
+    pro_invalid_email: "Votre adresse email n'est pas valide"
     practitioner_new_login_link: "Connectez-vous"
     practitioner_new_first_name: "Prénom"
     practitioner_new_last_name: "Nom"

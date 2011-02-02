@@ -144,7 +144,18 @@
   error_day_times: "Your day cannot start before it ends: please change your start time"
   error_afternoon_times: "Your afternoon cannot start before it ends: please change your afternoon start time"
   test_user: Test User
-  upgrade: Upgrade to the full Colibri
+  upgrade: Upgrade to the paying version of Colibri
+  close_explanation: Close
+  test_user_explanation_link: What is a test user?
+  test_user_explanation: |
+      A test user cannot send text messages and only emails
+      <strong>with the same email address as the test user</strong> will be sent.<br/>
+      Colibri's paying version will send for you:
+      <ul>
+      <li>your email reminders</li>
+      <li>your reminders by text message</li>
+      </ul>
+      To upgrade, simply click on the link below.
   select_credit_card: Please enter your credit card details
   #application
   flash_error_session_not_selected_pro: "No selected practitioner"
