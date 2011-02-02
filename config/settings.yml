@@ -16,7 +16,7 @@ production:
     site_domain: colibriapp.com
     contact_email: colibriapp@gmail.com
     from_email: colibriapp@gmail.com
-    show_countries: false
+    show_countries: true
 staging:
     site_name: Colibri (STAGING)
     site_domain: staging.colibriapp.com
