@@ -1,3 +1,4 @@
+div#event-fields-change-client, div#event-fields-change-time{cursor: pointer; text-decoration: underline; float: right;}
 span.explanation_close {text-decoration: underline; cursor: pointer; color: #0CC;}
 div.explanation {background: #FF9; color: #C00; border: solid 1px #C00; padding: 10px;}
 span.explanation_link {font-size: small; cursor: pointer; color: lightgrey; font-style: italic; text-decoration: underline;}
@@ -5,10 +6,11 @@ span#test-user-marker{color: #C00;}
 div#confirmed-icon-explain{background: url('../images/confirmed.png') no-repeat; padding-left: 20px;}
 div#unconfirmed-warning-icon-explain{background: url('../images/unconfirmed_warning.png') no-repeat; padding-left: 20px;}
 div#sidebar-content{float: left; margin: 20px 0 0 10px; width: 10%;}
-div#event-fields-client-tabs a {padding: 5px;}
-div#event-fields-client-tabs a.selected-event-tab {background-color: #aaa; color: white;}
-ul#event-fields-client {background-color: #aaa; padding: 5px;}
-div#event-fields-time-right {float: right;}
+div#event-fields-client-tabs div {padding: 5px; float: left;}
+div#event-fields-client-tabs div.selected-event-tab {background-color: #aaa; color: white;}
+div.event-fields-client-selector {cursor: pointer; text-decoration: underline;}
+div.selected-event-tab {cursor: default; text-decoration: none;}
+ul#event-fields-client {padding: 5px;}
 div#event-fields-time-left {float: left;}
 .label-event {font-weight: bold;}
 p#beta-testing-explanation {font-size:large; text-align: center; font-weight: bold; color:#0CC;}

@@ -19,13 +19,13 @@ $(document).ready(function() {
 	$('.rounded').corner();
 	
 	var get_explanation_id_from_link = function(explanation_link_id){
-	    var explanation_id = explanation_link_id.substring(0, explanation_link_id.length-link_to_remove.length)
-	    return explanation_id	    
+	    var explanation_id = explanation_link_id.substring(0, explanation_link_id.length-link_to_remove.length);
+	    return explanation_id;
 	};
 	
 	var get_explanation_id_from_close = function(explanation_close_id){
-	    var explanation_id = explanation_close_id.substring(0, explanation_close_id.length-close_to_remove.length)
-	    return explanation_id	    
+	    var explanation_id = explanation_close_id.substring(0, explanation_close_id.length-close_to_remove.length);
+	    return explanation_id;	    
 	};
 	
 	$('.explanation').hide();

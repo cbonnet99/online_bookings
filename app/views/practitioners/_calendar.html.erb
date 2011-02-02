@@ -26,6 +26,7 @@ $(document).ready(function() {
 	
 	var hideClientTabs = function(calEvent){
 		$("#event-fields-client-tabs").hide();
+		$("ul#event-fields-client").css("background-color", "white");
         makeFieldsReadonly("event-fields-client");
 		if (calEvent.locked === false){
 			showChangeClient();			
@@ -50,7 +51,7 @@ $(document).ready(function() {
                 antiAlias: true,
             }
 
-        $('a.selected-event-tab').corner(top_settings);		
+        $('div.selected-event-tab').corner(top_settings);		
 	};
 	round_selected_event_tab();
 	
@@ -102,6 +103,7 @@ $(document).ready(function() {
         };
         if (calEvent.locked === true){
           $("#event_locked").show();
+		  $("ul#event-fields-client").css("background-color", "white");	         
           makeFieldsReadonly("event-fields-client");
           hideChangeTime();
         }
@@ -411,6 +413,7 @@ $(document).ready(function() {
 			
 	         var $dialogContent = $("#event_edit_container");
 	         resetForm($dialogContent);
+		     $("ul#event-fields-client").css("background-color", "#aaa");	         
              makeFieldsEditable("event-fields-client");
 	         var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
 	         var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
@@ -713,31 +716,36 @@ $(document).ready(function() {
 		var booking_type_id = $("select[name='booking_type_id']").val();
 	});
 	
-	$("a#event-fields-change-time").click(function(event){
+	$("div#event-fields-change-time").click(function(event){
 	   $(this).hide();
-	   console.log("a#event-fields-change-time CLICKED");
+	   console.log("div#event-fields-change-time CLICKED");
 	   makeFieldsEditable("event-fields-time");
 	   event.preventDefault();
 	});
 		
-	$("a#event-fields-change-client").click(function(event){
+	$("div#event-fields-change-client").click(function(event){
 	   $(this).hide();
+	   $("ul#event-fields-client").css("background-color", "#aaa");
 	   resetClient();
        makeFieldsEditable("event-fields-client");
        showClientTabs();
 	   event.preventDefault();
 	});
 		
-	$("a#event-fields-client-new").click(function(event){
-		$("a#event-fields-client-existing").removeClass("selected-event-tab");
+	$("div#event-fields-client-new").click(function(event){
+		$("div#event-fields-client-existing").removeClass("selected-event-tab");
+		$("div#help_autocomplete_client").hide();
+		$("label[for=client_name]").show();
 		$(this).addClass("selected-event-tab");
 		round_selected_event_tab();
 		resetClient();
 		removeAutocomplete();
 	});
 
-	$("a#event-fields-client-existing").click(function(event){
-		$("a#event-fields-client-new").removeClass("selected-event-tab");
+	$("div#event-fields-client-existing").click(function(event){
+		$("div#event-fields-client-new").removeClass("selected-event-tab");
+		$("div#help_autocomplete_client").show();
+		$("label[for=client_name]").hide();
 		$(this).addClass("selected-event-tab");
 		console.log("in click event-fields-client-existing");
 		resetClient();
@@ -769,16 +777,22 @@ $(document).ready(function() {
 				<%end -%>
 			<li> 
 				<div id="event-fields-time-left"><label for="start"><%= t(:appointment_start_time)%></label> <label id="client_start_label" class="read_only_label"></label><select name="start"><option value="">Select</option></select>
-				<label for="end"><%= t(:appointment_end_time)%></label> <label id="client_end_label" class="read_only_label"></label><select name="end"><option value="">Select End Time</option></select></div><div id="event-fields-time-right"><a id="event-fields-change-time" href="#"><%= t(:appointment_change_time)%></a></div><div class="cleaner"></div>
+				<label for="end"><%= t(:appointment_end_time)%></label> <label id="client_end_label" class="read_only_label"></label><select name="end"><option value="">Select End Time</option></select></div><div id="event-fields-change-time"><%= t(:appointment_change_time)%></div><div class="cleaner"></div>
 			</li> 
 		</ul>
 		</fieldset>
 		<fieldset>
 			<legend><%= t(:appointment_client)%></legend>
-            <a id="event-fields-change-client" href="#"><%= t(:appointment_change_client)%></a>
-			<div id="event-fields-client-tabs"><a id="event-fields-client-existing" class="selected-event-tab" href="#"><%= t(:appointment_existing_client)%></a> <a id="event-fields-client-new" href="#"><%= t(:appointment_new_client)%></a></div>
+            <div id="event-fields-change-client"><%= t(:appointment_change_client)%></div><div class="cleaner"></div>
+			<div id="event-fields-client-tabs">
+				<div id="event-fields-client-existing" class="event-fields-client-selector selected-event-tab"><%= t(:appointment_existing_client)%></div>
+				<div id="event-fields-client-new" class="event-fields-client-selector"><%= t(:appointment_new_client)%></div>
+			</div>
+			<div class="cleaner"></div>
 		<ul class="event-fields" id="event-fields-client"> 
-				<li> 
+				<li>
+					<label for="client_name" style="display: none"><%= t(:appointment_client_name)%>:<br/></label>
+					<div class="help" id="help_autocomplete_client"><%= t(:help_autocomplete_client)%></div> 
 				<label id="client_name_label" class="read_only_label"></label><input id="client_id" type="hidden" name="client_id"></input><input id="client_name" type="text" name="client_name" size="30"></input>
 			</li>
 			<li> 

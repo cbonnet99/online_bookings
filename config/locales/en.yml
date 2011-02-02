@@ -169,6 +169,7 @@
   flash_error_session_invalid_login_password: "Invalid login or password."
   flash_notice_session_logout: "Thanks for your visit. See you next time!"
   #client
+  help_autocomplete_client: "Start typing your client's first or last name and the system will complete it for you.<br/>Then select the client in the list and click Enter or Tab.<br/><br/>"
   flash_error_client_invalid_client: "Invalid client"
   flash_notice_client_client_deleted: "Client deleted"
   flash_notice_client_info_change: "Your information was changed"  
@@ -408,6 +409,7 @@
   flash_notice_booking_already_confirmed: "This booking is already confirmed"
   #appointment popup calendar
   edit_appointement: "Edit"
+  appointment_client_name: Name
   appointment_start_time: "From"
   appointment_end_time: "to"
   appointment_change_time: Change time

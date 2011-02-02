@@ -210,6 +210,7 @@ fr:
     flash_error_session_invalid_login_password: "Votre mot de passe ou votre adresse email est invalide."
     flash_notice_session_logout: "Merci de votre visite. A la prochaine!"
     #client
+    help_autocomplete_client: "Tapez ci-dessous le nom ou le prénom de votre client, le système complètera pour vous.<br/>Sélectionnez le client dans la liste et tapez Entrée ou Tab<br/><br/>"
     flash_error_client_invalid_client: "Client n'existe pas"
     flash_notice_client_client_deleted: "Client a été supprimé"
     flash_notice_client_info_change: "Vos données ont été modifié"  
@@ -442,6 +443,7 @@ fr:
     flash_notice_booking_already_confirmed: "Ce rendez-vous est déjà confirmé"
     #appointment popup calendar
     edit_appointement: "Modifier"
+    appointment_client_name: Nom
     appointment_start_time: "De"
     appointment_end_time: "à"
     appointment_change_time: Changer d'horaire
