@@ -197,6 +197,11 @@ fr:
         <li>vos rappels par SMS</li>
         </ul>
         Pour commencer à utiliser la version payante, cliquez simplement sur le lien ci-dessous.
+    event_locked_explanation_link: "Pourquoi?"
+    event_locked_explanation: |
+        Une heure après avoir été créé, un rendez-vous ne peut plus être changé (un email a été
+        envoyé à votre client).<br/><br/>
+        Si vous devez changer ce rendez-vous, vous devrez l'annuler et le recréer ailleurs.<br/>
     select_credit_card: Entrez les détails de votre carte de crédit
     #application
     flash_error_session_not_selected_pro: "Vous n'avez pas sélectionné de praticien"

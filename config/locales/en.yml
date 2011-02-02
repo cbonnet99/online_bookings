@@ -156,6 +156,11 @@
       <li>your reminders by text message</li>
       </ul>
       To upgrade, simply click on the link below.
+  event_locked_explanation_link: "Why?"
+  event_locked_explanation: |
+      After one hour of grace period, an email is sent to the client and appointments cannot be
+      changed anymore.<br/><br/>
+      If you need to change this appointment, you will need to cancel it and recreate it elsewhere.<br/>
   select_credit_card: Please enter your credit card details
   #application
   flash_error_session_not_selected_pro: "No selected practitioner"

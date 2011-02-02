@@ -1,6 +1,6 @@
 <% use_calendar %>
 <% if !@current_pro.nil? && @current_pro.test_user? -%>
-<p><span id="test-user-marker"><%= t(:test_user)%></span> <span class="explanation_link" id="test_user_explanation_link">[<%= t(:test_user_explanation_link)%>]</span></p>
+<p><span id="test-user-marker"><%= t(:test_user)%></span> <span class="explanation_link" id="test_user_explanation_link" padding_height="14">[<%= t(:test_user_explanation_link)%>]</span></p>
 <div id="test_user_explanation" class="explanation rounded"><%= t(:test_user_explanation)%><br/><span id="test_user_explanation_close" class="explanation_close"><%= t(:close_explanation)%></span></div>
 <p><%= link_to t(:upgrade), new_payment_url%></p>
 <% end -%>

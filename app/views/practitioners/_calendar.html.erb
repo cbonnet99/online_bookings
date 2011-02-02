@@ -66,6 +66,7 @@ $(document).ready(function() {
    var eventTitleHoverColor = "#2B72D0";
    
     var setupEditEventFields = function(calEvent){
+	    console.log("calEvent.confirmed_at: "+calEvent.confirmed_at);
         if ((calEvent.confirmed_at === null) || (calEvent.confirmed_at === '') || (calEvent.confirmed_at === undefined)){
           $("#event_confirmed").hide();
         }
@@ -756,7 +757,7 @@ $(document).ready(function() {
 			<li id="event_reminder_was_sent_at"><%= t(:reminder_was_sent_at, :scope => [:event_window])%><span id="event_reminder_was_sent_at_date"></span></li>
 			<li id="event_confirmed"><%= t(:confirmed, :scope => [:event_window])%> <span id="event_confirmed_at"></span></li>
 			<li id="event_unconfirmed_warning"><%= t(:unconfirmed_warning, :scope => [:event_window])%></li>
-			<li id="event_locked"><%= t(:locked, :scope => [:event_window])%></li>			
+			<li id="event_locked"><%= t(:locked, :scope => [:event_window])%> <span class="explanation_link" id="event_locked_explanation_link" padding_height="0">[<%= t(:event_locked_explanation_link)%>]</span><div id="event_locked_explanation" class="explanation rounded"><%= t(:event_locked_explanation)%><br/><span id="event_locked_explanation_close" class="explanation_close"><%= t(:close_explanation)%></span></div></li>			
 		</ul>
 		<fieldset>
 			<legend><%= t(:label_booking_time)%></legend>

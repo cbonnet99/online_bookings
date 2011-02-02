@@ -32,8 +32,15 @@ $(document).ready(function() {
 	
 	$('.explanation_link').click(function(event){
 	    var explanation_link_id = $(this).attr("id");
+	    var link_padding_height = $(this).attr("padding_height");
+	    if ((link_padding_height === '') || (link_padding_height=== null)){
+	        link_padding_height = "0px";
+	    }
+	    else {
+	        link_padding_height += "px";
+	    };
 	    var explanation_id = get_explanation_id_from_link(explanation_link_id);
-	    $("#"+explanation_link_id).css("cursor", "auto").css("text-decoration", "none").css("background", "#FF9").css("color", "black").css("border", "solid 1px #C00").css("padding", "5px 5px 14px").corner(top_settings);
+	    $("#"+explanation_link_id).css("cursor", "auto").css("text-decoration", "none").css("background", "#FF9").css("color", "black").css("border", "solid 1px #C00").css("padding", "5px 5px "+link_padding_height).corner(top_settings);
 	    $("#"+explanation_id).show();
 	});
 	
