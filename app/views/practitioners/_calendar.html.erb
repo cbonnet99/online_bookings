@@ -27,6 +27,7 @@ $(document).ready(function() {
 	var hideClientTabs = function(calEvent){
 		$("#event-fields-client-tabs").hide();
 		$("ul#event-fields-client").css("background-color", "white");
+		$("div#help_autocomplete_client").hide();
         makeFieldsReadonly("event-fields-client");
 		if (calEvent.locked === false){
 			showChangeClient();			
@@ -66,6 +67,24 @@ $(document).ready(function() {
    var eventTitleNormalColor = "#68A1E5";
    var eventTitleHoverColor = "#2B72D0";
    
+   var setUpClientFields = function(){
+	  if ($("#event-fields-client-tabs").is(":visible")){
+	      if ($("#event-fields-client-existing").hasClass("selected-event-tab")){
+		    $("#help_autocomplete_client").show();
+		    $("label[for=client_name]").hide();
+		  }
+		  else {
+		    $("#help_autocomplete_client").hide();
+		    $("label[for=client_name]").show();		
+		  }
+		}
+		else
+		{
+		    $("label[for=client_name]").hide();
+		    $("#help_autocomplete_client").hide();			
+		}
+   };
+
     var setupEditEventFields = function(calEvent){
 	    console.log("calEvent.confirmed_at: "+calEvent.confirmed_at);
         if ((calEvent.confirmed_at === null) || (calEvent.confirmed_at === '') || (calEvent.confirmed_at === undefined)){
@@ -103,7 +122,8 @@ $(document).ready(function() {
         };
         if (calEvent.locked === true){
           $("#event_locked").show();
-		  $("ul#event-fields-client").css("background-color", "white");	         
+		  $("ul#event-fields-client").css("background-color", "white");
+		  $("div#help_autocomplete_client").hide();
           makeFieldsReadonly("event-fields-client");
           hideChangeTime();
         }
@@ -470,6 +490,7 @@ $(document).ready(function() {
              showChangeTime();
              showClientTabs();
              changeButtonColors(calEvent);
+			 setUpClientFields();
              $("#no-cancellation").css("display", "none");			
 		  }
       },
@@ -615,6 +636,7 @@ $(document).ready(function() {
          }).show();
          $("input#client_name").focus();
          setupEditEventFields(calEvent);
+		 setUpClientFields();
          makeFieldsReadonly("event-fields-time");
          var startField2 = $dialogContent.find("select[name='start']").val(calEvent.start);
          var endField2 = $dialogContent.find("select[name='end']").val(calEvent.end);
@@ -791,7 +813,7 @@ $(document).ready(function() {
 			<div class="cleaner"></div>
 		<ul class="event-fields" id="event-fields-client"> 
 				<li>
-					<label for="client_name" style="display: none"><%= t(:appointment_client_name)%>:<br/></label>
+					<label for="client_name"><%= t(:appointment_client_name)%>:<br/></label>
 					<div class="help" id="help_autocomplete_client"><%= t(:help_autocomplete_client)%></div> 
 				<label id="client_name_label" class="read_only_label"></label><input id="client_id" type="hidden" name="client_id"></input><input id="client_name" type="text" name="client_name" size="30"></input>
 			</li>
