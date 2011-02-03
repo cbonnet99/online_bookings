@@ -288,6 +288,40 @@ class BookingsControllerTest < ActionController::TestCase
     assert_not_nil new_booking.booking_type
   end
 
+  def test_create_pro_no_client_id_identical_email_identical_info
+    sav = practitioners(:sav)
+    cyrille = clients(:cyrille_sav)
+    old_name = cyrille.name
+    old_email = cyrille.email
+    old_phone = cyrille.phone
+    old_phone_prefix = cyrille.phone_prefix
+    old_phone_suffix = cyrille.phone_suffix
+    mail_size = UserEmail.all.size
+    old_size = Booking.all.size
+    reminders_size = Reminder.all.size
+    post :create, {:practitioner_id => sav.permalink, :format => "json",
+      :booking => {:name => old_name, :client_email => old_email, :client_phone_prefix => old_phone_prefix,
+      :client_phone_suffix => old_phone_suffix, :client_id => "", :booking_type => booking_types(:sav_one_hour), 
+      :starts_str => Booking.starts_str_builder(1.day.from_now),
+      :ends_str => Booking.ends_str_builder(1.day.from_now)}},
+      {:pro_id => sav.id }
+    # puts @response.body
+    assert_response :success
+    assert_not_nil assigns["booking"]
+    assert assigns["booking"].errors.blank?, "There should be no errors, but got: #{assigns['booking'].errors.full_messages.to_sentence}"
+    assert_nil flash[:error]
+    assert_not_nil flash[:notice]
+    assert_equal old_size+1, Booking.all.size
+    new_booking = assigns(:booking)
+    assert_not_nil new_booking.starts_at
+    assert_not_nil new_booking.ends_at
+    assert_not_nil new_booking.booking_type
+    cyrille.reload
+    assert_equal old_name, cyrille.name
+    assert_equal old_phone, cyrille.phone
+    assert_equal old_email, cyrille.email
+  end
+
   def test_create_pro
     sav = practitioners(:sav)
     cyrille = clients(:cyrille_sav)

@@ -115,6 +115,9 @@ class BookingsController < ApplicationController
       client = current_pro.clients.find(@booking.client_id)
       @booking.name = client.try(:default_name)
     end
+    if @booking.client_id.blank? && !@booking.client_email.blank?
+      client = current_pro.clients.find_by_email(@booking.client_email)
+    end
     @booking.set_defaults(current_client, current_pro, client, pro)
     if @booking.save
       @prep = @booking.prep
