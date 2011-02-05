@@ -13,10 +13,13 @@ class ApplicationController < ActionController::Base
   def locate_current_user
     @client_ip = request.remote_ip
     geo = GeoIP.new("#{RAILS_ROOT}/geoip/GeoLiteCity.dat")
+    logger.info("========= Locating user with IP address: #{@client_ip}")
     g = geo.city(@client_ip)
     if g.nil?
+      logger.info("========= Locating user with IP address #{@client_ip}: found nothing")
       nil
     else
+      logger.info("========= Located user with IP address: #{@client_ip} to country code: #{g[2]}")
       g[2]
     end
   end
@@ -48,18 +51,20 @@ class ApplicationController < ActionController::Base
   
   def extract_locale_from_subdomain
     country_code = request.subdomains.first.try(:downcase).try(:to_sym)
+    if country_code.blank?
+      logger.debug("++++++++ Locating user")
+      country_code = locate_current_user
+    end      
     logger.debug("========= country_code from subdomain: #{country_code}")
-    cookies[:country_code] = country_code.try(:to_s)
+    cookies[:country_code] = country_code.try(:to_s) unless country_code.blank?
     parsed_locale = translate_country_code_to_locale(country_code)
     (I18n.available_locales.include? parsed_locale.try(:downcase).try(:to_sym)) ? parsed_locale  : nil
   end
   
   def get_country_code_from_subdomain
     res = request.subdomains.first.try(:upcase)
-    logger.debug("========= res STEP 1: #{res}")
     if res.blank? || !Country.available_country_codes.include?(res)
       res = locate_current_user
-      logger.debug("========= res STEP 2: #{res}")
     end
     res = Country.default_country.country_code if !Country.available_country_codes.include?(res)
     res
