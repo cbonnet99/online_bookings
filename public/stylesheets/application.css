@@ -39,7 +39,7 @@ div#waiting_black_small{display: none;}
 .waiting-content{text-align: center;}
 .no-display{display: none;}
 div.floaty {float: left; margin: 20px;}
-div.right-times {text-align: right; width: 270px; padding: 10px;}
+div.right-times {text-align: right; width: 300px; padding: 10px;}
 form#new_practitioner label.question {font-weight: bold;}
 fieldset {margin-top: 15px; margin-bottom: 15px;}
 fieldset legend {font-size: large;}

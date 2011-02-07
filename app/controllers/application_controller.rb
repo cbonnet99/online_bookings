@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
   end
   
   def default_country
-    return Country.default_country
+    return cookies[:country_code].blank? ? Country.default_country : Country.find_by_country_code(cookies[:country_code].try(:upcase)) || Country.default_country
   end
   
   def set_locale
@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
     country_code = country_code.try(:to_s) if country_code.is_a?(Symbol)
     country_code = country_code.try(:upcase) if country_code.is_a?(String)
     selected_country = Country.find_by_country_code(country_code)
-    logger.debug("========= selected_country from subdomain: #{selected_country}")
+    logger.debug("========= selected_country from subdomain: #{selected_country.try(:name)}")
     if selected_country.nil?
       selected_country = Country.default_country
     end
