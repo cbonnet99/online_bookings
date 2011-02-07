@@ -463,11 +463,12 @@ class Practitioner < ActiveRecord::Base
   end
     
   def own_bookings(start_timestamp=nil, end_timestamp=nil)
+    Time.zone = self.timezone
     start_time = if start_timestamp.blank?
       Time.zone.now.beginning_of_week
     else
       if start_timestamp.is_a?(Float)
-        Time.at(start_timestamp)
+        Time.zone.at(start_timestamp)
       else
         start_timestamp.utc
       end
@@ -476,7 +477,7 @@ class Practitioner < ActiveRecord::Base
       Time.zone.now.end_of_week
     else
       if end_timestamp.is_a?(Float)
-        Time.at(end_timestamp)
+        Time.zone.at(end_timestamp)
       else
         end_timestamp.utc
       end
