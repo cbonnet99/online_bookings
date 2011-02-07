@@ -1,6 +1,0 @@
-$(document).ready(function(){
-	$("#current_country_code").change(function(){
-		var old_pathname = window.location.pathname;
-		window.location = "http://"+$("#current_country_code").val().toLowerCase()+".<%=APP_CONFIG[:site_domain]%><%unless APP_CONFIG[:site_protocol].blank? || APP_CONFIG[:site_protocol].to_s == "80"%><%=":#{APP_CONFIG[:site_protocol]}"%><%end%>"+old_pathname;
-	});
-});

@@ -1,0 +1,1 @@
+LOCALE_NAMES = {:en  => "English", :fr  => "Français"}

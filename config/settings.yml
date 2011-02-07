@@ -4,22 +4,18 @@ development:
     site_port: 3000
     contact_email: colibriapp@gmail.com
     from_email: colibriapp@gmail.com
-    show_countries: true
 test:
     site_name: Colibri(TEST)
     site_domain: localhost
     contact_email: colibriapp@gmail.com
     from_email: colibriapp@gmail.com
-    show_countries: true
 production:
     site_name: Colibri
     site_domain: colibriapp.com
     contact_email: colibriapp@gmail.com
     from_email: colibriapp@gmail.com
-    show_countries: true
 staging:
     site_name: Colibri (STAGING)
     site_domain: staging.colibriapp.com
     contact_email: colibriapp@gmail.com
     from_email: colibriapp@gmail.com
-    show_countries: true

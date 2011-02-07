@@ -46,7 +46,6 @@
     <%= f.label :country_id, t(:practitioner_country), :class => "question" %>:<br />
 	<%= f.select :country_id, @supported_countries.map{|c| [c.name, c.id]}%>
   </div>
-  <div class="cleaner"></div>
   </fieldset>
   <fieldset id="about-your-work">
 	<legend><%= I18n.t(:about_your_work)%></legend>

@@ -1,6 +1,17 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class PaymentsControllerTest < ActionController::TestCase
+
+  def test_index_with_country_code
+    c = countries(:nz)
+    country_code = c.country_code.downcase
+    
+    get :index, :country_code => country_code
+    
+    assert_response :success
+    assert_match %r{Unlimited emails}, @response.body   
+    assert_select "option[selected='selected']", {:text => c.name}, @response.body
+  end
   
   def test_index
     get :index

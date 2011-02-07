@@ -7,7 +7,6 @@ class RoutingTest < ActionController::TestCase
     assert_generates "/countries/mobile_phone_prefixes/123", { :controller => "countries", :action => "mobile_phone_prefixes", :id => "123"}
     assert_generates "/bookings/123/cancel_text", { :controller => "bookings", :action => "cancel_text", :id => "123"}
     assert_generates "/bookings/123/pro_confirm.json", { :controller => "bookings", :action => "pro_confirm", :id => "123", :format => "json"}
-    assert_generates "/country_select.js", { :controller => "clients", :action => "country_select", :format => "js"}
     assert_generates "/practitioners/bla/bookings/123.json", { :controller => "bookings", :action => "destroy", :practitioner_id => "bla", :id => "123", :format => "json" }
     assert_generates "/practitioners/bla/bookings/123.json", { :controller => "bookings", :action => "update", :practitioner_id => "bla", :id => "123", :format => "json" }
     assert_generates "/cyrille-bonnet/czb123/calendar.ics", { :controller => "bookings", :action => "index_cal", :practitioner_id => "cyrille-bonnet", :pub_code => "czb123", :format => "ics"}

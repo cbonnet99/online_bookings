@@ -28,7 +28,6 @@ ActionController::Routing::Routes.draw do |map|
   map.forgotten_password 'forgotten_password', :controller => 'practitioners', :action => 'forgotten_password'
     
   #CLIENT
-  map.country_select 'country_select.:format', :controller => 'clients', :action => 'country_select'
   map.homepage 'homepage', :controller => 'clients', :action => 'homepage'
   map.explanation 'explanation', :controller => 'clients', :action => 'explanation'
   map.edit_phone 'edit_phone', :controller => 'clients', :action => 'edit_phone'
@@ -45,6 +44,9 @@ ActionController::Routing::Routes.draw do |map|
   map.logout 'logout', :controller => 'sessions', :action => 'destroy'
   map.login 'login', :controller => 'sessions', :action => 'new'
   map.resources :sessions
+  
+  
+  map.payements_country 'payments/:country_code', :controller => 'payments', :action => 'index'
   map.resources :payments
 
   map.resources :clients do |c|

@@ -1,6 +1,25 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+  def link_for_locale(url, locale)
+    protocol, uri = url.split("//")
+    uri_bits = uri.split("/")
+    host_bits = uri_bits[0].split(".")
+    if host_bits.size < 3
+      if host_bits.last == "localhost:3000" && I18n.available_locales.include?(host_bits.first.to_sym)
+        host_bits[0] = locale.to_s
+        host = host_bits.join(".")        
+      else
+        host = "#{locale}.#{host_bits.join('.')}"
+      end
+    else
+      host_bits[0] = locale.to_s
+      host = host_bits.join(".")
+    end
+    uri_bits[0] = host
+    return "#{protocol}//#{uri_bits.join('/')}"
+  end
+
   def simpler_time(time)
     minutes = time.strftime("%M")
     hours = time.strftime("%l")
@@ -34,7 +53,7 @@ module ApplicationHelper
     end
   end
   
-  def rlr_file
+  def current_step
     if @current_selected_pro.nil?
       edit_selected_practitioner_url
     else
@@ -47,23 +66,6 @@ module ApplicationHelper
           practitioner_url(@current_selected_pro)
         end
       end
-    end
-  end
-
-  def use_country_select
-    if APP_CONFIG[:show_countries]
-      content_for(:country_select) do
-        res = "#{I18n.t(:countries_label)}<select id='current_country_code' name='current_country_code'><option value='FR'"
-        if @current_country_code == 'FR'
-          res << " selected='selected'"
-        end
-        res << ">#{I18n.t('FR', :scope => 'countries')}</option><option value='NZ'"
-        if @current_country_code == 'NZ'
-          res << " selected='selected'"
-        end
-        res << ">#{I18n.t('NZ', :scope => 'countries')}</option></select>"
-      end
-      content_for(:js_country_select) {javascript_include_tag("/country_select.js")}
     end
   end
 

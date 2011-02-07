@@ -1,9 +1,10 @@
 class PaymentsController < ApplicationController
-  before_filter :pro_login_required, :except => [:index] 
+  before_filter :pro_login_required, :except => [:index]
+  before_filter :get_current_country, :only => :index 
 
   def index
-    @country = Country.find_by_country_code(cookies[:country_code].try(:upcase)) || default_country
-    @plans = @country.try(:payment_plans)    
+    @supported_countries = Country.available_countries
+    @plans = @current_country.try(:payment_plans)    
   end
 
   def new
@@ -40,5 +41,4 @@ class PaymentsController < ApplicationController
       end
     end    
   end
-  
 end

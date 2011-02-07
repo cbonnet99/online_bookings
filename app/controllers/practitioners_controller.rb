@@ -1,8 +1,9 @@
 class PractitionersController < ApplicationController
   
   before_filter :pro_login_required, :except => [:new, :create]
-
+  before_filter :get_current_country, :only => :new 
   def update
+    @current_country = @current_pro.country
     @practitioner = @current_pro
     if @practitioner.update_attributes(params[:practitioner])
       flash[:notice] = t(:practitioner_was_saved)
@@ -20,6 +21,7 @@ class PractitionersController < ApplicationController
   end
   
   def edit
+    @current_country = @current_pro.country
     @practitioner = @current_pro
     load_countries_and_days
   end
@@ -44,7 +46,7 @@ class PractitionersController < ApplicationController
     @practitioner.end_time2 = 18
     @practitioner.own_time_label = "Own time"
     @practitioner.no_cancellation_period_in_hours = 24
-    @practitioner.country = default_country
+    @practitioner.country = @current_country
     load_countries_and_days
   end
 
@@ -65,6 +67,7 @@ class PractitionersController < ApplicationController
         end
       end
     else
+      get_current_country
       load_countries_and_days
       get_phone_prefixes
       render :action => 'new'
@@ -81,5 +84,4 @@ private
     @supported_countries = Country.available_countries
     @days_in_week = Practitioner::WORKING_DAYS    
   end
-  
 end

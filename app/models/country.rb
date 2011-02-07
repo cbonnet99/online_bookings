@@ -3,6 +3,10 @@ class Country < ActiveRecord::Base
   has_many :clients
   has_many :practitioners
   has_many :payment_plans
+
+  def self.default_locale
+    "fr"
+  end
   
   def phone_prefixes_select(selected_value=nil)
     res = "<option value=''></option>"

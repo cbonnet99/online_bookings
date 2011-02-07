@@ -439,7 +439,7 @@ fr:
     error_saving_booking_outside_of_grace_period: "Ce rendez-vous ne peut plus être modifié. Merci de bien vouloir l'annuler et en créer un nouveau à sa place."
     #booking/client_confirm
     thank_you_confirmed_booking: "Merci d'avoir confirmé votre rendez-vous"
-    see_you_confirmed_booking: "Au plaisir de vous voir le {{booking_date_and_time}}"
+    see_you_confirmed_booking: "Au plaisir de vous voir {{booking_date_and_time}}"
     flash_notice_booking_already_confirmed: "Ce rendez-vous est déjà confirmé"
     #appointment popup calendar
     edit_appointement: "Modifier"

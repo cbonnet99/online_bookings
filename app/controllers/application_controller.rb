@@ -7,8 +7,23 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password
 
-  before_filter :get_selected_practitioner
-  before_filter :set_locale
+  before_filter :get_selected_practitioner, :get_locales, :set_locale
+
+  def get_current_country
+    unless params[:country_code].blank?
+      @current_country = Country.find_by_country_code(params[:country_code].upcase)
+    end
+    if @current_country.blank?
+      @current_country = get_country_from_cookie
+      if @current_country.nil?
+        country_code = locate_current_user
+        @current_country = Country.find_by_country_code(country_code.try(:upcase))
+        if @current_country.nil?
+          @current_country = Country.default_country
+        end
+      end
+    end
+  end
 
   def locate_current_user
     @client_ip = request.remote_ip
@@ -24,18 +39,25 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def default_country
-    return cookies[:country_code].blank? ? Country.default_country : Country.find_by_country_code(cookies[:country_code].try(:upcase)) || Country.default_country
+  def get_country_from_cookie
+    Country.find_by_country_code(cookies[:country_code].try(:upcase))
+  end
+    
+  def get_locales
+    @locales = I18n.available_locales
   end
   
   def set_locale
-    selected_locale = extract_locale_from_subdomain
-    logger.debug("========= selected_locale from subdomain: #{selected_locale}")
-    if selected_locale.nil?
+    @selected_locale = extract_locale_from_subdomain
+    logger.debug("========= selected_locale from subdomain: #{@selected_locale}")
+    if @selected_locale.nil? || !I18n.available_locales.include?(@selected_locale)
       country_code = locate_current_user
-      selected_locale = translate_country_code_to_locale(country_code)  
+      @selected_locale = translate_country_code_to_locale(country_code)  
     end
-    I18n.locale = selected_locale.downcase unless selected_locale.nil?
+    unless I18n.available_locales.include?(@selected_locale)
+      @selected_locale = Country.default_locale
+    end
+    I18n.locale = @selected_locale
   end
   
   def translate_country_code_to_locale(country_code)
@@ -50,38 +72,14 @@ class ApplicationController < ActionController::Base
   end
   
   def extract_locale_from_subdomain
-    country_code = request.subdomains.first.try(:downcase).try(:to_sym)
-    if country_code.blank?
-      logger.debug("++++++++ Locating user")
-      country_code = locate_current_user
-    end      
-    logger.debug("========= country_code from subdomain: #{country_code}")
-    cookies[:country_code] = country_code.try(:to_s) unless country_code.blank?
-    parsed_locale = translate_country_code_to_locale(country_code)
-    (I18n.available_locales.include? parsed_locale.try(:downcase).try(:to_sym)) ? parsed_locale  : nil
-  end
-  
-  def get_country_code_from_subdomain
-    res = request.subdomains.first.try(:upcase)
-    if res.blank? || !Country.available_country_codes.include?(res)
-      res = locate_current_user
-    end
-    res = Country.default_country.country_code if !Country.available_country_codes.include?(res)
-    res
+    request.url.split("//")[1].split(".").first.try(:downcase).try(:to_sym)
   end
   
   def get_phone_prefixes
-    @country = Country.find_by_country_code(cookies[:country_code].try(:upcase))
+    @country = current_pro.nil? ? @current_country : current_pro.country
     @mobile_prefixes = @country.try(:mobile_phone_prefixes) || Country.default_country.mobile_phone_prefixes
     @landline_prefixes = @country.try(:landline_phone_prefixes) || Country.default_country.landline_phone_prefixes
     @phone_prefixes = @mobile_prefixes + @landline_prefixes
-  end
-  
-  def get_practitioners(country_code)
-    country_code = @current_country_code if country_code.blank?    
-    country_code = Country.default_country.country_code if country_code.blank?
-    @country = Country.find_by_country_code(country_code)
-    @practitioners = @country.try(:practitioners)
   end
   
   def get_selected_practitioner
@@ -108,14 +106,6 @@ class ApplicationController < ActionController::Base
       rescue ActiveRecord::RecordNotFound
         cookies.delete(:selected_practitioner_id)
       end
-    end
-    if @current_selected_pro.nil?
-      @current_country_code = get_country_code_from_subdomain
-    else
-      @current_country_code = @current_selected_pro.country.country_code
-    end
-    unless @current_country_code.blank?
-      @current_country = Country.find_by_country_code(@current_country_code)
     end
   end  
 end

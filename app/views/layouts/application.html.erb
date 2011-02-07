@@ -20,7 +20,7 @@
 	<%= javascript_include_tag 'locales/messages.js' %>
 	<%= yield :calendar %>
 	<%= yield :js %>
-	<%= yield :js_country_select %>
+	<%= yield :js_locale_select %>
 	<%= yield :css %>
     <%= yield(:head) %>
   </head>
@@ -49,7 +49,11 @@
 		</div>
 	</div>
 	<div class="cleaner"></div>
-	<div id="country_select"><%= yield :country_select %></div>
+	<div id="locale_select">
+		<% @locales.each do |locale| -%>
+			<span class="locale"><% if @selected_locale.to_s == locale.to_s -%><%= LOCALE_NAMES[locale]%><%else-%><%= link_to LOCALE_NAMES[locale], link_for_locale(request.url, locale) %><% end -%><% unless locale == @locales.last-%> | <% end -%></span>
+		<% end -%>
+	</div>
 	<div id="content">
 	  <div class="cleaner"></div>
 	  <div id="flash">
