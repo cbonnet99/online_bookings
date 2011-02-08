@@ -153,7 +153,7 @@ class Booking < ActiveRecord::Base
   end
   
   def set_confirmed_at
-    self.update_attribute(:confirmed_at, Time.now)
+    self.update_attribute(:confirmed_at, Time.now.in_time_zone(practitioner.timezone))
   end
   
   def check_in_grace_period

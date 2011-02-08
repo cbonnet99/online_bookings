@@ -68,8 +68,8 @@ class BookingsController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        starts_at = params[:start].nil? ? Time.now.beginning_of_day : params[:start].try(:to_f)
-        ends_at = params[:end].nil? ? Time.now.end_of_day : params[:end].try(:to_f)
+        starts_at = params[:start].nil? ? Time.zone.now.beginning_of_day : params[:start].try(:to_f)
+        ends_at = params[:end].nil? ? Time.zone.now.end_of_day : params[:end].try(:to_f)
         @bookings = current_pro.raw_own_bookings(starts_at, ends_at)
       end
       format.json do

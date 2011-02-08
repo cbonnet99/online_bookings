@@ -242,11 +242,11 @@ class Practitioner < ActiveRecord::Base
       #appointments in the past
       number_bookings.times do
         days_ago = rand(20)-1
-        date = Time.now.advance(:days => -days_ago).to_date
+        date = Time.now.in_time_zone(self.timezone).advance(:days => -days_ago).to_date
         while (!wd_as_numbers.include?(date.wday)) do
           #try again if it's not a working day
           days_ago = rand(20)-1
-          date = Time.now.advance(:days => -days_ago).to_date        
+          date = Time.now.in_time_zone(self.timezone).advance(:days => -days_ago).to_date        
         end
         start_hour = biz_hours.choice
         Time.zone = self.timezone
@@ -279,11 +279,11 @@ class Practitioner < ActiveRecord::Base
       #appointments in the future
       number_bookings.times do
         days_from_now = rand(20)+1
-        date = Time.now.advance(:days => days_from_now).to_date
+        date = Time.now.in_time_zone(self.timezone).advance(:days => days_from_now).to_date
         while (!wd_as_numbers.include?(date.wday)) do
           #try again if it's not a working day
           days_from_now = rand(20)+1
-          date = Time.now.advance(:days => days_from_now).to_date        
+          date = Time.now.in_time_zone(self.timezone).advance(:days => days_from_now).to_date        
         end
         start_hour = biz_hours.choice
         client = clients.choice
@@ -493,15 +493,16 @@ class Practitioner < ActiveRecord::Base
   end
   
   def all_bookings(current_client=nil, start_timestamp=nil, end_timestamp=nil)
+    Time.zone = self.timezone
     start_time = if start_timestamp.blank?
-      Time.now.beginning_of_week
+      Time.zone.now.beginning_of_week
     else
-      Time.at(start_timestamp)
+      Time.zone.at(start_timestamp)
     end
     end_time = if end_timestamp.blank?
-      Time.now.end_of_week
+      Time.zone.now.end_of_week
     else
-      Time.at(end_timestamp)
+      Time.zone.at(end_timestamp)
     end
     client_bookings(current_client, start_time, end_time) + bookings_for_non_working_days(start_time, end_time) + bookings_for_working_hours(start_time, end_time)
   end
@@ -628,7 +629,7 @@ class Practitioner < ActiveRecord::Base
   
   def prepare_password
     unless password.blank?
-      self.password_salt = Digest::SHA1.hexdigest([Time.now, rand].join)
+      self.password_salt = Digest::SHA1.hexdigest([Time.zone.now, rand].join)
       self.password_hash = encrypt_password(password)
     end
   end
