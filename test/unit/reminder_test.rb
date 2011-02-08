@@ -1,6 +1,11 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ReminderTest < ActiveSupport::TestCase
+
+  def test_to_gsm0338
+    assert_equal "Nous avons ete a gouter pres du chateau", "Nous avons été à goûter près du chateau".to_gsm0338
+  end
+
   def test_send_reminder_email
     ActionMailer::Base.deliveries.clear
     pro = Factory(:practitioner, :country => countries(:fr), :sms_credit => 0)

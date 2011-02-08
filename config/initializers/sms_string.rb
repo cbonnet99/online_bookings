@@ -166,9 +166,12 @@ class String
 
   # Returns a new string in GSM 03.38 encoding
   def to_gsm0338
-    latin1_to_gsm_map = Hash.new
-    GSM0338_MAP.each_slice(2) { |gsm_symbol, latin1_symbol| latin1_to_gsm_map[latin1_symbol] = gsm_symbol }
-    Iconv.iconv('ISO-8859-1', 'UTF-8', self).first.unpack('C*').collect { |utf8_symbol| latin1_to_gsm_map[utf8_symbol] }.flatten.pack('c*')
+    # latin1_to_gsm_map = Hash.new
+    # GSM0338_MAP.each_slice(2) { |gsm_symbol, latin1_symbol| latin1_to_gsm_map[latin1_symbol] = gsm_symbol }
+    # Iconv.iconv('ISO-8859-1', 'UTF-8', self).first.unpack('C*').collect { |utf8_symbol| latin1_to_gsm_map[utf8_symbol] }.flatten.pack('c*')
+    
+    #this is a hack for the moment, as Clickatell doesn't seem to understand our encoding
+    self.gsub(/é/, "e").gsub(/è/, "e").gsub(/ê/, "e").gsub(/â/, "a").gsub(/à/, "a").gsub(/ù/, "u").gsub(/û/, "u")
   end
 end
 
