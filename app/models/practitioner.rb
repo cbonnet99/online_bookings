@@ -52,6 +52,8 @@ class Practitioner < ActiveRecord::Base
   validates_presence_of :phone_suffix, :message => "^#{I18n.t(:pro_empty_phone_suffix)}"
   validates_presence_of :working_days
   validates_presence_of :country_id
+  validates_length_of :phone_prefix, :within => 2..3, :allow_blank => true
+  validates_length_of :phone_suffix, :within => 7..12, :allow_blank => true, :too_short => "^#{I18n.t(:phone_number_too_short, :min => 7)}", :too_long => "^#{I18n.t(:phone_number_too_long, :max => 12)}"
   validates_confirmation_of :password, :message => "^#{I18n.t(:pro_mismatched_passwords)}"
   validates_length_of :password, :minimum => 4, :allow_blank => true
   validates_uniqueness_of :email, :message => "^#{I18n.t(:pro_email_taken)}" 

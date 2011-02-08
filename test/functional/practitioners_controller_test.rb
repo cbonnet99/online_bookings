@@ -116,18 +116,27 @@ class PractitionersControllerTest < ActionController::TestCase
     pro = Factory(:practitioner, :country => countries(:fr) )
     get :waiting_sample_data, {}, {:pro_id => pro.id}
     assert_response :success
-  end    
+  end
 
   def test_create_error
     old_size = Practitioner.all.size
     post :create, :practitioner => {:lunch_break => false, :start_time1 => 9, :end_time1  => 16}
     assert_not_nil assigns(:practitioner)
     assert assigns(:practitioner).errors.size > 0, "There should be some errors"
-    assert_not_nil assigns(:practitioner)
     assert !assigns(:practitioner).lunch_break?
     assert_equal 9, assigns(:practitioner).start_time1
     assert_equal 16, assigns(:practitioner).end_time1
     assert_equal old_size, Practitioner.all.size
+  end
+
+  def test_create_error_phone_suffix_too_short
+    france = countries(:fr)
+    post :create, :practitioner => {:sample_data => true, :email => "cb@test.com", :phone_prefix => "06", :phone_suffix => "2213", :first_name => "Joe",
+       :last_name => "Test", :password => "blabla", :password_confirmation => "blabla",
+        :working_day_monday => "1", :lunch_break => true, :start_time1 => 9, :end_time1  => 12, :start_time2 => 13, :end_time2 => 18, :country_id  => france.id}
+    assert_not_nil assigns(:practitioner)
+    assert assigns(:practitioner).errors.size > 0, "There should be some errors"
+    assert_not_nil assigns(:practitioner).errors[:phone_suffix]
   end
 
   def test_edit

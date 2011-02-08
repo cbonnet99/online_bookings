@@ -22,12 +22,10 @@ class Client < ActiveRecord::Base
   validates_uniqueness_of :email, :allow_blank => true, :scope => :practitioner_id 
   validates_format_of :email, :with => RE_EMAIL, :allow_blank => true
   validates_length_of :phone_prefix, :within => 2..3, :allow_blank => true
+  validates_length_of :phone_suffix, :within => 7..12, :allow_blank => true, :too_short => "^#{I18n.t(:phone_number_too_short, :min => 7)}", :too_long => "^#{I18n.t(:phone_number_too_long, :max => 12)}"
   # validates_presence_of :password, :on => :create
   validates_confirmation_of :password
   validates_length_of :password, :minimum => 4, :allow_blank => true
-  
-  PHONE_SUFFIX_MIN = 7
-  PHONE_SUFFIX_MAX = 12
   
   def label
     name
@@ -50,14 +48,6 @@ class Client < ActiveRecord::Base
     end
     if !phone_suffix.blank? && phone_prefix.blank?
       errors.add(:phone_prefix, I18n.t(:invalid_phone_number))
-    end
-    unless phone_suffix.blank?
-      if phone_suffix.size > PHONE_SUFFIX_MAX
-        errors.add(:phone_suffix, I18n.t(:phone_number_too_long, :max => PHONE_SUFFIX_MAX))
-      end
-      if phone_suffix.size < PHONE_SUFFIX_MIN
-        errors.add(:phone_suffix, I18n.t(:phone_number_too_short, :min => PHONE_SUFFIX_MIN))
-      end
     end
   end
   
