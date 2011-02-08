@@ -38,7 +38,6 @@ $(document).ready(function() {
 	};
 	
 	var showClientTabs = function(){
-		console.log("SHOWING client tabs");
 		$("#event-fields-client-tabs").show();
 		hideChangeClient();
 	};
@@ -86,15 +85,12 @@ $(document).ready(function() {
    };
 
     var setupEditEventFields = function(calEvent){
-	    console.log("calEvent.confirmed_at: "+calEvent.confirmed_at);
         if ((calEvent.confirmed_at === null) || (calEvent.confirmed_at === '') || (calEvent.confirmed_at === undefined)){
           $("#event_confirmed").hide();
         }
         else{
           $("#event_confirmed").show();
           var confirmed_date = new Date(calEvent.confirmed_at);
-          console.log("confirmed_date: "+confirmed_date);
-          console.log("formatDateAndTime(confirmed_date): "+formatDateAndTime(confirmed_date));
           $("#event_confirmed_at").html(formatDateAndTime(confirmed_date));
         };
         if (calEvent.reminder_was_sent_at !== null){
@@ -102,7 +98,6 @@ $(document).ready(function() {
           var reminder_date = new Date(calEvent.reminder_was_sent_at);
           $("#event_reminder_was_sent_at_date").html(" "+formatDateAndTime(reminder_date)+" " + I18n.t("reminder_type_"+calEvent.reminder_was_sent_by));
           $("#event_reminder_was_sent_at").addClass(calEvent.reminder_was_sent_by);
-          console.log("retrieving reminder_type_"+calEvent.reminder_was_sent_by);
 		 }
 		 else {
 			$("#event_reminder_was_sent_at").hide();
@@ -176,7 +171,6 @@ $(document).ready(function() {
 			minutes = "0" + minutes;
 		};
 		date_str = mydate.getFullYear() + '-' + (mydate.getMonth()+1) + '-' + mydate.getDate() + " " + mydate.getHours() + ":" + minutes + ":00";
-		console.log("-- date_str: "+date_str);
 		return date_str	
 	};
 	
@@ -336,15 +330,12 @@ $(document).ready(function() {
        buttonSave.show();
        changeButton(buttonSave, I18n.t("button_save"), '', "#090");
      };
-     console.log("calEvent.state: "+calEvent.state);
      if (calEvent.state === "in_grace_period"){
-       console.log("Showing delete, hiding cancel");
        buttonDelete.show();
        buttonCancel.hide();
        changeButton(buttonDelete, I18n.t("button_delete"), 'red_x.gif', "#C00");
      }
      else {
-       console.log("Showing cancel, hiding delete");
        buttonDelete.hide();
        buttonCancel.show();
        changeButton(buttonCancel, I18n.t("button_cancel"), 'red_x.gif', "#C00");
@@ -543,9 +534,7 @@ $(document).ready(function() {
             },
             buttons: {
                "cancel" : function() {
-                  console.log("In cancel");
                   $.get("/bookings/" + calEvent.id + "/cancel_text", function(data){
-                    console.log("Cancel text: "+ data);
                     $("textarea#cancel_cancellation_text").val(data);
                   });
                   
@@ -566,9 +555,6 @@ $(document).ready(function() {
 							    var booking_id = $("input#cancel_booking_id").val();
 							    var send_email = $("input#cancel_send_email").val();
 							    var cancellation_text = $("textarea#cancel_cancellation_text").val();
-							    console.log("url:"+"/bookings/" + booking_id + "/pro_cancel");
-							    console.log("send_email: "+send_email);
-							    console.log("cancellation_text: "+cancellation_text);
 							  	$.post("/bookings/" + booking_id + "/pro_cancel", {"format": "json", "send_email": send_email, "cancellation_text": cancellation_text},
 							      function(data){
 				                    if (data === null){
@@ -740,7 +726,6 @@ $(document).ready(function() {
 	
 	$("div#event-fields-change-time").click(function(event){
 	   $(this).hide();
-	   console.log("div#event-fields-change-time CLICKED");
 	   makeFieldsEditable("event-fields-time");
 	   event.preventDefault();
 	});
@@ -769,7 +754,6 @@ $(document).ready(function() {
 		$("div#help_autocomplete_client").show();
 		$("label[for=client_name]").hide();
 		$(this).addClass("selected-event-tab");
-		console.log("in click event-fields-client-existing");
 		resetClient();
 		round_selected_event_tab();
 		setupAutocomplete();
@@ -777,6 +761,7 @@ $(document).ready(function() {
 
 
 });
+
 </script><% title pro.calendar_title%>
 <div id="calendar"></div>
 

@@ -14,10 +14,6 @@ $(document).ready(function() {
         $('a.selected-tab').corner(top_settings);        
     };
     
-    round_selected();
-
-	$('.rounded').corner();
-	
 	var get_explanation_id_from_link = function(explanation_link_id){
 	    var explanation_id = explanation_link_id.substring(0, explanation_link_id.length-link_to_remove.length);
 	    return explanation_id;
@@ -50,6 +46,10 @@ $(document).ready(function() {
 	    $("#"+explanation_id+link_to_remove).css("cursor", "pointer").css("text-decoration", "underline").css("background", "").css("color", "lightgrey").css("border", "").css("padding", "");
 	    $("#"+explanation_id).slideUp("slow");
 	});
+    if (!$.browser.msie){
+        round_selected();
+    	$('.rounded').corner();
+	};
 	
     // $(':input').keydown(function(e) {
     //  if (e.keyCode == 13) {
