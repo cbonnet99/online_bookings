@@ -276,6 +276,8 @@ fr:
     schedule_tab: "Programme"
     home_calendar_tab: "Calendrier"
     home_clients_tab: "Clients"
+    need_help: "Besoin d'aide? <a href='mailto: colibriapp@gmail.com'>Envoyez-nous un email</a>"
+    icons_help_title: Icônes
     #intro
     countries_label: "Pays:"
    # client lookup form
