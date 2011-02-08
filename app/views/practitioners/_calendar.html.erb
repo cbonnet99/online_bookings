@@ -640,7 +640,7 @@ $(document).ready(function() {
 			if (calEvent === null){
 				var calEvent = $(event.target).parent().data("calEvent");
 			}
-			if ((calEvent !== null) && (calEvent.end.getTime() > (new Date().getTime())) && !calEvent.readOnly) {
+			if (calEvent && (calEvent !== null) && (calEvent.end.getTime() > (new Date().getTime())) && !calEvent.readOnly) {
 			   $(this).css("background-color", eventTitleHoverColor);
 			}
 		},
