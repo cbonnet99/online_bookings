@@ -303,6 +303,7 @@ fr:
     session_new_login: "Se connecter"
     session_new_password: "Mot de passe"
     #payments/new
+    help_missing_country: "Votre pays n'est pas listé et vous voudriez utiliser Colibri? <a href='mailto: colibriapp@gmail.com'>Envoyez-nous un email</a> et nous verrons ce que nous pouvons faire pour vous"
     make_payment: "Vous abonner à Colibri"
     beta_testing: "Colibri est seulement disponible sur invitation pour l'instant. Si vous êtes intéressé, écrivez-nous: {{email}}."
     payment_select_plan: Sélectionner un abonnement

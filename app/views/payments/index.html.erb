@@ -1,6 +1,7 @@
 <% javascript "payments" %>
 <h2><%= t(:payment_plans)%>:</h2>
 <div><%= select_tag "payment_country", options_for_select(@supported_countries.map{|c| [c.name, c.country_code.downcase]}, @current_country.country_code.downcase)%></div>
+<div class="help"><%= t(:help_missing_country)%></div>
 <% @plans.each do |p| -%>
 <div id="payment-plan-<%=p.id%>" class="payment-plan rounded">
 	<div class="title"><%= p.title%></div>

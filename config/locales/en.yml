@@ -261,6 +261,7 @@
   session_new_login: "Log in"
   session_new_password: "Password"
   #payments/new
+  help_missing_country: "Your country is not listed and you would like to sign up with Colibri? <a href=mailto: 'colibriapp@gmail.com'>Send us an email</a>: we’ll see what we can do for you"
   make_payment: "Subscribe to Colibri"
   beta_testing: "Colibri is in beta testing and you can join by invitation only. If you are interested in joining us, drop us an email: {{email}}"
   payment_select_plan: Select a plan
