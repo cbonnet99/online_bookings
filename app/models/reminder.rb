@@ -50,7 +50,7 @@ class Reminder < ActiveRecord::Base
       if self.booking.practitioner.has_sms_credit?
         if RAILS_ENV == "production"
           api = Clickatell::API.authenticate('3220575', 'cbonnet99', 'mavslr55')
-          api.send_message(self.booking.client.phone, self.booking.sms_reminder_text.to_gsm0338)
+          api.send_message(self.booking.client.phone, CGI::escape(self.booking.sms_reminder_text))
           self.update_attribute(:reminder_text, self.booking.sms_reminder_text)
         end
         self.mark_as!(:sms)
