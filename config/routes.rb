@@ -46,7 +46,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :sessions
   
   
-  map.payements_country 'payments/:country_code', :controller => 'payments', :action => 'index'
+  map.payements_country 'payments/country/:country_code', :controller => 'payments', :action => 'index'
   map.resources :payments
 
   map.resources :clients do |c|

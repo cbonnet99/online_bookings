@@ -4,6 +4,8 @@ class RoutingTest < ActionController::TestCase
 
   def test_routes
     # assert_recognizes { :controller => "bookings", :action => "update", :practitioner_id => "bla", :id => "123", :format => "json" }, "/practitioners/bla/bookings/123.json", {:method => :put }
+    assert_generates "/payments/country/fr", { :controller => "payments", :action => "index", :country_code => "fr"}
+    assert_generates "/payments/new", { :controller => "payments", :action => "new"}
     assert_generates "/countries/mobile_phone_prefixes/123", { :controller => "countries", :action => "mobile_phone_prefixes", :id => "123"}
     assert_generates "/bookings/123/cancel_text", { :controller => "bookings", :action => "cancel_text", :id => "123"}
     assert_generates "/bookings/123/pro_confirm.json", { :controller => "bookings", :action => "pro_confirm", :id => "123", :format => "json"}
