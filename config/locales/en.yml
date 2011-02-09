@@ -268,6 +268,7 @@
   beta_testing: "Colibri is in beta testing and you can join by invitation only. If you are interested in joining us, drop us an email: {{email}}"
   payment_select_plan: Select a plan
   payment_plan: Payment plan  
+  payment_plans_month: month
   payment_plans: Payment plans
   credit_card_details: Credit card
   credit_card_type: Card type

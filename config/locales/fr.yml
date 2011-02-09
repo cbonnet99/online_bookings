@@ -310,6 +310,7 @@ fr:
     beta_testing: "Colibri est seulement disponible sur invitation pour l'instant. Si vous êtes intéressé, écrivez-nous: {{email}}."
     payment_select_plan: Sélectionner un abonnement
     payment_plan: Abonnement
+    payment_plans_month: mois
     payment_plans: Abonnements
     credit_card_details: Carte de crédit
     credit_card_type: Type de carte
