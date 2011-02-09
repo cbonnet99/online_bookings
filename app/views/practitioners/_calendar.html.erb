@@ -792,8 +792,8 @@ $(document).ready(function() {
 			<legend><%= t(:appointment_client)%></legend>
             <div id="event-fields-change-client"><%= t(:appointment_change_client)%></div><div class="cleaner"></div>
 			<div id="event-fields-client-tabs">
-				<div id="event-fields-client-existing" class="event-fields-client-selector selected-event-tab"><%= t(:appointment_existing_client)%></div>
-				<div id="event-fields-client-new" class="event-fields-client-selector"><%= t(:appointment_new_client)%></div>
+				<div id="event-fields-client-existing" class="event-fields-client-selector<% if current_pro.has_clients? -%> selected-event-tab<%end -%>"><%= t(:appointment_existing_client)%></div>
+				<div id="event-fields-client-new" class="event-fields-client-selector<% if !current_pro.has_clients? -%> selected-event-tab<%end -%>"><%= t(:appointment_new_client)%></div>
 			</div>
 			<div class="cleaner"></div>
 		<ul class="event-fields" id="event-fields-client"> 

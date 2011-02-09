@@ -83,6 +83,14 @@ class Practitioner < ActiveRecord::Base
   WORKING_DAYS = ["monday","tuesday" ,"wednesday" , "thursday", "friday","saturday" ,"sunday" ]
 
   DOMAINS = ["gmail.com", "test.com", "info.org"]
+
+  def has_bookings?
+    self.bookings.count > 0
+  end
+  
+  def has_clients?
+    self.clients.count > 0
+  end
   
   def locale
     my_country_code = self.country.country_code
