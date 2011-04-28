@@ -92,10 +92,10 @@ class BookingsController < ApplicationController
       calendar = Icalendar::Calendar.new
       @bookings.each do |b|
         calendar.add_event(b.to_ics)
-        calendar.publish
-        headers['Content-Type'] = "text/calendar; charset=UTF-8"
-        render :text => calendar.to_ical
       end
+      calendar.publish
+      headers['Content-Type'] = "text/calendar; charset=UTF-8"
+      render :text => calendar.to_ical
     end 
   end
     

@@ -215,8 +215,9 @@ class BookingsControllerTest < ActionController::TestCase
     sav = Factory(:practitioner, :prep_before => false, :prep_time_mins => 30)  
     cyrille = Factory(:client, :practitioner => sav)
     old_size = Booking.all.size
+    comment = "I'll be on time"
     post :create, {:practitioner_id => sav.permalink, :format => "json",
-      :booking => {:client_id => cyrille.id, :comment => "I'll be on time", 
+      :booking => {:client_id => cyrille.id, :comment => comment, 
       :starts_str => Booking.starts_str_builder(1.day.from_now),
       :ends_str => Booking.ends_str_builder(1.day.from_now)}},
       {:pro_id => sav.id }
@@ -233,6 +234,7 @@ class BookingsControllerTest < ActionController::TestCase
     assert !new_booking.prep_before
     assert_equal 30, new_booking.prep_time_mins
     assert_equal sav.id, new_booking.practitioner_id
+    assert_equal comment, new_booking.comment
   end
 
   def test_create_pro_no_client_id
