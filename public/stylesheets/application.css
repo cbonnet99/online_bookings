@@ -27,7 +27,7 @@ ul.event-icons li.email{background: url('../images/email.jpeg') no-repeat; paddi
 #general-public-links a.rounded_by_jQuery_corners {text-decoration: none;}
 #container-home .home-rounded a {color: #f8f8f8;} 
 select#payment_payment_plan_id{display: none;}
-div.payment-plan{border: solid 1px #303030; background-color: #F8F8F8; color: #303030; float: left; padding: 10px; width: 150px; margin: 10px;}
+div.payment-plan{border: solid 1px #303030; background-color: #F8F8F8; color: #303030; float: left; padding: 10px; width: 200px; margin: 10px;}
 div.selected-payment-plan{background-color: #0CC;}
 div.roll-payment-plan{background-color: #6ff;}
 div.roll-payment-plan{cursor: pointer;}
